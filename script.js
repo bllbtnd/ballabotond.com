@@ -295,44 +295,87 @@ class StoriesViewer {
     }
     
     async init() {
-        await this.loadStories();
         this.setupEventListeners();
         this.updateProfileImage();
+        
+        // Load stories in the background after page is ready
+        setTimeout(() => {
+            this.loadStories();
+        }, 100);
     }
     
     async loadStories() {
-        // In a real implementation, you would fetch this from an API
-        // For now, we'll simulate loading stories from the stories folder
-        const storyFiles = [
-            'story1.svg',
-            'story2.svg', 
-            'story3.svg'
-        ];
-        
-        // Filter out any files that don't exist and sort by creation date (newest first)
         this.stories = [];
-        for (const file of storyFiles) {
-            try {
-                // Try to load the image to see if it exists
-                const img = new Image();
-                img.src = `src/stories/${file}`;
-                await new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = reject;
-                    // Set a timeout to avoid hanging
-                    setTimeout(reject, 2000);
-                });
-                this.stories.push({
-                    src: `src/stories/${file}`,
-                    filename: file
-                });
-            } catch (e) {
-                console.log(`Story ${file} not found or failed to load`);
-            }
+        
+        // Get story filenames from the configuration file
+        const storyFilenames = window.STORY_FILENAMES || [];
+        
+        if (storyFilenames.length === 0) {
+            return;
         }
         
-        // Sort stories by filename (assuming newer files have higher numbers)
-        this.stories.sort((a, b) => b.filename.localeCompare(a.filename));
+        // Load each file from the list
+        const loadPromises = storyFilenames.map(async (filename) => {
+            try {
+                const img = new Image();
+                img.src = `src/stories/${filename}`;
+                
+                return new Promise((resolve) => {
+                    const timeout = setTimeout(() => {
+                        resolve(null);
+                    }, 2000);
+                    
+                    img.onload = () => {
+                        clearTimeout(timeout);
+                        resolve({
+                            src: `src/stories/${filename}`,
+                            filename: filename,
+                            naturalWidth: img.naturalWidth,
+                            naturalHeight: img.naturalHeight
+                        });
+                    };
+                    
+                    img.onerror = () => {
+                        clearTimeout(timeout);
+                        resolve(null);
+                    };
+                });
+            } catch (e) {
+                return null;
+            }
+        });
+        
+        const results = await Promise.all(loadPromises);
+        this.stories = results.filter(story => story !== null);
+        
+        // Sort stories by date (newest to oldest), then by image number (highest to lowest)
+        this.stories.sort((a, b) => {
+            // Extract date and image number from filename (yyyy-mm-dd-n)
+            const parseFilename = (filename) => {
+                const match = filename.match(/(\d{4})-(\d{2})-(\d{2})-(\d+)/);
+                if (match) {
+                    const [, year, month, day, imageNum] = match;
+                    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                    return {
+                        date: date,
+                        imageNum: parseInt(imageNum),
+                        timestamp: date.getTime()
+                    };
+                }
+                return { date: new Date(0), imageNum: 0, timestamp: 0 };
+            };
+            
+            const aInfo = parseFilename(a.filename);
+            const bInfo = parseFilename(b.filename);
+            
+            // First sort by date (newest first)
+            if (bInfo.timestamp !== aInfo.timestamp) {
+                return bInfo.timestamp - aInfo.timestamp;
+            }
+            
+            // If same date, sort by image number (highest first)
+            return bInfo.imageNum - aInfo.imageNum;
+        });
     }
     
     updateProfileImage() {
