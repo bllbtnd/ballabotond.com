@@ -3,7 +3,8 @@
 // Format: yyyy-mm-dd-n.ext (where n is the image number for that day)
 
 const STORY_FILENAMES_RAW = [
-    '2025-06-20-0.png'
+    '2025-06-20-0.png',
+    '2024-03-23-0.png'
     // Add new story filenames anywhere in this array
 ];
 

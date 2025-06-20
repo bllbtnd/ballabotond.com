@@ -291,6 +291,7 @@ class StoriesViewer {
         this.prevArea = document.getElementById('story-prev');
         this.nextArea = document.getElementById('story-next');
         this.progressBarsContainer = document.querySelector('.story-progress-bars');
+        this.storyDateElement = document.getElementById('story-date');
         this.profileImage = document.getElementById('profile-image');
         
         this.init();
@@ -360,6 +361,23 @@ class StoriesViewer {
         });
     }
     
+    extractDateFromFilename(filename) {
+        const match = filename.match(/(\d{4})-(\d{2})-(\d{2})-\d+/);
+        if (match) {
+            const [, year, month, day] = match;
+            const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            
+            // Format the date in a readable way
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+        return '';
+    }
+
     updateProfileImage() {
         // Keep original appearance - no visual changes to indicate stories
         // Stories are activated by clicking the profile image
@@ -633,6 +651,15 @@ class StoriesViewer {
         
         this.currentIndex = index;
         const story = this.stories[index];
+        
+        // Update the story date display
+        const formattedDate = this.extractDateFromFilename(story.filename);
+        if (this.storyDateElement && formattedDate) {
+            this.storyDateElement.textContent = formattedDate;
+            this.storyDateElement.style.display = 'block';
+        } else if (this.storyDateElement) {
+            this.storyDateElement.style.display = 'none';
+        }
         
         // Show loading state
         this.currentStoryImg.style.opacity = '0.5';
