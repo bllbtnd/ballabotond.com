@@ -396,36 +396,106 @@ class StoriesViewer {
             this.closeStories();
         });
         
-        // Navigation areas
-        this.prevArea.addEventListener('click', () => {
-            this.previousStory();
-        });
-        
-        this.nextArea.addEventListener('click', () => {
-            this.nextStory();
-        });
-        
-        // Hold to pause functionality
+        // Navigation areas with hold-to-pause functionality
         let holdTimer;
+        let isHolding = false;
         const holdEvents = ['mousedown', 'touchstart'];
-        const releaseEvents = ['mouseup', 'touchend', 'mouseleave'];
+        const releaseEvents = ['mouseup', 'touchend', 'mouseleave', 'touchcancel'];
         
+        // Previous area (left side)
+        holdEvents.forEach(event => {
+            this.prevArea.addEventListener(event, (e) => {
+                e.preventDefault();
+                isHolding = true;
+                holdTimer = setTimeout(() => {
+                    if (isHolding) {
+                        this.pauseStory();
+                    }
+                }, 150); // Slightly longer delay to distinguish from click
+            });
+        });
+        
+        releaseEvents.forEach(event => {
+            this.prevArea.addEventListener(event, (e) => {
+                e.preventDefault();
+                if (holdTimer) {
+                    clearTimeout(holdTimer);
+                }
+                
+                if (isHolding) {
+                    // If it was a short press (not a hold), navigate
+                    if (!this.isPlaying) {
+                        this.playStory(); // Resume if paused
+                    } else {
+                        // Short press = navigation
+                        setTimeout(() => {
+                            this.previousStory();
+                        }, 10);
+                    }
+                }
+                isHolding = false;
+            });
+        });
+        
+        // Next area (right side)
+        holdEvents.forEach(event => {
+            this.nextArea.addEventListener(event, (e) => {
+                e.preventDefault();
+                isHolding = true;
+                holdTimer = setTimeout(() => {
+                    if (isHolding) {
+                        this.pauseStory();
+                    }
+                }, 150); // Slightly longer delay to distinguish from click
+            });
+        });
+        
+        releaseEvents.forEach(event => {
+            this.nextArea.addEventListener(event, (e) => {
+                e.preventDefault();
+                if (holdTimer) {
+                    clearTimeout(holdTimer);
+                }
+                
+                if (isHolding) {
+                    // If it was a short press (not a hold), navigate
+                    if (!this.isPlaying) {
+                        this.playStory(); // Resume if paused
+                    } else {
+                        // Short press = navigation
+                        setTimeout(() => {
+                            this.nextStory();
+                        }, 10);
+                    }
+                }
+                isHolding = false;
+            });
+        });
+        
+        // Story image hold-to-pause (center area)
         holdEvents.forEach(event => {
             this.currentStoryImg.addEventListener(event, (e) => {
                 e.preventDefault();
+                isHolding = true;
                 holdTimer = setTimeout(() => {
-                    this.pauseStory();
-                }, 100);
+                    if (isHolding) {
+                        this.pauseStory();
+                    }
+                }, 150);
             });
         });
         
         releaseEvents.forEach(event => {
             this.currentStoryImg.addEventListener(event, (e) => {
                 e.preventDefault();
-                clearTimeout(holdTimer);
-                if (!this.isPlaying) {
-                    this.playStory();
+                if (holdTimer) {
+                    clearTimeout(holdTimer);
                 }
+                
+                if (isHolding && !this.isPlaying) {
+                    this.playStory(); // Resume if paused
+                }
+                isHolding = false;
             });
         });
         
