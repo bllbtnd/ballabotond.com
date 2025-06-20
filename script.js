@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingOverlay = document.getElementById('loading-overlay');
     const contentContainer = document.querySelector('.container');
     
+    // Initialize stories
+    const storiesViewer = new StoriesViewer();
+    
     // Start time to ensure minimum loading duration
     const startTime = Date.now();
     const minLoadTime = 1500; // Minimum loading time in ms
@@ -268,3 +271,259 @@ document.addEventListener('DOMContentLoaded', function() {
         </style>
     `);
 });
+
+// Stories functionality
+class StoriesViewer {
+    constructor() {
+        this.stories = [];
+        this.currentIndex = 0;
+        this.isPlaying = false;
+        this.timer = null;
+        this.progressInterval = null;
+        this.storyDuration = 5000; // 5 seconds
+        this.progressUpdateInterval = 50; // Update progress every 50ms
+        
+        this.modal = document.getElementById('stories-modal');
+        this.currentStoryImg = document.getElementById('current-story');
+        this.closeBtn = document.getElementById('stories-close');
+        this.prevArea = document.getElementById('story-prev');
+        this.nextArea = document.getElementById('story-next');
+        this.progressBarsContainer = document.querySelector('.story-progress-bars');
+        this.profileImage = document.getElementById('profile-image');
+        
+        this.init();
+    }
+    
+    async init() {
+        await this.loadStories();
+        this.setupEventListeners();
+        this.updateProfileImage();
+    }
+    
+    async loadStories() {
+        // In a real implementation, you would fetch this from an API
+        // For now, we'll simulate loading stories from the stories folder
+        const storyFiles = [
+            'story1.svg',
+            'story2.svg', 
+            'story3.svg'
+        ];
+        
+        // Filter out any files that don't exist and sort by creation date (newest first)
+        this.stories = [];
+        for (const file of storyFiles) {
+            try {
+                // Try to load the image to see if it exists
+                const img = new Image();
+                img.src = `src/stories/${file}`;
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                    // Set a timeout to avoid hanging
+                    setTimeout(reject, 2000);
+                });
+                this.stories.push({
+                    src: `src/stories/${file}`,
+                    filename: file
+                });
+            } catch (e) {
+                console.log(`Story ${file} not found or failed to load`);
+            }
+        }
+        
+        // Sort stories by filename (assuming newer files have higher numbers)
+        this.stories.sort((a, b) => b.filename.localeCompare(a.filename));
+    }
+    
+    updateProfileImage() {
+        // Keep original appearance - no visual changes to indicate stories
+        // Stories are activated by clicking the profile image
+    }
+    
+    setupEventListeners() {
+        // Profile image click to open stories
+        this.profileImage.addEventListener('click', () => {
+            if (this.stories.length > 0) {
+                this.openStories();
+            }
+        });
+        
+        // Close button
+        this.closeBtn.addEventListener('click', () => {
+            this.closeStories();
+        });
+        
+        // Navigation areas
+        this.prevArea.addEventListener('click', () => {
+            this.previousStory();
+        });
+        
+        this.nextArea.addEventListener('click', () => {
+            this.nextStory();
+        });
+        
+        // Hold to pause functionality
+        let holdTimer;
+        const holdEvents = ['mousedown', 'touchstart'];
+        const releaseEvents = ['mouseup', 'touchend', 'mouseleave'];
+        
+        holdEvents.forEach(event => {
+            this.currentStoryImg.addEventListener(event, (e) => {
+                e.preventDefault();
+                holdTimer = setTimeout(() => {
+                    this.pauseStory();
+                }, 100);
+            });
+        });
+        
+        releaseEvents.forEach(event => {
+            this.currentStoryImg.addEventListener(event, (e) => {
+                e.preventDefault();
+                clearTimeout(holdTimer);
+                if (!this.isPlaying) {
+                    this.playStory();
+                }
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.modal.classList.contains('active')) {
+                switch(e.key) {
+                    case 'Escape':
+                        this.closeStories();
+                        break;
+                    case 'ArrowLeft':
+                        this.previousStory();
+                        break;
+                    case 'ArrowRight':
+                        this.nextStory();
+                        break;
+                    case ' ':
+                        e.preventDefault();
+                        this.isPlaying ? this.pauseStory() : this.playStory();
+                        break;
+                }
+            }
+        });
+        
+        // Close on background click
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeStories();
+            }
+        });
+    }
+    
+    createProgressBars() {
+        this.progressBarsContainer.innerHTML = '';
+        this.stories.forEach((_, index) => {
+            const progressBar = document.createElement('div');
+            progressBar.className = 'story-progress-bar';
+            progressBar.innerHTML = '<div class="story-progress-fill"></div>';
+            this.progressBarsContainer.appendChild(progressBar);
+        });
+    }
+    
+    updateProgressBars() {
+        const progressBars = this.progressBarsContainer.querySelectorAll('.story-progress-fill');
+        progressBars.forEach((bar, index) => {
+            if (index < this.currentIndex) {
+                bar.style.width = '100%';
+            } else if (index === this.currentIndex) {
+                // This will be animated by the progress interval
+            } else {
+                bar.style.width = '0%';
+            }
+        });
+    }
+    
+    openStories() {
+        if (this.stories.length === 0) return;
+        
+        this.currentIndex = 0;
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        this.createProgressBars();
+        this.showStory(this.currentIndex);
+        this.playStory();
+    }
+    
+    closeStories() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+        this.pauseStory();
+        this.currentIndex = 0;
+    }
+    
+    showStory(index) {
+        if (index < 0 || index >= this.stories.length) return;
+        
+        this.currentIndex = index;
+        this.currentStoryImg.src = this.stories[index].src;
+        this.updateProgressBars();
+    }
+    
+    playStory() {
+        if (this.stories.length === 0) return;
+        
+        this.isPlaying = true;
+        const currentProgressBar = this.progressBarsContainer.querySelectorAll('.story-progress-fill')[this.currentIndex];
+        
+        if (currentProgressBar) {
+            currentProgressBar.style.transition = 'none';
+            currentProgressBar.style.width = '0%';
+            
+            // Force reflow
+            currentProgressBar.offsetHeight;
+            
+            currentProgressBar.style.transition = `width ${this.storyDuration}ms linear`;
+            currentProgressBar.style.width = '100%';
+        }
+        
+        this.timer = setTimeout(() => {
+            this.nextStory();
+        }, this.storyDuration);
+    }
+    
+    pauseStory() {
+        this.isPlaying = false;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        
+        const currentProgressBar = this.progressBarsContainer.querySelectorAll('.story-progress-fill')[this.currentIndex];
+        if (currentProgressBar) {
+            const computedStyle = window.getComputedStyle(currentProgressBar);
+            const currentWidth = computedStyle.width;
+            currentProgressBar.style.transition = 'none';
+            currentProgressBar.style.width = currentWidth;
+        }
+    }
+    
+    nextStory() {
+        this.pauseStory();
+        
+        if (this.currentIndex < this.stories.length - 1) {
+            this.showStory(this.currentIndex + 1);
+            this.playStory();
+        } else {
+            this.closeStories();
+        }
+    }
+    
+    previousStory() {
+        this.pauseStory();
+        
+        if (this.currentIndex > 0) {
+            this.showStory(this.currentIndex - 1);
+            this.playStory();
+        } else {
+            // If at first story, restart it
+            this.showStory(0);
+            this.playStory();
+        }
+    }
+}

@@ -56,7 +56,7 @@
     
     <div class="container">
         <div class="profile">
-            <div class="profile-image">
+            <div class="profile-image" id="profile-image">
                 <img src="src/image.png" alt="Balla Botond Profile Picture">
             </div>
             <div class="profile-name">
@@ -130,5 +130,24 @@
     </script>
     
     <script src="script.js"></script>
+
+    <!-- Stories Modal -->
+    <div id="stories-modal" class="stories-modal">
+        <div class="stories-container">
+            <div class="stories-header">
+                <div class="story-progress-bars">
+                    <!-- Progress bars will be generated dynamically -->
+                </div>
+                <button class="stories-close" id="stories-close">&times;</button>
+            </div>
+            <div class="stories-content">
+                <img id="current-story" class="current-story" src="" alt="Story">
+                <div class="story-navigation">
+                    <div class="story-nav-left" id="story-prev"></div>
+                    <div class="story-nav-right" id="story-next"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

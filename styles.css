@@ -620,3 +620,155 @@ html {
         opacity: 1 !important;
     }
 }
+
+/* Stories Modal */
+.stories-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.stories-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.stories-container {
+    position: relative;
+    width: min(400px, 90vw);
+    height: min(700px, 85vh);
+    background: var(--card-color);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.stories-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 20px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+}
+
+.story-progress-bars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 15px;
+}
+
+.story-progress-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.story-progress-fill {
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.1s linear;
+    border-radius: 2px;
+}
+
+.stories-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.stories-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.stories-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.current-story {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.story-navigation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.story-nav-left,
+.story-nav-right {
+    flex: 1;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 5;
+}
+
+.story-nav-left:active,
+.story-nav-right:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Stories feature - no visual changes to profile image */
+.profile-image img {
+    cursor: pointer;
+}
+
+/* Dark theme adjustments */
+[data-theme="light"] .stories-container {
+    background: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    .stories-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+    
+    .stories-header {
+        padding: 15px;
+    }
+    
+    .stories-close {
+        top: 10px;
+        right: 15px;
+    }
+}
