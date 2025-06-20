@@ -385,6 +385,28 @@ class StoriesViewer {
         // Stories are activated by clicking the profile image
     }
     
+    applySmartCropping(img) {
+        const container = img.parentElement;
+        const containerAspectRatio = container.clientWidth / container.clientHeight;
+        const imageAspectRatio = img.naturalWidth / img.naturalHeight;
+        
+        // Reset any previous styling
+        img.style.width = '';
+        img.style.height = '';
+        img.style.objectFit = 'cover';
+        img.style.objectPosition = 'center';
+        
+        if (imageAspectRatio > containerAspectRatio) {
+            // Image is wider than container - use 100% height, crop sides
+            img.style.height = '100%';
+            img.style.width = 'auto';
+        } else {
+            // Image is taller than container - use 100% width, crop top/bottom
+            img.style.width = '100%';
+            img.style.height = 'auto';
+        }
+    }
+    
     setupEventListeners() {
         // Profile image click to open stories
         this.profileImage.addEventListener('click', () => {
@@ -577,6 +599,11 @@ class StoriesViewer {
         
         this.currentIndex = index;
         this.currentStoryImg.src = this.stories[index].src;
+        
+        // Apply smart cropping when image loads
+        this.currentStoryImg.onload = () => {
+            this.applySmartCropping(this.currentStoryImg);
+        };
         
         // Reset timing for new story only
         this.pausedTime = 0;
