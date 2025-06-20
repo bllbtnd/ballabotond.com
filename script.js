@@ -307,8 +307,6 @@ class StoriesViewer {
     }
     
     async loadStories() {
-        this.stories = [];
-        
         // Get story filenames from the configuration file
         const storyFilenames = window.STORY_FILENAMES || [];
         
@@ -316,39 +314,21 @@ class StoriesViewer {
             return;
         }
         
-        // Load each file from the list
-        const loadPromises = storyFilenames.map(async (filename) => {
-            try {
-                const img = new Image();
-                img.src = `src/stories/${filename}`;
-                
-                return new Promise((resolve) => {
-                    const timeout = setTimeout(() => {
-                        resolve(null);
-                    }, 2000);
-                    
-                    img.onload = () => {
-                        clearTimeout(timeout);
-                        resolve({
-                            src: `src/stories/${filename}`,
-                            filename: filename,
-                            naturalWidth: img.naturalWidth,
-                            naturalHeight: img.naturalHeight
-                        });
-                    };
-                    
-                    img.onerror = () => {
-                        clearTimeout(timeout);
-                        resolve(null);
-                    };
-                });
-            } catch (e) {
-                return null;
-            }
-        });
+        // Create story objects immediately without waiting for images to load
+        this.stories = storyFilenames.map(filename => ({
+            src: `src/stories/${filename}`,
+            filename: filename,
+            loaded: false,
+            loading: false,
+            imageElement: null,
+            naturalWidth: 0,
+            naturalHeight: 0
+        }));
         
-        const results = await Promise.all(loadPromises);
-        this.stories = results.filter(story => story !== null);
+        // Start loading the first image immediately
+        if (this.stories.length > 0) {
+            this.preloadImage(0);
+        }
         
         // Sort stories by date (newest to oldest), then by image number (highest to lowest)
         this.stories.sort((a, b) => {
@@ -405,6 +385,60 @@ class StoriesViewer {
             img.style.width = '100%';
             img.style.height = 'auto';
         }
+    }
+    
+    async preloadImage(index) {
+        if (index < 0 || index >= this.stories.length) return;
+        
+        const story = this.stories[index];
+        if (story.loaded || story.loading) return;
+        
+        story.loading = true;
+        
+        return new Promise((resolve) => {
+            const img = new Image();
+            
+            img.onload = () => {
+                story.loaded = true;
+                story.loading = false;
+                story.imageElement = img;
+                story.naturalWidth = img.naturalWidth;
+                story.naturalHeight = img.naturalHeight;
+                resolve(true);
+            };
+            
+            img.onerror = () => {
+                story.loading = false;
+                resolve(false);
+            };
+            
+            img.src = story.src;
+        });
+    }
+    
+    preloadAdjacentImages(currentIndex) {
+        // Preload next and previous images in background
+        const preloadIndexes = [];
+        
+        // Prioritize next image
+        if (currentIndex + 1 < this.stories.length) {
+            preloadIndexes.push(currentIndex + 1);
+        }
+        
+        // Then previous image
+        if (currentIndex - 1 >= 0) {
+            preloadIndexes.push(currentIndex - 1);
+        }
+        
+        // Then next few images
+        for (let i = currentIndex + 2; i < Math.min(currentIndex + 4, this.stories.length); i++) {
+            preloadIndexes.push(i);
+        }
+        
+        // Load them in background without blocking
+        preloadIndexes.forEach(index => {
+            setTimeout(() => this.preloadImage(index), 100);
+        });
     }
     
     setupEventListeners() {
@@ -575,7 +609,7 @@ class StoriesViewer {
         });
     }
     
-    openStories() {
+    async openStories() {
         if (this.stories.length === 0) return;
         
         this.currentIndex = 0;
@@ -583,7 +617,7 @@ class StoriesViewer {
         document.body.style.overflow = 'hidden';
         
         this.createProgressBars();
-        this.showStory(this.currentIndex);
+        await this.showStory(this.currentIndex);
         this.playStory();
     }
     
@@ -594,22 +628,71 @@ class StoriesViewer {
         this.currentIndex = 0;
     }
     
-    showStory(index) {
+    async showStory(index) {
         if (index < 0 || index >= this.stories.length) return;
         
         this.currentIndex = index;
-        this.currentStoryImg.src = this.stories[index].src;
+        const story = this.stories[index];
         
-        // Apply smart cropping when image loads
-        this.currentStoryImg.onload = () => {
-            this.applySmartCropping(this.currentStoryImg);
-        };
+        // Show loading state
+        this.currentStoryImg.style.opacity = '0.5';
+        this.currentStoryImg.style.filter = 'blur(2px)';
+        
+        // Ensure current image is loaded
+        if (!story.loaded && !story.loading) {
+            await this.preloadImage(index);
+        }
+        
+        // Wait for image to be loaded if it's still loading
+        if (story.loading) {
+            const checkLoaded = () => {
+                return new Promise((resolve) => {
+                    const check = () => {
+                        if (story.loaded || !story.loading) {
+                            resolve();
+                        } else {
+                            setTimeout(check, 50);
+                        }
+                    };
+                    check();
+                });
+            };
+            await checkLoaded();
+        }
+        
+        // Set the image source
+        if (story.loaded && story.imageElement) {
+            this.currentStoryImg.src = story.imageElement.src;
+            
+            // Apply smart cropping
+            this.currentStoryImg.onload = () => {
+                this.applySmartCropping(this.currentStoryImg);
+                // Remove loading state
+                this.currentStoryImg.style.opacity = '1';
+                this.currentStoryImg.style.filter = 'none';
+            };
+            
+            // If image is already loaded, apply immediately
+            if (this.currentStoryImg.complete) {
+                this.applySmartCropping(this.currentStoryImg);
+                this.currentStoryImg.style.opacity = '1';
+                this.currentStoryImg.style.filter = 'none';
+            }
+        } else {
+            // Fallback if image failed to load
+            this.currentStoryImg.src = story.src;
+            this.currentStoryImg.style.opacity = '1';
+            this.currentStoryImg.style.filter = 'none';
+        }
         
         // Reset timing for new story only
         this.pausedTime = 0;
         this.storyStartTime = 0;
         
         this.updateProgressBars();
+        
+        // Preload adjacent images in background
+        this.preloadAdjacentImages(index);
     }
     
     playStory() {
@@ -671,26 +754,26 @@ class StoriesViewer {
         }
     }
     
-    nextStory() {
+    async nextStory() {
         this.pauseStory();
         
         if (this.currentIndex < this.stories.length - 1) {
-            this.showStory(this.currentIndex + 1);
+            await this.showStory(this.currentIndex + 1);
             this.playStory();
         } else {
             this.closeStories();
         }
     }
     
-    previousStory() {
+    async previousStory() {
         this.pauseStory();
         
         if (this.currentIndex > 0) {
-            this.showStory(this.currentIndex - 1);
+            await this.showStory(this.currentIndex - 1);
             this.playStory();
         } else {
             // If at first story, restart it
-            this.showStory(0);
+            await this.showStory(0);
             this.playStory();
         }
     }

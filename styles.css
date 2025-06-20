@@ -721,7 +721,7 @@ html {
     object-position: center;
     user-select: none;
     -webkit-user-drag: none;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: opacity 0.3s ease, filter 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
 .story-navigation {
