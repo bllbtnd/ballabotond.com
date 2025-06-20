@@ -4,7 +4,9 @@
 
 const STORY_FILENAMES_RAW = [
     '2025-06-20-0.png',
-    '2024-03-23-0.png'
+    '2024-03-23-0.png',
+    '2024-04-13-0.png',
+    '2024-03-01-0.png'
     // Add new story filenames anywhere in this array
 ];
 
