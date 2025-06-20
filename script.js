@@ -282,6 +282,8 @@ class StoriesViewer {
         this.progressInterval = null;
         this.storyDuration = 5000; // 5 seconds
         this.progressUpdateInterval = 50; // Update progress every 50ms
+        this.storyStartTime = 0; // When the current story started
+        this.pausedTime = 0; // How much time was already elapsed when paused
         
         this.modal = document.getElementById('stories-modal');
         this.currentStoryImg = document.getElementById('current-story');
@@ -575,6 +577,11 @@ class StoriesViewer {
         
         this.currentIndex = index;
         this.currentStoryImg.src = this.stories[index].src;
+        
+        // Reset timing for new story only
+        this.pausedTime = 0;
+        this.storyStartTime = 0;
+        
         this.updateProgressBars();
     }
     
@@ -582,22 +589,35 @@ class StoriesViewer {
         if (this.stories.length === 0) return;
         
         this.isPlaying = true;
+        this.storyStartTime = Date.now(); // Always update start time when resuming
+        
         const currentProgressBar = this.progressBarsContainer.querySelectorAll('.story-progress-fill')[this.currentIndex];
         
         if (currentProgressBar) {
+            const remainingTime = Math.max(0, this.storyDuration - this.pausedTime);
+            const progressPercentage = (this.pausedTime / this.storyDuration) * 100;
+            
+            // Set current progress
             currentProgressBar.style.transition = 'none';
-            currentProgressBar.style.width = '0%';
+            currentProgressBar.style.width = `${progressPercentage}%`;
             
             // Force reflow
             currentProgressBar.offsetHeight;
             
-            currentProgressBar.style.transition = `width ${this.storyDuration}ms linear`;
-            currentProgressBar.style.width = '100%';
+            // Animate remaining progress
+            if (remainingTime > 0) {
+                currentProgressBar.style.transition = `width ${remainingTime}ms linear`;
+                currentProgressBar.style.width = '100%';
+                
+                this.timer = setTimeout(() => {
+                    this.nextStory();
+                }, remainingTime);
+            } else {
+                // Already completed, move to next
+                currentProgressBar.style.width = '100%';
+                this.nextStory();
+            }
         }
-        
-        this.timer = setTimeout(() => {
-            this.nextStory();
-        }, this.storyDuration);
     }
     
     pauseStory() {
@@ -607,8 +627,16 @@ class StoriesViewer {
             this.timer = null;
         }
         
+        // Calculate how much time has elapsed since last resume
+        if (this.storyStartTime > 0) {
+            const now = Date.now();
+            const sessionElapsed = now - this.storyStartTime;
+            this.pausedTime = Math.min(this.pausedTime + sessionElapsed, this.storyDuration);
+        }
+        
         const currentProgressBar = this.progressBarsContainer.querySelectorAll('.story-progress-fill')[this.currentIndex];
         if (currentProgressBar) {
+            // Stop the animation at current position
             const computedStyle = window.getComputedStyle(currentProgressBar);
             const currentWidth = computedStyle.width;
             currentProgressBar.style.transition = 'none';
