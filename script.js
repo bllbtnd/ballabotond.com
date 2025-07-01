@@ -628,6 +628,7 @@ class StoriesViewer {
     }
     
     async openStories() {
+        gtag('event', 'stories_opened');
         if (this.stories.length === 0) return;
         
         this.currentIndex = 0;
