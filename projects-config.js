@@ -46,7 +46,7 @@ window.PROJECTS_CONFIG = [
         },
         url: 'https://trackit.31b4.com/', // Replace with your server IP or info page
         icon: 'fas fa-weight',
-        status: 'active',
+        status: 'coming-soon',
         image: null,
         enabled: true
     },

@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set background color based on type
         switch (type) {
             case 'success':
-                notification.style.backgroundColor = '#28a745';
+                notification.style.backgroundColor = '#8b1a2a'; // Use burgundy color matching the theme
                 break;
             case 'error':
                 notification.style.backgroundColor = '#dc3545';
