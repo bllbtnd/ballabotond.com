@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3NZN7X2WL9');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Projects | Balla Botond</title>
+    <meta name="description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta name="keywords" content="Balla Botond, projects, web apps, Minecraft server, development, portfolio">
+    <meta name="author" content="Balla Botond">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ballabotond.com/projects.html">
+    <meta property="og:title" content="Projects | Balla Botond">
+    <meta property="og:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta property="og:image" content="src/image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ballabotond.com/projects.html">
+    <meta property="twitter:title" content="Projects | Balla Botond">
+    <meta property="twitter:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta property="twitter:image" content="src/image.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ballabotond.com/projects.html">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add favicon -->
+    <link rel="icon" href="src/favicon.png" type="image/png">
+    <!-- Fallback favicons for different devices -->
+    <link rel="apple-touch-icon" href="src/favicon.png">
+    <link rel="shortcut icon" href="src/favicon.png">
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader-container">
+            <img src="src/image.png" alt="Profile" class="loader-image">
+            <div class="elegant-loading"></div>
+            <div class="loading-text">LOADING</div>
+        </div>
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <button id="language-toggle" class="language-toggle" aria-label="Toggle language">
+        <span class="lang-indicator">EN</span>
+    </button>
+    
+    <div class="container">
+        <div class="page-header">
+            <div class="profile-image-small" id="profile-home-link" style="cursor: pointer;" title="Back to home">
+                <img src="src/image.png" alt="Balla Botond Profile Picture">
+            </div>
+            <div class="page-title">
+                <h1 id="projects-title">
+                    <span id="projects-title-en">Projects & Links</span>
+                    <span id="projects-title-hu" class="alternate-title">Projektek & Linkek</span>
+                </h1>
+                <p id="projects-subtitle">
+                    <span id="projects-subtitle-en">Creative endeavors, useful tools, and places to connect</span>
+                    <span id="projects-subtitle-hu" class="alternate-subtitle">Kreatív munkák, hasznos eszközök és kapcsolódási pontok</span>
+                </p>
+            </div>
+        </div>
+        
+        <div id="projects-grid" class="projects-grid">
+            <!-- Projects will be generated dynamically from projects-config.js -->
+        </div>
+    </div>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Projects | Balla Botond",
+      "description": "Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.",
+      "url": "https://ballabotond.com/projects.html",
+      "author": {
+        "@type": "Person",
+        "name": "Balla Botond",
+        "url": "https://ballabotond.com/"
+      }
+    }
+    </script>
+    
+    <script src="projects-config.js"></script>
+    <script src="projects.js"></script>
+</body>
+</html>
