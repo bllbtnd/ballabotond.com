@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to validate that all story images are under 1MB
-STORIES_DIR="/home/botond/ballabotond.com/src/stories"
+STORIES_DIR="/home/botond/ballabotond.com/assets/images/stories"
 MAX_SIZE_KB=1024  # 1MB in KB
 
 echo "Checking story image sizes..."

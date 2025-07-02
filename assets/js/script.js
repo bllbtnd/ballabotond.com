@@ -317,7 +317,7 @@ class StoriesViewer {
         
         // Create story objects immediately without waiting for images to load
         this.stories = storyFilenames.map(filename => ({
-            src: `src/stories/${filename}`,
+            src: `assets/images/stories/${filename}`,
             filename: filename,
             loaded: false,
             loading: false,

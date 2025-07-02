@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Compress all story images to be under 1MB
-STORIES_DIR="/home/botond/ballabotond.com/src/stories"
+STORIES_DIR="/home/botond/ballabotond.com/assets/images/stories"
 MAX_SIZE_KB=1024  # 1MB in KB
-BACKUP_DIR="/home/botond/ballabotond.com/src/stories_backup"
+BACKUP_DIR="/home/botond/ballabotond.com/assets/images/stories_backup"
 
 echo "Compressing all story images to be under 1MB..."
 
