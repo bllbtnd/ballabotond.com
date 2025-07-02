@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="project-button ${isDisabled ? 'disabled' : ''}" 
                             data-url="${project.url}" 
                             data-project-id="${project.id}"
+                            data-copy-to-clipboard="${project.copyToClipboard || false}"
                             ${isDisabled ? 'disabled' : ''}>
                         ${project.buttonText[currentLanguage] || project.buttonText.en}
                     </button>
@@ -232,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const url = this.dataset.url;
                 const projectId = this.dataset.projectId;
+                const copyToClipboard = this.dataset.copyToClipboard === 'true';
                 
                 // Analytics tracking
                 gtag('event', 'click', { 
@@ -264,9 +266,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 setTimeout(() => ripple.remove(), 600);
                 
-                // Navigate after animation
+                // Handle action after animation
                 setTimeout(() => {
-                    if (url && url !== '#') {
+                    if (copyToClipboard && url) {
+                        // Copy to clipboard
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(url).then(() => {
+                                showNotification(getLocalizedText('serverIpCopied', 'Server IP copied to clipboard!'), 'success');
+                            }).catch(() => {
+                                fallbackCopyToClipboard(url);
+                            });
+                        } else {
+                            fallbackCopyToClipboard(url);
+                        }
+                    } else if (url && url !== '#') {
+                        // Normal navigation
                         if (url.startsWith('http')) {
                             window.open(url, '_blank');
                         } else {
@@ -290,6 +304,105 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    }
+    
+    // Helper function for fallback clipboard functionality
+    function fallbackCopyToClipboard(text) {
+        try {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            if (successful) {
+                showNotification(getLocalizedText('serverIpCopied', 'Server IP copied to clipboard!'), 'success');
+            } else {
+                showNotification(getLocalizedText('copyFailed', 'Failed to copy to clipboard'), 'error');
+            }
+        } catch (err) {
+            showNotification(getLocalizedText('copyFailed', 'Failed to copy to clipboard'), 'error');
+        }
+    }
+    
+    // Helper function to show notifications
+    function showNotification(message, type = 'info') {
+        // Remove any existing notifications
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+        
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        `;
+        
+        // Set background color based on type
+        switch (type) {
+            case 'success':
+                notification.style.backgroundColor = '#28a745';
+                break;
+            case 'error':
+                notification.style.backgroundColor = '#dc3545';
+                break;
+            default:
+                notification.style.backgroundColor = '#007bff';
+        }
+        
+        document.body.appendChild(notification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0)';
+        }, 10);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    // Helper function to get localized text
+    function getLocalizedText(key, fallback) {
+        const currentLanguage = localStorage.getItem('language') || 'en';
+        const localizedTexts = {
+            serverIpCopied: {
+                en: 'Server IP copied to clipboard!',
+                hu: 'Szerver IP vágólapra másolva!'
+            },
+            copyFailed: {
+                en: 'Failed to copy to clipboard',
+                hu: 'Vágólapra másolás sikertelen'
+            }
+        };
+        
+        return localizedTexts[key] && localizedTexts[key][currentLanguage] || fallback;
     }
     
     // Add CSS for ripple animation and project cards
