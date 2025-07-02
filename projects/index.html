@@ -23,20 +23,20 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ballabotond.com/projects">
+    <meta property="og:url" content="https://www.ballabotond.com/projects">
     <meta property="og:title" content="Projects | Balla Botond">
     <meta property="og:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
     <meta property="og:image" content="../assets/images/image.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ballabotond.com/projects">
+    <meta property="twitter:url" content="https://www.ballabotond.com/projects">
     <meta property="twitter:title" content="Projects | Balla Botond">
     <meta property="twitter:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
     <meta property="twitter:image" content="../assets/images/image.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://ballabotond.com/projects">
+    <link rel="canonical" href="https://www.ballabotond.com/projects">
     
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -47,6 +47,14 @@
     <link rel="shortcut icon" href="../assets/images/favicon.png">
 </head>
 <body>
+    <!-- Canonical URL enforcement -->
+    <script>
+        // Redirect from /projects/ to /projects (remove trailing slash)
+        if (window.location.pathname.endsWith('/projects/')) {
+            window.history.replaceState(null, null, '/projects');
+        }
+    </script>
+    
     <!-- Loading overlay -->
     <div id="loading-overlay" class="loading-overlay">
         <div class="loader-container">
@@ -94,11 +102,11 @@
       "@type": "CollectionPage",
       "name": "Projects | Balla Botond",
       "description": "Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.",
-      "url": "https://ballabotond.com/projects",
+      "url": "https://www.ballabotond.com/projects",
       "author": {
         "@type": "Person",
         "name": "Balla Botond",
-        "url": "https://ballabotond.com/"
+        "url": "https://www.ballabotond.com/"
       }
     }
     </script>
