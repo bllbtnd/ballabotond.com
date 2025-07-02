@@ -111,10 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    // Home button functionality
-    const homeButton = document.getElementById('home-button');
-    if (homeButton) {
-        homeButton.addEventListener('click', function() {
+    // Profile image home navigation functionality
+    const profileHomeLink = document.getElementById('profile-home-link');
+    if (profileHomeLink) {
+        profileHomeLink.addEventListener('click', function() {
             gtag('event', 'click', { 'event_category': 'navigation', 'event_label': 'home_from_projects' });
             window.location.href = '/';
         });

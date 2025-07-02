@@ -37,8 +37,8 @@ window.PROJECTS_CONFIG = [
             hu: 'TrackIt'
         },
         description: {
-            en: 'A fitness tracking app for monitoring workouts and progress.',
-            hu: 'Egy fitnesz nyomkövető alkalmazás az edzések és a fejlődés nyomon követésére.'
+            en: 'A fitness tracking app for monitoring health and fitness.',
+            hu: 'Egy fitnesz nyomkövető alkalmazás az egészség és a fitnesz nyomon követésére.'
         },
         buttonText: {
             en: 'Get in touch',

@@ -865,6 +865,17 @@ html {
     box-shadow: 0 8px 25px var(--deep-shadow);
 }
 
+/* Profile image as home link */
+.profile-image-small[id="profile-home-link"]:hover {
+    transform: scale(1.02);
+}
+
+.profile-image-small[id="profile-home-link"]:hover img {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px var(--deep-shadow);
+    border-color: var(--hover-color);
+}
+
 .page-title h1 {
     font-size: clamp(1.8rem, 5vw, 2.8rem);
     margin-bottom: 8px;
