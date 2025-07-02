@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3NZN7X2WL9');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Projects | Balla Botond</title>
+    <meta name="description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta name="keywords" content="Balla Botond, projects, web apps, Minecraft server, development, portfolio">
+    <meta name="author" content="Balla Botond">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ballabotond.com/projects.html">
+    <meta property="og:title" content="Projects | Balla Botond">
+    <meta property="og:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta property="og:image" content="src/image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ballabotond.com/projects.html">
+    <meta property="twitter:title" content="Projects | Balla Botond">
+    <meta property="twitter:description" content="Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.">
+    <meta property="twitter:image" content="src/image.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ballabotond.com/projects.html">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add favicon -->
+    <link rel="icon" href="src/favicon.png" type="image/png">
+    <!-- Fallback favicons for different devices -->
+    <link rel="apple-touch-icon" href="src/favicon.png">
+    <link rel="shortcut icon" href="src/favicon.png">
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader-container">
+            <img src="src/image.png" alt="Profile" class="loader-image">
+            <div class="elegant-loading"></div>
+            <div class="loading-text">LOADING</div>
+        </div>
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <button id="language-toggle" class="language-toggle" aria-label="Toggle language">
+        <span class="lang-indicator">EN</span>
+    </button>
+
+    <!-- Back to home button -->
+    <button id="home-button" class="home-button" aria-label="Back to home">
+        <i class="fas fa-home"></i>
+    </button>
+    
+    <div class="container">
+        <div class="page-header">
+            <div class="profile-image-small">
+                <img src="src/image.png" alt="Balla Botond Profile Picture">
+            </div>
+            <div class="page-title">
+                <h1 id="projects-title">
+                    <span id="projects-title-en">Projects & Links</span>
+                    <span id="projects-title-hu" class="alternate-title">Projektek & Linkek</span>
+                </h1>
+                <p id="projects-subtitle">
+                    <span id="projects-subtitle-en">Creative endeavors, useful tools, and places to connect</span>
+                    <span id="projects-subtitle-hu" class="alternate-subtitle">Kreatív munkák, hasznos eszközök és kapcsolódási pontok</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Minecraft Server Section -->
+            <div class="project-category">
+                <h2 id="gaming-title">
+                    <span class="category-en">Gaming</span>
+                    <span class="category-hu">Játékok</span>
+                </h2>
+                <div class="project-links">
+                    <a href="#" class="project-link minecraft" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'minecraft_server' });">
+                        <div class="project-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-name">Minecraft Server</span>
+                            <span class="project-description">
+                                <span class="desc-en">Private survival server for friends</span>
+                                <span class="desc-hu">Privát túlélő szerver barátoknak</span>
+                            </span>
+                            <span class="project-status coming-soon">
+                                <span class="status-en">Coming Soon</span>
+                                <span class="status-hu">Hamarosan</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Web Applications Section -->
+            <div class="project-category">
+                <h2 id="webapps-title">
+                    <span class="category-en">Web Applications</span>
+                    <span class="category-hu">Webalkalmazások</span>
+                </h2>
+                <div class="project-links">
+                    <a href="#" class="project-link webapp disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'webapp_placeholder' });">
+                        <div class="project-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-name">
+                                <span class="name-en">Web App Project</span>
+                                <span class="name-hu">Webapp Projekt</span>
+                            </span>
+                            <span class="project-description">
+                                <span class="desc-en">Innovative web applications in development</span>
+                                <span class="desc-hu">Innovatív webalkalmazások fejlesztés alatt</span>
+                            </span>
+                            <span class="project-status coming-soon">
+                                <span class="status-en">In Development</span>
+                                <span class="status-hu">Fejlesztés alatt</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tools & Utilities Section -->
+            <div class="project-category">
+                <h2 id="tools-title">
+                    <span class="category-en">Tools & Utilities</span>
+                    <span class="category-hu">Eszközök & Segédprogramok</span>
+                </h2>
+                <div class="project-links">
+                    <a href="#" class="project-link tool disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'tools_placeholder' });">
+                        <div class="project-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-name">
+                                <span class="name-en">Utility Tools</span>
+                                <span class="name-hu">Segédeszközök</span>
+                            </span>
+                            <span class="project-description">
+                                <span class="desc-en">Helpful tools and utilities for everyday use</span>
+                                <span class="desc-hu">Hasznos eszközök és segédprogramok mindennapi használatra</span>
+                            </span>
+                            <span class="project-status coming-soon">
+                                <span class="status-en">Coming Soon</span>
+                                <span class="status-hu">Hamarosan</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Additional Links Section -->
+            <div class="project-category">
+                <h2 id="links-title">
+                    <span class="category-en">Additional Links</span>
+                    <span class="category-hu">További Linkek</span>
+                </h2>
+                <div class="project-links">
+                    <a href="#" class="project-link additional disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'additional_placeholder' });">
+                        <div class="project-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-name">
+                                <span class="name-en">More Links</span>
+                                <span class="name-hu">További Linkek</span>
+                            </span>
+                            <span class="project-description">
+                                <span class="desc-en">Other interesting projects and resources</span>
+                                <span class="desc-hu">Egyéb érdekes projektek és források</span>
+                            </span>
+                            <span class="project-status coming-soon">
+                                <span class="status-en">Coming Soon</span>
+                                <span class="status-hu">Hamarosan</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Projects | Balla Botond",
+      "description": "Explore Balla Botond's projects, web applications, Minecraft server, and other creative endeavors.",
+      "url": "https://ballabotond.com/projects.html",
+      "author": {
+        "@type": "Person",
+        "name": "Balla Botond",
+        "url": "https://ballabotond.com/"
+      }
+    }
+    </script>
+    
+    <script src="projects.js"></script>
+</body>
+</html>
