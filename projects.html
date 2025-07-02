@@ -87,119 +87,8 @@
             </div>
         </div>
         
-        <div class="projects-grid">
-            <!-- Minecraft Server Section -->
-            <div class="project-category">
-                <h2 id="gaming-title">
-                    <span class="category-en">Gaming</span>
-                    <span class="category-hu">Játékok</span>
-                </h2>
-                <div class="project-links">
-                    <a href="#" class="project-link minecraft" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'minecraft_server' });">
-                        <div class="project-icon">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <div class="project-info">
-                            <span class="project-name">Minecraft Server</span>
-                            <span class="project-description">
-                                <span class="desc-en">Private survival server for friends</span>
-                                <span class="desc-hu">Privát túlélő szerver barátoknak</span>
-                            </span>
-                            <span class="project-status coming-soon">
-                                <span class="status-en">Coming Soon</span>
-                                <span class="status-hu">Hamarosan</span>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Web Applications Section -->
-            <div class="project-category">
-                <h2 id="webapps-title">
-                    <span class="category-en">Web Applications</span>
-                    <span class="category-hu">Webalkalmazások</span>
-                </h2>
-                <div class="project-links">
-                    <a href="#" class="project-link webapp disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'webapp_placeholder' });">
-                        <div class="project-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="project-info">
-                            <span class="project-name">
-                                <span class="name-en">Web App Project</span>
-                                <span class="name-hu">Webapp Projekt</span>
-                            </span>
-                            <span class="project-description">
-                                <span class="desc-en">Innovative web applications in development</span>
-                                <span class="desc-hu">Innovatív webalkalmazások fejlesztés alatt</span>
-                            </span>
-                            <span class="project-status coming-soon">
-                                <span class="status-en">In Development</span>
-                                <span class="status-hu">Fejlesztés alatt</span>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tools & Utilities Section -->
-            <div class="project-category">
-                <h2 id="tools-title">
-                    <span class="category-en">Tools & Utilities</span>
-                    <span class="category-hu">Eszközök & Segédprogramok</span>
-                </h2>
-                <div class="project-links">
-                    <a href="#" class="project-link tool disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'tools_placeholder' });">
-                        <div class="project-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <div class="project-info">
-                            <span class="project-name">
-                                <span class="name-en">Utility Tools</span>
-                                <span class="name-hu">Segédeszközök</span>
-                            </span>
-                            <span class="project-description">
-                                <span class="desc-en">Helpful tools and utilities for everyday use</span>
-                                <span class="desc-hu">Hasznos eszközök és segédprogramok mindennapi használatra</span>
-                            </span>
-                            <span class="project-status coming-soon">
-                                <span class="status-en">Coming Soon</span>
-                                <span class="status-hu">Hamarosan</span>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Additional Links Section -->
-            <div class="project-category">
-                <h2 id="links-title">
-                    <span class="category-en">Additional Links</span>
-                    <span class="category-hu">További Linkek</span>
-                </h2>
-                <div class="project-links">
-                    <a href="#" class="project-link additional disabled" onclick="gtag('event', 'click', { 'event_category': 'projects', 'event_label': 'additional_placeholder' });">
-                        <div class="project-icon">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <div class="project-info">
-                            <span class="project-name">
-                                <span class="name-en">More Links</span>
-                                <span class="name-hu">További Linkek</span>
-                            </span>
-                            <span class="project-description">
-                                <span class="desc-en">Other interesting projects and resources</span>
-                                <span class="desc-hu">Egyéb érdekes projektek és források</span>
-                            </span>
-                            <span class="project-status coming-soon">
-                                <span class="status-en">Coming Soon</span>
-                                <span class="status-hu">Hamarosan</span>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        <div id="projects-grid" class="projects-grid">
+            <!-- Projects will be generated dynamically from projects-config.js -->
         </div>
     </div>
     
@@ -219,6 +108,7 @@
     }
     </script>
     
+    <script src="projects-config.js"></script>
     <script src="projects.js"></script>
 </body>
 </html>

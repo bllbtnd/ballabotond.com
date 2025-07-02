@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Start time to ensure minimum loading duration
     const startTime = Date.now();
-    const minLoadTime = 800; // Shorter loading time for projects page
+    const minLoadTime = 800;
     
     // Function to hide loading overlay
     function hideLoadingOverlay() {
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.classList.add('hidden');
             contentContainer.classList.add('loaded');
             
-            // Remove overlay from DOM after transition completes
             setTimeout(() => {
                 if (loadingOverlay.parentNode) {
                     loadingOverlay.parentNode.removeChild(loadingOverlay);
@@ -28,106 +27,87 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     
-    // Function to set the theme
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
     }
     
-    // Function to toggle the theme
     function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
-        if (currentTheme === 'light') {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
     }
     
-    // Initialize theme
     function initializeTheme() {
         const savedTheme = localStorage.getItem('theme');
-        
         if (savedTheme) {
             setTheme(savedTheme);
         } else {
-            if (prefersDarkScheme.matches) {
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
+            setTheme(prefersDarkScheme.matches ? 'dark' : 'light');
         }
     }
     
-    // Set up theme event listeners
     themeToggle.addEventListener('click', toggleTheme);
-    
-    // Listen for OS theme changes
     prefersDarkScheme.addEventListener('change', function(e) {
         if (!localStorage.getItem('theme')) {
-            if (e.matches) {
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
+            setTheme(e.matches ? 'dark' : 'light');
         }
     });
     
-    // Initialize theme on load
     initializeTheme();
     
     // Language handling
     const languageToggle = document.getElementById('language-toggle');
+    let currentLanguage = 'en';
     
-    // Function to set language
     function setLanguage(lang) {
+        currentLanguage = lang;
         document.documentElement.setAttribute('data-language', lang);
         
-        // Update the language toggle to show the opposite language
         const langIndicator = document.querySelector('.language-toggle .lang-indicator');
         if (langIndicator) {
             langIndicator.textContent = lang === 'hu' ? 'EN' : 'HU';
         }
         
-        // Update page title
-        if (lang === 'hu') {
-            document.title = 'Projektek | Balla Botond';
-        } else {
-            document.title = 'Projects | Balla Botond';
-        }
-        
-        // Store the user's language preference
+        document.title = lang === 'hu' ? 'Projektek | Balla Botond' : 'Projects | Balla Botond';
         localStorage.setItem('language', lang);
+        
+        // Regenerate projects with new language
+        generateProjects();
     }
     
-    // Check for user's language preference
-    const userLanguage = localStorage.getItem('language');
-    
-    // Add language toggle event listener
     if (languageToggle) {
         languageToggle.addEventListener('click', function() {
-            const currentLang = document.documentElement.getAttribute('data-language') || 'en';
-            setLanguage(currentLang === 'en' ? 'hu' : 'en');
+            setLanguage(currentLanguage === 'en' ? 'hu' : 'en');
         });
     }
     
     // Initialize language
+    const userLanguage = localStorage.getItem('language');
     if (userLanguage) {
         setLanguage(userLanguage);
+        // Generate projects immediately since language is set
+        setTimeout(() => {
+            generateProjects();
+            hideLoadingOverlay();
+        }, 100);
     } else {
-        // Use IP-based geolocation for new users
         fetch('https://ipapi.co/json/')
             .then(response => response.json())
             .then(data => {
-                if (data.country_code === 'HU') {
-                    setLanguage('hu');
-                } else {
-                    setLanguage('en');
-                }
+                setLanguage(data.country_code === 'HU' ? 'hu' : 'en');
+                // Generate projects after language is set
+                setTimeout(() => {
+                    generateProjects();
+                    hideLoadingOverlay();
+                }, 100);
             })
-            .catch(error => {
-                console.error('Error detecting location:', error);
+            .catch(() => {
                 setLanguage('en');
+                // Generate projects after language is set
+                setTimeout(() => {
+                    generateProjects();
+                    hideLoadingOverlay();
+                }, 100);
             });
     }
     
@@ -140,23 +120,132 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Hide loading overlay after everything is set up
-    hideLoadingOverlay();
+    // Project generation
+    function generateProjects() {
+        const projectsGrid = document.getElementById('projects-grid');
+        if (!projectsGrid || !window.PROJECTS_CONFIG) return;
+        
+        // Clear existing content
+        projectsGrid.innerHTML = '';
+        
+        // Group projects by category
+        const categories = {};
+        window.PROJECTS_CONFIG.forEach(project => {
+            if (!project.enabled) return;
+            
+            const categoryName = project.category[currentLanguage] || project.category.en;
+            if (!categories[categoryName]) {
+                categories[categoryName] = [];
+            }
+            categories[categoryName].push(project);
+        });
+        
+        // Generate HTML for each category
+        let animationDelay = 0.1;
+        Object.entries(categories).forEach(([categoryName, projects]) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'project-category';
+            categoryDiv.style.animationDelay = `${animationDelay}s`;
+            animationDelay += 0.1;
+            
+            // Category header
+            const categoryHeader = document.createElement('h2');
+            categoryHeader.textContent = categoryName;
+            categoryDiv.appendChild(categoryHeader);
+            
+            // Project links container
+            const projectLinksDiv = document.createElement('div');
+            projectLinksDiv.className = 'project-links';
+            
+            // Generate each project card
+            projects.forEach(project => {
+                const projectCard = createProjectCard(project);
+                projectLinksDiv.appendChild(projectCard);
+            });
+            
+            categoryDiv.appendChild(projectLinksDiv);
+            projectsGrid.appendChild(categoryDiv);
+        });
+        
+        // Add event listeners to new project cards
+        addProjectEventListeners();
+    }
     
-    // Add hover effects to project links
-    const projectLinks = document.querySelectorAll('.project-link');
+    function createProjectCard(project) {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        
+        // Determine if the project should be disabled
+        const isDisabled = project.status === 'coming-soon' || project.status === 'maintenance';
+        if (isDisabled) {
+            card.classList.add('disabled');
+        }
+        
+        // Project image (optional)
+        let imageHTML = '';
+        if (project.image) {
+            imageHTML = `
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title[currentLanguage] || project.title.en}" loading="lazy">
+                </div>
+            `;
+        }
+        
+        // Status configuration
+        const statusConfig = window.STATUS_CONFIG[project.status] || window.STATUS_CONFIG['coming-soon'];
+        const statusText = statusConfig[currentLanguage] || statusConfig.en;
+        
+        card.innerHTML = `
+            ${imageHTML}
+            <div class="project-content">
+                <div class="project-header">
+                    <div class="project-icon">
+                        <i class="${project.icon}"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">${project.title[currentLanguage] || project.title.en}</h3>
+                        <p class="project-description">${project.description[currentLanguage] || project.description.en}</p>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <span class="project-status ${statusConfig.class}" style="--status-color: ${statusConfig.color}">
+                        ${statusText}
+                    </span>
+                    <button class="project-button ${isDisabled ? 'disabled' : ''}" 
+                            data-url="${project.url}" 
+                            data-project-id="${project.id}"
+                            ${isDisabled ? 'disabled' : ''}>
+                        ${project.buttonText[currentLanguage] || project.buttonText.en}
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        return card;
+    }
     
-    projectLinks.forEach(link => {
-        // Add ripple effect on click for enabled links
-        if (!link.classList.contains('disabled')) {
-            link.addEventListener('click', function(e) {
-                // Create a ripple effect when clicked
+    function addProjectEventListeners() {
+        const projectButtons = document.querySelectorAll('.project-button:not(.disabled)');
+        
+        projectButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.dataset.url;
+                const projectId = this.dataset.projectId;
+                
+                // Analytics tracking
+                gtag('event', 'click', { 
+                    'event_category': 'projects', 
+                    'event_label': projectId 
+                });
+                
+                // Add ripple effect
                 const ripple = document.createElement('span');
                 ripple.classList.add('ripple');
                 ripple.style.cssText = `
                     position: absolute;
                     border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.3);
+                    background: rgba(255, 255, 255, 0.4);
                     transform: scale(0);
                     animation: ripple 0.6s linear;
                     pointer-events: none;
@@ -173,36 +262,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 this.appendChild(ripple);
                 
+                setTimeout(() => ripple.remove(), 600);
+                
+                // Navigate after animation
                 setTimeout(() => {
-                    ripple.remove();
-                }, 600);
+                    if (url && url !== '#') {
+                        if (url.startsWith('http')) {
+                            window.open(url, '_blank');
+                        } else {
+                            window.location.href = url;
+                        }
+                    }
+                }, 200);
             });
-        }
+        });
         
-        // Prevent default action for disabled links
-        if (link.classList.contains('disabled')) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        }
-    });
+        // Add hover effects to project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            if (!card.classList.contains('disabled')) {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    }
     
-    // Add CSS for the ripple animation
-    if (!document.getElementById('ripple-styles')) {
+    // Add CSS for ripple animation and project cards
+    if (!document.getElementById('dynamic-project-styles')) {
         const style = document.createElement('style');
-        style.id = 'ripple-styles';
+        style.id = 'dynamic-project-styles';
         style.textContent = `
             @keyframes ripple {
                 to {
                     transform: scale(2);
                     opacity: 0;
                 }
-            }
-            
-            .project-link {
-                position: relative;
-                overflow: hidden;
             }
         `;
         document.head.appendChild(style);
