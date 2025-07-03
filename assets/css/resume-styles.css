@@ -618,7 +618,8 @@
     .theme-toggle,
     .language-toggle,
     .download-pdf,
-    .back-button {
+    .back-button,
+    .home-button {
         display: none !important;
     }
     
