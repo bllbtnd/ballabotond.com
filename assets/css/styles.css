@@ -61,7 +61,7 @@ body {
     color: var(--accent-color);
     z-index: 100;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 /* Language toggle button - matching elegant styling */
@@ -82,6 +82,7 @@ body {
     color: var(--accent-color);
     z-index: 100;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1.4rem;
 }
 
 /* Add language toggle hover effect */

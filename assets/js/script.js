@@ -105,16 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const primaryBio = document.getElementById('primary-bio');
             const alternateBio = document.getElementById('alternate-bio');
             
-            // Update the language toggle to show the opposite language
-            function updateLanguageToggleText(lang) {
-                const langIndicator = document.querySelector('.language-toggle .lang-indicator');
-                if (langIndicator) {
-                    // If current language is Hungarian (hu), show EN as the option
-                    // If current language is English (en), show HU as the option
-                    langIndicator.textContent = lang === 'hu' ? 'EN' : 'HU';
-                }
-            }
-            
             if (lang === 'hu') {
                 primaryName.textContent = 'Balla Botond';
                 alternateName.textContent = 'Botond Balla';
@@ -124,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (alternateBio) alternateBio.style.display = 'block';
                 
                 document.documentElement.setAttribute('data-language', 'hu');
-                updateLanguageToggleText('hu');
             } else {
                 primaryName.textContent = 'Botond Balla';
                 alternateName.textContent = 'Balla Botond';
@@ -134,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (alternateBio) alternateBio.style.display = 'none';
                 
                 document.documentElement.setAttribute('data-language', 'en');
-                updateLanguageToggleText('en');
             }
             
             // Store the user's language preference
