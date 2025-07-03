@@ -286,6 +286,7 @@ html {
 .social-link:nth-child(6) { animation-delay: 0.6s; }
 .social-link:nth-child(7) { animation-delay: 0.7s; }
 .social-link:nth-child(8) { animation-delay: 0.8s; }
+.social-link:nth-child(9) { animation-delay: 0.9s; }
 
 /* Enhanced mobile styling */
 @media (max-width: 600px) {
@@ -1171,6 +1172,23 @@ html {
 }
 
 .projects-link i {
+    color: #fff !important;
+}
+
+/* Resume link styling */
+.resume-link {
+    background: linear-gradient(145deg, var(--accent-color), var(--hover-color));
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.resume-link:hover {
+    background: linear-gradient(145deg, var(--hover-color), var(--accent-color));
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px var(--deep-shadow);
+}
+
+.resume-link i {
     color: #fff !important;
 }
 
