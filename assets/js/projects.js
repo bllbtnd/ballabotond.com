@@ -63,11 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         currentLanguage = lang;
         document.documentElement.setAttribute('data-language', lang);
         
-        const langIndicator = document.querySelector('.language-toggle .lang-indicator');
-        if (langIndicator) {
-            langIndicator.textContent = lang === 'hu' ? 'EN' : 'HU';
-        }
-        
         document.title = lang === 'hu' ? 'Projektek | Balla Botond' : 'Projects | Balla Botond';
         localStorage.setItem('language', lang);
         
