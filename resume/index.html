@@ -53,6 +53,13 @@
     <link rel="shortcut icon" href="../assets/images/favicon.png">
 </head>
 <body>
+        <!-- Canonical URL enforcement -->
+    <script>
+        // Redirect from /resume/ to /resume (remove trailing slash)
+        if (window.location.pathname.endsWith('/resume/')) {
+            window.history.replaceState(null, null, '/resume');
+        }
+    </script>
     <!-- Loading overlay -->
     <div id="loading-overlay" class="loading-overlay">
         <div class="loader-container">
