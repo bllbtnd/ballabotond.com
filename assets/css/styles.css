@@ -846,9 +846,40 @@ html {
 .page-header {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: clamp(30px, 8vh, 50px);
-    text-align: left;
+    text-align: center;
     animation: fadeIn 1s ease-in-out;
+    position: relative;
+}
+
+/* Back button styles for projects page */
+.back-button {
+    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-color);
+}
+
+.back-link:hover {
+    color: var(--hover-color);
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .profile-image-small {
