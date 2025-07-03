@@ -69,6 +69,10 @@
         </div>
     </div>
 
+    <button id="home-button" class="home-button" aria-label="Go to Home">
+        <i class="fas fa-home"></i>
+    </button>
+
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
         <i class="fas fa-moon"></i>
         <i class="fas fa-sun"></i>
@@ -80,11 +84,6 @@
     
     <div class="container">
         <div class="page-header">
-            <div class="back-button">
-                <a href="../" class="back-link" title="Back to Home">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
             <div class="page-title">
                 <h1 id="projects-title">
                     <span id="projects-title-en">Projects & Links</span>
@@ -116,6 +115,16 @@
         "url": "https://www.ballabotond.com/"
       }
     }
+    </script>
+    
+    <script>
+        // Home button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeButton = document.getElementById('home-button');
+            homeButton.addEventListener('click', function() {
+                window.location.href = '../';
+            });
+        });
     </script>
     
     <script src="../assets/js/projects-config.js"></script>

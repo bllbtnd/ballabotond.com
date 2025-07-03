@@ -62,6 +62,10 @@
         </div>
     </div>
 
+    <button id="home-button" class="home-button" aria-label="Go to Home">
+        <i class="fas fa-home"></i>
+    </button>
+
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
         <i class="fas fa-moon"></i>
         <i class="fas fa-sun"></i>
@@ -77,12 +81,6 @@
     
     <div class="container resume-container">
         <div class="resume-header">
-            <div class="back-button">
-                <a href="../" class="back-link" title="Back to Home">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-            
             <div class="resume-title">
                 <h1 id="resume-title">
                     <span class="title-en">Professional Resume</span>
@@ -195,7 +193,6 @@ Elkötelezett vagyok a folyamatos tanulás és technológiai fejlődés mellett,
                                 <span class="skill-tag">MongoDB</span>
                                 <span class="skill-tag">PostgreSQL</span>
                                 <span class="skill-tag">SQLite</span>
-                                <span class="skill-tag">Apache</span>
                             </div>
                         </div>
                     </div>
@@ -357,14 +354,14 @@ Elkötelezett vagyok a folyamatos tanulás és technológiai fejlődés mellett,
                                             <span class="subject-en">Hungarian Literature</span>
                                             <span class="subject-hu">Magyar nyelv és irodalom</span>
                                         </span>
-                                        <span class="grade">82%</span>
+                                        <span class="grade">83%</span>
                                     </div>
                                     <div class="grade-item">
                                         <span class="subject">
                                             <span class="subject-en">Computer Science (Basic)</span>
                                             <span class="subject-hu">Informatika közép</span>
                                         </span>
-                                        <span class="grade">90%</span>
+                                        <span class="grade">80%</span>
                                     </div>
                                     <div class="grade-item">
                                         <span class="subject">
@@ -480,6 +477,12 @@ Elkötelezett vagyok a folyamatos tanulás és technológiai fejlődés mellett,
     <script>
         // Minimal theme and language handling for resume page
         document.addEventListener('DOMContentLoaded', function() {
+            // Home button functionality
+            const homeButton = document.getElementById('home-button');
+            homeButton.addEventListener('click', function() {
+                window.location.href = '../';
+            });
+            
             // Theme handling
             const themeToggle = document.getElementById('theme-toggle');
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
