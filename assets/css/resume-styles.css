@@ -244,12 +244,29 @@
     color: var(--secondary-text);
 }
 
-.experience-description ul {
+/* Experience and Education description styling - ensure consistent bullet positioning */
+.experience-description ul,
+.education-description ul {
     margin: 0;
     padding-left: 20px;
+    list-style-type: disc;
 }
 
-.experience-description li {
+.experience-description li,
+.education-description li {
+    margin-bottom: 8px;
+    color: var(--secondary-text);
+    line-height: 1.5;
+}
+
+/* Ensure all resume section lists have consistent styling */
+.resume-section ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.resume-section li {
     margin-bottom: 8px;
     color: var(--secondary-text);
     line-height: 1.5;
@@ -437,6 +454,58 @@
     display: list-item;
 }
 
+/* Hobbies section */
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.hobby-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.hobby-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.hobby-item i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.hobby-name {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Language toggle for hobbies */
+.hobby-hu {
+    display: none;
+}
+
+.hobby-en {
+    display: inline;
+}
+
+[data-language="hu"] .hobby-en {
+    display: none;
+}
+
+[data-language="hu"] .hobby-hu {
+    display: inline;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .resume-container {
@@ -622,4 +691,28 @@
     .header-section {
         border-bottom: 1px solid #ccc !important;
     }
+}
+
+/* Company and University link styles */
+.company, .university {
+    font-weight: 600;
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+}
+
+.company:hover, .university:hover {
+    color: var(--hover-color);
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.company:focus, .university:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
