@@ -37,8 +37,8 @@ window.PROJECTS_CONFIG = [
             hu: 'TrackIt'
         },
         description: {
-            en: 'A fitness tracking app for monitoring health and fitness.',
-            hu: 'Egy fitnesz nyomkövető alkalmazás az egészség és a fitnesz nyomon követésére.'
+            en: 'A fitness tracking app for monitoring health.',
+            hu: 'Egy fitnesz nyomkövető alkalmazás az egészség nyomon követésére.'
         },
         buttonText: {
             en: 'Get in touch',
@@ -61,8 +61,8 @@ window.PROJECTS_CONFIG = [
             hu: 'Minecraft Szerver'
         },
         description: {
-            en: 'Private survival server for friends with custom plugins and a welcoming community.',
-            hu: 'Privát túlélő szerver barátoknak egyedi bővítményekkel és barátságos közösséggel.'
+            en: 'Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought "toy", but now quite a few people started playing on it.\nIt runs on a Raspberry Pi 5 on a home network.',
+            hu: 'Privát túlélő szerver barátoknak egyedi bővítményekkel és barátságos közösséggel, amely egy tesztként indult, hogy ellenőrizzem az újonnan vásárolt "játékszer" képességeit, de mostanra már elég sokan elkezdtek játszani rajta.\nRaspberry Pi 5-ön fut a otthoni hálózaton.'
         },
         buttonText: {
             en: 'Copy Server IP',
