@@ -62,7 +62,7 @@ window.PROJECTS_CONFIG = [
         },
         description: {
             en: 'Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought "toy", but now quite a few people started playing on it.<br>It runs on a Raspberry Pi 5 on a home network.',
-            hu: 'Privát túlélő szerver barátoknak egyedi bővítményekkel és barátságos közösséggel, amely egy tesztként indult, hogy ellenőrizzem az újonnan vásárolt "játékszer" képességeit, de mostanra már elég sokan elkezdtek játszani rajta.<br>Raspberry Pi 5-ön fut a otthoni hálózaton.'
+            hu: 'Privát túlélő szerver barátoknak egyedi bővítményekkel és barátságos közösséggel, amely egy tesztként indult, hogy ellenőrizzem az újonnan vásárolt "játékszer" képességeit, de mostanra már elég sokan elkezdtek játszani rajta.<br>Raspberry Pi 5-ön fut, otthoni hálózaton.'
         },
         buttonText: {
             en: 'Copy Server IP',
