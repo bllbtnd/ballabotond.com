@@ -11,7 +11,8 @@ const STORY_FILENAMES_RAW = [
     '2023-05-24-0.png',
     '2023-06-22-0.png',
     '2023-10-14-0.png',
-    '2024-03-29-0.png'
+    '2024-03-29-0.png',
+    '2025-07-28-0.jpeg'
 ];
 
 // Automatically sort stories from newest to oldest based on filename
