@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const startTime = Date.now();
     const minLoadTime = 1500; // Minimum loading time in ms
     
-    // Function to hide loading overlay with minimum duratio
+    // Function to hide loading overlay with minimum duration
     function hideLoadingOverlay() {
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, minLoadTime - elapsedTime);
