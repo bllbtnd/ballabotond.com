@@ -1,6 +1,26 @@
 // 404.js - Custom JS for 404 page
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Theme handling (match system or saved preference)
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme(prefersDarkScheme.matches ? 'dark' : 'light');
+        }
+    }
+    prefersDarkScheme.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+    initializeTheme();
+
     // Optionally, add a subtle fade-in effect
     const content = document.querySelector('.notfound-content');
     if (content) {

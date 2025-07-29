@@ -1,68 +1,96 @@
 html, body {
     height: 100%;
     overflow: hidden !important;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
-/* 404.css - Custom styles for the 404 page */
 .notfound-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--background, #f8f9fa);
+    background: var(--bg-color);
 }
 
-.notfound-content {
-    text-align: center;
-    background: rgba(255,255,255,0.95);
-    border-radius: 18px;
-    box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-    padding: 48px 32px 40px 32px;
-    max-width: 400px;
+.notfound-profile {
+    background: var(--card-color);
+    border-radius: 22px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    padding: clamp(32px, 6vw, 48px) clamp(18px, 5vw, 40px);
+    max-width: 420px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.notfound-image {
-    width: 80px;
-    height: 80px;
+.notfound-profile .profile-image img {
+    width: clamp(100px, 30vw, 130px);
+    height: clamp(100px, 30vw, 130px);
     border-radius: 50%;
-    margin-bottom: 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    padding: 3px;
+    margin-bottom: clamp(15px, 4vh, 25px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    background: var(--card-color);
 }
 
 .notfound-title {
-    font-size: 4rem;
+    font-size: clamp(2.2rem, 7vw, 3.5rem);
     font-weight: 800;
     margin: 0 0 8px 0;
-    color: var(--primary, #222);
+    color: var(--accent-color);
     letter-spacing: 2px;
+    text-shadow: 0 2px 12px var(--shadow-color);
 }
 
 .notfound-subtitle {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
-    margin: 0 0 16px 0;
-    color: var(--secondary, #555);
+    margin: 0 0 18px 0;
+    color: var(--secondary-text);
 }
 
 .notfound-message {
-    font-size: 1.1rem;
-    color: var(--secondary, #666);
+    font-size: 1.08rem;
+    color: var(--secondary-text);
     margin-bottom: 28px;
+    line-height: 1.6;
 }
 
 .notfound-home-link {
     display: inline-block;
-    padding: 10px 28px;
-    background: var(--accent, #222);
+    padding: 12px 32px;
+    background: linear-gradient(145deg, var(--accent-color), var(--hover-color));
     color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1rem;
-    transition: background 0.2s;
+    font-size: 1.08rem;
+    border: none;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.notfound-home-link:hover {
+    background: linear-gradient(145deg, var(--hover-color), var(--accent-color));
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 18px var(--deep-shadow);
 }
 
-.notfound-home-link:hover {
-    background: var(--primary, #444);
+@media (max-width: 600px) {
+    .notfound-profile {
+        padding: 18px 6vw;
+        max-width: 98vw;
+    }
+    .notfound-profile .profile-image img {
+        width: 90px;
+        height: 90px;
+    }
+    .notfound-title {
+        font-size: 2.1rem;
+    }
 }
