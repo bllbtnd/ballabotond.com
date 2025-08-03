@@ -196,7 +196,7 @@ body::before {
 .header-section {
     background: var(--card-color);
     border-radius: 20px;
-    padding: clamp(30px, 5vh, 40px);
+    padding: clamp(40px, 6vh, 60px);
     box-shadow: 
         0 15px 35px rgba(0, 0, 0, 0.4),
         0 0 0 1px var(--border-color);
@@ -216,29 +216,23 @@ body::before {
     background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
 }
 
-.profile-info {
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: clamp(30px, 5vw, 50px);
+}
+
+.profile-section {
     display: flex;
     align-items: center;
-    gap: clamp(25px, 4vw, 40px);
+    gap: clamp(20px, 3vw, 30px);
+    flex: 1;
 }
 
-.profile-image-container {
+.profile-section .profile-image {
     flex-shrink: 0;
     position: relative;
-}
-
-.profile-image-container::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
-    z-index: 1;
-    opacity: 0.3;
-    animation: pulse 4s infinite ease-in-out;
 }
 
 .profile-section .profile-image img {
@@ -260,38 +254,55 @@ body::before {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
 
-.contact-info h2 {
+.profile-details h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
     color: var(--text-color);
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
-.contact-details {
+.profile-details .profile-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--accent-color);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.contact-section {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    align-items: flex-end;
 }
 
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     color: var(--secondary-text);
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
     transition: all 0.3s ease;
+}
+
+.contact-item i {
+    width: 18px;
+    color: var(--accent-color);
+    font-size: 1.1rem;
 }
 
 .contact-item a {
     color: var(--secondary-text);
     text-decoration: none;
     transition: all 0.3s ease;
-    border-radius: 6px;
-    padding: 4px 8px;
-    margin: -4px -8px;
+    font-weight: 500;
+}
+
+.contact-item a:hover {
+    color: var(--accent-color);
 }
 
 .contact-item:hover,
