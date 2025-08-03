@@ -6,12 +6,13 @@
 /* Override base font for luxury typography */
 body {
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: radial-gradient(ellipse at center, #0f0f0f 0%, #0a0a0a 100%);
+    background: var(--bg-color);
     position: relative;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Luxury background effect */
+/* Dark theme luxury background effect */
 body::before {
     content: '';
     position: fixed;
@@ -23,6 +24,8 @@ body::before {
                 radial-gradient(circle at 70% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
 .container {

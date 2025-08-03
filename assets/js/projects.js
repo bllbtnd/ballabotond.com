@@ -23,38 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, remainingTime);
     }
     
-    // Theme handling
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }
-    
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        setTheme(currentTheme === 'light' ? 'dark' : 'light');
-    }
-    
-    function initializeTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else {
-            setTheme(prefersDarkScheme.matches ? 'dark' : 'light');
-        }
-    }
-    
-    themeToggle.addEventListener('click', toggleTheme);
-    prefersDarkScheme.addEventListener('change', function(e) {
-        if (!localStorage.getItem('theme')) {
-            setTheme(e.matches ? 'dark' : 'light');
-        }
-    });
-    
-    initializeTheme();
-    
     // Language handling
     const languageToggle = document.getElementById('language-toggle');
     let currentLanguage = 'en';
