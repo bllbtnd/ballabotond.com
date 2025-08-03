@@ -1348,14 +1348,21 @@ body::before {
         padding: 12px 16px;
     }
 }
-/* Print styles for PDF generation - luxury optimized */
+/* Print styles for PDF generation - Modern & Clean */
 @media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
     body {
         background: white !important;
-        color: black !important;
+        color: #333 !important;
         font-size: 11pt;
         line-height: 1.4;
-        font-family: 'Montserrat', Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
     }
     
     body::before {
@@ -1371,19 +1378,30 @@ body::before {
     
     .resume-container {
         max-width: none;
-        padding: 0;
+        padding: 20mm;
         margin: 0;
+        width: 100%;
     }
     
     .resume-header {
-        margin-bottom: 30px;
-        padding: 20px 0;
+        margin-bottom: 25px;
+        padding: 0 0 20px 0;
+        border-bottom: 3px solid #000;
+        text-align: center;
     }
     
     .resume-header::before {
-        background: #8b1a2a !important;
-        height: 3px;
-        width: 100px;
+        display: none !important;
+    }
+    
+    .resume-title h1 {
+        color: #000 !important;
+        font-size: 24pt;
+        font-weight: 700;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        margin: 0 0 5px 0;
+        letter-spacing: 1px;
     }
     
     .resume-content {
@@ -1402,57 +1420,147 @@ body::before {
     }
     
     .resume-section h3 {
-        color: #8b1a2a !important;
-        font-size: 14pt;
-        font-family: 'Playfair Display', Georgia, serif;
+        color: #000 !important;
+        font-size: 16pt;
+        font-weight: 600;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #000;
+        text-transform: none;
+        letter-spacing: 0;
     }
     
     .resume-section h3::after {
-        background: linear-gradient(to right, #8b1a2a, #d4af37, transparent) !important;
-        height: 2px;
+        display: none !important;
     }
     
     .header-section {
-        background: #f9f9f9 !important;
-        border: 1px solid #ddd !important;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 25px;
+        background: white !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin-bottom: 30px !important;
+        display: block !important;
+        box-shadow: none !important;
     }
     
     .header-section::before {
-        background: #8b1a2a !important;
+        display: none !important;
+    }
+    
+    .header-content {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .profile-info {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 40px !important;
+        flex-direction: row !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+    
+    .profile-section {
+        display: flex !important;
+        align-items: center !important;
+        gap: 25px !important;
+        flex: 1 !important;
     }
     
     .profile-image {
-        width: 80px;
-        height: 80px;
-        border: 2px solid #8b1a2a !important;
+        width: 80px !important;
+        height: 80px !important;
+        border: 2px solid #333 !important;
+        border-radius: 50% !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        background: white !important;
+    }
+    
+    .profile-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 50% !important;
+    }
+    
+    .profile-details {
+        flex: 1 !important;
     }
     
     .contact-info h2 {
-        font-size: 16pt;
-        color: black !important;
-        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 20pt !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        margin: 0 0 6px 0 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: none !important;
+    }
+    
+    .contact-info .profile-title {
+        font-size: 12pt !important;
+        color: #555 !important;
+        font-weight: 400 !important;
+        margin: 0 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        font-style: normal !important;
+    }
+    
+    .contact-details {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        align-items: flex-end !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
     }
     
     .contact-item {
         color: #333 !important;
-        font-size: 10pt;
+        font-size: 10pt !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        font-weight: 400 !important;
     }
     
     .contact-item i {
-        color: #8b1a2a !important;
+        color: #333 !important;
+        width: 12px !important;
+        font-size: 10pt !important;
+        text-align: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .contact-item a {
+        color: #333 !important;
+        text-decoration: none !important;
+        font-weight: 400 !important;
+    }
+    
+    .skills-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid;
     }
     
     .skill-category {
-        background: #f9f9f9 !important;
-        border: 1px solid #ddd !important;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 15px;
+        background: white !important;
+        border: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        margin-bottom: 15px !important;
         box-shadow: none !important;
+        page-break-inside: avoid;
     }
     
     .skill-category::before {
@@ -1460,17 +1568,35 @@ body::before {
     }
     
     .skill-category h4 {
-        color: black !important;
-        font-size: 11pt;
-        font-family: 'Playfair Display', Georgia, serif;
+        color: #000 !important;
+        font-size: 11pt !important;
+        font-weight: 600 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        margin-bottom: 8px !important;
+        border-bottom: 1px solid #ccc !important;
+        padding-bottom: 3px !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+    }
+    
+    .skill-tags {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4px !important;
     }
     
     .skill-tag {
-        background: #8b1a2a !important;
-        color: white !important;
-        padding: 4px 8px;
-        font-size: 9pt;
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        padding: 2px 6px !important;
+        font-size: 9pt !important;
         box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        border-radius: 2px !important;
+        margin: 0 !important;
+        display: inline-block !important;
+        font-weight: 400 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .skill-tag::before {
@@ -1479,71 +1605,129 @@ body::before {
     
     .experience-item,
     .education-item {
-        background: #f9f9f9 !important;
-        border: 1px solid #ddd !important;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
+        background: white !important;
+        border: none !important;
+        border-left: 3px solid #333 !important;
+        padding: 12px 0 12px 15px !important;
+        margin-bottom: 18px !important;
+        border-radius: 0 !important;
         box-shadow: none !important;
+        page-break-inside: avoid;
     }
     
     .experience-item::before,
     .education-item::before {
-        background: #8b1a2a !important;
-        height: 3px;
-        transform: translateX(0) !important;
+        display: none !important;
+    }
+    
+    .experience-header,
+    .education-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        margin-bottom: 8px !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
     }
     
     .experience-header h4,
     .education-header h4 {
-        color: black !important;
-        font-size: 12pt;
-        font-family: 'Playfair Display', Georgia, serif;
+        color: #000 !important;
+        font-size: 12pt !important;
+        font-weight: 600 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        margin: 0 !important;
+        flex: 1 !important;
+        min-width: 200px !important;
+    }
+    
+    .experience-meta,
+    .education-meta {
+        text-align: right !important;
+        flex-shrink: 0 !important;
     }
     
     .company,
     .university {
-        color: #8b1a2a !important;
+        color: #333 !important;
         background: transparent !important;
         border: none !important;
         padding: 0 !important;
         margin: 0 !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+        font-size: 10pt !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .date {
         color: #666 !important;
-        font-size: 9pt;
+        font-size: 9pt !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        margin-top: 2px !important;
+    }
+    
+    .experience-description ul,
+    .education-description ul,
+    .resume-section ul {
+        margin: 0 !important;
+        padding-left: 0 !important;
+        list-style: none !important;
     }
     
     .experience-description li,
     .education-description li,
     .resume-section li {
         color: #333 !important;
-        font-size: 10pt;
-        padding-left: 15px;
+        font-size: 9pt !important;
+        margin-bottom: 3px !important;
+        padding-left: 12px !important;
+        line-height: 1.3 !important;
+        position: relative !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .experience-description li::before,
     .education-description li::before,
     .resume-section li::before {
-        background: #8b1a2a !important;
-        box-shadow: none !important;
-        width: 4px;
-        height: 4px;
-        top: 8px;
+        content: "•" !important;
+        color: #333 !important;
+        font-weight: bold !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        font-size: 9pt !important;
     }
     
     .education-description p {
         color: #333 !important;
-        font-size: 10pt;
+        font-size: 9pt !important;
+        line-height: 1.3 !important;
+        margin: 0 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    
+    .languages-grid,
+    .hobbies-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+        margin-bottom: 15px !important;
     }
     
     .language-item,
     .hobby-item {
-        background: #f9f9f9 !important;
-        border: 1px solid #ddd !important;
+        background: white !important;
+        border: none !important;
+        border-bottom: 1px solid #ddd !important;
         box-shadow: none !important;
-        padding: 10px 15px;
+        padding: 6px 0 !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
     }
     
     .language-item::before,
@@ -1553,30 +1737,52 @@ body::before {
     
     .language-name,
     .hobby-name {
-        color: black !important;
-        font-size: 10pt;
+        color: #333 !important;
+        font-size: 9pt !important;
+        font-weight: 500 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .language-level {
-        color: #8b1a2a !important;
-        font-size: 10pt;
+        color: #666 !important;
+        font-size: 8pt !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    
+    .hobby-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        justify-content: flex-start !important;
     }
     
     .hobby-item i {
-        color: #8b1a2a !important;
+        color: #333 !important;
+        margin-right: 0 !important;
+        font-size: 9pt !important;
+        width: 12px !important;
+        text-align: center !important;
     }
     
-    .resume-title h1 {
-        color: black !important;
-        font-size: 18pt;
-        font-family: 'Playfair Display', Georgia, serif;
+    .grades-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+        margin-top: 12px !important;
     }
     
     .grade-item {
-        background: #f9f9f9 !important;
-        border: 1px solid #ddd !important;
+        background: white !important;
+        border: none !important;
+        border-bottom: 1px solid #ddd !important;
         box-shadow: none !important;
-        padding: 8px 12px;
+        padding: 4px 0 !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
     }
     
     .grade-item::before {
@@ -1584,22 +1790,55 @@ body::before {
     }
     
     .grade-item .subject {
-        color: black !important;
-        font-size: 10pt;
+        color: #333 !important;
+        font-size: 9pt !important;
+        font-weight: 500 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .grade-item .grade {
-        color: #8b1a2a !important;
-        font-size: 10pt;
+        color: #000 !important;
+        font-size: 9pt !important;
+        font-weight: 600 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
     
     .grades-section {
         border-top: 1px solid #ddd !important;
+        padding-top: 8px !important;
+        margin-top: 12px !important;
     }
     
     .grades-section h5 {
-        color: black !important;
-        font-size: 11pt;
-        font-family: 'Playfair Display', Georgia, serif;
+        color: #000 !important;
+        font-size: 10pt !important;
+        font-weight: 600 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        text-transform: none !important;
+        margin-bottom: 8px !important;
+        letter-spacing: 0 !important;
+    }
+    
+    /* Page break optimization */
+    .resume-section:last-child {
+        page-break-after: avoid;
+    }
+    
+    .experience-item:last-child,
+    .education-item:last-child {
+        page-break-after: avoid;
+    }
+    
+    /* Ensure proper margins for printing */
+    @page {
+        margin: 20mm;
+        size: A4;
+    }
+    
+    /* Hide web-specific elements */
+    .back-button,
+    .download-pdf,
+    .language-toggle {
+        display: none !important;
     }
 }
