@@ -1,75 +1,156 @@
-/* ===== HOME PAGE STYLES ===== */
+/* ===== LUXURY HOME PAGE STYLES - JACOB & CO INSPIRED ===== */
 
+/* Import luxury fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* Override base font for luxury typography */
+body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: radial-gradient(ellipse at center, #0f0f0f 0%, #0a0a0a 100%);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Luxury background effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Luxury profile section */
 .profile {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: clamp(20px, 8vh, 60px);
+    margin-bottom: clamp(40px, 8vh, 80px);
     text-align: center;
     animation: fadeIn 1s ease-in-out;
+    position: relative;
+}
+
+.profile-image {
+    position: relative;
+    margin-bottom: clamp(25px, 4vh, 40px);
 }
 
 .profile-image img {
-    width: clamp(100px, 30vw, 150px);
-    height: clamp(100px, 30vw, 150px);
+    width: clamp(140px, 30vw, 200px);
+    height: clamp(140px, 30vw, 200px);
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--accent-color);
-    padding: 3px;
-    margin-bottom: clamp(15px, 4vh, 25px);
+    border: 4px solid var(--accent-color);
+    padding: 4px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 8px rgba(212, 175, 55, 0.1);
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
 }
 
-.profile-image img:hover {
+.profile-image::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    z-index: 1;
+    opacity: 0.3;
+    animation: pulse 4s infinite ease-in-out;
+}
+
+.profile-image:hover img {
     transform: scale(1.05);
-    box-shadow: 0 8px 25px var(--deep-shadow);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 12px rgba(212, 175, 55, 0.2);
 }
 
 .profile-name h1 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    margin-bottom: 10px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: var(--text-color);
+    position: relative;
+    cursor: pointer;
 }
 
 .profile-name p {
     color: var(--secondary-text);
-    margin-bottom: 20px;
-    font-weight: 400;
-    letter-spacing: 0.01em;
+    margin-bottom: 30px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.8;
+    max-width: 800px;
+    text-align: justify;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Social links - sophisticated redesign */
+/* Luxury social links */
 .social-links {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(14px, 2.5vh, 18px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(20px, 3vh, 25px);
     width: 100%;
-    max-width: 95%;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .social-link {
     display: flex;
     align-items: center;
-    background: linear-gradient(145deg, var(--card-color), var(--card-color) 80%, var(--card-color) 100%);
+    background: var(--card-color);
     color: var(--text-color);
     text-decoration: none;
-    padding: clamp(14px, 3vh, 18px) clamp(18px, 4vw, 26px);
-    border-radius: 14px;
+    padding: clamp(18px, 3vh, 24px) clamp(24px, 4vw, 32px);
+    border-radius: 15px;
     font-weight: 500;
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    box-shadow: 0 4px 12px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 0 0 1px var(--border-color);
     border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
-    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
-    animation: slideIn 0.5s ease-in-out forwards;
-    opacity: 0; /* Start invisible and fade in with animation */
+    -webkit-tap-highlight-color: transparent;
+    animation: slideIn 0.6s ease-in-out forwards;
+    opacity: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .social-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+.social-link::after {
     content: "";
     position: absolute;
     top: 0;
@@ -79,45 +160,88 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.05),
+        rgba(212, 175, 55, 0.1),
         transparent
     );
-    transition: left 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: left 0.7s ease;
 }
 
 .social-link:hover {
-    background: linear-gradient(145deg, var(--hover-color), var(--hover-color) 90%);
-    color: #fff;
-    border-color: transparent;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px var(--deep-shadow), inset 0 1px 0 rgba(255,255,255,0.1);
+    background: linear-gradient(135deg, var(--card-color), #252525);
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px var(--accent-color);
 }
 
 .social-link:hover::before {
+    transform: translateX(0);
+}
+
+.social-link:hover::after {
     left: 100%;
 }
 
 .social-link i {
-    font-size: clamp(1.2rem, 4vw, 1.5rem);
-    margin-right: clamp(12px, 3vw, 18px);
-    min-width: 24px;
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
+    margin-right: clamp(16px, 3vw, 24px);
+    min-width: 30px;
     text-align: center;
     color: var(--accent-color);
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .social-link:hover i {
-    color: #fff;
+    color: var(--premium-gold);
     transform: scale(1.1);
 }
 
 .social-link span {
-    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    font-size: clamp(1rem, 3vw, 1.2rem);
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
-/* Custom styling for each social link */
+/* Premium projects and resume links */
+.projects-link,
+.resume-link {
+    background: linear-gradient(135deg, var(--accent-color), var(--dark-gold));
+    color: var(--bg-color) !important;
+    font-weight: 600;
+    box-shadow: 
+        0 8px 25px rgba(212, 175, 55, 0.4),
+        0 0 0 1px var(--accent-color);
+}
+
+.projects-link::before,
+.resume-link::before {
+    background: linear-gradient(90deg, var(--premium-gold), var(--accent-color));
+}
+
+.projects-link:hover,
+.resume-link:hover {
+    background: linear-gradient(135deg, var(--premium-gold), var(--accent-color));
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 50px rgba(212, 175, 55, 0.5),
+        0 0 0 1px var(--premium-gold);
+}
+
+.projects-link i,
+.resume-link i {
+    color: var(--bg-color) !important;
+}
+
+.projects-link:hover i,
+.resume-link:hover i {
+    color: var(--bg-color) !important;
+    transform: scale(1.2);
+}
+
+/* Staggered animation delays */
 .social-link:nth-child(1) { animation-delay: 0.1s; }
 .social-link:nth-child(2) { animation-delay: 0.2s; }
 .social-link:nth-child(3) { animation-delay: 0.3s; }
@@ -127,38 +251,19 @@
 .social-link:nth-child(7) { animation-delay: 0.7s; }
 .social-link:nth-child(8) { animation-delay: 0.8s; }
 .social-link:nth-child(9) { animation-delay: 0.9s; }
+.social-link:nth-child(10) { animation-delay: 1.0s; }
 
-/* Enhanced mobile styling */
-@media (max-width: 600px) {
-    .social-link {
-        padding: 16px 20px;
-        margin-bottom: 2px; /* Creates subtle stacking effect */
-        opacity: 1 !important;
-    }
-    
-    .social-link:active {
-        transform: translateY(1px);
-        transition: transform 0.1s;
-    }
-}
-
-/* Add these styles for smooth name loading */
-.name-display.loading {
-    visibility: hidden;
-    opacity: 0;
-}
-
-.name-display.loaded {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
-
-/* Existing name hover styles */
+/* Name hover effect - luxury style */
 .name-display {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.name-display:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
 
 .alternate-name {
@@ -167,7 +272,8 @@
     left: 0;
     width: 100%;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
+    color: var(--accent-color);
 }
 
 .name-display:hover .alternate-name {
@@ -179,15 +285,10 @@
 }
 
 #primary-name {
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
 }
 
-/* Ensure social links are always visible when loaded */
-.container.loaded .social-link {
-    opacity: 1;
-}
-
-/* Stories Modal */
+/* Luxury Stories Modal */
 .stories-modal {
     display: none;
     position: fixed;
@@ -197,24 +298,27 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 1000;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
 }
 
 .stories-modal.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out;
 }
 
 .stories-container {
     position: relative;
-    width: min(400px, 90vw);
-    height: min(700px, 85vh);
+    width: min(420px, 90vw);
+    height: min(750px, 85vh);
     background: var(--card-color);
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px var(--accent-color);
+    border: 2px solid var(--accent-color);
 }
 
 .stories-header {
@@ -223,72 +327,77 @@
     left: 0;
     right: 0;
     z-index: 10;
-    padding: 20px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    padding: 25px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
 }
 
 .story-progress-bars {
     display: flex;
-    gap: 4px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 20px;
 }
 
 .story-progress-bar {
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
+    height: 4px;
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 3px;
     flex: 1;
     overflow: hidden;
 }
 
 .story-progress-fill {
     height: 100%;
-    background: white;
+    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
     width: 0%;
     transition: width 0.1s linear;
-    border-radius: 2px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 .story-date {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 25px;
+    right: 25px;
     color: white;
     font-size: 14px;
     font-weight: 500;
     text-align: center;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 8px 16px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    opacity: 0.8;
-    letter-spacing: 0.5px;
-    font-family: inherit;
-    width: auto;
-    max-width: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(15px);
+    opacity: 0.9;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    border: 1px solid rgba(212, 175, 55, 0.3);
     z-index: 1002;
 }
 
 .stories-close {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 30px;
+    top: 20px;
+    right: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    font-size: 24px;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .stories-close:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: var(--accent-color);
+    color: var(--bg-color);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 .stories-content {
@@ -307,7 +416,7 @@
     object-position: center;
     user-select: none;
     -webkit-user-drag: none;
-    transition: opacity 0.3s ease, filter 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transition: opacity 0.4s ease, filter 0.3s ease;
 }
 
 .story-navigation {
@@ -326,112 +435,185 @@
     background: transparent;
     border: none;
     z-index: 5;
+    transition: background 0.2s ease;
 }
 
 .story-nav-left:active,
 .story-nav-right:active {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(212, 175, 55, 0.1);
 }
 
-/* Stories feature - no visual changes to profile image */
-.profile-image img {
-    cursor: pointer;
+/* Mobile optimizations for luxury design */
+@media (max-width: 768px) {
+    .social-links {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        max-width: 95%;
+    }
+    
+    .social-link {
+        padding: 20px 24px;
+        opacity: 1 !important;
+        animation: none;
+    }
+    
+    .social-link:active {
+        transform: translateY(2px);
+        transition: transform 0.1s;
+    }
+    
+    .profile-name p {
+        text-align: center;
+        padding: 0 10px;
+    }
 }
 
-/* Dark theme adjustments */
-[data-theme="light"] .stories-container {
-    background: white;
+@media (max-width: 600px) {
+    .profile {
+        margin-bottom: clamp(25px, 6vh, 50px);
+    }
+    
+    .profile-image img {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .profile-name h1 {
+        font-size: 2rem;
+    }
+    
+    .social-link span {
+        font-size: 1rem;
+    }
+    
+    .social-link i {
+        font-size: 1.4rem;
+        margin-right: 20px;
+    }
 }
 
-/* Mobile optimizations */
 @media (max-width: 480px) {
     .stories-container {
         width: 100vw;
         height: 100vh;
         border-radius: 0;
+        border: none;
     }
     
     .stories-header {
-        padding: 15px;
+        padding: 20px;
     }
     
     .stories-close {
-        top: 10px;
-        right: 15px;
+        top: 15px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
     }
-}
-
-/* Projects link styling */
-.projects-link {
-    background: linear-gradient(145deg, var(--accent-color), var(--hover-color));
-    color: #fff !important;
-    font-weight: 600;
-}
-
-.projects-link:hover {
-    background: linear-gradient(145deg, var(--hover-color), var(--accent-color));
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px var(--deep-shadow);
-}
-
-.projects-link i {
-    color: #fff !important;
-}
-
-/* Resume link styling */
-.resume-link {
-    background: linear-gradient(145deg, var(--accent-color), var(--hover-color));
-    color: #fff !important;
-    font-weight: 600;
-}
-
-.resume-link:hover {
-    background: linear-gradient(145deg, var(--hover-color), var(--accent-color));
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px var(--deep-shadow);
-}
-
-.resume-link i {
-    color: #fff !important;
-}
-
-/* Mobile specific adjustments for home page */
-@media (max-width: 600px) {
-    .profile {
-        margin-bottom: clamp(15px, 6vh, 35px);
+    
+    .story-date {
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        font-size: 12px;
     }
     
     .profile-image img {
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
+    }
+    
+    .profile-name h1 {
+        font-size: 1.8rem;
+    }
+    
+    .social-link {
+        padding: 18px 20px;
+        border-radius: 12px;
+    }
+    
+    .social-link i {
+        font-size: 1.3rem;
+        margin-right: 18px;
+    }
+    
+    .social-link span {
+        font-size: 0.95rem;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .profile {
+        margin-bottom: 25px;
+    }
+    
+    .profile-image img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
     }
     
     .profile-name h1 {
         font-size: 1.5rem;
-    }
-}
-
-/* Landscape orientation for home page */
-@media (max-height: 500px) and (orientation: landscape) {
-    .profile {
-        margin-bottom: 20px;
-    }
-    
-    .profile-image img {
-        width: 80px;
-        height: 80px;
         margin-bottom: 10px;
-    }
-    
-    .profile-name h1 {
-        font-size: 1.3rem;
     }
     
     .profile-name p {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        font-size: 0.95rem;
     }
     
     .social-links {
-        gap: 10px;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+    
+    .social-link {
+        padding: 12px 18px;
+    }
+    
+    .social-link i {
+        font-size: 1.2rem;
+        margin-right: 15px;
+    }
+    
+    .social-link span {
+        font-size: 0.9rem;
+    }
+}
+
+/* Light theme adjustments for luxury */
+[data-theme="light"] .stories-container {
+    background: white;
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.3),
+        0 0 0 1px var(--accent-color);
+}
+
+[data-theme="light"] .stories-close {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+}
+
+[data-theme="light"] .stories-close:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+/* Ensure loading state works with luxury design */
+.name-display.loading {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.name-display.loaded {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.container.loaded .social-link {
+    opacity: 1;
 }
