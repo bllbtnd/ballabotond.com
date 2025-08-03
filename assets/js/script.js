@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loadingOverlay = document.getElementById('loading-overlay');
-    const contentContainer = document.querySelector('.container');
     
     // Initialize stories
     const storiesViewer = new StoriesViewer();
@@ -16,12 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         setTimeout(() => {
             loadingOverlay.classList.add('hidden');
-            contentContainer.classList.add('loaded');
-            
-            // Force social links to be visible
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.style.opacity = '1';
-            });
             
             // Remove overlay from DOM after transition completes
             setTimeout(() => {
@@ -92,41 +85,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle name and bio display based on location
     function setNameBasedOnLocation() {
-        const nameDisplay = document.getElementById('name-display');
-        nameDisplay.classList.add('loading');
-        
         // Language toggle functionality
         const languageToggle = document.getElementById('language-toggle');
         
         // Function to set language
         function setLanguage(lang) {
-            const primaryName = document.getElementById('primary-name');
-            const alternateName = document.getElementById('alternate-name');
-            const primaryBio = document.getElementById('primary-bio');
-            const alternateBio = document.getElementById('alternate-bio');
-            
-            if (lang === 'hu') {
-                primaryName.textContent = 'Balla Botond';
-                alternateName.textContent = 'Botond Balla';
-                document.title = 'Balla Botond';
-                
-                if (primaryBio) primaryBio.style.display = 'none';
-                if (alternateBio) alternateBio.style.display = 'block';
-                
-                document.documentElement.setAttribute('data-language', 'hu');
-            } else {
-                primaryName.textContent = 'Botond Balla';
-                alternateName.textContent = 'Balla Botond';
-                document.title = 'Botond Balla';
-                
-                if (primaryBio) primaryBio.style.display = 'block';
-                if (alternateBio) alternateBio.style.display = 'none';
-                
-                document.documentElement.setAttribute('data-language', 'en');
-            }
-            
-            // Store the user's language preference
+            document.documentElement.setAttribute('data-language', lang);
             localStorage.setItem('language', lang);
+            
+            // Update title
+            if (lang === 'hu') {
+                document.title = 'Balla Botond | Fejlesztő & Alkotó';
+            } else {
+                document.title = 'Botond Balla | Developer & Creator';
+            }
         }
         
         // Check for user's language preference
@@ -152,12 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         setLanguage('en');
                     }
                     
-                    // Show the name with a fade-in effect once it's ready
-                    setTimeout(() => {
-                        nameDisplay.classList.remove('loading');
-                        nameDisplay.classList.add('loaded');
-                    }, 100);
-                    
                     // Mark location as loaded
                     locationLoaded = true;
                     
@@ -168,20 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     console.error('Error detecting location:', error);
-                    // Default to international format if there's an error
-                    primaryName.textContent = 'Botond Balla';
-                    alternateName.textContent = 'Balla Botond';
-                    document.title = 'Botond Balla';
-                    
-                    // Default to English bio
-                    if (primaryBio) primaryBio.style.display = 'block';
-                    if (alternateBio) alternateBio.style.display = 'none';
-                    
-                    // Show the name even in case of error
-                    setTimeout(() => {
-                        nameDisplay.classList.remove('loading');
-                        nameDisplay.classList.add('loaded');
-                    }, 100);
+                    // Default to English
+                    setLanguage('en');
                     
                     // Mark location as loaded even in case of error
                     locationLoaded = true;
@@ -194,12 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Use user's stored language preference
             setLanguage(userLanguage);
-            
-            // Show the name with a fade-in effect
-            setTimeout(() => {
-                nameDisplay.classList.remove('loading');
-                nameDisplay.classList.add('loaded');
-            }, 100);
             
             // Mark location loaded
             locationLoaded = true;
@@ -219,45 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!locationLoaded) {
             locationLoaded = true;
             hideLoadingOverlay();
-            
-            // Show default name if location failed
-            const nameDisplay = document.getElementById('name-display');
-            if (nameDisplay.classList.contains('loading')) {
-                nameDisplay.classList.remove('loading');
-                nameDisplay.classList.add('loaded');
-            }
-            
-            // Force social links to be visible after delay
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.style.opacity = '1';
-            });
         }
     }, 3000); // Reduce fallback time from 5s to 3s for better user experience
-    
-    // Add subtle hover effect to social links
-    const socialLinks = document.querySelectorAll('.social-link');
-    
-    socialLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // Create a ripple effect when clicked
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-    
-    // Add CSS for the alternate bio
-    document.head.insertAdjacentHTML('beforeend', `
-        <style>
-            .alternate-bio {
-                display: none;
-            }
-        </style>
-    `);
 });
 
 // Stories functionality
@@ -300,8 +211,11 @@ class StoriesViewer {
         const storyFilenames = window.STORY_FILENAMES || [];
         
         if (storyFilenames.length === 0) {
+            console.log('No stories found in configuration');
             return;
         }
+        
+        console.log('Loading stories:', storyFilenames.length, 'stories found');
         
         // Create story objects immediately without waiting for images to load
         this.stories = storyFilenames.map(filename => ({
@@ -448,12 +362,26 @@ class StoriesViewer {
     }
     
     setupEventListeners() {
+        // Check if profile image exists
+        if (!this.profileImage) {
+            console.error('Profile image element not found');
+            return;
+        }
+        
         // Profile image click to open stories
         this.profileImage.addEventListener('click', () => {
             if (this.stories.length > 0) {
                 this.openStories();
+            } else {
+                console.log('No stories available to display');
             }
         });
+        
+        // Check if required modal elements exist
+        if (!this.modal || !this.closeBtn || !this.currentStoryImg) {
+            console.error('Required modal elements not found');
+            return;
+        }
         
         // Close button
         this.closeBtn.addEventListener('click', () => {

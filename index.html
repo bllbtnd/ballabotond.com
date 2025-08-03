@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Balla Botond | Personal Website</title>
+    <title>Balla Botond | Developer & Creator</title>
     <meta name="description" content="Balla Botond - Developer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.">
     <meta name="keywords" content="Balla Botond, Botond Balla, developer, software developer, web developer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti">
     <meta name="author" content="Balla Botond">
@@ -48,8 +48,13 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.ballabotond.com/">
     
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/home-new.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Add favicon -->
     <link rel="icon" href="assets/images/favicon.png" type="image/png">
@@ -67,81 +72,180 @@
         </div>
     </div>
 
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-    </button>
-
-    <button id="language-toggle" class="language-toggle" aria-label="Toggle language">
-        <i class="fas fa-globe"></i>
-    </button>
-    
-    <div class="container">
-        <div class="profile">
-            <div class="profile-image" id="profile-image">
-                <img src="assets/images/image.png" alt="Balla Botond Profile Picture">
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span id="nav-name" class="nav-name">
+                    <span id="nav-primary-name" class="primary">BOTOND BALLA</span>
+                    <span id="nav-alternate-name" class="alternate">BALLA BOTOND</span>
+                </span>
             </div>
-            <div class="profile-name">
-                <h1 id="name-display" class="name-display">
-                    <span id="primary-name">Botond Balla</span>
-                    <span id="alternate-name" class="alternate-name">Balla Botond</span>
-                </h1>
-                <div id="bio-container">
-                    <p id="primary-bio">With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal. My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things-whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow. For me, quality is never accidental; it's the result of intention, care, and an appreciation for the details that stand the test of time.</p>
-                    <p id="alternate-bio" class="alternate-bio">Mind munkám, mind szabadidőm során előnyben részesítem az alaposan átgondolt és időtálló megoldásokat. Projektjeim tükrözik a bevált módszerek iránti tiszteletemet, ötvözve az innovációra és precizitásra való törekvéssel. Inspirációt találok a jól elkészített dolgok mögötti szakértelemben – legyen szó egy robusztus alkalmazás struktúrájáról, egy ritka whisky összetett ízvilágáról, vagy a fény és árnyék játékáról. Számomra a minőség soha nem véletlen; az szándékosság, törődés és a részletek megbecsülésének eredménye, amelyek kiállják az idő próbáját.</p>
+            <div class="nav-menu">
+                <a href="projects" class="nav-link">
+                    <span class="link-en">PROJECTS</span>
+                    <span class="link-hu">PROJEKTEK</span>
+                </a>
+                <a href="resume" class="nav-link">
+                    <span class="link-en">RESUME</span>
+                    <span class="link-hu">ÖNÉLETRAJZ</span>
+                </a>
+                <a href="mailto:ballabotond@ballabotond.com" class="nav-link">CONTACT</a>
+            </div>
+            <div class="nav-controls">
+                <button id="theme-toggle" class="control-btn" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="language-toggle" class="control-btn" aria-label="Toggle language">
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="tagline">
+                        <span class="tagline-en">INSPIRED BY THE IMPOSSIBLE</span>
+                        <span class="tagline-hu">A LEHETETLENBŐL MERÍTVE ERŐT</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span id="hero-name" class="hero-name">
+                            <span id="hero-primary-name" class="primary">Botond Balla</span>
+                            <span id="hero-alternate-name" class="alternate">Balla Botond</span>
+                        </span>
+                    </h1>
+                    <div class="hero-subtitle">
+                        <span class="subtitle-en">Developer & Creator</span>
+                        <span class="subtitle-hu">Fejlesztő & Alkotó</span>
+                    </div>
+                    <div class="hero-description">
+                        <p id="hero-bio">
+                            <span class="bio-en">With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal.</span>
+                            <span class="bio-hu">Mind munkám, mind szabadidőm során előnyben részesítem az alaposan átgondolt és időtálló megoldásokat.</span>
+                        </p>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="projects" class="cta-btn primary">
+                            <span class="btn-en">DISCOVER PROJECTS</span>
+                            <span class="btn-hu">PROJEKTEK FELFEDEZÉSE</span>
+                        </a>
+                        <a href="resume" class="cta-btn secondary">
+                            <span class="btn-en">VIEW RESUME</span>
+                            <span class="btn-hu">ÖNÉLETRAJZ MEGTEKINTÉSE</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-image-wrapper" id="profile-image">
+                        <img src="assets/images/image.png" alt="Balla Botond Profile Picture" class="profile-image">
+                        <div class="image-overlay"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="social-links">
-            <a onclick="gtag('event', 'click', { 'event_category': 'navigation', 'event_label': 'projects_page' });" href="projects" class="social-link projects-link">
-                <i class="fas fa-folder-open"></i>
-                <span id="projects-link-text">
-                    <span class="link-en">Projects</span>
-                    <span class="link-hu">Projektek</span>
-                </span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'navigation', 'event_label': 'resume_page' });" href="resume" class="social-link resume-link">
-                <i class="fas fa-file-alt"></i>
-                <span id="resume-link-text">
-                    <span class="link-en">Resume</span>
-                    <span class="link-hu">Önéletrajz</span>
-                </span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Email' });" href="mailto:ballabotond@ballabotond.com" class="social-link">
-                <i class="fas fa-envelope"></i>
-                <span>Email</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Signal' });" href="https://signal.me/#eu/botond.25" class="social-link" target="_blank">
-                <i class="fa-brands fa-signal-messenger"></i>
-                <span>Signal</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'GitHub' });" href="https://github.com/bllbtnd" class="social-link" target="_blank">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Facebook' });" href="https://facebook.com/bllbtnd" class="social-link" target="_blank">
-                <i class="fab fa-facebook"></i>
-                <span>Facebook</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Instagram' });" href="https://instagram.com/balla.botond" class="social-link" target="_blank">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'YouTube' });" href="https://youtube.com/@bllbtnd" class="social-link" target="_blank">
-                <i class="fab fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Hevy' });" href="https://hevy.com/user/bllbtnd" class="social-link" target="_blank">
-                <i class="fas fa-dumbbell"></i>
-                <span>Hevy</span>
-            </a>
-            <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Twitter' });" href="https://twitter.com/bllbtnd" class="social-link" target="_blank">
-                <i class="fa-brands fa-x-twitter"></i>
-                <span>X (Twitter)</span>
-            </a>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured">
+        <div class="featured-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-en">THE DRIVING FORCE</span>
+                    <span class="title-hu">A HAJTÓERŐ</span>
+                </h2>
+                <div class="section-subtitle">
+                    <span class="subtitle-en">Creativity and Innovation</span>
+                    <span class="subtitle-hu">Kreativitás és Innováció</span>
+                </div>
+            </div>
+            <div class="featured-content">
+                <div class="featured-description">
+                    <p class="featured-text">
+                        <span class="text-en">My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things—whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow.</span>
+                        <span class="text-hu">Projektjeim tükrözik a bevált módszerek iránti tiszteletemet, ötvözve az innovációra és precizitásra való törekvéssel. Inspirációt találok a jól elkészített dolgok mögötti szakértelemben.</span>
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="connect">
+        <div class="connect-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-en">CONNECT</span>
+                    <span class="title-hu">KAPCSOLAT</span>
+                </h2>
+            </div>
+            <div class="social-grid">
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Email' });" href="mailto:ballabotond@ballabotond.com" class="social-card">
+                    <div class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>Email</h3>
+                        <p>ballabotond@ballabotond.com</p>
+                    </div>
+                </a>
+                
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'GitHub' });" href="https://github.com/bllbtnd" class="social-card" target="_blank">
+                    <div class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>GitHub</h3>
+                        <p>@bllbtnd</p>
+                    </div>
+                </a>
+                
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Signal' });" href="https://signal.me/#eu/botond.25" class="social-card" target="_blank">
+                    <div class="social-icon">
+                        <i class="fa-brands fa-signal-messenger"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>Signal</h3>
+                        <p>botond.25</p>
+                    </div>
+                </a>
+                
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Instagram' });" href="https://instagram.com/balla.botond" class="social-card" target="_blank">
+                    <div class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>Instagram</h3>
+                        <p>@balla.botond</p>
+                    </div>
+                </a>
+                
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'YouTube' });" href="https://youtube.com/@bllbtnd" class="social-card" target="_blank">
+                    <div class="social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>YouTube</h3>
+                        <p>@bllbtnd</p>
+                    </div>
+                </a>
+                
+                <a onclick="gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Twitter' });" href="https://twitter.com/bllbtnd" class="social-card" target="_blank">
+                    <div class="social-icon">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
+                    <div class="social-info">
+                        <h3>X (Twitter)</h3>
+                        <p>@bllbtnd</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
     
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">

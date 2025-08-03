@@ -43,8 +43,13 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.ballabotond.com/projects">
     
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/projects.css">
+    <link rel="stylesheet" href="../assets/css/projects-new.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Add favicon -->
     <link rel="icon" href="../assets/images/favicon.png" type="image/png">
@@ -70,37 +75,66 @@
         </div>
     </div>
 
-    <button id="home-button" class="home-button" aria-label="Go to Home">
-        <i class="fas fa-home"></i>
-    </button>
-
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-    </button>
-
-    <button id="language-toggle" class="language-toggle" aria-label="Toggle language">
-        <i class="fas fa-globe"></i>
-    </button>
-    
-    <div class="container">
-        <div class="page-header">
-            <div class="page-title">
-                <h1 id="projects-title">
-                    <span id="projects-title-en">Projects & Links</span>
-                    <span id="projects-title-hu" class="alternate-title">Projektek & Hivatkozások</span>
-                </h1>
-                <p id="projects-subtitle">
-                    <span id="projects-subtitle-en">Creative endeavors, useful tools, and places to connect</span>
-                    <span id="projects-subtitle-hu" class="alternate-subtitle">Kreatív munkák, hasznos eszközök és kapcsolódási pontok</span>
-                </p>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="../" class="nav-name">
+                    <span id="nav-primary-name" class="primary">BOTOND BALLA</span>
+                    <span id="nav-alternate-name" class="alternate">BALLA BOTOND</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="../" class="nav-link">
+                    <span class="link-en">HOME</span>
+                    <span class="link-hu">FŐOLDAL</span>
+                </a>
+                <a href="../resume" class="nav-link">
+                    <span class="link-en">RESUME</span>
+                    <span class="link-hu">ÖNÉLETRAJZ</span>
+                </a>
+                <a href="mailto:ballabotond@ballabotond.com" class="nav-link">CONTACT</a>
+            </div>
+            <div class="nav-controls">
+                <button id="theme-toggle" class="control-btn" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="language-toggle" class="control-btn" aria-label="Toggle language">
+                    <i class="fas fa-globe"></i>
+                </button>
             </div>
         </div>
-        
-        <div id="projects-grid" class="projects-grid">
-            <!-- Projects will be generated dynamically from projects-config.js -->
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="tagline">
+                    <span class="tagline-en">DISCOVER</span>
+                    <span class="tagline-hu">FELFEDEZÉS</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-en">Projects & Creations</span>
+                    <span class="title-hu">Projektek & Alkotások</span>
+                </h1>
+                <div class="hero-subtitle">
+                    <span class="subtitle-en">Crafted with precision and purpose</span>
+                    <span class="subtitle-hu">Pontossággal és céllal megalkotva</span>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+        <div class="projects-container">
+            <div id="projects-grid" class="projects-grid">
+                <!-- Projects will be generated dynamically from projects-config.js -->
+            </div>
+        </div>
+    </section>
     
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -118,17 +152,7 @@
     }
     </script>
     
-    <script>
-        // Home button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const homeButton = document.getElementById('home-button');
-            homeButton.addEventListener('click', function() {
-                window.location.href = '../';
-            });
-        });
-    </script>
-    
     <script src="../assets/js/projects-config.js"></script>
-    <script src="../assets/js/projects.js"></script>
+    <script src="../assets/js/projects-new.js"></script>
 </body>
 </html>

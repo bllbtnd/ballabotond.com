@@ -4,24 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found | Balla Botond</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/404.css">
+    <link rel="stylesheet" href="assets/css/404-new.css">
     <link rel="icon" href="assets/images/favicon.png" type="image/png">
 </head>
 <body>
-    <div class="container notfound-container">
-        <div class="profile notfound-profile">
-            <div class="profile-image">
-                <img src="assets/images/image.png" alt="Balla Botond Profile Picture">
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/" class="nav-name">BOTOND BALLA</a>
             </div>
-            <div class="profile-name">
-                <h1 class="name-display notfound-title">404</h1>
-                <div class="notfound-subtitle">Page Not Found</div>
-                <p class="notfound-message">Sorry, the page you are looking for does not exist or has been moved.</p>
-                <a href="/" class="notfound-home-link">Go to Homepage</a>
+            <div class="nav-menu">
+                <a href="/" class="nav-link">HOME</a>
+                <a href="projects" class="nav-link">PROJECTS</a>
+                <a href="resume" class="nav-link">RESUME</a>
+                <a href="mailto:ballabotond@ballabotond.com" class="nav-link">CONTACT</a>
+            </div>
+            <div class="nav-controls">
+                <button id="theme-toggle" class="control-btn" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
             </div>
         </div>
-    </div>
-    <script src="assets/js/404.js"></script>
+    </nav>
+
+    <!-- 404 Content -->
+    <section class="error-section">
+        <div class="error-container">
+            <div class="error-content">
+                <div class="error-number">404</div>
+                <div class="error-title">Page Not Found</div>
+                <div class="error-subtitle">The page you are looking for does not exist or has been moved.</div>
+                <div class="error-actions">
+                    <a href="/" class="cta-btn primary">Go to Homepage</a>
+                    <button onclick="history.back()" class="cta-btn secondary">Go Back</button>
+                </div>
+            </div>
+            <div class="error-image">
+                <div class="profile-image-wrapper">
+                    <img src="assets/images/image.png" alt="Balla Botond Profile Picture" class="profile-image">
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="assets/js/404-new.js"></script>
 </body>
 </html>
