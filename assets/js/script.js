@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show default name if location failed
             const nameDisplay = document.getElementById('name-display');
-            if (nameDisplay && nameDisplay.classList.contains('loading')) {
+            if (nameDisplay.classList.contains('loading')) {
                 nameDisplay.classList.remove('loading');
                 nameDisplay.classList.add('loaded');
             }
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.style.opacity = '1';
             });
         }
-    }, 1500); // Reduced from 3s to 1.5s for faster loading on GitHub Pages
+    }, 3000); // Reduce fallback time from 5s to 3s for better user experience
     
     // Add subtle hover effect to social links
     const socialLinks = document.querySelectorAll('.social-link');
