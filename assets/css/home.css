@@ -375,7 +375,8 @@ body::before {
 
 .stories-close {
     position: absolute;
-    right: -320px;
+    top: 40px;
+    right: 20px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
@@ -394,7 +395,6 @@ body::before {
         0 8px 25px rgba(0, 0, 0, 0.6),
         0 0 20px rgba(212, 175, 55, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    position: relative;
     overflow: hidden;
     z-index: 15;
 }
@@ -537,10 +537,10 @@ body::before {
     }
     
     .stories-close {
-        top: 15px;
-        right: 15px;
-        width: 46px;
-        height: 46px;
+        top: 40px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
         font-size: 18px;
     }
     
