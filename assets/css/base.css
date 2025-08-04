@@ -1,34 +1,30 @@
 :root {
-    /* Dark theme (default) - Premium masculine burgundy */
-    --bg-color: #0c0c0f;
-    --card-color: #16161c;
-    --text-color: #f2f2ed;
-    --accent-color: #8b1a2a; /* Rich reddish burgundy - more masculine */
-    --hover-color: #a62333; /* Deeper red for hover */
-    --secondary-text: #a8a8a8;
-    --shadow-color: rgba(0, 0, 0, 0.25);
-    --deep-shadow: rgba(0, 0, 0, 0.35);
-    --border-color: #252529;
-}
-
-/* Light theme variables - Premium masculine burgundy */
-[data-theme="light"] {
-    --bg-color: #f4f2ed; /* Warm cream instead of stark white */
-    --card-color: #ffffff;
-    --text-color: #282828;
-    --accent-color: #6e1520; /* Deep reddish burgundy */
-    --hover-color: #8b1a2a;
-    --secondary-text: #696969;
-    --shadow-color: rgba(0, 0, 0, 0.08);
-    --deep-shadow: rgba(0, 0, 0, 0.12);
-    --border-color: #e0dcd4;
+    /* Dark theme - Jacob & Co inspired luxury palette */
+    --bg-color: #0a0a0a;
+    --card-color: #1a1a1a;
+    --text-color: #f8f8f8;
+    --accent-color: #d4af37; /* Luxurious gold */
+    --hover-color: #f4d03f; /* Brighter gold for hover */
+    --secondary-text: #b8b8b8;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --deep-shadow: rgba(0, 0, 0, 0.6);
+    --border-color: #2a2a2a;
+    --premium-gold: #ffd700;
+    --dark-gold: #b8860b;
+    --luxury-bronze: #cd7f32;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+/* Premium smooth scrolling for luxury feel */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Account for fixed nav elements */
 }
 
 body {
@@ -39,35 +35,19 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    transition: background-color 0.4s ease, color 0.4s ease;
     line-height: 1.6;
+    /* Premium scrolling physics */
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
 }
 
-/* Theme toggle button - more elegant styling */
-.theme-toggle {
-    position: fixed;
-    top: 75px; /* Below home button (45px + 10px margin) */
-    right: 20px;
-    background: var(--card-color);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 3px 10px var(--shadow-color);
-    color: var(--accent-color);
-    z-index: 100;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-size: 1.4rem;
-}
+/* Custom cursor will be enabled by JavaScript on hover-capable devices */
+/* The cursor hiding is handled dynamically to avoid issues on touch devices */
 
 /* Language toggle button - matching elegant styling */
 .language-toggle {
     position: fixed;
-    top: 130px; /* Below theme toggle (75px + 45px height + 10px margin) */
+    top: 75px; /* Below home button (45px + 10px margin) */
     right: 20px;
     background: var(--card-color);
     border: 1px solid var(--border-color);
@@ -118,28 +98,6 @@ body {
     box-shadow: 0 5px 15px var(--deep-shadow);
     background: var(--hover-color);
     border-color: var(--hover-color);
-}
-
-.theme-toggle:hover {
-    transform: translateY(-3px) rotate(5deg);
-    box-shadow: 0 5px 15px var(--deep-shadow);
-    color: var(--hover-color);
-}
-
-.theme-toggle .fa-sun {
-    display: none;
-}
-
-.theme-toggle .fa-moon {
-    display: block;
-}
-
-[data-theme="light"] .theme-toggle .fa-sun {
-    display: block;
-}
-
-[data-theme="light"] .theme-toggle .fa-moon {
-    display: none;
 }
 
 .container {
@@ -383,7 +341,7 @@ html {
         font-size: 1.2rem;
     }
     
-    .theme-toggle {
+    .language-toggle {
         top: 55px !important; /* Below home button (35px + 10px margin) */
         right: 10px !important;
         width: 35px !important;
@@ -391,16 +349,8 @@ html {
         font-size: 1.2rem;
     }
     
-    .language-toggle {
-        top: 100px !important; /* Below theme toggle (55px + 35px height + 10px margin) */
-        right: 10px !important;
-        width: 35px !important;
-        height: 35px !important;
-        font-size: 1.2rem;
-    }
-    
     .download-pdf {
-        top: 145px !important; /* Below language toggle (100px + 35px height + 10px margin) */
+        top: 100px !important; /* Below language toggle (55px + 35px height + 10px margin) */
         right: 10px !important;
         width: 35px !important;
         height: 35px !important;
@@ -432,7 +382,7 @@ html {
         font-size: 1.3rem;
     }
     
-    .theme-toggle {
+    .language-toggle {
         top: 65px !important; /* Below home button (40px + 10px margin) */
         right: 15px !important;
         width: 40px !important;
@@ -440,16 +390,8 @@ html {
         font-size: 1.3rem;
     }
     
-    .language-toggle {
-        top: 115px !important; /* Below theme toggle (65px + 40px height + 10px margin) */
-        right: 15px !important;
-        width: 40px !important;
-        height: 40px !important;
-        font-size: 1.3rem;
-    }
-    
     .download-pdf {
-        top: 165px !important; /* Below language toggle (115px + 40px height + 10px margin) */
+        top: 115px !important; /* Below language toggle (65px + 40px height + 10px margin) */
         right: 15px !important;
         width: 40px !important;
         height: 40px !important;
@@ -477,16 +419,8 @@ html {
         font-size: 1.4rem;
     }
     
-    .theme-toggle {
-        top: 75px !important; /* Below home button (45px + 10px margin) */
-        right: 20px !important;
-        width: 45px !important;
-        height: 45px !important;
-        font-size: 1.4rem;
-    }
-    
     .language-toggle {
-        top: 130px !important; /* Below theme toggle (75px + 45px height + 10px margin) */
+        top: 75px !important; /* Below home button (45px + 10px margin) */
         right: 20px !important;
         width: 45px !important;
         height: 45px !important;
@@ -498,5 +432,104 @@ html {
 @media (max-height: 500px) and (orientation: landscape) {
     .container {
         padding-top: 60px;
+    }
+}
+
+/* ===== PREMIUM SMOOTH SCROLLING STYLES ===== */
+
+/* Enhanced scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-color);
+    border-radius: 4px;
+    margin: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, var(--premium-gold), var(--accent-color));
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
+    transform: scale(1.1);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--bg-color);
+}
+
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--card-color);
+}
+
+/* Premium scroll momentum for mobile */
+body, html {
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+}
+
+/* Smooth focus scrolling for interactive elements */
+a, button, input, textarea, select {
+    scroll-margin-top: 100px;
+}
+
+/* Enhanced scroll behavior for specific containers */
+.container, .main-content, .resume-container {
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+/* Prevent scroll chaining on modal/overlay elements */
+.modal, .overlay, .dropdown-menu {
+    overscroll-behavior: contain;
+}
+
+/* Custom easing for luxury feel on supported browsers */
+@supports (scroll-timeline: works) {
+    html {
+        scroll-timeline: --page-scroll block;
+        animation-timeline: --page-scroll;
+    }
+}
+
+/* Luxury scroll-based momentum and easing */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Smooth transitions for scroll-triggered elements */
+    * {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                   opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                   box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Premium ease-out animation curve for luxury feel */
+    .container, .main-content, .card, .button {
+        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
