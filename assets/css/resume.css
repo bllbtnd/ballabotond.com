@@ -1070,17 +1070,17 @@ body::before {
     }
     
     .resume-header {
-        padding: 25px 0;
-        margin-bottom: clamp(25px, 5vh, 35px);
+        padding: 20px 0;
+        margin-bottom: clamp(20px, 4vh, 30px);
     }
     
     .resume-header::before {
-        width: 60px;
-        height: 3px;
+        width: 50px;
+        height: 2px;
     }
     
     .resume-title h1 {
-        font-size: clamp(1.8rem, 7vw, 2.2rem);
+        font-size: clamp(1.6rem, 7vw, 2rem);
     }
     
     .header-section {
@@ -1133,16 +1133,17 @@ body::before {
     }
     
     .resume-header {
-        padding: 30px 0;
-        margin-bottom: clamp(35px, 6vh, 50px);
+        padding: 25px 0;
+        margin-bottom: clamp(30px, 5vh, 45px);
     }
     
     .resume-header::before {
-        width: 80px;
+        width: 70px;
+        height: 3px;
     }
     
     .resume-title h1 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
+        font-size: clamp(1.8rem, 6vw, 2.3rem);
     }
     
     .header-section {
@@ -1219,6 +1220,77 @@ body::before {
     }
 }
 
+@media (max-width: 800px) {
+    .resume-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 0;
+        margin-bottom: clamp(30px, 6vh, 50px);
+    }
+    
+    .resume-header::before {
+        width: 80px;
+        height: 3px;
+    }
+    
+    .resume-title h1 {
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        margin-bottom: 10px;
+    }
+    
+    .back-button {
+        position: relative;
+        align-self: flex-start;
+        margin-bottom: 20px;
+    }
+    
+    /* Fix header section layout for medium screens */
+    .header-section {
+        padding: clamp(25px, 4vh, 35px);
+        margin-bottom: clamp(35px, 6vh, 50px);
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: clamp(25px, 4vh, 35px);
+        text-align: center;
+    }
+    
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: clamp(20px, 3vh, 25px);
+        width: 100%;
+    }
+    
+    .profile-section .profile-image img {
+        width: clamp(100px, 15vw, 130px);
+        height: clamp(100px, 15vw, 130px);
+    }
+    
+    .profile-details h1 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+        margin-bottom: 10px;
+    }
+    
+    .profile-details .profile-title {
+        font-size: clamp(0.95rem, 3vw, 1.15rem);
+        margin-bottom: 0;
+    }
+    
+    .contact-section {
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .contact-item {
+        justify-content: center;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+}
+
 @media (max-width: 768px) {
     body::before {
         background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
@@ -1231,16 +1303,63 @@ body::before {
     .resume-header {
         flex-direction: column;
         text-align: center;
+        padding: 25px 0;
+        margin-bottom: clamp(25px, 5vh, 40px);
     }
     
-    .profile-info {
+    .resume-header::before {
+        width: 70px;
+        height: 3px;
+    }
+    
+    .resume-title h1 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+    
+    /* Enhanced header section for mobile */
+    .header-section {
+        padding: clamp(20px, 3vh, 30px);
+        border-radius: 15px;
+        margin-bottom: clamp(30px, 5vh, 40px);
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: clamp(20px, 3vh, 30px);
+        text-align: center;
+    }
+    
+    .profile-section {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
+        gap: clamp(15px, 2vh, 20px);
+        width: 100%;
     }
     
-    .contact-details {
+    .profile-section .profile-image img {
+        width: clamp(90px, 12vw, 110px);
+        height: clamp(90px, 12vw, 110px);
+    }
+    
+    .profile-details h1 {
+        font-size: clamp(1.6rem, 4.5vw, 2rem);
+        margin-bottom: 8px;
+    }
+    
+    .profile-details .profile-title {
+        font-size: clamp(0.9rem, 2.8vw, 1.1rem);
+    }
+    
+    .contact-section {
         align-items: center;
+        gap: 12px;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .contact-item {
+        justify-content: center;
+        font-size: clamp(0.85rem, 2.3vw, 0.95rem);
     }
     
     .skills-grid {
