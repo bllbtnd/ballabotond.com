@@ -10,6 +10,10 @@ body {
     position: relative;
     overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.4s ease;
+    /* Premium scroll behavior for home page */
+    scroll-behavior: smooth;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Dark theme luxury background effect */

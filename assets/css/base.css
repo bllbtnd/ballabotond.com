@@ -21,6 +21,12 @@
     font-family: 'Playfair Display', 'Georgia', serif;
 }
 
+/* Premium smooth scrolling for luxury feel */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Account for fixed nav elements */
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -30,7 +36,13 @@ body {
     min-height: 100vh;
     padding: 20px;
     line-height: 1.6;
+    /* Premium scrolling physics */
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
 }
+
+/* Custom cursor will be enabled by JavaScript on hover-capable devices */
+/* The cursor hiding is handled dynamically to avoid issues on touch devices */
 
 /* Language toggle button - matching elegant styling */
 .language-toggle {
@@ -420,5 +432,104 @@ html {
 @media (max-height: 500px) and (orientation: landscape) {
     .container {
         padding-top: 60px;
+    }
+}
+
+/* ===== PREMIUM SMOOTH SCROLLING STYLES ===== */
+
+/* Enhanced scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-color);
+    border-radius: 4px;
+    margin: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, var(--premium-gold), var(--accent-color));
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
+    transform: scale(1.1);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--bg-color);
+}
+
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--card-color);
+}
+
+/* Premium scroll momentum for mobile */
+body, html {
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+}
+
+/* Smooth focus scrolling for interactive elements */
+a, button, input, textarea, select {
+    scroll-margin-top: 100px;
+}
+
+/* Enhanced scroll behavior for specific containers */
+.container, .main-content, .resume-container {
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+/* Prevent scroll chaining on modal/overlay elements */
+.modal, .overlay, .dropdown-menu {
+    overscroll-behavior: contain;
+}
+
+/* Custom easing for luxury feel on supported browsers */
+@supports (scroll-timeline: works) {
+    html {
+        scroll-timeline: --page-scroll block;
+        animation-timeline: --page-scroll;
+    }
+}
+
+/* Luxury scroll-based momentum and easing */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Smooth transitions for scroll-triggered elements */
+    * {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                   opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                   box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Premium ease-out animation curve for luxury feel */
+    .container, .main-content, .card, .button {
+        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
