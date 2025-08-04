@@ -1384,10 +1384,7 @@ body::before {
     }
     
     .resume-header {
-        margin-bottom: 25px;
-        padding: 0 0 20px 0;
-        border-bottom: 3px solid #000;
-        text-align: center;
+        display: none !important;
     }
     
     .resume-header::before {
@@ -1395,13 +1392,7 @@ body::before {
     }
     
     .resume-title h1 {
-        color: #000 !important;
-        font-size: 24pt;
-        font-weight: 700;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
-        margin: 0 0 5px 0;
-        letter-spacing: 1px;
+        display: none !important;
     }
     
     .resume-content {
@@ -1452,6 +1443,14 @@ body::before {
     .header-content {
         display: block !important;
         width: 100% !important;
+        color: #000 !important;
+    }
+    
+    .header-content * {
+        color: #000 !important;
+        background: none !important;
+        -webkit-text-fill-color: #000 !important;
+        text-shadow: none !important;
     }
     
     .profile-info {
@@ -1472,9 +1471,10 @@ body::before {
     }
     
     .profile-image {
-        width: 80px !important;
-        height: 80px !important;
-        border: 2px solid #333 !important;
+        width: 160px !important;
+        height: 160px !important;
+        /*border: 1px solid #333 !important;*/
+        border-color: #000 !important;
         border-radius: 50% !important;
         flex-shrink: 0 !important;
         overflow: hidden !important;
@@ -1486,12 +1486,15 @@ body::before {
         height: 100% !important;
         object-fit: cover !important;
         border-radius: 50% !important;
+        border-color: #000 !important;
     }
     
     .profile-details {
         flex: 1 !important;
     }
     
+    .profile-details h1,
+    .contact-info h1,
     .contact-info h2 {
         font-size: 20pt !important;
         color: #000 !important;
@@ -1500,15 +1503,21 @@ body::before {
         margin: 0 0 6px 0 !important;
         letter-spacing: 0.5px !important;
         text-transform: none !important;
+        background: none !important;
+        -webkit-text-fill-color: #000 !important;
+        text-shadow: none !important;
     }
     
     .contact-info .profile-title {
         font-size: 12pt !important;
-        color: #555 !important;
+        color: #000 !important;
         font-weight: 400 !important;
         margin: 0 !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-style: normal !important;
+        background: none !important;
+        -webkit-text-fill-color: #000 !important;
+        text-shadow: none !important;
     }
     
     .contact-details {
@@ -1674,7 +1683,8 @@ body::before {
     .resume-section ul {
         margin: 0 !important;
         padding-left: 0 !important;
-        list-style: none !important;
+        list-style: disc !important;
+        padding-left: 20px !important;
     }
     
     .experience-description li,
@@ -1683,22 +1693,18 @@ body::before {
         color: #333 !important;
         font-size: 9pt !important;
         margin-bottom: 3px !important;
-        padding-left: 12px !important;
+        padding-left: 0 !important;
         line-height: 1.3 !important;
-        position: relative !important;
+        position: static !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        list-style: disc !important;
     }
     
     .experience-description li::before,
     .education-description li::before,
     .resume-section li::before {
-        content: "•" !important;
-        color: #333 !important;
-        font-weight: bold !important;
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        font-size: 9pt !important;
+        display: none !important;
+        content: none !important;
     }
     
     .education-description p {
@@ -1744,11 +1750,16 @@ body::before {
     }
     
     .language-level {
-        color: #666 !important;
+        color: #000 !important;
         font-size: 8pt !important;
         font-style: normal !important;
-        font-weight: 400 !important;
+        font-weight: 600 !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: #000 !important;
+        background-clip: initial !important;
+        text-shadow: none !important;
     }
     
     .hobby-item {
@@ -1794,6 +1805,9 @@ body::before {
         font-size: 9pt !important;
         font-weight: 500 !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        background: none !important;
+        -webkit-text-fill-color: #333 !important;
+        text-shadow: none !important;
     }
     
     .grade-item .grade {
@@ -1801,6 +1815,11 @@ body::before {
         font-size: 9pt !important;
         font-weight: 600 !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: #000 !important;
+        background-clip: initial !important;
+        text-shadow: none !important;
     }
     
     .grades-section {
