@@ -18,9 +18,12 @@
         
         // Check if device supports hover (not touch devices)
         const supportsHover = window.matchMedia('(hover: hover)').matches;
+        const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
-        if (!supportsHover) {
-            console.log('Custom cursor disabled on touch device');
+        // Don't initialize on mobile/touch devices
+        if (!supportsHover || hasCoarsePointer || isTouchDevice) {
+            console.log('Custom cursor disabled on touch/mobile device');
             return;
         }
         
@@ -36,6 +39,16 @@
     
     // Create cursor elements
     function createCursors() {
+        // Double-check device compatibility before creating cursors
+        const supportsHover = window.matchMedia('(hover: hover)').matches;
+        const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (!supportsHover || hasCoarsePointer || isTouchDevice) {
+            console.log('Aborting cursor creation - mobile device detected');
+            return;
+        }
+        
         // Remove any existing cursors first
         removeCursors();
         
@@ -56,6 +69,7 @@
             transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             mix-blend-mode: difference;
             opacity: 0.9;
+            display: none;
         `;
         
         // Hover cursor (larger)
@@ -75,6 +89,7 @@
             transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             mix-blend-mode: difference;
             opacity: 0;
+            display: none;
         `;
         
         document.body.appendChild(cursor);
@@ -106,6 +121,10 @@
         
         // Handle page visibility changes
         document.addEventListener('visibilitychange', handleVisibilityChange);
+        
+        // Handle print events
+        window.addEventListener('beforeprint', hideCursor);
+        window.addEventListener('afterprint', showCursor);
         
         // Watch for dynamically added elements and apply cursor hiding
         const observer = new MutationObserver((mutations) => {
@@ -147,10 +166,12 @@
         mouseY = e.clientY;
         
         if (cursor) {
+            cursor.style.display = 'block';
             cursor.style.left = mouseX + 'px';
             cursor.style.top = mouseY + 'px';
         }
         if (cursorHover) {
+            cursorHover.style.display = 'block';
             cursorHover.style.left = mouseX + 'px';
             cursorHover.style.top = mouseY + 'px';
         }
@@ -218,33 +239,54 @@
         // Add styles to hide default cursor
         const style = document.createElement('style');
         style.textContent = `
-            *, *::before, *::after {
-                cursor: none !important;
+            /* Only apply cursor hiding on devices with fine pointer (desktop) */
+            @media (hover: hover) and (pointer: fine) {
+                *, *::before, *::after {
+                    cursor: none !important;
+                }
+                body, html {
+                    cursor: none !important;
+                }
+                /* Specifically target elements that might override cursor */
+                a, button, input, textarea, select, 
+                .clickable, [onclick], [role="button"],
+                .social-link, .stories-close,
+                .story-nav-left, .story-nav-right,
+                #profile-image, .profile-image, .profile-image img,
+                .language-toggle, .home-button, .download-pdf,
+                .current-story, .project-card,
+                .skill-tag, .contact-item a,
+                .experience-header a, .education-header a,
+                .resume-header, .back-button,
+                /* Stories specific elements */
+                .stories-modal, .stories-container, .stories-content,
+                .story-navigation, .story-nav-area, .story-prev, .story-next,
+                /* Image elements */
+                img, .loader-image {
+                    cursor: none !important;
+                }
+                /* Override any inline styles */
+                [style*="cursor"] {
+                    cursor: none !important;
+                }
             }
-            body, html {
-                cursor: none !important;
+            
+            /* Hide custom cursors on mobile devices */
+            @media (hover: none) or (pointer: coarse) {
+                .custom-cursor, .custom-cursor-hover {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                }
             }
-            /* Specifically target elements that might override cursor */
-            a, button, input, textarea, select, 
-            .clickable, [onclick], [role="button"],
-            .social-link, .stories-close,
-            .story-nav-left, .story-nav-right,
-            #profile-image, .profile-image, .profile-image img,
-            .language-toggle, .home-button, .download-pdf,
-            .current-story, .project-card,
-            .skill-tag, .contact-item a,
-            .experience-header a, .education-header a,
-            .resume-header, .back-button,
-            /* Stories specific elements */
-            .stories-modal, .stories-container, .stories-content,
-            .story-navigation, .story-nav-area, .story-prev, .story-next,
-            /* Image elements */
-            img, .loader-image {
-                cursor: none !important;
-            }
-            /* Override any inline styles */
-            [style*="cursor"] {
-                cursor: none !important;
+            
+            /* Hide custom cursors on print */
+            @media print {
+                .custom-cursor, .custom-cursor-hover {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                }
             }
         `;
         document.head.appendChild(style);
@@ -258,6 +300,10 @@
         document.removeEventListener('mouseleave', hideCursor);
         document.removeEventListener('mouseenter', showCursor);
         document.removeEventListener('visibilitychange', handleVisibilityChange);
+        
+        // Remove print event listeners
+        window.removeEventListener('beforeprint', hideCursor);
+        window.removeEventListener('afterprint', showCursor);
         
         // Disconnect mutation observer
         if (window._cursorObserver) {
