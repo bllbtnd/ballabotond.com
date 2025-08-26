@@ -1595,6 +1595,15 @@ body::before {
         position: relative !important;
     }
     
+    /* Left column section headers - ultra compact */
+    .resume-section:nth-child(3) h3, /* Skills */
+    .resume-section:nth-child(6) h3, /* Languages */
+    .resume-section:nth-child(7) h3 { /* Hobbies */
+        font-size: 5pt !important;
+        margin-bottom: 2px !important;
+        line-height: 1 !important;
+    }
+    
     .resume-section h3::after {
         content: '' !important;
         flex-grow: 1 !important;
@@ -2103,11 +2112,11 @@ body::before {
         page-break-after: avoid;
     }
     
-    /* FINAL SINGLE PAGE RESUME OPTIMIZATION */
+    /* ULTRA SIMPLE COMPACT RESUME - NO BORDERS */
     
     @page {
         size: A4;
-        margin: 8mm;
+        margin: 4mm;
     }
     
     body {
@@ -2133,15 +2142,15 @@ body::before {
         display: block;
     }
     
-    /* Compact header with profile */
+    /* Simple header */
     .header-section {
-        background: #2c3e50;
-        color: white;
-        padding: 10px;
-        margin-bottom: 10px;
+        background: none;
+        color: #333;
+        padding: 5px 0;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
     }
     
     .header-section::before {
@@ -2149,60 +2158,60 @@ body::before {
     }
     
     .profile-section .profile-image img {
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
-        border: 2px solid white;
+        border: none;
     }
     
     .profile-details h1 {
-        font-size: 13pt;
-        margin: 0 0 3px 0;
-        color: white;
+        font-size: 12pt;
+        margin: 0 0 2px 0;
+        color: #333;
         font-weight: bold;
     }
     
     .profile-details .profile-title {
         font-size: 8pt;
         margin: 0;
-        color: #bdc3c7;
+        color: #666;
     }
     
     .contact-section {
         margin-left: auto;
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 1px;
     }
     
     .contact-item {
         display: flex;
         align-items: center;
-        gap: 6px;
-        font-size: 7pt;
-        color: white;
+        gap: 4px;
+        font-size: 6pt;
+        color: #333;
     }
     
     .contact-item i {
-        color: #3498db;
-        width: 10px;
+        color: #666;
+        width: 8px;
         text-align: center;
-        font-size: 8pt;
+        font-size: 7pt;
     }
     
     .contact-item a {
-        color: white;
+        color: #333;
         text-decoration: none;
     }
     
-    /* Section headers - more compact */
+    /* Section headers - no borders */
     .resume-section h3 {
-        color: #2c3e50;
-        font-size: 9pt;
+        color: #333;
+        font-size: 8pt;
         font-weight: bold;
-        margin: 0 0 5px 0;
-        padding-bottom: 2px;
-        border-bottom: 1px solid #3498db;
+        margin: 0 0 3px 0;
+        padding: 0;
+        border: none;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -2217,43 +2226,44 @@ body::before {
         border: none;
         box-shadow: none;
         padding: 0;
-        margin: 0 0 8px 0;
+        margin: 0 0 6px 0;
     }
     
-    /* Create precise two-column layout */
+    /* Two-column layout - ultra compact left column */
     .resume-section:nth-child(3), /* Skills */
     .resume-section:nth-child(6), /* Languages */
     .resume-section:nth-child(7) { /* Hobbies */
         float: left;
-        width: 28%;
-        margin-right: 4%;
+        width: 20%;
+        margin-right: 2%;
         clear: left;
+        font-size: 4pt;
     }
     
     .resume-section:nth-child(2), /* Summary */
     .resume-section:nth-child(4), /* Experience */
     .resume-section:nth-child(5) { /* Education */
         float: right;
-        width: 68%;
+        width: 78%;
         clear: right;
     }
     
-    /* Summary - more compact */
+    /* Summary */
     .section-content p {
-        font-size: 8pt;
-        line-height: 1.2;
+        font-size: 7pt;
+        line-height: 1.1;
         margin: 0;
         text-align: justify;
         color: #555;
     }
     
-    /* Skills - more compact */
+    /* Skills - ultra compact */
     .skills-grid {
         display: block;
     }
     
     .skill-category {
-        margin-bottom: 5px;
+        margin-bottom: 1px;
         background: none;
         border: none;
         padding: 0;
@@ -2261,28 +2271,37 @@ body::before {
     }
     
     .skill-category h4 {
-        font-size: 7pt;
-        color: #3498db;
-        margin: 0 0 2px 0;
+        font-size: 4pt;
+        color: #666;
+        margin: 0 0 0.5px 0;
         font-weight: bold;
+        line-height: 1;
     }
     
     .skill-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2px;
+        display: block;
     }
     
     .skill-tag {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        padding: 1px 3px;
-        font-size: 6pt;
-        border-radius: 2px;
-        color: #495057;
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 3.5pt;
+        color: #555;
+        display: inline;
+        margin-right: 2px;
+        line-height: 1;
     }
     
-    /* Languages - more compact */
+    .skill-tag::after {
+        content: ", ";
+    }
+    
+    .skill-tag:last-child::after {
+        content: "";
+    }
+    
+    /* Languages - ultra compact */
     .languages-grid {
         display: block;
     }
@@ -2290,59 +2309,68 @@ body::before {
     .language-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 2px;
+        margin-bottom: 0.5px;
         background: none;
         border: none;
         padding: 0;
+        line-height: 1;
     }
     
     .language-name {
-        font-size: 7pt;
+        font-size: 4pt;
         color: #333;
+        line-height: 1;
     }
     
     .language-level {
-        font-size: 6pt;
-        color: #3498db;
+        font-size: 3.5pt;
+        color: #666;
         font-weight: bold;
         background: none;
+        line-height: 1;
     }
     
-    /* Hobbies - more compact */
+    /* Hobbies - ultra compact */
     .hobbies-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
+        display: block;
     }
     
     .hobby-item {
-        display: flex;
-        align-items: center;
-        gap: 2px;
+        display: inline;
         background: none;
         border: none;
         padding: 0;
+        margin-right: 2px;
     }
     
     .hobby-item i {
-        color: #3498db;
-        font-size: 6pt;
+        display: none;
     }
     
     .hobby-name {
-        font-size: 6pt;
+        font-size: 3.5pt;
         color: #333;
+        line-height: 1;
     }
     
-    /* Experience and Education - very compact one-liners */
+    .hobby-item::after {
+        content: ", ";
+    }
+    
+    .hobby-item:last-child::after {
+        content: "";
+    }
+    
+    /* Experience and Education - TRUE single lines */
     .experience-item,
     .education-item {
         background: none;
         border: none;
-        border-left: 2px solid #3498db;
-        padding: 2px 0 2px 6px;
-        margin-bottom: 3px;
+        padding: 0;
+        margin-bottom: 1px;
         box-shadow: none;
+        display: block;
+        line-height: 1;
     }
     
     .experience-item::before,
@@ -2352,52 +2380,66 @@ body::before {
     
     .experience-header,
     .education-header {
-        display: block;
-        line-height: 1.1;
+        display: inline;
+        line-height: 1;
     }
     
     .experience-header h4,
     .education-header h4 {
         display: inline;
-        font-size: 7pt;
+        font-size: 6pt;
         font-weight: bold;
-        color: #2c3e50;
+        color: #333;
         margin: 0;
+        line-height: 1;
     }
     
     .company,
     .university {
         display: inline;
-        color: #3498db;
-        font-size: 7pt;
-        font-weight: bold;
+        color: #666;
+        font-size: 6pt;
+        font-weight: normal;
         background: none;
         border: none;
         padding: 0;
         margin: 0;
+        line-height: 1;
     }
     
     .date {
         display: inline;
-        color: #7f8c8d;
-        font-size: 6pt;
+        color: #999;
+        font-size: 5pt;
         font-style: italic;
         margin: 0;
+        line-height: 1;
     }
     
-    /* Add clean separators */
+    /* Force everything on one line */
     .experience-header h4::after,
     .education-header h4::after {
-        content: " • ";
-        color: #bdc3c7;
+        content: " - ";
+        color: #999;
         font-weight: normal;
     }
     
     .company::after,
     .university::after {
-        content: " • ";
-        color: #bdc3c7;
+        content: " - ";
+        color: #999;
         font-weight: normal;
+    }
+    
+    /* Force inline layout */
+    .experience-header *,
+    .education-header * {
+        display: inline !important;
+        float: none !important;
+        clear: none !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
     /* Hide descriptions */
@@ -2411,7 +2453,7 @@ body::before {
         display: none;
     }
     
-    /* Limit items to fit on one page */
+    /* Limit items to fit */
     .experience-item:nth-child(n+6) {
         display: none;
     }
@@ -2421,6 +2463,14 @@ body::before {
     }
     
     .hobby-item:nth-child(n+9) {
+        display: none;
+    }
+    
+    .skill-category:nth-child(n+4) {
+        display: none;
+    }
+    
+    .language-item:nth-child(n+6) {
         display: none;
     }
     
@@ -2435,15 +2485,6 @@ body::before {
     * {
         page-break-inside: avoid;
         break-inside: avoid;
-    }
-    
-    /* Additional space optimizations */
-    .skill-category:nth-child(n+4) {
-        display: none;
-    }
-    
-    .language-item:nth-child(n+6) {
-        display: none;
     }
     
     /* Ensure proper margins for printing */
