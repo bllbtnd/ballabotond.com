@@ -24,12 +24,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 25% 35%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
-                radial-gradient(circle at 75% 65%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    background: 
+        radial-gradient(circle at 25% 35%, rgba(201, 169, 107, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 75% 65%, rgba(201, 169, 107, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(229, 229, 234, 0.02) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.6s ease;
 }
 
 /* Resume-specific styles */
@@ -59,10 +61,11 @@ body::before {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    width: 120px;
+    height: 3px;
+    background: var(--luxury-gradient);
     border-radius: 2px;
+    box-shadow: 0 0 20px var(--luxury-shadow);
 }
 
 .back-button {
@@ -119,8 +122,10 @@ body::before {
     position: fixed;
     top: 130px; /* Below language toggle (75px + 45px height + 10px margin) */
     right: 20px;
-    background: var(--card-color);
-    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     border-radius: 50%;
     width: 45px; /* Match other nav buttons */
     height: 45px; /* Match other nav buttons */
@@ -128,19 +133,24 @@ body::before {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 3px 10px var(--shadow-color);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px rgba(201, 169, 107, 0.1);
     color: var(--accent-color);
     z-index: 10;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-size: 1.4rem; /* Match other nav buttons */
 }
 
 .download-pdf:hover {
-    transform: translateY(-3px) rotate(5deg);
-    box-shadow: 0 5px 15px var(--deep-shadow);
-    color: var(--hover-color);
-    background: linear-gradient(135deg, var(--accent-color), var(--premium-gold));
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px var(--luxury-shadow),
+        0 1px 0 rgba(255, 255, 255, 0.1) inset;
     color: var(--bg-color);
+    background: var(--luxury-gradient);
     border-color: var(--accent-color);
 }
 
@@ -190,9 +200,10 @@ body::before {
     content: '';
     flex-grow: 1;
     height: 2px;
-    background: linear-gradient(to right, var(--accent-color), var(--premium-gold), transparent);
+    background: var(--luxury-gradient);
     margin-left: 25px;
-    border-radius: 1px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--luxury-shadow);
 }
 
 .section-content {
@@ -201,13 +212,16 @@ body::before {
 
 /* Header section - luxury profile styling */
 .header-section {
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: clamp(40px, 6vh, 60px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: clamp(45px, 6vh, 65px);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
     margin-bottom: clamp(50px, 8vh, 70px);
     position: relative;
     overflow: hidden;
@@ -219,8 +233,9 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    height: 3px;
+    background: var(--luxury-gradient);
+    box-shadow: 0 0 20px var(--luxury-shadow);
 }
 
 .header-content {
@@ -349,14 +364,17 @@ body::before {
 }
 
 .skill-category {
-    background: var(--card-color);
-    border-radius: 15px;
-    padding: clamp(20px, 3vh, 30px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 18px;
+    padding: clamp(22px, 3vh, 32px);
     box-shadow: 
-        0 10px 25px rgba(0, 0, 0, 0.3),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        0 12px 30px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
 }
@@ -367,18 +385,21 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    height: 2px;
+    background: var(--luxury-gradient);
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
 }
 
 .skill-category:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px) scale(1.02);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 40px var(--luxury-shadow),
+        0 2px 0 rgba(255, 255, 255, 0.1) inset,
         0 0 0 1px var(--accent-color);
     border-color: var(--accent-color);
+    background: var(--card-gradient);
 }
 
 .skill-category:hover::before {
@@ -402,18 +423,21 @@ body::before {
 }
 
 .skill-tag {
-    background: var(--card-color);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--text-color);
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    padding: 14px 22px;
+    border-radius: 28px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     font-weight: 500;
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-family: 'Montserrat', sans-serif;
     box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.3),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
     position: relative;
     overflow: hidden;
     cursor: default;
@@ -427,9 +451,9 @@ body::before {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    background: var(--luxury-gradient);
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
 }
 
 .skill-tag::after {
@@ -442,17 +466,19 @@ body::before {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(212, 175, 55, 0.1),
+        rgba(201, 169, 107, 0.08),
         transparent
     );
-    transition: left 0.6s ease;
+    transition: left 0.8s ease;
 }
 
 .skill-tag:hover {
-    background: linear-gradient(135deg, var(--card-color), #2a2a2a);
-    transform: translateY(-3px);
+    background: var(--card-gradient);
+    transform: translateY(-4px) scale(1.05);
     box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 30px var(--luxury-shadow),
+        0 2px 0 rgba(255, 255, 255, 0.1) inset,
         0 0 0 1px var(--accent-color);
     border-color: var(--accent-color);
     color: var(--premium-gold);
@@ -468,15 +494,18 @@ body::before {
 
 /* Experience section - luxury card styling */
 .experience-item {
-    margin-bottom: clamp(30px, 5vh, 40px);
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: clamp(25px, 4vh, 35px);
+    margin-bottom: clamp(32px, 5vh, 42px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: clamp(28px, 4vh, 38px);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
 }
@@ -487,18 +516,21 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    height: 3px;
+    background: var(--luxury-gradient);
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
 }
 
 .experience-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 50px var(--luxury-shadow),
+        0 2px 0 rgba(255, 255, 255, 0.1) inset,
         0 0 0 1px var(--accent-color);
     border-color: var(--accent-color);
+    background: var(--card-gradient);
 }
 
 .experience-item:hover::before {
@@ -594,9 +626,9 @@ body::before {
     top: 12px;
     width: 6px;
     height: 6px;
-    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    background: var(--luxury-gradient);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 12px var(--luxury-shadow);
 }
 
 /* Ensure all resume section lists have consistent luxury styling */
@@ -623,22 +655,25 @@ body::before {
     top: 12px;
     width: 6px;
     height: 6px;
-    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    background: var(--luxury-gradient);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 12px var(--luxury-shadow);
 }
 
 /* Education section - luxury card styling */
 .education-item {
-    margin-bottom: clamp(30px, 5vh, 40px);
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: clamp(25px, 4vh, 35px);
+    margin-bottom: clamp(32px, 5vh, 42px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: clamp(28px, 4vh, 38px);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
 }
@@ -649,18 +684,21 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    height: 3px;
+    background: var(--luxury-gradient);
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
 }
 
 .education-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 50px var(--luxury-shadow),
+        0 2px 0 rgba(255, 255, 255, 0.1) inset,
         0 0 0 1px var(--accent-color);
     border-color: var(--accent-color);
+    background: var(--card-gradient);
 }
 
 .education-item:hover::before {

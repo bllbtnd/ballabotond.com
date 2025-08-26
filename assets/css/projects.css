@@ -24,12 +24,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(201, 169, 107, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(201, 169, 107, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(229, 229, 234, 0.02) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.6s ease;
 }
 
 .container {
@@ -55,10 +57,11 @@ body::before {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    width: 120px;
+    height: 3px;
+    background: var(--luxury-gradient);
     border-radius: 2px;
+    box-shadow: 0 0 20px var(--luxury-shadow);
 }
 
 .page-title h1 {
@@ -119,9 +122,10 @@ body::before {
     content: '';
     flex-grow: 1;
     height: 2px;
-    background: linear-gradient(to right, var(--accent-color), var(--premium-gold), transparent);
+    background: var(--luxury-gradient);
     margin-left: 25px;
-    border-radius: 1px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--luxury-shadow);
 }
 
 .project-links {
@@ -132,14 +136,17 @@ body::before {
 
 /* Luxury project cards */
 .project-card {
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: clamp(25px, 4vh, 35px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: clamp(28px, 4vh, 38px);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        0 0 0 1px var(--border-color);
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 0 1px var(--glass-border);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -151,18 +158,21 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--premium-gold));
+    height: 3px;
+    background: var(--luxury-gradient);
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
 }
 
 .project-card:not(.disabled):hover {
-    transform: translateY(-10px);
+    transform: translateY(-12px) scale(1.02);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 50px var(--luxury-shadow),
+        0 2px 0 rgba(255, 255, 255, 0.1) inset,
         0 0 0 1px var(--accent-color);
     border-color: var(--accent-color);
+    background: var(--card-gradient);
 }
 
 .project-card:not(.disabled):hover::before {
@@ -189,17 +199,19 @@ body::before {
 }
 
 .project-icon {
-    min-width: clamp(55px, 10vw, 70px);
-    height: clamp(55px, 10vw, 70px);
-    border-radius: 15px;
+    min-width: clamp(58px, 10vw, 74px);
+    height: clamp(58px, 10vw, 74px);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--accent-color), var(--dark-gold));
+    background: var(--luxury-gradient);
     color: var(--bg-color);
-    font-size: clamp(1.5rem, 4vw, 1.8rem);
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    font-size: clamp(1.6rem, 4vw, 1.9rem);
+    transition: all 0.5s ease;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 30px var(--luxury-shadow);
     flex-shrink: 0;
     position: relative;
 }
@@ -208,21 +220,24 @@ body::before {
     content: '';
     position: absolute;
     inset: -2px;
-    border-radius: 17px;
-    background: linear-gradient(45deg, var(--accent-color), var(--premium-gold));
+    border-radius: 18px;
+    background: var(--luxury-gradient);
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
+    filter: blur(8px);
 }
 
 .project-card:not(.disabled):hover .project-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
-    background: linear-gradient(135deg, var(--premium-gold), var(--accent-color));
+    transform: scale(1.12) rotate(8deg);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.5),
+        0 0 40px var(--luxury-shadow);
+    background: linear-gradient(135deg, var(--hover-color), var(--premium-gold));
 }
 
 .project-card:not(.disabled):hover .project-icon::before {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .project-info {
@@ -310,23 +325,25 @@ body::before {
 }
 
 .project-button {
-    background: linear-gradient(135deg, var(--accent-color), var(--dark-gold));
+    background: var(--luxury-gradient);
     color: var(--bg-color);
     border: none;
-    padding: clamp(12px, 2vh, 16px) clamp(20px, 4vw, 28px);
-    border-radius: 12px;
+    padding: clamp(14px, 2vh, 18px) clamp(22px, 4vw, 30px);
+    border-radius: 14px;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.9rem, 3vw, 1rem);
+    font-size: clamp(0.95rem, 3vw, 1.05rem);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
     white-space: nowrap;
     min-width: fit-content;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.3),
+        0 0 20px var(--luxury-shadow);
 }
 
 .project-button::before {
@@ -337,13 +354,15 @@ body::before {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
+    transition: left 0.6s ease;
 }
 
 .project-button:not(.disabled):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-    background: linear-gradient(135deg, var(--premium-gold), var(--accent-color));
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 40px var(--luxury-shadow);
+    background: linear-gradient(135deg, var(--hover-color), var(--premium-gold));
 }
 
 .project-button:not(.disabled):hover::before {
