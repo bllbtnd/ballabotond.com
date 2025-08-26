@@ -2103,12 +2103,355 @@ body::before {
         page-break-after: avoid;
     }
     
+    /* FINAL SINGLE PAGE RESUME OPTIMIZATION */
+    
+    @page {
+        size: A4;
+        margin: 8mm;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 8pt;
+        line-height: 1.1;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .resume-container {
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .resume-header {
+        display: none;
+    }
+    
+    .resume-content {
+        display: block;
+    }
+    
+    /* Compact header with profile */
+    .header-section {
+        background: #2c3e50;
+        color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .header-section::before {
+        display: none;
+    }
+    
+    .profile-section .profile-image img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid white;
+    }
+    
+    .profile-details h1 {
+        font-size: 13pt;
+        margin: 0 0 3px 0;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .profile-details .profile-title {
+        font-size: 8pt;
+        margin: 0;
+        color: #bdc3c7;
+    }
+    
+    .contact-section {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 7pt;
+        color: white;
+    }
+    
+    .contact-item i {
+        color: #3498db;
+        width: 10px;
+        text-align: center;
+        font-size: 8pt;
+    }
+    
+    .contact-item a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    /* Section headers - more compact */
+    .resume-section h3 {
+        color: #2c3e50;
+        font-size: 9pt;
+        font-weight: bold;
+        margin: 0 0 5px 0;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #3498db;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .resume-section h3::after {
+        display: none;
+    }
+    
+    /* Reset all resume sections */
+    .resume-section {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0 0 8px 0;
+    }
+    
+    /* Create precise two-column layout */
+    .resume-section:nth-child(3), /* Skills */
+    .resume-section:nth-child(6), /* Languages */
+    .resume-section:nth-child(7) { /* Hobbies */
+        float: left;
+        width: 28%;
+        margin-right: 4%;
+        clear: left;
+    }
+    
+    .resume-section:nth-child(2), /* Summary */
+    .resume-section:nth-child(4), /* Experience */
+    .resume-section:nth-child(5) { /* Education */
+        float: right;
+        width: 68%;
+        clear: right;
+    }
+    
+    /* Summary - more compact */
+    .section-content p {
+        font-size: 8pt;
+        line-height: 1.2;
+        margin: 0;
+        text-align: justify;
+        color: #555;
+    }
+    
+    /* Skills - more compact */
+    .skills-grid {
+        display: block;
+    }
+    
+    .skill-category {
+        margin-bottom: 5px;
+        background: none;
+        border: none;
+        padding: 0;
+        box-shadow: none;
+    }
+    
+    .skill-category h4 {
+        font-size: 7pt;
+        color: #3498db;
+        margin: 0 0 2px 0;
+        font-weight: bold;
+    }
+    
+    .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+    
+    .skill-tag {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 1px 3px;
+        font-size: 6pt;
+        border-radius: 2px;
+        color: #495057;
+    }
+    
+    /* Languages - more compact */
+    .languages-grid {
+        display: block;
+    }
+    
+    .language-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2px;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .language-name {
+        font-size: 7pt;
+        color: #333;
+    }
+    
+    .language-level {
+        font-size: 6pt;
+        color: #3498db;
+        font-weight: bold;
+        background: none;
+    }
+    
+    /* Hobbies - more compact */
+    .hobbies-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .hobby-item {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .hobby-item i {
+        color: #3498db;
+        font-size: 6pt;
+    }
+    
+    .hobby-name {
+        font-size: 6pt;
+        color: #333;
+    }
+    
+    /* Experience and Education - very compact one-liners */
+    .experience-item,
+    .education-item {
+        background: none;
+        border: none;
+        border-left: 2px solid #3498db;
+        padding: 2px 0 2px 6px;
+        margin-bottom: 3px;
+        box-shadow: none;
+    }
+    
+    .experience-item::before,
+    .education-item::before {
+        display: none;
+    }
+    
+    .experience-header,
+    .education-header {
+        display: block;
+        line-height: 1.1;
+    }
+    
+    .experience-header h4,
+    .education-header h4 {
+        display: inline;
+        font-size: 7pt;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 0;
+    }
+    
+    .company,
+    .university {
+        display: inline;
+        color: #3498db;
+        font-size: 7pt;
+        font-weight: bold;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .date {
+        display: inline;
+        color: #7f8c8d;
+        font-size: 6pt;
+        font-style: italic;
+        margin: 0;
+    }
+    
+    /* Add clean separators */
+    .experience-header h4::after,
+    .education-header h4::after {
+        content: " • ";
+        color: #bdc3c7;
+        font-weight: normal;
+    }
+    
+    .company::after,
+    .university::after {
+        content: " • ";
+        color: #bdc3c7;
+        font-weight: normal;
+    }
+    
+    /* Hide descriptions */
+    .experience-description,
+    .education-description {
+        display: none;
+    }
+    
+    /* Hide grades */
+    .grades-section {
+        display: none;
+    }
+    
+    /* Limit items to fit on one page */
+    .experience-item:nth-child(n+6) {
+        display: none;
+    }
+    
+    .education-item:nth-child(n+4) {
+        display: none;
+    }
+    
+    .hobby-item:nth-child(n+9) {
+        display: none;
+    }
+    
+    /* Clear floats */
+    .resume-content::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    /* Force single page */
+    * {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    /* Additional space optimizations */
+    .skill-category:nth-child(n+4) {
+        display: none;
+    }
+    
+    .language-item:nth-child(n+6) {
+        display: none;
+    }
+    
     /* Ensure proper margins for printing */
     @page {
         margin: 20mm;
         size: A4;
     }
-    
+
     /* Hide web-specific elements */
     .back-button,
     .download-pdf,
