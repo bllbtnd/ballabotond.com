@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize stories
     const storiesViewer = new StoriesViewer();
     
+    // Initialize luxury effects
+    initLuxuryEffects();
+    
     // Start time to ensure minimum loading duration
     const startTime = Date.now();
-    const minLoadTime = 1500; // Minimum loading time in ms
+    const minLoadTime = 2000; // Increased for more dramatic effect
     
     // Function to hide loading overlay with minimum duration
     function hideLoadingOverlay() {
@@ -18,17 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.classList.add('hidden');
             contentContainer.classList.add('loaded');
             
-            // Force social links to be visible
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.style.opacity = '1';
-            });
+            // Trigger luxury entrance animations
+            triggerEntranceAnimations();
             
             // Remove overlay from DOM after transition completes
             setTimeout(() => {
                 if (loadingOverlay.parentNode) {
                     loadingOverlay.parentNode.removeChild(loadingOverlay);
                 }
-            }, 600);
+            }, 1200);
         }, remainingTime);
     }
     
@@ -172,34 +173,108 @@ document.addEventListener('DOMContentLoaded', function() {
                 nameDisplay.classList.add('loaded');
             }
             
-            // Force social links to be visible after delay
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.style.opacity = '1';
-            });
+            // Trigger animations
+            triggerEntranceAnimations();
         }
-    }, 3000); // Reduce fallback time from 5s to 3s for better user experience
+    }, 4000); // Increased fallback time for luxury experience
+    
+    // Luxury effects initialization
+    function initLuxuryEffects() {
+        // Enhanced hover effects for interactive elements without custom cursor
+        const interactiveElements = document.querySelectorAll('a, button, .profile-image, .name-display');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.cursor = 'pointer';
+            });
+        });
+    }
+    
+    // Entrance animations trigger
+    function triggerEntranceAnimations() {
+        // Force social links to be visible with staggered animation
+        document.querySelectorAll('.social-link').forEach((link, index) => {
+            setTimeout(() => {
+                link.style.opacity = '1';
+                link.style.transform = 'translateY(0) scale(1)';
+            }, index * 100);
+        });
+        
+        // Add subtle scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for scroll animations
+        document.querySelectorAll('.social-link').forEach(link => {
+            observer.observe(link);
+        });
+    }
     
     // Add subtle hover effect to social links
     const socialLinks = document.querySelectorAll('.social-link');
     
-    socialLinks.forEach(link => {
+    socialLinks.forEach((link, index) => {
         link.addEventListener('click', function() {
-            // Create a ripple effect when clicked
+            // Create a sophisticated ripple effect when clicked
             const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
+            ripple.classList.add('luxury-ripple');
             this.appendChild(ripple);
             
             setTimeout(() => {
                 ripple.remove();
-            }, 600);
+            }, 800);
+        });
+        
+        // Add magnetic hover effect
+        link.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            this.style.transform = `translateY(-8px) scale(1.02) rotateX(${y * 0.1}deg) rotateY(${x * 0.1}deg)`;
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = '';
         });
     });
     
-    // Add CSS for the alternate bio
+    // Add CSS for the luxury ripple effect
     document.head.insertAdjacentHTML('beforeend', `
         <style>
             .alternate-bio {
                 display: none;
+            }
+            
+            .luxury-ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+                transform: scale(0);
+                animation: luxuryRipple 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                pointer-events: none;
+            }
+            
+            @keyframes luxuryRipple {
+                0% {
+                    transform: scale(0);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: scale(4);
+                    opacity: 0;
+                }
             }
         </style>
     `);
@@ -565,8 +640,16 @@ class StoriesViewer {
         if (this.stories.length === 0) return;
         
         this.currentIndex = 0;
-        this.modal.classList.add('active');
+        
+        // Store current scroll position and lock body scroll
+        this.scrollPosition = window.pageYOffset;
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${this.scrollPosition}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        
+        this.modal.classList.add('active');
         
         this.createProgressBars();
         await this.showStory(this.currentIndex);
@@ -575,7 +658,19 @@ class StoriesViewer {
     
     closeStories() {
         this.modal.classList.remove('active');
+        
+        // Restore body scroll and position
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        
+        // Restore scroll position
+        if (typeof this.scrollPosition === 'number') {
+            window.scrollTo(0, this.scrollPosition);
+        }
+        
         this.pauseStory();
         this.currentIndex = 0;
     }
