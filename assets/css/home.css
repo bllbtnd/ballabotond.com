@@ -857,51 +857,57 @@ body::before {
 /* Mobile optimizations for luxury design */
 @media (max-width: 768px) {
     .luxury-header {
-        margin-bottom: clamp(30px, 6vh, 50px);
+        margin-bottom: clamp(40px, 8vh, 60px);
+        padding: 0 15px;
     }
     
     .brand-monogram {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     
     .monogram-letter {
-        font-size: clamp(2rem, 8vw, 3rem);
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
     }
     
     .monogram-separator {
-        margin: 0 15px;
-        font-size: clamp(1.2rem, 5vw, 2rem);
+        margin: 0 18px;
+        font-size: clamp(1.4rem, 5vw, 2.2rem);
     }
     
     .brand-tagline {
-        font-size: clamp(0.6rem, 2.5vw, 0.8rem);
-        letter-spacing: 2px;
+        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+        letter-spacing: 2.5px;
+        padding: 0 20px;
     }
     
     .profile {
-        margin-bottom: clamp(40px, 8vh, 60px);
+        margin-bottom: clamp(60px, 12vh, 80px);
+        padding: 0 15px;
     }
     
     .image-frame {
-        width: clamp(140px, 35vw, 180px);
-        height: clamp(140px, 35vw, 180px);
-        margin-bottom: 15px;
-    }
-    
-    .image-caption {
-        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-    }
-    
-    .profile-name h1 {
-        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        width: clamp(160px, 35vw, 200px);
+        height: clamp(160px, 35vw, 200px);
         margin-bottom: 25px;
     }
     
-    .bio-text {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-        text-align: center;
-        padding: 0 15px;
+    .image-caption {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+        margin-bottom: 15px;
+    }
+    
+    .profile-name h1 {
+        font-size: clamp(2rem, 8vw, 2.8rem);
         margin-bottom: 30px;
+        line-height: 1.2;
+    }
+    
+    .bio-text {
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        text-align: center;
+        padding: 0 20px;
+        margin-bottom: 40px;
+        line-height: 1.7;
     }
     
     .bio-text::before,
@@ -911,16 +917,19 @@ body::before {
     
     .social-links {
         grid-template-columns: 1fr;
-        gap: 18px;
-        max-width: 95%;
+        gap: 22px;
+        max-width: 100%;
+        padding: 0 15px;
     }
     
     .social-link {
-        padding: 20px 24px;
+        padding: 22px 24px;
         opacity: 1 !important;
         animation: none;
         border-radius: 16px;
         transform: none !important;
+        min-height: 56px;
+        font-size: 16px;
     }
     
     .social-link:active {
@@ -931,92 +940,127 @@ body::before {
     .social-link:hover {
         transform: translateY(-4px) scale(1.01) !important;
     }
-}
-
-@media (max-width: 600px) {
-    .luxury-header {
-        margin-bottom: 25px;
-    }
-    
-    .brand-monogram {
-        margin-bottom: 12px;
-    }
-    
-    .profile {
-        margin-bottom: clamp(25px, 6vh, 50px);
-    }
-    
-    .image-frame {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 12px;
-    }
-    
-    .profile-name h1 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-    
-    .bio-text {
-        font-size: 0.95rem;
-        padding: 0 10px;
-        margin-bottom: 25px;
-    }
-    
-    .social-link span {
-        font-size: 1rem;
-    }
     
     .social-link i {
         font-size: 1.4rem;
         margin-right: 20px;
     }
+    
+    .social-link span {
+        font-size: 15px;
+        font-weight: 500;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .luxury-header {
-        margin-bottom: 20px;
+        margin-bottom: 35px;
+        padding: 0 10px;
     }
     
-    .brand-tagline::before {
-        width: 40px;
-    }
-    
-    .image-frame {
-        width: 120px;
-        height: 120px;
-        padding: 4px;
-    }
-    
-    .profile-name h1 {
-        font-size: 1.6rem;
+    .brand-monogram {
         margin-bottom: 15px;
     }
     
-    .bio-text {
-        font-size: 0.9rem;
-        line-height: 1.6;
+    .profile {
+        margin-bottom: clamp(40px, 8vh, 60px);
+        padding: 0 10px;
+    }
+    
+    .image-frame {
+        width: 140px;
+        height: 140px;
         margin-bottom: 20px;
     }
     
-    .social-links::before {
-        top: -30px;
-        width: 60px;
+    .profile-name h1 {
+        font-size: 1.9rem;
+        margin-bottom: 25px;
+    }
+    
+    .bio-text {
+        font-size: 0.95rem;
+        padding: 0 10px;
+        margin-bottom: 35px;
+        line-height: 1.6;
+    }
+    
+    .social-links {
+        padding: 0 10px;
+        gap: 20px;
     }
     
     .social-link {
-        padding: 18px 20px;
+        padding: 20px 22px;
         border-radius: 14px;
-        gap: 15px;
+        min-height: 52px;
+    }
+    
+    .social-link span {
+        font-size: 14px;
     }
     
     .social-link i {
         font-size: 1.3rem;
         margin-right: 18px;
     }
+}
+
+@media (max-width: 480px) {
+    .luxury-header {
+        margin-bottom: 25px;
+        padding: 0 5px;
+    }
+    
+    .brand-tagline::before {
+        width: 35px;
+    }
+    
+    .image-frame {
+        width: 120px;
+        height: 120px;
+        padding: 4px;
+        margin-bottom: 15px;
+    }
+    
+    .profile-name h1 {
+        font-size: 1.7rem;
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+    
+    .bio-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        padding: 0 5px;
+    }
+    
+    .social-links::before {
+        top: -30px;
+        width: 50px;
+    }
+    
+    .social-links {
+        gap: 18px;
+        padding: 0 5px;
+    }
+    
+    .social-link {
+        padding: 18px 20px;
+        border-radius: 12px;
+        min-height: 50px;
+        font-size: 13px;
+    }
+    
+    .social-link i {
+        font-size: 1.2rem;
+        margin-right: 16px;
+    }
     
     .social-link span {
-        font-size: 0.95rem;
+        font-size: 13px;
+        font-weight: 500;
     }
     
     /* Disable complex animations on small screens */
@@ -1032,18 +1076,34 @@ body::before {
     }
     
     .stories-close {
-        top: 40px;
+        top: 35px;
         right: 20px;
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
     }
     
     .story-date {
         bottom: 20px;
         right: 20px;
-        padding: 8px 16px;
-        font-size: 12px;
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+    
+    /* Optimize profile image for very small screens */
+    .profile-image {
+        margin-bottom: 20px;
+    }
+    
+    .image-caption {
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+    
+    /* Better touch targets */
+    .name-display {
+        padding: 8px 0;
+        touch-action: manipulation;
     }
 }
 

@@ -496,162 +496,260 @@ body::before {
     }
 }
 
+/* Enhanced Mobile optimizations */
 @media (max-width: 768px) {
     body::before {
         background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
     }
     
+    .container {
+        padding: 25px 15px 40px 15px;
+        width: 95%;
+    }
+    
+    .luxury-header {
+        margin-bottom: clamp(35px, 6vh, 45px);
+        padding: 0 15px;
+    }
+    
+    .brand-monogram {
+        margin-bottom: 15px;
+    }
+    
+    .monogram-letter {
+        font-size: clamp(2.2rem, 7vw, 2.8rem);
+    }
+    
+    .monogram-separator {
+        margin: 0 12px;
+    }
+    
+    .brand-tagline {
+        font-size: clamp(0.65rem, 2.2vw, 0.75rem);
+        letter-spacing: 1.8px;
+    }
+    
+    .brand-tagline::before {
+        width: 35px;
+    }
+    
     .page-header {
-        margin-bottom: clamp(35px, 6vh, 50px);
-        padding: 30px 0;
+        margin-bottom: clamp(45px, 7vh, 60px);
+        padding: 35px 0;
     }
     
     .page-title h1 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
+        font-size: clamp(2.2rem, 6vw, 2.7rem);
+        margin-bottom: 20px;
     }
     
     .page-title p {
-        font-size: clamp(0.95rem, 3vw, 1.1rem);
-        padding: 0 10px;
+        font-size: clamp(1rem, 3vw, 1.15rem);
+        padding: 0 15px;
+        line-height: 1.7;
     }
     
     .projects-grid {
-        gap: clamp(30px, 5vh, 45px);
+        gap: clamp(35px, 5vh, 45px);
+        padding: 0 10px;
     }
     
     .project-category h2 {
         font-size: clamp(1.5rem, 5vw, 1.8rem);
-        margin-bottom: clamp(20px, 3vh, 25px);
+        margin-bottom: clamp(25px, 4vh, 30px);
     }
     
+    .project-card {
+        padding: 25px;
+        margin: 0;
+        border-radius: 16px;
+    }
+    
+    .project-header h3 {
+        font-size: clamp(1.2rem, 4vw, 1.4rem);
+        margin-bottom: 12px;
+    }
+    
+    .project-description {
+        font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+        line-height: 1.6;
+        margin-bottom: 18px;
+    }
+    
+    .project-tech {
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+    
+    .tech-tag {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        border-radius: 14px;
+    }
+    
+    .project-status {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+        border-radius: 18px;
+    }
+    
+    .project-links {
+        gap: 12px;
+        margin-top: 18px;
+    }
+    
+    .project-link {
+        padding: 12px 18px;
+        font-size: 0.85rem;
+        min-height: 48px;
+        border-radius: 10px;
+        flex: 1;
+        text-align: center;
+    }
+}
     .project-category h2::after {
         margin-left: 15px;
     }
     
     .project-links {
         grid-template-columns: 1fr;
-        gap: clamp(20px, 3vh, 25px);
+        gap: clamp(25px, 4vh, 30px);
     }
     
     .project-card {
-        padding: clamp(20px, 3vh, 25px);
+        padding: clamp(22px, 3vh, 28px);
     }
     
     .project-header {
-        gap: 18px;
+        gap: 20px;
     }
     
     .project-icon {
-        min-width: 50px;
-        height: 50px;
-        font-size: 1.4rem;
+        min-width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
     }
     
     .project-title {
-        font-size: clamp(1.2rem, 4vw, 1.4rem);
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
     }
     
     .project-description {
-        font-size: clamp(0.9rem, 3vw, 1rem);
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
     }
     
     .project-footer {
         flex-direction: column;
         align-items: stretch;
-        gap: 15px;
+        gap: 18px;
     }
     
     .project-button {
         width: 100%;
         text-align: center;
-        padding: 14px 24px;
+        padding: 16px 26px;
+        min-height: 50px;
     }
     
     .project-status {
         text-align: center;
         align-self: center;
-        padding: 10px 20px;
+        padding: 12px 22px;
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 15px 8px 30px 8px;
+        width: 98%;
+    }
+    
+    .luxury-header {
+        margin-bottom: 25px;
+        padding: 0 8px;
+    }
+    
+    .brand-tagline::before {
+        width: 30px;
+    }
+    
     .page-header {
+        margin-bottom: clamp(30px, 5vh, 40px);
         padding: 25px 0;
-        margin-bottom: clamp(25px, 5vh, 35px);
     }
     
     .page-title h1 {
-        font-size: clamp(1.8rem, 7vw, 2.2rem);
+        font-size: clamp(1.8rem, 7vw, 2.3rem);
+        margin-bottom: 15px;
     }
     
     .page-title p {
-        font-size: 1rem;
-        padding: 0 15px;
+        font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+        padding: 0 8px;
     }
     
     .projects-grid {
-        gap: clamp(25px, 4vh, 35px);
+        gap: clamp(25px, 4vh, 30px);
+        padding: 0 3px;
     }
     
     .project-category h2 {
-        font-size: 1.4rem;
-        margin-bottom: 18px;
-    }
-    
-    .project-category h2::after {
-        margin-left: 12px;
-    }
-    
-    .project-links {
-        gap: 18px;
+        font-size: clamp(1.3rem, 5.5vw, 1.6rem);
+        margin-bottom: 20px;
     }
     
     .project-card {
         padding: 18px;
-        border-radius: 15px;
-    }
-    
-    .project-header {
-        gap: 15px;
-    }
-    
-    .project-icon {
-        min-width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
         border-radius: 12px;
+        min-height: auto;
     }
     
-    .project-title {
-        font-size: 1.2rem;
+    .project-header h3 {
+        font-size: clamp(1.1rem, 4.5vw, 1.3rem);
         margin-bottom: 8px;
+        line-height: 1.3;
     }
     
     .project-description {
-        font-size: 0.9rem;
+        font-size: clamp(0.85rem, 2.8vw, 0.9rem);
         line-height: 1.5;
+        margin-bottom: 15px;
     }
     
-    .project-footer {
-        gap: 12px;
-        margin-top: 15px;
-        padding-top: 15px;
+    .project-tech {
+        gap: 6px;
+        margin-bottom: 15px;
     }
     
-    .project-button {
-        padding: 12px 20px;
-        font-size: 0.9rem;
+    .tech-tag {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+        border-radius: 12px;
     }
     
     .project-status {
-        padding: 8px 16px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        padding: 7px 14px;
+        border-radius: 16px;
     }
     
-    .project-image {
-        height: 180px;
-        margin-bottom: 15px;
-        border-radius: 12px;
+    .project-links {
+        gap: 8px;
+        margin-top: 15px;
+        flex-direction: column;
+    }
+    
+    .project-link {
+        padding: 12px 14px;
+        font-size: 0.8rem;
+        min-height: 46px;
+        border-radius: 10px;
+        width: 100%;
+    }
+    
+    .project-link i {
+        font-size: 0.95rem;
+        margin-right: 10px;
     }
 }
 

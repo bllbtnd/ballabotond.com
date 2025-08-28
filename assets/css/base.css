@@ -495,6 +495,15 @@ html {
 
 /* Media queries for buttons - Small phones */
 @media (max-width: 360px) {
+    body {
+        padding: 15px 10px 30px 10px;
+    }
+    
+    .container {
+        width: 95%;
+        padding: 15px 10px;
+    }
+    
     .home-button {
         top: 10px !important;
         right: 10px !important;
@@ -523,17 +532,18 @@ html {
     .back-button {
         display: none;
     }
-    
-    .container {
-        padding: 15px 10px;
-    }
 }
 
 /* Phones */
 @media (min-width: 361px) and (max-width: 600px) {
+    body {
+        padding: 20px 15px 35px 15px;
+    }
+    
     .container {
         padding: 20px 15px;
         margin-top: 30px;
+        width: 95%;
     }
     
     .home-button {
@@ -566,11 +576,16 @@ html {
     }
 }
 
-/* Tablets */
+/* Tablets and larger phones */
 @media (min-width: 601px) and (max-width: 960px) {
+    body {
+        padding: 25px 20px 40px 20px;
+    }
+    
     .container {
         padding: 30px 25px;
         max-width: 90%;
+        width: 90%;
     }
     
     .home-button {
@@ -590,10 +605,76 @@ html {
     }
 }
 
-/* Landscape orientation */
+/* Landscape orientation adjustments */
 @media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 15px 20px 25px 20px;
+    }
+    
     .container {
         padding-top: 60px;
+        padding-bottom: 20px;
+    }
+    
+    .home-button, .language-toggle {
+        transform: scale(0.9);
+    }
+}
+
+/* Enhanced mobile-first responsive design */
+@media (max-width: 320px) {
+    /* Very small phones */
+    body {
+        padding: 10px 5px 20px 5px;
+        font-size: 14px;
+    }
+    
+    .container {
+        width: 98%;
+        padding: 10px 5px;
+    }
+    
+    .home-button, .language-toggle, .download-pdf {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .home-button {
+        top: 8px !important;
+        right: 8px !important;
+    }
+    
+    .language-toggle {
+        top: 48px !important;
+        right: 8px !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets for mobile */
+    .social-link, .project-card, button, a {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+    
+    /* Improve button spacing for fingers */
+    .home-button, .language-toggle, .download-pdf {
+        margin: 5px;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, textarea, select {
+        font-size: 16px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .luxury-logo, .brand-monogram {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
 
