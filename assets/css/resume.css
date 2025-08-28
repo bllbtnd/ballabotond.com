@@ -271,6 +271,21 @@ body::before {
         max-width: 98%;
     }
     
+    /* Ensure download button stays circular on small screens */
+    .download-pdf {
+        /* Complete button reset for mobile */
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        border-radius: 50% !important;
+        outline: none !important;
+        aspect-ratio: 1 / 1 !important; /* Force perfect circle */
+        /* Do NOT reset width/height constraints - let specific breakpoints handle sizing */
+    }
+    
     .luxury-header {
         margin-bottom: 25px;
         padding: 0 8px;
@@ -375,7 +390,15 @@ body::before {
     }
     
     /* Better touch targets */
-    .download-pdf, .project-link {
+    .download-pdf {
+        min-height: 46px;
+        padding: 0 !important; /* Remove padding for circular shape */
+        font-size: 0.85rem;
+        border-radius: 50% !important; /* Keep circular for download button */
+        box-sizing: border-box !important; /* Ensure consistent sizing */
+    }
+    
+    .project-link {
         min-height: 46px;
         padding: 12px 16px;
         font-size: 0.85rem;
@@ -458,28 +481,49 @@ body::before {
 
 /* Download PDF button - luxury styling */
 .download-pdf {
-    position: fixed;
-    top: 130px; /* Below language toggle (75px + 45px height + 10px margin) */
-    right: 20px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
-    width: 45px; /* Match other nav buttons */
-    height: 45px; /* Match other nav buttons */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    /* Reset browser button defaults - aggressive approach */
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    border: 1px solid var(--glass-border) !important;
+    outline: none !important;
+    
+    position: fixed !important;
+    top: 130px !important; /* Below language toggle (75px + 45px height + 10px margin) */
+    right: 20px !important; /* Match base.css exactly */
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-radius: 50% !important;
+    width: 45px; /* Default size - responsive rules will override */
+    height: 45px; /* Default size - responsive rules will override */
+    min-width: 45px !important; /* Prevent shrinking below default */
+    min-height: 45px !important; /* Prevent shrinking below default */
+    padding: 0 !important; /* No padding for perfect circle */
+    margin: 0 !important; /* No margin for perfect circle */
+    box-sizing: border-box !important; /* Consistent sizing */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.4),
         0 1px 0 rgba(255, 255, 255, 0.05) inset,
-        0 0 0 1px rgba(201, 169, 107, 0.1);
-    color: var(--accent-color);
-    z-index: 10;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    font-size: 1.4rem; /* Match other nav buttons */
+        0 0 0 1px rgba(201, 169, 107, 0.1) !important;
+    color: var(--accent-color) !important;
+    z-index: 10 !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    font-size: 1.4rem; /* Default size - responsive rules will override */
+    
+    /* Force aspect ratio to 1:1 for perfect circle */
+    aspect-ratio: 1 / 1 !important;
+    /* Override any flex-basis or flex-grow that might interfere */
+    flex: none !important;
+    /* Prevent any text wrapping */
+    white-space: nowrap !important;
+    /* Prevent any user-agent stylesheet interference */
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 
 .download-pdf:hover {
@@ -491,6 +535,76 @@ body::before {
     color: var(--bg-color);
     background: var(--luxury-gradient);
     border-color: var(--accent-color);
+}
+
+/* Fill the gap - screens between 321px and 359px */
+@media (min-width: 321px) and (max-width: 359px) {
+    .download-pdf {
+        top: 100px !important; /* Match base.css exactly */
+        right: 10px !important; /* Match base.css exactly */
+        width: 35px !important; /* Match base.css exactly */
+        height: 35px !important; /* Match base.css exactly */
+        font-size: 1.2rem !important; /* Match base.css exactly */
+        border-radius: 50% !important; /* Ensure it stays circular */
+        padding: 0 !important; /* No padding for perfect circle */
+        box-sizing: border-box !important; /* Consistent sizing */
+        aspect-ratio: 1 / 1 !important; /* Force perfect circle */
+        z-index: 10 !important;
+    }
+}
+
+/* Very small phones - 320px breakpoint and below - HIGHEST SPECIFICITY */
+@media screen and (max-width: 320px) {
+    body .resume-container .download-pdf,
+    .download-pdf {
+        /* EXACT MATCH with base.css positioning - OVERRIDE ALL OTHER RULES */
+        top: 88px !important; /* Below language toggle (48px + 32px height + 8px margin) - EXACT MATCH */
+        right: 8px !important; /* EXACT MATCH with base.css */
+        width: 32px !important; /* EXACT MATCH with base.css */
+        height: 32px !important; /* EXACT MATCH with base.css */
+        font-size: 1rem !important; /* EXACT MATCH with base.css */
+        
+        /* Aggressive overrides to ensure positioning sticks */
+        position: fixed !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
+        
+        /* Reset any conflicting styles */
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 10 !important;
+        
+        /* Prevent any size variations - FORCE EXACT SIZE */
+        min-width: 32px !important;
+        min-height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+    }
+}
+
+/* Extremely small screens - under 300px */
+@media (max-width: 300px) {
+    .download-pdf {
+        top: 82px !important; /* Slightly higher for tiny screens */
+        right: 5px !important; /* Closer to edge */
+        width: 28px !important; /* Even smaller */
+        height: 28px !important; /* Even smaller */
+        min-width: 28px !important;
+        min-height: 28px !important;
+        max-width: 28px !important;
+        max-height: 28px !important;
+        font-size: 0.9rem !important;
+        aspect-ratio: 1 / 1 !important; /* Force perfect circle */
+        z-index: 10 !important; /* Ensure it's above other elements */
+    }
 }
 
 /* Resume content - luxury styling */
@@ -1443,6 +1557,10 @@ body::before {
         width: 35px !important; /* Match base.css exactly */
         height: 35px !important; /* Match base.css exactly */
         font-size: 1.2rem !important; /* Match base.css exactly */
+        border-radius: 50% !important; /* Ensure it stays circular */
+        padding: 0 !important; /* No padding for perfect circle */
+        box-sizing: border-box !important; /* Consistent sizing */
+        aspect-ratio: 1 / 1 !important; /* Force perfect circle */
         z-index: 10 !important;
     }
     
@@ -1506,6 +1624,10 @@ body::before {
         width: 40px !important; /* Match base.css exactly */
         height: 40px !important; /* Match base.css exactly */
         font-size: 1.3rem !important; /* Match base.css exactly */
+        border-radius: 50% !important; /* Ensure it stays circular */
+        padding: 0 !important; /* No padding for perfect circle */
+        box-sizing: border-box !important; /* Consistent sizing */
+        aspect-ratio: 1 / 1 !important; /* Force perfect circle */
         z-index: 10 !important;
     }
     
@@ -2453,5 +2575,89 @@ body::before {
     .download-pdf,
     .language-toggle {
         display: none !important;
+    }
+}
+
+/* CRITICAL: Universal download button circle override - highest specificity */
+/* This rule must come last to override any conflicting styles */
+button.download-pdf, 
+.download-pdf, 
+a.download-pdf,
+*[class*="download-pdf"] {
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    overflow: hidden !important;
+    min-width: unset !important;
+    min-height: unset !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Force circle at all screen sizes - ultimate override */
+@media screen {
+    .download-pdf {
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+}
+
+/* Mobile positioning - multiple breakpoints for perfect alignment */
+
+/* Medium mobile: 361px to 600px - match base.css exactly */
+@media (min-width: 361px) and (max-width: 600px) {
+    .download-pdf {
+        position: fixed !important;
+        top: 115px !important;       /* Match base.css: Below language toggle (65px + 40px height + 10px margin) */
+        right: 15px !important;      /* Match base.css exactly */
+        width: 40px !important;      /* Match base.css exactly */
+        height: 40px !important;     /* Match base.css exactly */
+        border-radius: 50% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        font-size: 1.3rem !important; /* Match base.css exactly */
+        z-index: 10 !important;
+    }
+}
+
+/* Small mobile: 321px to 360px - match base.css exactly */
+@media (min-width: 321px) and (max-width: 360px) {
+    .download-pdf {
+        position: fixed !important;
+        top: 100px !important;       /* Match base.css: Below language toggle (55px + 35px height + 10px margin) */
+        right: 10px !important;      /* Match base.css exactly */
+        width: 35px !important;      /* Match base.css exactly */
+        height: 35px !important;     /* Match base.css exactly */
+        border-radius: 50% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        font-size: 1.2rem !important; /* Match base.css exactly */
+        z-index: 10 !important;
+    }
+}
+
+/* Very small mobile: 301px to 320px - match base.css exactly */
+@media (min-width: 301px) and (max-width: 320px) {
+    .download-pdf {
+        position: fixed !important;
+        top: 88px !important;        /* Match base.css for 320px */
+        right: 8px !important;       /* Match base.css for 320px */
+        width: 32px !important;      /* Match base.css for 320px */
+        height: 32px !important;     /* Match base.css for 320px */
+        border-radius: 50% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        font-size: 1rem !important;  /* Match base.css for 320px */
+        z-index: 10 !important;
     }
 }

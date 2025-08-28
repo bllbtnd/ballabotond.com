@@ -493,6 +493,21 @@ html {
     }
 }
 
+/* Media queries for buttons - Mobile phones under 480px */
+@media (max-width: 479px) {
+    .download-pdf {
+        /* Complete button reset for mobile */
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        border-radius: 50% !important;
+        outline: none !important;
+    }
+}
+
 /* Media queries for buttons - Small phones */
 @media (max-width: 360px) {
     body {
@@ -526,6 +541,9 @@ html {
         width: 35px !important;
         height: 35px !important;
         font-size: 1.2rem;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
     }
     
     /* Hide back button on small mobile */
@@ -568,6 +586,9 @@ html {
         width: 40px !important;
         height: 40px !important;
         font-size: 1.3rem;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
     }
     
     /* Hide back button on mobile */
@@ -621,6 +642,36 @@ html {
     }
 }
 
+/* Very small phones - fill the gap between 360px and 320px */
+@media (min-width: 321px) and (max-width: 359px) {
+    .home-button {
+        top: 10px !important;
+        right: 10px !important;
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1.2rem;
+    }
+    
+    .language-toggle {
+        top: 55px !important; /* Below home button (35px + 10px margin) */
+        right: 10px !important;
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1.2rem;
+    }
+    
+    .download-pdf {
+        top: 100px !important; /* Below language toggle (55px + 35px height + 10px margin) */
+        right: 10px !important;
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1.2rem;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+}
+
 /* Enhanced mobile-first responsive design */
 @media (max-width: 320px) {
     /* Very small phones */
@@ -635,24 +686,36 @@ html {
     }
     
     .home-button, .language-toggle, .download-pdf {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1rem !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .download-pdf {
+        top: 88px !important; /* Below language toggle (48px + 32px height + 8px margin) */
+        right: 8px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
     }
     
     .home-button {
         top: 8px !important;
         right: 8px !important;
+        border-radius: 50% !important;
     }
     
     .language-toggle {
         top: 48px !important;
         right: 8px !important;
+        border-radius: 50% !important;
     }
 }
 
 /* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse) and (min-width: 321px) {
     /* Larger touch targets for mobile */
     .social-link, .project-card, button, a {
         min-height: 44px;
@@ -662,6 +725,19 @@ html {
     /* Improve button spacing for fingers */
     .home-button, .language-toggle, .download-pdf {
         margin: 5px;
+    }
+    
+    /* Override for download-pdf to maintain circular shape */
+    .download-pdf {
+        /* Complete button reset for touch devices */
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        border-radius: 50% !important;
+        outline: none !important;
     }
     
     /* Prevent zoom on input focus */
@@ -784,5 +860,37 @@ a, button, input, textarea, select {
     
     .particle {
         display: none;
+    }
+}
+
+/* CRITICAL: Universal button circle override - highest specificity */
+/* This rule must come last to override any conflicting styles */
+button.home-button, 
+.home-button,
+button.language-toggle,
+.language-toggle,
+button.download-pdf, 
+.download-pdf {
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Force circles at all screen sizes - ultimate override */
+@media screen {
+    .home-button,
+    .language-toggle,
+    .download-pdf {
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
     }
 }
