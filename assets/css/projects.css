@@ -607,6 +607,8 @@ body::before {
         text-align: center;
     }
 }
+
+@media (max-width: 768px) {
     .project-category h2::after {
         margin-left: 15px;
     }
