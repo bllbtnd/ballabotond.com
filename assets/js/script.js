@@ -278,6 +278,98 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         </style>
     `);
+    
+    // Initialize scroll indicator functionality
+    initScrollIndicator();
+    
+    // Scroll indicator functionality
+    function initScrollIndicator() {
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        let isScrollIndicatorVisible = false;
+        
+        if (!scrollIndicator) return;
+        
+        // Ensure it starts completely hidden
+        scrollIndicator.classList.add('hidden');
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.visibility = 'hidden';
+        
+        // Show it after page load with delay, but only if at top
+        setTimeout(() => {
+            const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrolled <= 5) {
+                scrollIndicator.classList.remove('hidden');
+                scrollIndicator.classList.add('show');
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.visibility = 'visible';
+                isScrollIndicatorVisible = true;
+            }
+        }, 2000);
+        
+        // Function to handle scroll indicator visibility
+        function handleScroll() {
+            const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Only show when at the very top (0-5px tolerance)
+            if (scrolled <= 5) {
+                if (!isScrollIndicatorVisible) {
+                    scrollIndicator.classList.remove('hidden');
+                    scrollIndicator.classList.add('show');
+                    scrollIndicator.style.opacity = '1';
+                    scrollIndicator.style.visibility = 'visible';
+                    isScrollIndicatorVisible = true;
+                }
+            } else {
+                if (isScrollIndicatorVisible) {
+                    // Add a small delay before hiding for smoother feel
+                    setTimeout(() => {
+                        // Double-check if still scrolled (user might have scrolled back up quickly)
+                        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                        if (currentScroll > 5) {
+                            scrollIndicator.classList.add('hidden');
+                            scrollIndicator.classList.remove('show');
+                            scrollIndicator.style.opacity = '0';
+                            scrollIndicator.style.visibility = 'hidden';
+                            isScrollIndicatorVisible = false;
+                        }
+                    }, 150); // 150ms delay before hiding
+                }
+            }
+        }
+        
+        // Add scroll event listener with throttling for performance
+        let ticking = false;
+        function throttledScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', throttledScroll, { passive: true });
+        
+        // Optional: Add click functionality to scroll indicator for smooth scrolling
+        scrollIndicator.addEventListener('click', () => {
+            const targetScroll = window.innerHeight * 1; // Scroll down 120% of viewport height
+            window.scrollTo({
+                top: targetScroll,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add smooth hover effect
+        scrollIndicator.addEventListener('mouseenter', () => {
+            scrollIndicator.style.transform = 'translateX(-50%) scale(1.1)';
+            scrollIndicator.style.cursor = 'pointer';
+        });
+        
+        scrollIndicator.addEventListener('mouseleave', () => {
+            scrollIndicator.style.transform = 'translateX(-50%) scale(1)';
+        });
+    }
 });
 
 // Stories functionality

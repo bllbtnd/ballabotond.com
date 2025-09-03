@@ -42,16 +42,7 @@ body::before {
     z-index: 2;
 }
 
-/* Luxury Header Section */
-.luxury-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: clamp(50px, 8vh, 80px);
-    text-align: center;
-    animation: headerReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-}
+/* Luxury Header Section - defined in hero-container context */
 
 .brand-monogram {
     display: flex;
@@ -117,15 +108,35 @@ body::before {
     display: inline;
 }
 
+/* Create a full-height hero container */
+.hero-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0 20px;
+}
+
+/* Luxury header section */
+.luxury-header {
+    margin-bottom: clamp(40px, 6vh, 60px);
+    text-align: center;
+    animation: headerReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
 /* Luxury profile section */
 .profile {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: clamp(60px, 10vh, 100px);
+    margin-bottom: 0;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
     position: relative;
+    justify-content: center;
 }
 
 .profile-image {
@@ -222,7 +233,7 @@ body::before {
 .profile-name h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-    margin-bottom: 30px;
+    margin-bottom: clamp(60px, 10vh, 100px);
     font-weight: 300;
     letter-spacing: -1.5px;
     color: var(--text-color);
@@ -236,6 +247,29 @@ body::before {
     position: relative;
     max-width: 850px;
     margin: 0 auto;
+    padding-top: clamp(60px, 12vh, 100px);
+    margin-top: clamp(40px, 8vh, 80px);
+}
+
+/* Scrollable content section */
+.scrollable-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    margin-top: -20vh; /* Pull it up so it appears sooner */
+}
+
+.bio-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: var(--luxury-gradient);
+    opacity: 0.6;
+    margin-bottom: 40px;
 }
 
 .bio-text {
@@ -856,9 +890,15 @@ body::before {
 
 /* Mobile optimizations for luxury design */
 @media (max-width: 768px) {
+    .hero-container {
+        min-height: 100vh;
+        padding: 20px 15px;
+        justify-content: center; /* Ensure perfect centering */
+    }
+    
     .luxury-header {
-        margin-bottom: clamp(40px, 8vh, 60px);
-        padding: 0 15px;
+        margin-bottom: clamp(40px, 6vh, 50px);
+        padding: 0;
     }
     
     .brand-monogram {
@@ -866,48 +906,57 @@ body::before {
     }
     
     .monogram-letter {
-        font-size: clamp(2.2rem, 8vw, 3.2rem);
+        font-size: clamp(2.5rem, 8vw, 3.5rem); /* Larger on mobile */
     }
     
     .monogram-separator {
-        margin: 0 18px;
-        font-size: clamp(1.4rem, 5vw, 2.2rem);
+        margin: 0 20px;
+        font-size: clamp(1.5rem, 5vw, 2.2rem); /* Larger on mobile */
     }
     
     .brand-tagline {
-        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+        font-size: clamp(0.75rem, 2.5vw, 0.9rem); /* Larger on mobile */
         letter-spacing: 2.5px;
         padding: 0 20px;
     }
     
     .profile {
-        margin-bottom: clamp(60px, 12vh, 80px);
-        padding: 0 15px;
+        margin-bottom: 0;
+        padding: 0;
     }
     
     .image-frame {
-        width: clamp(160px, 35vw, 200px);
-        height: clamp(160px, 35vw, 200px);
+        width: clamp(160px, 35vw, 200px); /* Larger on mobile */
+        height: clamp(160px, 35vw, 200px); /* Larger on mobile */
         margin-bottom: 25px;
     }
     
     .image-caption {
-        font-size: clamp(0.8rem, 2.5vw, 1rem);
-        margin-bottom: 15px;
+        font-size: clamp(0.8rem, 2.5vw, 1rem); /* Larger on mobile */
+        margin-bottom: 20px;
     }
     
     .profile-name h1 {
-        font-size: clamp(2rem, 8vw, 2.8rem);
-        margin-bottom: 30px;
-        line-height: 1.2;
+        font-size: clamp(2.2rem, 7.5vw, 2.8rem); /* Larger on mobile */
+        margin-bottom: 0;
+        line-height: 1.1;
+    }
+    
+    .scrollable-content {
+        margin-top: -15vh; /* Less overlap on mobile */
+    }
+    
+    .bio-container {
+        padding-top: clamp(40px, 8vh, 60px);
+        margin-top: clamp(40px, 8vh, 60px);
     }
     
     .bio-text {
-        font-size: clamp(1rem, 3vw, 1.1rem);
+        font-size: clamp(0.95rem, 2.8vw, 1.05rem);
         text-align: center;
         padding: 0 20px;
-        margin-bottom: 40px;
-        line-height: 1.7;
+        margin-bottom: 35px;
+        line-height: 1.6;
     }
     
     .bio-text::before,
@@ -917,19 +966,19 @@ body::before {
     
     .social-links {
         grid-template-columns: 1fr;
-        gap: 22px;
+        gap: 20px;
         max-width: 100%;
         padding: 0 15px;
     }
     
     .social-link {
-        padding: 22px 24px;
+        padding: 20px 22px;
         opacity: 1 !important;
         animation: none;
-        border-radius: 16px;
+        border-radius: 14px;
         transform: none !important;
-        min-height: 56px;
-        font-size: 16px;
+        min-height: 54px;
+        font-size: 15px;
     }
     
     .social-link:active {
@@ -938,71 +987,105 @@ body::before {
     }
     
     .social-link:hover {
-        transform: translateY(-4px) scale(1.01) !important;
+        transform: translateY(-3px) scale(1.01) !important;
     }
     
     .social-link i {
-        font-size: 1.4rem;
-        margin-right: 20px;
+        font-size: 1.3rem;
+        margin-right: 18px;
     }
     
     .social-link span {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
     }
 }
 
 @media (max-width: 600px) {
+    .hero-container {
+        min-height: 100vh;
+        padding: 15px 10px;
+        justify-content: center; /* Perfect centering on small screens */
+    }
+    
     .luxury-header {
-        margin-bottom: 35px;
-        padding: 0 10px;
+        margin-bottom: 30px;
+        padding: 0;
     }
     
     .brand-monogram {
         margin-bottom: 15px;
     }
     
+    .monogram-letter {
+        font-size: clamp(2.2rem, 8vw, 3rem); /* Larger on small mobile */
+    }
+    
+    .monogram-separator {
+        margin: 0 18px;
+        font-size: clamp(1.4rem, 5vw, 2rem); /* Larger on small mobile */
+    }
+    
+    .brand-tagline {
+        font-size: clamp(0.7rem, 2.5vw, 0.85rem); /* Larger on small mobile */
+        letter-spacing: 2px;
+    }
+    
     .profile {
-        margin-bottom: clamp(40px, 8vh, 60px);
-        padding: 0 10px;
+        margin-bottom: 0;
+        padding: 0;
     }
     
     .image-frame {
-        width: 140px;
-        height: 140px;
+        width: clamp(140px, 32vw, 170px); /* Larger on small mobile */
+        height: clamp(140px, 32vw, 170px); /* Larger on small mobile */
         margin-bottom: 20px;
     }
     
+    .image-caption {
+        font-size: clamp(0.75rem, 2.5vw, 0.9rem); /* Larger on small mobile */
+        margin-bottom: 15px;
+    }
+    
     .profile-name h1 {
-        font-size: 1.9rem;
-        margin-bottom: 25px;
+        font-size: clamp(1.9rem, 7vw, 2.4rem); /* Larger on small mobile */
+        margin-bottom: 0;
+    }
+    
+    .scrollable-content {
+        margin-top: -10vh; /* Even less on small screens */
+    }
+    
+    .bio-container {
+        padding-top: clamp(30px, 6vh, 40px);
+        margin-top: clamp(30px, 6vh, 40px);
     }
     
     .bio-text {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         padding: 0 10px;
-        margin-bottom: 35px;
-        line-height: 1.6;
+        margin-bottom: 30px;
+        line-height: 1.5;
     }
     
     .social-links {
         padding: 0 10px;
-        gap: 20px;
+        gap: 18px;
     }
     
     .social-link {
-        padding: 20px 22px;
-        border-radius: 14px;
-        min-height: 52px;
+        padding: 18px 20px;
+        border-radius: 12px;
+        min-height: 50px;
     }
     
     .social-link span {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .social-link i {
-        font-size: 1.3rem;
-        margin-right: 18px;
+        font-size: 1.2rem;
+        margin-right: 16px;
     }
 }
 
@@ -1162,4 +1245,117 @@ body::before {
 
 .container.loaded .social-link {
     opacity: 1;
+}
+
+/* ===== SIMPLE SCROLL INDICATOR ===== */
+.scroll-indicator {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 0;
+    animation: none; /* Remove automatic animation */
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother, longer transition */
+    visibility: hidden; /* Start completely hidden */
+}
+
+.scroll-indicator.show {
+    opacity: 1;
+    visibility: visible;
+    animation: scrollIndicatorReveal 1s ease forwards;
+}
+
+/* Hide scroll indicator when user has scrolled */
+.scroll-indicator.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px); /* Slight downward movement when hiding */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Even smoother hide transition */
+    visibility: hidden;
+}
+
+.scroll-arrow {
+    font-size: 24px;
+    color: var(--accent-color);
+    animation: arrowBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px var(--luxury-shadow));
+    transition: all 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-arrow {
+    color: var(--hover-color);
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 30px var(--luxury-shadow));
+}
+
+/* Scroll Indicator Animations */
+@keyframes scrollIndicatorReveal {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes arrowBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Hide scroll indicator when user has scrolled */
+.scroll-indicator.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px); /* Slight downward movement when hiding */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Even smoother hide transition */
+    visibility: hidden;
+}
+
+/* Responsive adjustments for scroll indicator */
+@media (max-width: 768px) {
+    .scroll-indicator {
+        bottom: 30px;
+    }
+    
+    .scroll-arrow {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scroll-indicator {
+        bottom: 25px;
+    }
+    
+    .scroll-arrow {
+        font-size: 18px;
+    }
+}
+
+/* Hide on landscape mobile to avoid interference */
+@media (max-height: 500px) and (orientation: landscape) {
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* Special handling for very small screens */
+@media (max-width: 320px) {
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    .scroll-arrow {
+        font-size: 16px;
+    }
 }
