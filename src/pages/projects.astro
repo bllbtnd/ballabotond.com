@@ -62,13 +62,14 @@ const getStatusBadge = (status: string) => {
   </nav>
 
   <!-- Main container -->
-  <div class="relative min-h-screen py-20" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
+  <div class="relative min-h-screen flex flex-col" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
     
     <!-- Subtle background pattern -->
     <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
     
     <!-- Content container -->
-    <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="relative z-10 flex-1 py-20">
+      <div class="max-w-6xl mx-auto px-6">
       
       <!-- Header section -->
       <header class="text-center mb-16">
@@ -141,17 +142,18 @@ const getStatusBadge = (status: string) => {
         })}
       </div>
       
-      <!-- Back to home link -->
-      <div class="text-center mt-16">
-        <a href="/" 
-           class="inline-flex items-center gap-2 font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300">
-          <i class="fas fa-arrow-left"></i>
-          Back to Home
-        </a>
+        <!-- Back to home link -->
+        <div class="text-center mt-16">
+          <a href="/" 
+             class="inline-flex items-center gap-2 font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
       </div>
     </div>
     
     <!-- Footer Component -->
-    <Footer variant="simple" />
+    <Footer variant="full" />
   </div>
 </Layout>
