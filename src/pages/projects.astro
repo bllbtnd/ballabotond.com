@@ -1,0 +1,153 @@
+---
+// Projects page for Balla Botond's Astro site
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    id: 'kki-calculator',
+    category: 'Web Apps',
+    title: 'KKI calculator',
+    description: 'A simple KKI calculator that helps with KKI calculations.',
+    buttonText: 'Try it out',
+    url: 'https://kki.ballabotond.com',
+    icon: 'fas fa-brain',
+    status: 'active'
+  },
+  {
+    id: 'trackit-app',
+    category: 'Health and Fitness',
+    title: 'TrackIt',
+    description: 'A fitness tracking app for monitoring health.',
+    buttonText: 'Get in touch',
+    url: 'https://trackit.31b4.com/',
+    icon: 'fas fa-weight',
+    status: 'coming-soon'
+  },
+  {
+    id: 'minecraft-server',
+    category: 'Gaming',
+    title: 'Minecraft Server',
+    description: 'Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought "toy", but now quite a few people started playing on it. It runs on a Raspberry Pi 5 on a home network.',
+    buttonText: 'Copy Server IP',
+    url: 'mcserver.ballabotond.com',
+    icon: 'fas fa-cube',
+    status: 'active',
+    copyToClipboard: true
+  }
+];
+
+const getStatusBadge = (status: string) => {
+  switch (status) {
+    case 'active':
+      return { text: 'Live', class: 'bg-green-500', color: '#28a745' };
+    case 'coming-soon':
+      return { text: 'Coming Soon', class: 'bg-yellow-500', color: '#ffc107' };
+    case 'maintenance':
+      return { text: 'Maintenance', class: 'bg-red-500', color: '#dc3545' };
+    default:
+      return { text: 'Unknown', class: 'bg-gray-500', color: '#6c757d' };
+  }
+};
+---
+
+<Layout title="Projects | Balla Botond">
+  <!-- Navigation -->
+  <nav class="fixed top-6 left-6 z-50">
+    <a href="/" 
+       class="flex items-center justify-center w-12 h-12 rounded-full bg-luxury-gold text-gray-900 hover:bg-luxury-gold-light transition-all duration-300 transform hover:scale-110 shadow-lg"
+       aria-label="Go to Home">
+      <i class="fas fa-home text-lg"></i>
+    </a>
+  </nav>
+
+  <!-- Main container -->
+  <div class="relative min-h-screen py-20" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
+    
+    <!-- Subtle background pattern -->
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+    
+    <!-- Content container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
+      
+      <!-- Header section -->
+      <header class="text-center mb-16">
+        <!-- Brand Monogram -->
+        <div class="flex items-center justify-center mb-8 animate-fade-in">
+          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
+          <div class="mx-4 flex flex-col items-center">
+            <div class="w-px h-8 bg-luxury-gold opacity-60"></div>
+          </div>
+          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
+        </div>
+        
+        <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
+          Crafted with Precision
+        </p>
+        
+        <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 text-white leading-tight animate-fade-in" style="animation-delay: 0.6s;">
+          Projects & Links
+        </h1>
+        
+        <p class="font-montserrat text-lg md:text-xl text-luxury-gray font-light max-w-2xl mx-auto leading-relaxed animate-fade-in" style="animation-delay: 0.9s;">
+          Creative endeavors, useful tools, and places to connect
+        </p>
+      </header>
+
+      <!-- Projects grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => {
+          const statusBadge = getStatusBadge(project.status);
+          return (
+            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl animate-fade-in"
+                 style={`animation-delay: ${1.2 + index * 0.2}s;`}>
+              
+              <!-- Project icon and status -->
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-full bg-luxury-gold bg-opacity-20 flex items-center justify-center">
+                  <i class={`${project.icon} text-luxury-gold text-xl`}></i>
+                </div>
+                <span class={`px-3 py-1 rounded-full text-xs font-montserrat font-semibold uppercase tracking-wider ${statusBadge.class}`}>
+                  {statusBadge.text}
+                </span>
+              </div>
+              
+              <!-- Project category -->
+              <p class="font-montserrat text-sm text-luxury-gray uppercase tracking-wider mb-2">
+                {project.category}
+              </p>
+              
+              <!-- Project title -->
+              <h3 class="font-playfair text-2xl font-medium text-white mb-3">
+                {project.title}
+              </h3>
+              
+              <!-- Project description -->
+              <p class="font-montserrat text-luxury-gray text-sm leading-relaxed mb-6">
+                {project.description}
+              </p>
+              
+              <!-- Project button -->
+              <button 
+                class="w-full px-6 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300"
+                onclick={project.copyToClipboard ? 
+                  `navigator.clipboard.writeText('${project.url}'); alert('Server IP copied to clipboard!');` : 
+                  `window.open('${project.url}', '_blank')`}
+              >
+                {project.buttonText}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      
+      <!-- Back to home link -->
+      <div class="text-center mt-16">
+        <a href="/" 
+           class="inline-flex items-center gap-2 font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

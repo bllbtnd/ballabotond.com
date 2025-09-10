@@ -1,0 +1,174 @@
+---
+// Resume page for Balla Botond's Astro site
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Resume | Balla Botond">
+  <!-- Navigation -->
+  <nav class="fixed top-6 left-6 z-50">
+    <a href="/" 
+       class="flex items-center justify-center w-12 h-12 rounded-full bg-luxury-gold text-gray-900 hover:bg-luxury-gold-light transition-all duration-300 transform hover:scale-110 shadow-lg"
+       aria-label="Go to Home">
+      <i class="fas fa-home text-lg"></i>
+    </a>
+  </nav>
+
+  <!-- Main container -->
+  <div class="relative min-h-screen py-20" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
+    
+    <!-- Subtle background pattern -->
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+    
+    <!-- Content container -->
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+      
+      <!-- Header section -->
+      <header class="text-center mb-16">
+        <!-- Brand Monogram -->
+        <div class="flex items-center justify-center mb-8 animate-fade-in">
+          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
+          <div class="mx-4 flex flex-col items-center">
+            <div class="w-px h-8 bg-luxury-gold opacity-60"></div>
+          </div>
+          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
+        </div>
+        
+        <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
+          Thoughtful Solutions
+        </p>
+        
+        <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 text-white leading-tight animate-fade-in" style="animation-delay: 0.6s;">
+          Professional Resume
+        </h1>
+      </header>
+
+      <!-- Resume content -->
+      <div class="space-y-12">
+        
+        <!-- Profile Section -->
+        <section class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 animate-fade-in" style="animation-delay: 0.9s;">
+          <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-luxury-gold shadow-lg">
+              <img src="/assets/images/image.png" alt="Balla Botond Profile Picture" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 text-center md:text-left">
+              <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white mb-2">Botond Balla</h2>
+              <p class="font-montserrat text-lg text-luxury-gold mb-4">Computer Science Student, Software Developer & Entrepreneur</p>
+              <div class="flex flex-col sm:flex-row gap-4 text-sm">
+                <a href="mailto:ballabotond@ballabotond.com" class="flex items-center gap-2 text-luxury-gray hover:text-luxury-gold transition-colors">
+                  <i class="fas fa-envelope"></i>
+                  ballabotond@ballabotond.com
+                </a>
+                <a href="https://www.ballabotond.com" target="_blank" class="flex items-center gap-2 text-luxury-gray hover:text-luxury-gold transition-colors">
+                  <i class="fas fa-globe"></i>
+                  www.ballabotond.com
+                </a>
+                <a href="https://github.com/bllbtnd" target="_blank" class="flex items-center gap-2 text-luxury-gray hover:text-luxury-gold transition-colors">
+                  <i class="fab fa-github"></i>
+                  github.com/bllbtnd
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Professional Summary -->
+        <section class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 animate-fade-in" style="animation-delay: 1.2s;">
+          <h3 class="font-playfair text-2xl font-medium text-luxury-gold mb-6 border-b border-luxury-gold pb-2">Professional Summary</h3>
+          <p class="font-montserrat text-luxury-gray leading-relaxed">
+            A results-driven Computer Science student with a passion for transforming complex problems into elegant software solutions. I complement my academic foundations by actively seeking real-world projects, believing that hands-on experience is key to true mastery. I am motivated by the entire development lifecycle, from conceptualizing a feature to deploying a functional, high-quality product like a web application or an efficient algorithm. I am a lifelong learner, constantly exploring new technologies and frameworks to sharpen my problem-solving skills.
+          </p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 animate-fade-in" style="animation-delay: 1.5s;">
+          <h3 class="font-playfair text-2xl font-medium text-luxury-gold mb-6 border-b border-luxury-gold pb-2">Technical Skills</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h4 class="font-montserrat font-semibold text-white mb-4">Programming Languages</h4>
+              <div class="flex flex-wrap gap-2">
+                {['Java', 'Python', 'C++', 'C#', 'Kotlin', 'Go', 'JavaScript'].map(skill => (
+                  <span class="px-3 py-1 bg-luxury-gold bg-opacity-20 text-luxury-gold rounded-full text-sm font-montserrat">{skill}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 class="font-montserrat font-semibold text-white mb-4">Frameworks & Libraries</h4>
+              <div class="flex flex-wrap gap-2">
+                {['React', 'Node.js', 'Express.js', 'Spring Boot', 'Next.js', 'Bootstrap', 'ASP.NET'].map(skill => (
+                  <span class="px-3 py-1 bg-luxury-gold bg-opacity-20 text-luxury-gold rounded-full text-sm font-montserrat">{skill}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 class="font-montserrat font-semibold text-white mb-4">Tools & Technologies</h4>
+              <div class="flex flex-wrap gap-2">
+                {['Git', 'Docker', 'Linux', 'Bash', 'MySQL', 'MongoDB', 'PostgreSQL', 'SQLite'].map(skill => (
+                  <span class="px-3 py-1 bg-luxury-gold bg-opacity-20 text-luxury-gold rounded-full text-sm font-montserrat">{skill}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 animate-fade-in" style="animation-delay: 1.8s;">
+          <h3 class="font-playfair text-2xl font-medium text-luxury-gold mb-6 border-b border-luxury-gold pb-2">Professional Experience</h3>
+          
+          <div class="space-y-8">
+            <!-- Current Job -->
+            <div class="border-l-4 border-luxury-gold pl-6">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                <h4 class="font-montserrat font-semibold text-white text-lg">Software Developer</h4>
+                <span class="font-montserrat text-luxury-gray text-sm">July 2025 - Present</span>
+              </div>
+              <a href="https://logicloud.hu" target="_blank" class="font-montserrat text-luxury-gold hover:text-luxury-gold-light transition-colors">LogiCloud KFT</a>
+              <ul class="font-montserrat text-luxury-gray text-sm mt-3 space-y-1">
+                <li>• Developing software solutions for various companies, including Suzuki, as a part-time developer while pursuing university studies.</li>
+                <li>• Contributing to production-grade software projects within a specialized development team.</li>
+                <li>• Successfully balancing professional development experience with academic responsibilities.</li>
+              </ul>
+            </div>
+
+            <!-- Internship -->
+            <div class="border-l-4 border-gray-600 pl-6">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                <h4 class="font-montserrat font-semibold text-white text-lg">Software Development Intern</h4>
+                <span class="font-montserrat text-luxury-gray text-sm">May 2025 - July 2025</span>
+              </div>
+              <a href="https://logicloud.hu" target="_blank" class="font-montserrat text-luxury-gold hover:text-luxury-gold-light transition-colors">LogiCloud KFT</a>
+              <ul class="font-montserrat text-luxury-gray text-sm mt-3 space-y-1">
+                <li>• Completed an intensive 8-week internship program, contributing to software development projects for Suzuki and its partner companies.</li>
+                <li>• Learned professional coding standards and team workflows in a small, specialized development environment.</li>
+                <li>• Successfully applied academic knowledge to solve practical technical challenges using industry tools.</li>
+              </ul>
+            </div>
+
+            <!-- Previous Job -->
+            <div class="border-l-4 border-gray-600 pl-6">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                <h4 class="font-montserrat font-semibold text-white text-lg">Delivery Cyclist</h4>
+                <span class="font-montserrat text-luxury-gray text-sm">2023 - 2024</span>
+              </div>
+              <a href="https://wolt.com" target="_blank" class="font-montserrat text-luxury-gold hover:text-luxury-gold-light transition-colors">Wolt</a>
+              <ul class="font-montserrat text-luxury-gray text-sm mt-3 space-y-1">
+                <li>• Executed timely and accurate deliveries across the city in a dynamic, fast-paced environment.</li>
+                <li>• Demonstrated exceptional time management and customer service skills.</li>
+                <li>• Maintained high performance standards while working independently.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Back to home link -->
+      <div class="text-center mt-16">
+        <a href="/" 
+           class="inline-flex items-center gap-2 font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
