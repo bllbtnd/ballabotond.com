@@ -2,6 +2,11 @@
 // HomePage component for Balla Botond's Astro site
 import { Image } from 'astro:assets';
 import Footer from './Footer.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <!-- Main container with luxury background gradient -->
@@ -23,7 +28,7 @@ import Footer from './Footer.astro';
       </div>
       
       <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in" style="animation-delay: 0.3s;">
-        Crafting Timeless Solutions
+        {t('common.tagline')}
       </p>
       
       <!-- Profile Image -->
@@ -32,12 +37,12 @@ import Footer from './Footer.astro';
           <img src="/assets/images/image.png" alt="Balla Botond Profile Picture" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-luxury-gold bg-opacity-10 hover:bg-opacity-0 transition-all duration-300"></div>
         </div>
-        <p class="text-center font-montserrat text-luxury-gold text-sm mt-4 tracking-wider">Creator & Innovator</p>
+        <p class="text-center font-montserrat text-luxury-gold text-sm mt-4 tracking-wider">{t('common.subtitle')}</p>
       </div>
       
       <!-- Main heading -->
       <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-6 text-white leading-tight text-center animate-fade-in" style="animation-delay: 0.9s;">
-        Balla Botond
+        {t('common.name')}
       </h1>
       
       <!-- Scroll indicator -->
@@ -61,19 +66,19 @@ import Footer from './Footer.astro';
         <!-- Bio section -->
         <div class="text-center mb-16">
           <p class="font-montserrat text-lg md:text-xl text-luxury-gray font-light leading-relaxed max-w-3xl mx-auto">
-            With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal. My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things—whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow. For me, quality is never accidental; it's the result of intention, care, and an appreciation for the details that stand the test of time.
+            {t('home.bio')}
           </p>
         </div>
 
         <!-- Navigation Links -->
         <div class="flex flex-wrap justify-center gap-4 mb-16">
-          <a href="/projects/" 
+          <a href={translatePath('/projects/')} 
              class="px-8 py-3 rounded-full bg-luxury-gold text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover-luxury-gold hover-luxury-text transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-            <i class="fas fa-folder-open mr-2"></i>Projects
+            <i class="fas fa-folder-open mr-2"></i>{t('nav.projects')}
           </a>
-          <a href="/resume/" 
+          <a href={translatePath('/resume/')} 
              class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105">
-            <i class="fas fa-file-alt mr-2"></i>Resume
+            <i class="fas fa-file-alt mr-2"></i>{t('nav.resume')}
           </a>
         </div>
         
@@ -84,25 +89,25 @@ import Footer from './Footer.astro';
             <a href="https://ballabotond.com/email" 
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fas fa-envelope text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">Email</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.email')}</span>
             </a>
             
             <a href="https://signal.me/#eu/botond.25" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fa-brands fa-signal-messenger text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">Signal</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.signal')}</span>
             </a>
             
             <a href="https://ballabotond.com/github" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fab fa-github text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">GitHub</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.github')}</span>
             </a>
             
             <a href="https://ballabotond.com/facebook" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fab fa-facebook text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">Facebook</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.facebook')}</span>
             </a>
           </div>
           
@@ -111,25 +116,25 @@ import Footer from './Footer.astro';
             <a href="https://ballabotond.com/instagram" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fab fa-instagram text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">Instagram</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.instagram')}</span>
             </a>
             
             <a href="https://ballabotond.com/youtube" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fab fa-youtube text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">YouTube</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.youtube')}</span>
             </a>
             
             <a href="https://hevy.com/user/bllbtnd" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fas fa-dumbbell text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">Hevy</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.hevy')}</span>
             </a>
             
             <a href="https://ballabotond.com/x" target="_blank" rel="noopener noreferrer"
                class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
               <i class="fa-brands fa-x-twitter text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">X (Twitter)</span>
+              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.twitter')}</span>
             </a>
           </div>
           
@@ -138,7 +143,7 @@ import Footer from './Footer.astro';
             <a href="https://ballabotond.com/revolut" target="_blank" rel="noopener noreferrer"
                class="group flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-luxury-gold to-luxury-gold-light text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <i class="fas fa-coffee text-xl mr-3 group-hover:scale-110 transition-transform"></i>
-              <span>Buy me a coffee</span>
+              <span>{t('common.coffee')}</span>
             </a>
           </div>
         </div>
