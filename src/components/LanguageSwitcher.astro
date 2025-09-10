@@ -19,45 +19,37 @@ function getLocalizedPath(locale: string) {
 }
 ---
 
-<div class="language-switcher relative z-50">
-  <button 
-    id="language-button"
-    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900 bg-opacity-80 backdrop-blur-sm border border-luxury-gold hover:bg-luxury-gold hover:border-luxury-gold text-luxury-gold hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl"
-    aria-label="Select Language"
+<div class="language-dropdown relative">
+  <!-- Trigger button -->
+  <button
+    id="lang-trigger"
+    class="flex items-center gap-2 px-3 py-2 text-sm font-montserrat font-medium uppercase tracking-wider text-luxury-gold hover:text-white transition-all duration-300 group"
+    aria-label="Select language"
   >
-    <i class="fas fa-globe text-sm group-hover:scale-110 transition-transform duration-300"></i>
-    <span class="font-montserrat font-medium text-sm uppercase tracking-wider">
+    <span class="text-luxury-gold group-hover:text-white transition-colors duration-300">
       {languages[lang]}
     </span>
-    <i class="fas fa-chevron-down text-xs group-hover:rotate-180 transition-transform duration-300"></i>
+    <i class="fas fa-chevron-down text-xs text-luxury-gold group-hover:text-white transition-all duration-300 transform group-hover:rotate-180"></i>
   </button>
-  
-  <div 
-    id="language-dropdown"
-    class="absolute top-full right-0 mt-2 bg-gray-900 bg-opacity-95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-2xl overflow-hidden opacity-0 invisible transform translate-y-2 transition-all duration-300"
+
+  <!-- Dropdown menu -->
+  <div
+    id="lang-menu"
+    class="absolute top-full mt-1 bg-gray-900 bg-opacity-95 backdrop-blur-md border border-gray-700 rounded-lg shadow-xl overflow-hidden opacity-0 invisible transform translate-y-2 scale-95 transition-all duration-300 z-50 min-w-32"
   >
     {Object.entries(languages).map(([locale, name]) => (
-      <a 
+      <a
         href={getLocalizedPath(locale)}
-        class={`flex items-center gap-3 px-6 py-3 text-sm font-montserrat transition-all duration-200 ${
-          locale === lang 
-            ? 'bg-luxury-gold text-gray-900 font-semibold' 
+        class={`block px-4 py-3 text-sm font-montserrat transition-all duration-200 ${
+          locale === lang
+            ? 'bg-luxury-gold text-gray-900 font-semibold'
             : 'text-luxury-gray hover:bg-gray-800 hover:text-luxury-gold'
         }`}
         data-locale={locale}
       >
-        <span class="w-6 h-4 rounded-sm overflow-hidden flex-shrink-0 border border-gray-600">
-          <img 
-            src={`/flags/${locale}.svg`} 
-            alt={`${name} flag`}
-            class="w-full h-full object-cover"
-            loading="lazy"
-            onerror="this.style.display='none'"
-          />
-        </span>
         <span class="uppercase tracking-wider">{name}</span>
         {locale === lang && (
-          <i class="fas fa-check text-xs ml-auto"></i>
+          <i class="fas fa-check text-xs float-right mt-0.5"></i>
         )}
       </a>
     ))}
@@ -65,60 +57,99 @@ function getLocalizedPath(locale: string) {
 </div>
 
 <style>
-.language-switcher-open #language-dropdown {
+.language-dropdown.active #lang-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale-100;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .language-dropdown #lang-menu {
+    right: -1rem;
+    left: -1rem;
+    min-width: auto;
+  }
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const button = document.getElementById('language-button');
-  const dropdown = document.getElementById('language-dropdown');
-  const switcher = document.querySelector('.language-switcher');
+  const trigger = document.getElementById('lang-trigger');
+  const menu = document.getElementById('lang-menu');
+  const dropdown = document.querySelector('.language-dropdown');
 
-  if (button && dropdown && switcher) {
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      switcher.classList.toggle('language-switcher-open');
-    });
+  if (trigger && menu && dropdown) {
+    let isOpen = false;
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', () => {
-      switcher.classList.remove('language-switcher-open');
-    });
-
-    // Prevent dropdown from closing when clicking inside it
-    dropdown.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
-    // Auto-detect and redirect based on browser language
-    const detectAndRedirect = () => {
-      const browserLang = navigator.language.split('-')[0];
-      const supportedLangs = ['en', 'hu', 'it', 'zh', 'ja', 'egy'];
-      const currentLang = window.location.pathname.split('/')[1];
-      
-      // Only redirect if we're on the default language page and browser has a different supported language
-      if (!supportedLangs.includes(currentLang) && supportedLangs.includes(browserLang) && browserLang !== 'en') {
-        const currentPath = window.location.pathname;
-        const newPath = `/${browserLang}${currentPath}`;
-        
-        // Only redirect if we haven't already redirected (check sessionStorage)
-        if (!sessionStorage.getItem('languageDetected')) {
-          sessionStorage.setItem('languageDetected', 'true');
-          if (confirm(`Would you like to view this page in ${browserLang === 'hu' ? 'Hungarian' : browserLang === 'it' ? 'Italian' : browserLang === 'zh' ? 'Chinese' : browserLang === 'ja' ? 'Japanese' : 'Egyptian'}?`)) {
-            window.location.href = newPath;
-          }
-        }
+    const toggleDropdown = () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        // Position the dropdown to stay within viewport
+        positionDropdown();
+        dropdown.classList.add('active');
+      } else {
+        dropdown.classList.remove('active');
       }
     };
 
-    // Run auto-detection only on the first visit
-    if (!sessionStorage.getItem('languageDetected')) {
-      setTimeout(detectAndRedirect, 1000);
-    }
+    const positionDropdown = () => {
+      const rect = trigger.getBoundingClientRect();
+      const menuRect = menu.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+
+      // Reset positioning
+      menu.style.left = 'auto';
+      menu.style.right = 'auto';
+
+      // Check if there's enough space on the right
+      if (rect.right + menuRect.width > viewportWidth) {
+        // Position to the left
+        menu.style.right = '0';
+      } else {
+        // Position to the right (default)
+        menu.style.left = '0';
+      }
+    };
+
+    const closeDropdown = () => {
+      isOpen = false;
+      dropdown.classList.remove('active');
+    };
+
+    // Toggle on button click
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target && !dropdown.contains(e.target as Node)) {
+        closeDropdown();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDropdown();
+      }
+    });
+
+    // Close when a language is selected
+    menu.addEventListener('click', (e) => {
+      if (e.target && (e.target as HTMLElement).closest('a')) {
+        closeDropdown();
+      }
+    });
+
+    // Reposition on window resize
+    window.addEventListener('resize', () => {
+      if (isOpen) {
+        positionDropdown();
+      }
+    });
   }
 });
 </script>
