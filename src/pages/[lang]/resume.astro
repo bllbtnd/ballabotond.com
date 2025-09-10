@@ -5,9 +5,11 @@ import Footer from '../../components/Footer.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
-  return Object.keys(languages).filter(lang => lang !== 'en').map(lang => ({
-    params: { lang }
-  }));
+  return Object.keys(languages)
+    .filter(lang => lang !== 'en') // Exclude English since we have a static /resume.astro
+    .map(lang => ({
+      params: { lang }
+    }));
 }
 
 const { lang } = Astro.params;

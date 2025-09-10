@@ -64,11 +64,32 @@
       "title": "专业概要",
       "text": "一位结果导向的计算机科学学生，热衷于将复杂问题转化为优雅的软件解决方案。我通过积极寻求现实世界的项目来补充学术基础，相信实践经验是真正掌握的关键。整个开发生命周期激励着我，从概念化功能到部署功能性、高质量的产品，如网络应用或高效算法。我是终身学习者，不断探索新技术和框架以提升我的问题解决技能。"
     },
-    "skills": {
-      "title": "技术技能",
-      "programming": "编程语言",
-      "frameworks": "框架与库",
-      "tools": "工具与技术"
+    "experience": {
+      "title": "专业经验",
+      "current": "初级软件开发者",
+      "current_period": "2024 - 至今",
+      "current_company": "LogiCloud Kft.",
+      "current_desc1": "使用React、Node.js和关系数据库等现代技术开发和维护Web应用程序",
+      "current_desc2": "与跨职能团队合作，按时交付复杂项目",
+      "current_desc3": "实施可扩展解决方案并优化现有应用程序性能",
+      "intern": "软件开发实习生",
+      "intern_period": "2023 - 2024",
+      "intern_company": "LogiCloud Kft.",
+      "intern_desc1": "使用Java Spring Boot和React支持全栈Web应用程序开发",
+      "intern_desc2": "参与代码审查并学习开发最佳实践",
+      "intern_desc3": "为现有系统的维护和调试做出贡献",
+      "wolt": "配送员",
+      "wolt_period": "2022 - 2023",
+      "wolt_company": "Wolt",
+      "wolt_desc1": "在快节奏环境中高效管理配送，注重客户满意度",
+      "wolt_desc2": "城市导航和实时解决物流问题",
+      "wolt_desc3": "通过卓越服务和清晰沟通保持高评分",
+      "hotel": "前台接待员和清洁员",
+      "hotel_period": "2021 - 2022",
+      "hotel_company": "Hotel Piroska",
+      "hotel_desc1": "在酒店环境中管理预订和协助客人",
+      "hotel_desc2": "维护公共区域的高清洁度和展示标准",
+      "hotel_desc3": "以专业性和对细节的关注处理困难情况"
     },
     "education": {
       "title": "教育背景",
@@ -113,8 +134,10 @@
   "footer": {
     "tagline": "以精确和热情打造数字体验。",
     "navigate": "导航",
-    "quote": "\"质量从来不是偶然的；它总是高度意图、真诚努力、明智指导和熟练执行的结果。\"",
-    "quote_author": "William A. Foster",
+    "quote": {
+      "text": "\"质量从来不是偶然的；它总是高度意图、真诚努力、明智指导和熟练执行的结果。\"",
+      "author": "William A. Foster"
+    },
     "copyright": "© 2025 Balla Botond. 版权所有。| 以精确和热情打造。"
   }
 }

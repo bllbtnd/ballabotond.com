@@ -64,11 +64,32 @@
       "title": "Riassunto Professionale",
       "text": "Uno studente di Informatica orientato ai risultati con una passione per trasformare problemi complessi in eleganti soluzioni software. Completo le mie basi accademiche cercando attivamente progetti nel mondo reale, credendo che l'esperienza pratica sia la chiave per la vera maestria. Sono motivato dall'intero ciclo di vita dello sviluppo, dalla concettualizzazione di una funzionalità alla distribuzione di un prodotto funzionale e di alta qualità come un'applicazione web o un algoritmo efficiente. Sono un apprendista per tutta la vita, esplorando costantemente nuove tecnologie e framework per affinare le mie competenze di problem-solving."
     },
-    "skills": {
-      "title": "Competenze Tecniche",
-      "programming": "Linguaggi di Programmazione",
-      "frameworks": "Framework e Librerie",
-      "tools": "Strumenti e Tecnologie"
+    "experience": {
+      "title": "Esperienza Professionale",
+      "current": "Sviluppatore Software Junior",
+      "current_period": "2024 - Presente",
+      "current_company": "LogiCloud Kft.",
+      "current_desc1": "Sviluppo e manutenzione di applicazioni web utilizzando tecnologie moderne come React, Node.js e database relazionali",
+      "current_desc2": "Collaborazione con team cross-funzionali per la consegna di progetti complessi nel rispetto delle scadenze",
+      "current_desc3": "Implementazione di soluzioni scalabili e ottimizzazione delle prestazioni delle applicazioni esistenti",
+      "intern": "Stage Sviluppatore Software",
+      "intern_period": "2023 - 2024",
+      "intern_company": "LogiCloud Kft.",
+      "intern_desc1": "Supporto allo sviluppo di applicazioni web full-stack utilizzando Java Spring Boot e React",
+      "intern_desc2": "Partecipazione a revisioni del codice e apprendimento delle best practices di sviluppo",
+      "intern_desc3": "Contributo alla manutenzione e al debugging di sistemi esistenti",
+      "wolt": "Addetto alle Consegne",
+      "wolt_period": "2022 - 2023",
+      "wolt_company": "Wolt",
+      "wolt_desc1": "Gestione efficiente delle consegne in un ambiente ad alto ritmo con attenzione alla soddisfazione del cliente",
+      "wolt_desc2": "Navigazione urbana e risoluzione problemi logistici in tempo reale",
+      "wolt_desc3": "Mantenimento di valutazioni elevate attraverso servizio eccellente e comunicazione chiara",
+      "hotel": "Receptionist e Addetto alle Pulizie",
+      "hotel_period": "2021 - 2022",
+      "hotel_company": "Hotel Piroska",
+      "hotel_desc1": "Gestione delle prenotazioni e assistenza agli ospiti in un ambiente alberghiero",
+      "hotel_desc2": "Mantenimento di standard elevati di pulizia e presentazione delle aree comuni",
+      "hotel_desc3": "Gestione di situazioni difficili con professionalità e attenzione al dettaglio"
     },
     "education": {
       "title": "Istruzione",
@@ -113,8 +134,10 @@
   "footer": {
     "tagline": "Creando esperienze digitali con precisione e passione.",
     "navigate": "Naviga",
-    "quote": "\"La qualità non è mai accidentale; è sempre il risultato di alta intenzione, sforzo sincero, direzione intelligente ed esecuzione abile.\"",
-    "quote_author": "William A. Foster",
+    "quote": {
+      "text": "\"La qualità non è mai accidentale; è sempre il risultato di alta intenzione, sforzo sincero, direzione intelligente ed esecuzione abile.\"",
+      "author": "William A. Foster"
+    },
     "copyright": "© 2025 Balla Botond. Tutti i diritti riservati. | Creato con precisione e passione."
   }
 }

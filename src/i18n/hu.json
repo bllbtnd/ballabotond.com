@@ -140,8 +140,10 @@
   "footer": {
     "tagline": "Digitális élmények létrehozása precizitással és szenvedéllyel.",
     "navigate": "Navigáció",
-    "quote": "\"A minőség soha nem véletlen; mindig magas szándék, őszinte erőfeszítés, intelligens irányítás és ügyes végrehajtás eredménye.\"",
-    "quote_author": "William A. Foster",
+    "quote": {
+      "text": "\"A minőség soha nem véletlen; mindig magas szándék, őszinte erőfeszítés, intelligens irányítás és ügyes végrehajtás eredménye.\"",
+      "author": "William A. Foster"
+    },
     "copyright": "© 2025 Balla Botond. Minden jog fenntartva. | Precizitással és szenvedéllyel alkotva."
   }
 }

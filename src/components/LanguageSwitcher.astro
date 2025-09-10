@@ -7,8 +7,8 @@ const currentPath = Astro.url.pathname;
 
 // Remove language prefix to get the base path
 let basePath = currentPath;
-// Remove the language prefix if it exists (e.g., /hu/resume -> /resume)
-basePath = basePath.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/';
+// Remove the language prefix if it exists (e.g., /hu/resume -> /resume, /egy/resume -> /resume)
+basePath = basePath.replace(/^\/[a-z]{2,3}(?=\/|$)/, '') || '/';
 
 // Function to get the correct path for each language
 function getLocalizedPath(locale: string) {
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto-detect and redirect based on browser language
     const detectAndRedirect = () => {
       const browserLang = navigator.language.split('-')[0];
-      const supportedLangs = ['en', 'hu', 'it'];
+      const supportedLangs = ['en', 'hu', 'it', 'zh', 'ja', 'egy'];
       const currentLang = window.location.pathname.split('/')[1];
       
       // Only redirect if we're on the default language page and browser has a different supported language
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Only redirect if we haven't already redirected (check sessionStorage)
         if (!sessionStorage.getItem('languageDetected')) {
           sessionStorage.setItem('languageDetected', 'true');
-          if (confirm(`Would you like to view this page in ${browserLang === 'hu' ? 'Hungarian' : 'Italian'}?`)) {
+          if (confirm(`Would you like to view this page in ${browserLang === 'hu' ? 'Hungarian' : browserLang === 'it' ? 'Italian' : browserLang === 'zh' ? 'Chinese' : browserLang === 'ja' ? 'Japanese' : 'Egyptian'}?`)) {
             window.location.href = newPath;
           }
         }
