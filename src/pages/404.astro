@@ -1,6 +1,7 @@
 ---
 // 404 page for Balla Botond's Astro site
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="404 - Page Not Found | Balla Botond">
@@ -51,6 +52,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-luxury-gold rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
       <div class="absolute top-3/4 right-1/4 w-1 h-1 bg-luxury-gold rounded-full opacity-30 animate-pulse" style="animation-delay: 3s;"></div>
       <div class="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-luxury-gold rounded-full opacity-25 animate-pulse" style="animation-delay: 4s;"></div>
+    </div>
+    
+    <!-- Footer Component positioned at bottom -->
+    <div class="absolute bottom-0 left-0 right-0 z-10">
+      <Footer variant="minimal" />
     </div>
     
   </div>

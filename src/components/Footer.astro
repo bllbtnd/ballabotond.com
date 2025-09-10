@@ -1,0 +1,84 @@
+---
+// Footer component for Balla Botond's Astro site
+export interface Props {
+  variant?: 'full' | 'simple' | 'minimal';
+}
+
+const { variant = 'full' } = Astro.props;
+---
+
+<!-- Elegant Footer -->
+<footer class="relative z-10 border-t border-gray-700 border-opacity-50 bg-gray-900 bg-opacity-30 backdrop-blur-sm mt-20">
+  <div class="max-w-4xl mx-auto px-6 py-8">
+    
+    {variant === 'full' && (
+      <!-- Full footer with navigation and quote -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <!-- Brand Section -->
+        <div class="text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start mb-4">
+            <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
+            <div class="mx-2 flex flex-col items-center">
+              <div class="w-px h-4 bg-luxury-gold opacity-60"></div>
+            </div>
+            <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
+          </div>
+          <p class="font-montserrat text-luxury-gray-dark text-sm">
+            Crafting digital experiences with precision and passion.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="text-center">
+          <h4 class="font-playfair text-luxury-gold text-lg mb-4">Navigate</h4>
+          <nav class="space-y-2">
+            <a href="/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Home</a>
+            <a href="/projects/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Projects</a>
+            <a href="/resume/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Resume</a>
+          </nav>
+        </div>
+
+        <!-- Quote -->
+        <div class="text-center md:text-right">
+          <blockquote class="font-playfair text-luxury-gray italic text-sm leading-relaxed">
+            "Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution."
+          </blockquote>
+          <cite class="font-montserrat text-luxury-gray-dark text-xs mt-2 block">— William A. Foster</cite>
+        </div>
+      </div>
+    )}
+
+    {variant === 'simple' && (
+      <!-- Simple footer with brand only -->
+      <div class="text-center mb-6">
+        <div class="flex items-center justify-center mb-4">
+          <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
+          <div class="mx-2 flex flex-col items-center">
+            <div class="w-px h-4 bg-luxury-gold opacity-60"></div>
+          </div>
+          <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
+        </div>
+      </div>
+    )}
+
+    {variant === 'minimal' && (
+      <!-- Minimal footer with smaller brand -->
+      <div class="text-center mb-4">
+        <div class="flex items-center justify-center mb-3">
+          <span class="font-playfair text-xl font-light text-luxury-gold drop-shadow-lg">B</span>
+          <div class="mx-2 flex flex-col items-center">
+            <div class="w-px h-3 bg-luxury-gold opacity-60"></div>
+          </div>
+          <span class="font-playfair text-xl font-light text-luxury-gold drop-shadow-lg">B</span>
+        </div>
+      </div>
+    )}
+
+    <!-- Copyright (common to all variants) -->
+    <div class="text-center border-t border-gray-700 border-opacity-30 pt-6">
+      <p class="font-montserrat text-luxury-gray-dark text-xs">
+        © 2025 Balla Botond. All rights reserved. | Crafted with precision and passion.
+      </p>
+    </div>
+  </div>
+</footer>

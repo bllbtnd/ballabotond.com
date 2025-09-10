@@ -1,6 +1,7 @@
 ---
 // Projects page for Balla Botond's Astro site
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
 
 const projects = [
   {
@@ -149,5 +150,8 @@ const getStatusBadge = (status: string) => {
         </a>
       </div>
     </div>
+    
+    <!-- Footer Component -->
+    <Footer variant="simple" />
   </div>
 </Layout>
