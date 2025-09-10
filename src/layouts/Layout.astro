@@ -1,6 +1,8 @@
 
 ---
 // Main site layout for Balla Botond, using luxury palette and modern fonts
+import LoadingScreen from '../components/LoadingScreen.astro';
+
 export interface Props {
   title?: string;
 }
@@ -14,8 +16,8 @@ const { title = "Balla Botond | Personal Website" } = Astro.props;
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      function gtag(...args: any[]){(window as any).dataLayer.push(args);}
       gtag('js', new Date());
       gtag('config', 'G-3NZN7X2WL9');
     </script>
@@ -85,9 +87,20 @@ const { title = "Balla Botond | Personal Website" } = Astro.props;
       /* Custom hover effects */
       .hover-luxury-gold:hover { background-color: #e8c474; }
       .hover-luxury-text:hover { color: #0b0b0f; }
+      
+      /* Loading screen styles */
+      body.loading {
+        overflow: hidden;
+      }
+      
+      /* Smooth page transitions */
+      * {
+        transition: opacity 0.3s ease-in-out;
+      }
     </style>
   </head>
-  <body class="bg-gray-900 text-white min-h-screen">
+  <body class="bg-gray-900 text-white min-h-screen loading">
+    <LoadingScreen />
     <slot />
   </body>
 </html>
