@@ -41,10 +41,16 @@ import Footer from './Footer.astro';
       </h1>
       
       <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div class="w-6 h-10 border-2 border-luxury-gold rounded-full flex justify-center">
-          <div class="w-1 h-3 bg-luxury-gold rounded-full mt-2 animate-pulse"></div>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in" style="animation-delay: 1.2s;">
+        <!-- Scroll mouse indicator -->
+        <div class="relative w-8 h-12 border-2 border-luxury-gold border-opacity-80 rounded-full backdrop-blur-sm bg-gray-900 bg-opacity-20 shadow-lg">
+          <!-- Scroll wheel -->
+          <div class="absolute top-3 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-luxury-gold rounded-full animate-scroll-wheel"></div>
+          <!-- Glow effect -->
+          <div class="absolute inset-0 rounded-full border border-luxury-gold opacity-30 animate-pulse"></div>
         </div>
+        <!-- Chevron down -->
+        <i class="fas fa-chevron-down text-luxury-gold text-xs mt-1 opacity-60 animate-bounce" style="animation-delay: 1s;"></i>
       </div>
     </div>
     
@@ -147,6 +153,30 @@ import Footer from './Footer.astro';
   <script>
     // Add smooth scrolling behavior
     document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Add custom scroll wheel animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes scroll-wheel {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+        50% {
+          opacity: 0.3;
+          transform: translate(-50%, 8px);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+      
+      .animate-scroll-wheel {
+        animation: scroll-wheel 2s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
     
     // Add analytics tracking for social links
     document.querySelectorAll('a[href*="ballabotond.com"]').forEach(link => {
