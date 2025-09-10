@@ -1,10 +1,15 @@
 ---
 // Footer component for Balla Botond's Astro site
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
 export interface Props {
   variant?: 'full' | 'simple' | 'minimal';
 }
 
 const { variant = 'full' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <!-- Elegant Footer -->
@@ -24,26 +29,26 @@ const { variant = 'full' } = Astro.props;
             <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
           </div>
           <p class="font-montserrat text-luxury-gray-dark text-sm">
-            Crafting digital experiences with precision and passion.
+            {t('footer.tagline')}
           </p>
         </div>
 
         <!-- Navigation -->
         <div class="text-center">
-          <h4 class="font-playfair text-luxury-gold text-lg mb-4">Navigate</h4>
+          <h4 class="font-playfair text-luxury-gold text-lg mb-4">{t('footer.navigate')}</h4>
           <nav class="space-y-2">
-            <a href="/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Home</a>
-            <a href="/projects/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Projects</a>
-            <a href="/resume/" class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">Resume</a>
+            <a href={translatePath('/')} class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">{t('nav.home')}</a>
+            <a href={translatePath('/projects/')} class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">{t('nav.projects')}</a>
+            <a href={translatePath('/resume/')} class="block font-montserrat text-luxury-gray hover:text-luxury-gold transition-colors duration-300 text-sm">{t('nav.resume')}</a>
           </nav>
         </div>
 
         <!-- Quote -->
         <div class="text-center md:text-right">
           <blockquote class="font-playfair text-luxury-gray italic text-sm leading-relaxed">
-            "Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution."
+            {t('footer.quote')}
           </blockquote>
-          <cite class="font-montserrat text-luxury-gray-dark text-xs mt-2 block">— William A. Foster</cite>
+          <cite class="font-montserrat text-luxury-gray-dark text-xs mt-2 block">— {t('footer.quote.author')}</cite>
         </div>
       </div>
     )}
@@ -77,7 +82,7 @@ const { variant = 'full' } = Astro.props;
     <!-- Copyright (common to all variants) -->
     <div class="text-center border-t border-gray-700 border-opacity-30 pt-6">
       <p class="font-montserrat text-luxury-gray-dark text-xs">
-        © 2025 Balla Botond. All rights reserved. | Crafted with precision and passion.
+        {t('footer.copyright')}
       </p>
     </div>
   </div>

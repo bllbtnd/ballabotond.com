@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "home": "Főoldal",
+    "projects": "Projektek",
+    "resume": "Önéletrajz"
+  },
+  "common": {
+    "name": "Balla Botond",
+    "tagline": "Időtálló Megoldások Alkotása",
+    "subtitle": "Alkotó és Innovátor",
+    "email": "Email",
+    "github": "GitHub",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "twitter": "X (Twitter)",
+    "signal": "Signal",
+    "hevy": "Hevy",
+    "coffee": "Vegyél egy kávét"
+  },
+  "home": {
+    "title": "Balla Botond | Személyes Weboldal",
+    "description": "Balla Botond - Fejlesztő és alkotó, aki szenvedélyesen dolgozik átgondolt, időtálló megoldásokon. Fedezd fel projektjeimet, lépj kapcsolatba velem közösségi médiában, és ismerd meg fejlesztési és innovációs munkámat.",
+    "keywords": "Balla Botond, Botond Balla, fejlesztő, trackit, szoftverfejlesztő, webfejlesztő, személyes weboldal, portfólió, bllbtnd, programozás, innováció, Magyarország, tech, projektek, GitHub, Boti, Balla Boti",
+    "bio": "Mind a munkában, mind a szabadidőben igényes megközelítést alkalmazok, és olyan élmények és megoldások felé gravitálok, amelyek átgondoltan épültek fel és időtálló vonzerővel bírnak. Projektjeim a megalapozott módszerek tiszteletét tükrözik, kiegyensúlyozva az innováció és a precizitás iránti törekvéssel. Inspirációt merítek a jól megalkotott dolgok mesterségéből - legyen szó egy robusztus alkalmazás struktúrájáról, egy ritka whisky réteges ízeiről, vagy a fény és árnyék játékáról. Számomra a minőség soha nem véletlen; szándék, figyelem és az időt álló részletek megbecsülésének eredménye."
+  },
+  "projects": {
+    "title": "Projektek | Balla Botond",
+    "tagline": "Precízen Megalkotva",
+    "subtitle": "Projektek és Linkek",
+    "description": "Kreatív törekvések, hasznos eszközök és kapcsolódási lehetőségek",
+    "kki": {
+      "title": "KKI kalkulátor",
+      "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban.",
+      "button": "Próbáld ki"
+    },
+    "trackit": {
+      "title": "TrackIt",
+      "description": "Fitness követő alkalmazás az egészség monitorozásához.",
+      "button": "Vedd fel a kapcsolatot"
+    },
+    "minecraft": {
+      "title": "Minecraft Szerver",
+      "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel, ami tesztként indult az újonnan vásárolt \"játékom\" képességeinek ellenőrzésére, de most már elég sokan játszanak rajta. Raspberry Pi 5-ön fut otthoni hálózaton.",
+      "button": "Szerver IP másolása"
+    },
+    "category": {
+      "webapps": "Webalkalmazások",
+      "health": "Egészség és Fitness",
+      "gaming": "Játékok"
+    },
+    "status": {
+      "live": "Élő",
+      "coming": "Hamarosan",
+      "maintenance": "Karbantartás"
+    }
+  },
+  "resume": {
+    "title": "Önéletrajz | Balla Botond",
+    "tagline": "Átgondolt Megoldások",
+    "subtitle": "Szakmai Önéletrajz",
+    "position": "Informatika Hallgató, Szoftverfejlesztő és Vállalkozó",
+    "summary": {
+      "title": "Szakmai Összefoglaló",
+      "text": "Eredményorientált informatika hallgató, aki szenvedélyesen alakítja át a komplex problémákat elegáns szoftvermegoldásokká. Akadémiai alapjaimat valós projektek aktív keresésével egészítem ki, hiszem, hogy a gyakorlati tapasztalat kulcsa az igazi mesterségnek. Motivál a teljes fejlesztési életciklus, a funkció konceptualizálásától a működőképes, magas minőségű termék, például webalkalmazás vagy hatékony algoritmus telepítéséig. Élethosszig tartó tanuló vagyok, folyamatosan fedezek fel új technológiákat és keretrendszereket problémamegoldó készségeim élesítése érdekében."
+    },
+    "skills": {
+      "title": "Technikai Készségek",
+      "programming": "Programozási Nyelvek",
+      "frameworks": "Keretrendszerek és Könyvtárak",
+      "tools": "Eszközök és Technológiák"
+    },
+    "experience": {
+      "title": "Szakmai Tapasztalat",
+      "current": "Szoftverfejlesztő",
+      "current_period": "2025. július - jelenleg",
+      "current_company": "LogiCloud KFT",
+      "current_desc1": "Szoftvermegoldások fejlesztése különböző cégek számára, beleértve a Suzukit is, részmunkaidős fejlesztőként egyetemi tanulmányaim mellett.",
+      "current_desc2": "Hozzájárulás production szintű szoftverprojektekhez specializált fejlesztői csapaton belül.",
+      "current_desc3": "Szakmai fejlesztési tapasztalat sikeres egyensúlyba hozása akadémiai kötelezettségekkel.",
+      "intern": "Szoftverfejlesztő Gyakornok",
+      "intern_period": "2025. május - 2025. július",
+      "intern_company": "LogiCloud KFT",
+      "intern_desc1": "Intenzív 8 hetes gyakornoképzési program elvégzése, hozzájárulás a Suzuki és partnercégei szoftverfejlesztési projektjeihez.",
+      "intern_desc2": "Szakmai kódolási standardok és csapatmunka folyamatok elsajátítása kis, specializált fejlesztői környezetben.",
+      "intern_desc3": "Akadémiai tudás sikeres alkalmazása gyakorlati technikai kihívások megoldására ipari eszközök használatával.",
+      "wolt": "Futár Kerékpáros",
+      "wolt_period": "2023 - 2024",
+      "wolt_company": "Wolt",
+      "wolt_desc1": "Időben és pontosan teljesített kiszállítások a városban dinamikus, gyors tempójú környezetben.",
+      "wolt_desc2": "Útvonal-optimalizálás és időgazdálkodás elsajátítása a hatékonyság maximalizálása és magas vásárlói elégedettség biztosítása érdekében.",
+      "wolt_desc3": "Erős problémamegoldó készségek és ellenálló képesség fejlesztése nyomás alatt végzett önálló munkával.",
+      "hotel": "Felszolgáló",
+      "hotel_period": "2022. június - 2022. július",
+      "hotel_company": "Hotel Piroska **** Bük",
+      "hotel_desc1": "Kivételes szolgáltatás nyújtása sokszínű, nemzetközi vendégkör számára nagy forgalmú 4 csillagos szállodai környezetben.",
+      "hotel_desc2": "Étel-ital szolgáltatás minden aspektusának kezelése, zökkenőmentes és pozitív vendégélmény biztosítása.",
+      "hotel_desc3": "Interkulturális kommunikációs készségek fejlesztése és nyomás alatti elegáns teljesítmény képességének csiszolása."
+    },
+    "education": {
+      "title": "Tanulmányok",
+      "university": "Informatika Alapszak",
+      "university_period": "2023 - jelenleg",
+      "university_school": "Pécsi Tudományegyetem",
+      "university_desc1": "Átfogó informatika alapszak folytatása szoftvermérnökségre, adatstruktúrákra és haladó algoritmusokra fókuszáló tantervel.",
+      "university_desc2": "Aktív részvétel gyakorlati kurzusmunkában és projektekben, amelyek áthidalják az elméletet a valós alkalmazással.",
+      "highschool": "Érettségi",
+      "highschool_period": "2019 - 2023",
+      "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
+      "highschool_desc": "Kiváló eredményekkel végeztem, erős alapot teremtve a matematikában és az analitikus gondolkodásban.",
+      "grades": "Érettségi Eredmények:",
+      "subjects": {
+        "math": "Matematika",
+        "english": "Angol",
+        "literature": "Magyar Irodalom",
+        "history": "Történelem",
+        "cs_basic": "Informatika (Alapszint)",
+        "cs_advanced": "Informatika (Emelt szint)"
+      }
+    },
+    "languages": {
+      "title": "Nyelvek",
+      "hungarian": "Magyar",
+      "hungarian_level": "Anyanyelv",
+      "english": "Angol",
+      "english_level": "C1 Tanúsított"
+    },
+    "hobbies": {
+      "title": "Hobbik és Érdeklődés",
+      "fencing": "Vívás",
+      "clarinet": "Klarinét",
+      "growth": "Személyes Fejlődés",
+      "gym": "Edzőterem",
+      "whisky": "Whisky Kóstolás",
+      "cigar": "Szivar Rajongó",
+      "camping": "Kemping",
+      "fishing": "Horgászat"
+    }
+  },
+  "footer": {
+    "tagline": "Digitális élmények létrehozása precizitással és szenvedéllyel.",
+    "navigate": "Navigáció",
+    "quote": "\"A minőség soha nem véletlen; mindig magas szándék, őszinte erőfeszítés, intelligens irányítás és ügyes végrehajtás eredménye.\"",
+    "quote_author": "William A. Foster",
+    "copyright": "© 2025 Balla Botond. Minden jog fenntartva. | Precizitással és szenvedéllyel alkotva."
+  }
+}

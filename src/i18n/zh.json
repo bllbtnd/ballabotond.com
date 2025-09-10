@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "首页",
+    "projects": "项目",
+    "resume": "简历"
+  },
+  "common": {
+    "name": "Balla Botond",
+    "tagline": "打造永恒解决方案",
+    "subtitle": "创造者与创新者",
+    "email": "邮箱",
+    "github": "GitHub",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "twitter": "X (Twitter)",
+    "signal": "Signal",
+    "hevy": "Hevy",
+    "coffee": "请我喝杯咖啡"
+  },
+  "home": {
+    "title": "Balla Botond | 个人网站",
+    "description": "Balla Botond - 开发者与创作者，专注于精心构建的永恒解决方案。探索我的项目，在社交媒体上联系我，了解我在开发和创新方面的工作。",
+    "keywords": "Balla Botond, Botond Balla, 开发者, trackit, 软件开发者, 网页开发者, 个人网站, 作品集, bllbtnd, 编程, 创新, 匈牙利, 技术, 项目, GitHub, Boti, Balla Boti",
+    "bio": "无论在工作还是休闲中，我都追求精心构建且具有永恒魅力的体验和解决方案。我的项目体现了对成熟方法的尊重，同时平衡创新和精确的追求。我从精心制作的事物背后的工艺中汲取灵感——无论是稳健应用程序的结构、珍稀苏格兰威士忌的层次口味，还是光影的相互作用。对我而言，质量从来不是偶然；它是意图、关怀和对经得起时间考验的细节的欣赏的结果。"
+  },
+  "projects": {
+    "title": "项目 | Balla Botond",
+    "tagline": "精工制作",
+    "subtitle": "项目与链接",
+    "description": "创意努力、实用工具和连接之地",
+    "kki": {
+      "title": "KKI计算器",
+      "description": "一个简单的KKI计算器，帮助进行KKI计算。",
+      "button": "试试看"
+    },
+    "trackit": {
+      "title": "TrackIt",
+      "description": "用于健康监测的健身追踪应用。",
+      "button": "联系我"
+    },
+    "minecraft": {
+      "title": "Minecraft服务器",
+      "description": "私人生存服务器，为朋友们提供自定义插件和友好社区，最初作为测试我新购买的\"玩具\"能力而开始，但现在有不少人在上面玩。运行在家庭网络的Raspberry Pi 5上。",
+      "button": "复制服务器IP"
+    },
+    "category": {
+      "webapps": "网页应用",
+      "health": "健康与健身",
+      "gaming": "游戏"
+    },
+    "status": {
+      "live": "运行中",
+      "coming": "即将推出",
+      "maintenance": "维护中"
+    }
+  },
+  "resume": {
+    "title": "简历 | Balla Botond",
+    "tagline": "深思熟虑的解决方案",
+    "subtitle": "专业简历",
+    "position": "计算机科学学生、软件开发者与企业家",
+    "summary": {
+      "title": "专业概要",
+      "text": "一位结果导向的计算机科学学生，热衷于将复杂问题转化为优雅的软件解决方案。我通过积极寻求现实世界的项目来补充学术基础，相信实践经验是真正掌握的关键。整个开发生命周期激励着我，从概念化功能到部署功能性、高质量的产品，如网络应用或高效算法。我是终身学习者，不断探索新技术和框架以提升我的问题解决技能。"
+    },
+    "skills": {
+      "title": "技术技能",
+      "programming": "编程语言",
+      "frameworks": "框架与库",
+      "tools": "工具与技术"
+    },
+    "education": {
+      "title": "教育背景",
+      "university": "计算机科学学士学位",
+      "university_period": "2023 - 至今",
+      "university_school": "佩奇大学",
+      "university_desc1": "攻读综合计算机科学学位，课程专注于软件工程、数据结构和高级算法。",
+      "university_desc2": "积极参与将理论与现实应用相结合的实践课程和项目。",
+      "highschool": "高中文凭",
+      "highschool_period": "2019 - 2023",
+      "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
+      "highschool_desc": "以优异成绩毕业，在数学和分析思维方面奠定了坚实基础。",
+      "grades": "期末考试成绩：",
+      "subjects": {
+        "math": "数学",
+        "english": "英语",
+        "literature": "匈牙利文学",
+        "history": "历史",
+        "cs_basic": "计算机科学（基础）",
+        "cs_advanced": "计算机科学（高级）"
+      }
+    },
+    "languages": {
+      "title": "语言",
+      "hungarian": "匈牙利语",
+      "hungarian_level": "母语",
+      "english": "英语",
+      "english_level": "C1认证"
+    },
+    "hobbies": {
+      "title": "爱好与兴趣",
+      "fencing": "击剑",
+      "clarinet": "单簧管",
+      "growth": "个人成长",
+      "gym": "健身房",
+      "whisky": "威士忌品鉴",
+      "cigar": "雪茄爱好者",
+      "camping": "露营",
+      "fishing": "钓鱼"
+    }
+  },
+  "footer": {
+    "tagline": "以精确和热情打造数字体验。",
+    "navigate": "导航",
+    "quote": "\"质量从来不是偶然的；它总是高度意图、真诚努力、明智指导和熟练执行的结果。\"",
+    "quote_author": "William A. Foster",
+    "copyright": "© 2025 Balla Botond. 版权所有。| 以精确和热情打造。"
+  }
+}

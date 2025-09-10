@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "projects": "プロジェクト",
+    "resume": "履歴書"
+  },
+  "common": {
+    "name": "Balla Botond",
+    "tagline": "永続的なソリューションの創造",
+    "subtitle": "クリエイター＆イノベーター",
+    "email": "メール",
+    "github": "GitHub",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "twitter": "X (Twitter)",
+    "signal": "Signal",
+    "hevy": "Hevy",
+    "coffee": "コーヒーをおごる"
+  },
+  "home": {
+    "title": "Balla Botond | 個人ウェブサイト",
+    "description": "Balla Botond - 開発者でクリエイター。思慮深く構築された永続的なソリューションに情熱を注いでいます。私のプロジェクトを探索し、ソーシャルメディアでつながり、開発とイノベーションにおける私の仕事を発見してください。",
+    "keywords": "Balla Botond, Botond Balla, 開発者, trackit, ソフトウェア開発者, ウェブ開発者, 個人ウェブサイト, ポートフォリオ, bllbtnd, プログラミング, イノベーション, ハンガリー, テック, プロジェクト, GitHub, Boti, Balla Boti",
+    "bio": "仕事でも余暇でも判別力のあるアプローチを取り、思慮深く構築され永続的な魅力を持つ体験とソリューションに引き寄せられます。私のプロジェクトは確立された方法への敬意を反映しつつ、イノベーションと精密さへの意欲とのバランスを保っています。よく作られたものの背後にある職人技からインスピレーションを得ます—堅牢なアプリケーションの構造、希少なスコッチの重層的な風味、または光と影の相互作用など。私にとって品質は決して偶然ではありません；それは意図、配慮、そして時の試練に耐える細部への感謝の結果です。"
+  },
+  "projects": {
+    "title": "プロジェクト | Balla Botond",
+    "tagline": "精密に作られた",
+    "subtitle": "プロジェクト＆リンク",
+    "description": "クリエイティブな取り組み、便利なツール、つながりの場",
+    "kki": {
+      "title": "KKI計算機",
+      "description": "KKI計算を支援するシンプルなKKI計算機。",
+      "button": "試してみる"
+    },
+    "trackit": {
+      "title": "TrackIt",
+      "description": "健康監視のためのフィットネストラッキングアプリ。",
+      "button": "お問い合わせ"
+    },
+    "minecraft": {
+      "title": "Minecraft サーバー",
+      "description": "友人向けのプライベートサバイバルサーバー。カスタムプラグインと歓迎的なコミュニティが特徴。新しく購入した「おもちゃ」の機能をテストするために始めましたが、現在は多くの人がプレイしています。自宅ネットワークのRaspberry Pi 5で動作しています。",
+      "button": "サーバーIPをコピー"
+    },
+    "category": {
+      "webapps": "ウェブアプリ",
+      "health": "健康＆フィットネス",
+      "gaming": "ゲーミング"
+    },
+    "status": {
+      "live": "稼働中",
+      "coming": "近日公開",
+      "maintenance": "メンテナンス中"
+    }
+  },
+  "resume": {
+    "title": "履歴書 | Balla Botond",
+    "tagline": "思慮深いソリューション",
+    "subtitle": "職業履歴書",
+    "position": "コンピュータサイエンス学生、ソフトウェア開発者＆起業家",
+    "summary": {
+      "title": "職業要約",
+      "text": "複雑な問題をエレガントなソフトウェアソリューションに変換することに情熱を注ぐ、結果重視のコンピュータサイエンス学生。実践的な経験が真の熟達の鍵であると信じ、実世界のプロジェクトを積極的に求めることで学術的基盤を補完しています。機能の概念化から、ウェブアプリケーションや効率的なアルゴリズムなどの機能的で高品質な製品の展開まで、開発ライフサイクル全体に動機づけられています。問題解決スキルを磨くために新しい技術やフレームワークを常に探索する、生涯学習者です。"
+    },
+    "skills": {
+      "title": "技術スキル",
+      "programming": "プログラミング言語",
+      "frameworks": "フレームワーク＆ライブラリ",
+      "tools": "ツール＆技術"
+    },
+    "education": {
+      "title": "教育",
+      "university": "コンピュータサイエンス学士号",
+      "university_period": "2023 - 現在",
+      "university_school": "ペーチ大学",
+      "university_desc1": "ソフトウェアエンジニアリング、データ構造、および高度なアルゴリズムに焦点を当てたカリキュラムで包括的なコンピュータサイエンス学位を追求。",
+      "university_desc2": "理論と実世界の応用を橋渡しする実践的なコースワークとプロジェクトに積極的に参加。",
+      "highschool": "高等学校卒業証書",
+      "highschool_period": "2019 - 2023",
+      "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
+      "highschool_desc": "優秀な成績で卒業し、数学と分析的思考において強固な基盤を確立。",
+      "grades": "最終試験結果：",
+      "subjects": {
+        "math": "数学",
+        "english": "英語",
+        "literature": "ハンガリー文学",
+        "history": "歴史",
+        "cs_basic": "コンピュータサイエンス（基礎）",
+        "cs_advanced": "コンピュータサイエンス（上級）"
+      }
+    },
+    "languages": {
+      "title": "言語",
+      "hungarian": "ハンガリー語",
+      "hungarian_level": "母語",
+      "english": "英語",
+      "english_level": "C1認定"
+    },
+    "hobbies": {
+      "title": "趣味＆興味",
+      "fencing": "フェンシング",
+      "clarinet": "クラリネット",
+      "growth": "個人成長",
+      "gym": "ジム",
+      "whisky": "ウイスキーテイスティング",
+      "cigar": "葉巻愛好家",
+      "camping": "キャンプ",
+      "fishing": "釣り"
+    }
+  },
+  "footer": {
+    "tagline": "精密と情熱でデジタル体験を創造。",
+    "navigate": "ナビゲーション",
+    "quote": "\"品質は決して偶然ではありません；それは常に高い意図、誠実な努力、知的な指導、そして熟練した実行の結果です。\"",
+    "quote_author": "William A. Foster",
+    "copyright": "© 2025 Balla Botond. All rights reserved. | 精密と情熱で作られました。"
+  }
+}

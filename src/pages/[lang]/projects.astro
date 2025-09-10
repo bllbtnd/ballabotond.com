@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).filter(lang => lang !== 'en').map(lang => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
+const translatePath = useTranslatedPath(lang as keyof typeof languages);
+---
+
+<Layout 
+  title={t('projects.title')}
+  description={t('projects.description')}
+>
+  <main>
+    <section class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+      <!-- Animated background elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-40 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div class="text-center z-10 max-w-4xl mx-auto px-4">
+        <div class="mb-8">
+          <p class="text-purple-300 text-sm uppercase tracking-wider mb-2">{t('projects.tagline')}</p>
+          <h1 class="text-6xl md:text-8xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-300">
+            {t('projects.subtitle')}
+          </h1>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            {t('projects.description')}
+          </p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+          <!-- KKI Calculator -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-purple-400 transition-all duration-300 hover:transform hover:scale-105">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-semibold text-white">{t('projects.kki.title')}</h3>
+              <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs font-medium border border-green-400">
+                {t('projects.status.live')}
+              </span>
+            </div>
+            <div class="mb-4">
+              <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs font-medium">
+                {t('projects.category.webapps')}
+              </span>
+            </div>
+            <p class="text-gray-300 mb-6 text-sm leading-relaxed">
+              {t('projects.kki.description')}
+            </p>
+            <a 
+              href="https://kki.bllbtnd.dev" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:transform hover:scale-105"
+            >
+              {t('projects.kki.button')}
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- TrackIt -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-purple-400 transition-all duration-300 hover:transform hover:scale-105">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-semibold text-white">{t('projects.trackit.title')}</h3>
+              <span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-xs font-medium border border-yellow-400">
+                {t('projects.status.coming')}
+              </span>
+            </div>
+            <div class="mb-4">
+              <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs font-medium">
+                {t('projects.category.health')}
+              </span>
+            </div>
+            <p class="text-gray-300 mb-6 text-sm leading-relaxed">
+              {t('projects.trackit.description')}
+            </p>
+            <a 
+              href="mailto:info@bllbtnd.dev" 
+              class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:transform hover:scale-105"
+            >
+              {t('projects.trackit.button')}
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Minecraft Server -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-purple-400 transition-all duration-300 hover:transform hover:scale-105">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-semibold text-white">{t('projects.minecraft.title')}</h3>
+              <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs font-medium border border-green-400">
+                {t('projects.status.live')}
+              </span>
+            </div>
+            <div class="mb-4">
+              <span class="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-xs font-medium">
+                {t('projects.category.gaming')}
+              </span>
+            </div>
+            <p class="text-gray-300 mb-6 text-sm leading-relaxed">
+              {t('projects.minecraft.description')}
+            </p>
+            <button 
+              onclick={`navigator.clipboard.writeText('mc.bllbtnd.dev'); this.textContent = 'Copied!'; setTimeout(() => this.textContent = '${t('projects.minecraft.button')}', 2000);`}
+              class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:transform hover:scale-105"
+            >
+              {t('projects.minecraft.button')}
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-16 flex flex-wrap justify-center gap-4">
+          <a 
+            href={translatePath('/')}
+            class="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:transform hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            {t('nav.home')}
+          </a>
+          <a 
+            href={translatePath('/resume')}
+            class="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:transform hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            {t('nav.resume')}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+</style>

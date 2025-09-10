@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Progetti",
+    "resume": "Curriculum"
+  },
+  "common": {
+    "name": "Balla Botond",
+    "tagline": "Creando Soluzioni Senza Tempo",
+    "subtitle": "Creatore e Innovatore",
+    "email": "Email",
+    "github": "GitHub",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "twitter": "X (Twitter)",
+    "signal": "Signal",
+    "hevy": "Hevy",
+    "coffee": "Offrimi un caffè"
+  },
+  "home": {
+    "title": "Balla Botond | Sito Personale",
+    "description": "Balla Botond - Sviluppatore e creatore con una passione per soluzioni costruite con cura e dal fascino senza tempo. Esplora i miei progetti, connettiti sui social media e scopri il mio lavoro nello sviluppo e nell'innovazione.",
+    "keywords": "Balla Botond, Botond Balla, sviluppatore, trackit, sviluppatore software, sviluppatore web, sito personale, portfolio, bllbtnd, programmazione, innovazione, Ungheria, tech, progetti, GitHub, Boti, Balla Boti",
+    "bio": "Con un approccio esigente sia al lavoro che al tempo libero, gravito verso esperienze e soluzioni che sono costruite con cura e hanno un fascino senza tempo. I miei progetti riflettono un rispetto per i metodi consolidati, bilanciato con una spinta per l'innovazione e la precisione. Trovo ispirazione nella maestria dietro le cose ben fatte—che si tratti della struttura di un'applicazione robusta, delle note stratificate di uno scotch raro, o del gioco di luce e ombra. Per me, la qualità non è mai accidentale; è il risultato di intenzione, cura e un apprezzamento per i dettagli che resistono alla prova del tempo."
+  },
+  "projects": {
+    "title": "Progetti | Balla Botond",
+    "tagline": "Creato con Precisione",
+    "subtitle": "Progetti e Collegamenti",
+    "description": "Sforzi creativi, strumenti utili e luoghi per connettersi",
+    "kki": {
+      "title": "Calcolatore KKI",
+      "description": "Un semplice calcolatore KKI che aiuta con i calcoli KKI.",
+      "button": "Provalo"
+    },
+    "trackit": {
+      "title": "TrackIt",
+      "description": "Un'app di monitoraggio fitness per il controllo della salute.",
+      "button": "Mettiti in contatto"
+    },
+    "minecraft": {
+      "title": "Server Minecraft",
+      "description": "Server privato di sopravvivenza per amici con plugin personalizzati e una comunità accogliente, che è iniziato come test per verificare le capacità del mio \"giocattolo\" appena acquistato, ma ora parecchie persone hanno iniziato a giocarci. Funziona su un Raspberry Pi 5 su una rete domestica.",
+      "button": "Copia IP Server"
+    },
+    "category": {
+      "webapps": "App Web",
+      "health": "Salute e Fitness",
+      "gaming": "Giochi"
+    },
+    "status": {
+      "live": "Online",
+      "coming": "Prossimamente",
+      "maintenance": "Manutenzione"
+    }
+  },
+  "resume": {
+    "title": "Curriculum | Balla Botond",
+    "tagline": "Soluzioni Ponderate",
+    "subtitle": "Curriculum Professionale",
+    "position": "Studente di Informatica, Sviluppatore Software e Imprenditore",
+    "summary": {
+      "title": "Riassunto Professionale",
+      "text": "Uno studente di Informatica orientato ai risultati con una passione per trasformare problemi complessi in eleganti soluzioni software. Completo le mie basi accademiche cercando attivamente progetti nel mondo reale, credendo che l'esperienza pratica sia la chiave per la vera maestria. Sono motivato dall'intero ciclo di vita dello sviluppo, dalla concettualizzazione di una funzionalità alla distribuzione di un prodotto funzionale e di alta qualità come un'applicazione web o un algoritmo efficiente. Sono un apprendista per tutta la vita, esplorando costantemente nuove tecnologie e framework per affinare le mie competenze di problem-solving."
+    },
+    "skills": {
+      "title": "Competenze Tecniche",
+      "programming": "Linguaggi di Programmazione",
+      "frameworks": "Framework e Librerie",
+      "tools": "Strumenti e Tecnologie"
+    },
+    "education": {
+      "title": "Istruzione",
+      "university": "Laurea in Informatica",
+      "university_period": "2023 - Presente",
+      "university_school": "Università di Pécs",
+      "university_desc1": "Perseguendo una laurea completa in Informatica con un curriculum focalizzato sull'ingegneria del software, strutture dati e algoritmi avanzati.",
+      "university_desc2": "Attivamente coinvolto in lavori pratici e progetti che collegano la teoria con l'applicazione del mondo reale.",
+      "highschool": "Diploma di Scuola Superiore",
+      "highschool_period": "2019 - 2023",
+      "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
+      "highschool_desc": "Diplomato con risultati eccellenti, stabilendo una solida base in matematica e pensiero analitico.",
+      "grades": "Risultati Esame Finale:",
+      "subjects": {
+        "math": "Matematica",
+        "english": "Inglese",
+        "literature": "Letteratura Ungherese",
+        "history": "Storia",
+        "cs_basic": "Informatica (Base)",
+        "cs_advanced": "Informatica (Avanzato)"
+      }
+    },
+    "languages": {
+      "title": "Lingue",
+      "hungarian": "Ungherese",
+      "hungarian_level": "Madrelingua",
+      "english": "Inglese",
+      "english_level": "C1 Certificato"
+    },
+    "hobbies": {
+      "title": "Hobby e Interessi",
+      "fencing": "Scherma",
+      "clarinet": "Clarinetto",
+      "growth": "Crescita Personale",
+      "gym": "Palestra",
+      "whisky": "Degustazione Whisky",
+      "cigar": "Appassionato di Sigari",
+      "camping": "Campeggio",
+      "fishing": "Pesca"
+    }
+  },
+  "footer": {
+    "tagline": "Creando esperienze digitali con precisione e passione.",
+    "navigate": "Naviga",
+    "quote": "\"La qualità non è mai accidentale; è sempre il risultato di alta intenzione, sforzo sincero, direzione intelligente ed esecuzione abile.\"",
+    "quote_author": "William A. Foster",
+    "copyright": "© 2025 Balla Botond. Tutti i diritti riservati. | Creato con precisione e passione."
+  }
+}

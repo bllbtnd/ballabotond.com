@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).filter(lang => lang !== 'en').map(lang => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
+const translatePath = useTranslatedPath(lang as keyof typeof languages);
+---
+
+<Layout 
+  title={t('resume.title')}
+  description={t('resume.summary.text')}
+>
+  <main>
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-20">
+      <!-- Animated background elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-40 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <p class="text-purple-300 text-sm uppercase tracking-wider mb-2">{t('resume.tagline')}</p>
+          <h1 class="text-6xl md:text-8xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-300">
+            {t('resume.subtitle')}
+          </h1>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
+            {t('common.name')} - {t('resume.position')}
+          </p>
+        </div>
+
+        <!-- Resume Content -->
+        <div class="grid gap-12">
+          <!-- Professional Summary -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <h2 class="text-2xl font-bold mb-6 text-purple-300">{t('resume.summary.title')}</h2>
+            <p class="text-gray-300 leading-relaxed">
+              {t('resume.summary.text')}
+            </p>
+          </div>
+
+          <!-- Skills -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <h2 class="text-2xl font-bold mb-6 text-purple-300">{t('resume.skills.title')}</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-3 text-white">{t('resume.skills.programming')}</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400">JavaScript</span>
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400">TypeScript</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-400">Python</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-400">C#</span>
+                  <span class="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm border border-orange-400">Java</span>
+                  <span class="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm border border-red-400">C++</span>
+                  <span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm border border-pink-400">SQL</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-3 text-white">{t('resume.skills.frameworks')}</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm border border-cyan-400">React</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-400">Vue.js</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-400">Astro</span>
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400">Next.js</span>
+                  <span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm border border-yellow-400">Express</span>
+                  <span class="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm border border-red-400">Flask</span>
+                  <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm border border-indigo-400">Tailwind</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-3 text-white">{t('resume.skills.tools')}</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-gray-500/20 text-gray-300 rounded-full text-sm border border-gray-400">Git</span>
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400">Docker</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-400">Node.js</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-400">VS Code</span>
+                  <span class="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm border border-orange-400">Linux</span>
+                  <span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm border border-yellow-400">AWS</span>
+                  <span class="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm border border-red-400">Firebase</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <h2 class="text-2xl font-bold mb-6 text-purple-300">{t('resume.education.title')}</h2>
+            <div class="space-y-6">
+              <div class="border-l-4 border-purple-400 pl-6">
+                <h3 class="text-lg font-semibold text-white">{t('resume.education.university')}</h3>
+                <p class="text-purple-300 text-sm">{t('resume.education.university_period')}</p>
+                <p class="text-gray-400 mb-2">{t('resume.education.university_school')}</p>
+                <ul class="text-gray-300 text-sm space-y-1">
+                  <li>• {t('resume.education.university_desc1')}</li>
+                  <li>• {t('resume.education.university_desc2')}</li>
+                </ul>
+              </div>
+              <div class="border-l-4 border-blue-400 pl-6">
+                <h3 class="text-lg font-semibold text-white">{t('resume.education.highschool')}</h3>
+                <p class="text-blue-300 text-sm">{t('resume.education.highschool_period')}</p>
+                <p class="text-gray-400 mb-2">{t('resume.education.highschool_school')}</p>
+                <p class="text-gray-300 text-sm">{t('resume.education.highschool_desc')}</p>
+                <div class="mt-3">
+                  <p class="text-gray-400 text-sm mb-2">{t('resume.education.grades')}</p>
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                    <span class="text-gray-300">{t('resume.education.subjects.math')}: 97%</span>
+                    <span class="text-gray-300">{t('resume.education.subjects.english')}: 92%</span>
+                    <span class="text-gray-300">{t('resume.education.subjects.literature')}: 81%</span>
+                    <span class="text-gray-300">{t('resume.education.subjects.history')}: 86%</span>
+                    <span class="text-gray-300">{t('resume.education.subjects.cs_basic')}: 95%</span>
+                    <span class="text-gray-300">{t('resume.education.subjects.cs_advanced')}: 98%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <h2 class="text-2xl font-bold mb-6 text-purple-300">{t('resume.languages.title')}</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="flex justify-between items-center">
+                <span class="text-white">{t('resume.languages.hungarian')}</span>
+                <span class="text-gray-400">{t('resume.languages.hungarian_level')}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-white">{t('resume.languages.english')}</span>
+                <span class="text-gray-400">{t('resume.languages.english_level')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hobbies -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <h2 class="text-2xl font-bold mb-6 text-purple-300">{t('resume.hobbies.title')}</h2>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-gradient-to-r from-red-500/20 to-pink-500/20 text-red-300 rounded-lg border border-red-400">{t('resume.hobbies.fencing')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-300 rounded-lg border border-blue-400">{t('resume.hobbies.clarinet')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 rounded-lg border border-green-400">{t('resume.hobbies.growth')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 text-orange-300 rounded-lg border border-orange-400">{t('resume.hobbies.gym')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-purple-300 rounded-lg border border-purple-400">{t('resume.hobbies.whisky')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 rounded-lg border border-amber-400">{t('resume.hobbies.cigar')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-teal-500/20 to-cyan-500/20 text-teal-300 rounded-lg border border-teal-400">{t('resume.hobbies.camping')}</span>
+              <span class="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 rounded-lg border border-blue-400">{t('resume.hobbies.fishing')}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-16 flex flex-wrap justify-center gap-4">
+          <a 
+            href={translatePath('/')}
+            class="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:transform hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            {t('nav.home')}
+          </a>
+          <a 
+            href={translatePath('/projects')}
+            class="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:transform hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            {t('nav.projects')}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+</style>

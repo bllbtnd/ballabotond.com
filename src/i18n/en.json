@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "resume": "Resume"
+  },
+  "common": {
+    "name": "Balla Botond",
+    "tagline": "Crafting Timeless Solutions",
+    "subtitle": "Creator & Innovator",
+    "email": "Email",
+    "github": "GitHub",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "twitter": "X (Twitter)",
+    "signal": "Signal",
+    "hevy": "Hevy",
+    "coffee": "Buy me a coffee"
+  },
+  "home": {
+    "title": "Balla Botond | Personal Website",
+    "description": "Balla Botond - Developer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.",
+    "keywords": "Balla Botond, Botond Balla, developer, trackit, software developer, web developer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti",
+    "bio": "With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal. My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things—whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow. For me, quality is never accidental; it's the result of intention, care, and an appreciation for the details that stand the test of time."
+  },
+  "projects": {
+    "title": "Projects | Balla Botond",
+    "tagline": "Crafted with Precision",
+    "subtitle": "Projects & Links",
+    "description": "Creative endeavors, useful tools, and places to connect",
+    "kki": {
+      "title": "KKI calculator",
+      "description": "A simple KKI calculator that helps with KKI calculations.",
+      "button": "Try it out"
+    },
+    "trackit": {
+      "title": "TrackIt",
+      "description": "A fitness tracking app for monitoring health.",
+      "button": "Get in touch"
+    },
+    "minecraft": {
+      "title": "Minecraft Server",
+      "description": "Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought \"toy\", but now quite a few people started playing on it. It runs on a Raspberry Pi 5 on a home network.",
+      "button": "Copy Server IP"
+    },
+    "category": {
+      "webapps": "Web Apps",
+      "health": "Health and Fitness",
+      "gaming": "Gaming"
+    },
+    "status": {
+      "live": "Live",
+      "coming": "Coming Soon",
+      "maintenance": "Maintenance"
+    }
+  },
+  "resume": {
+    "title": "Resume | Balla Botond",
+    "tagline": "Thoughtful Solutions",
+    "subtitle": "Professional Resume",
+    "position": "Computer Science Student, Software Developer & Entrepreneur",
+    "summary": {
+      "title": "Professional Summary",
+      "text": "A results-driven Computer Science student with a passion for transforming complex problems into elegant software solutions. I complement my academic foundations by actively seeking real-world projects, believing that hands-on experience is key to true mastery. I am motivated by the entire development lifecycle, from conceptualizing a feature to deploying a functional, high-quality product like a web application or an efficient algorithm. I am a lifelong learner, constantly exploring new technologies and frameworks to sharpen my problem-solving skills."
+    },
+    "skills": {
+      "title": "Technical Skills",
+      "programming": "Programming Languages",
+      "frameworks": "Frameworks & Libraries",
+      "tools": "Tools & Technologies"
+    },
+    "experience": {
+      "title": "Professional Experience",
+      "current": "Software Developer",
+      "current_period": "July 2025 - Present",
+      "current_company": "LogiCloud KFT",
+      "current_desc1": "Developing software solutions for various companies, including Suzuki, as a part-time developer while pursuing university studies.",
+      "current_desc2": "Contributing to production-grade software projects within a specialized development team.",
+      "current_desc3": "Successfully balancing professional development experience with academic responsibilities.",
+      "intern": "Software Development Intern",
+      "intern_period": "May 2025 - July 2025",
+      "intern_company": "LogiCloud KFT",
+      "intern_desc1": "Completed an intensive 8-week internship program, contributing to software development projects for Suzuki and its partner companies.",
+      "intern_desc2": "Learned professional coding standards and team workflows in a small, specialized development environment.",
+      "intern_desc3": "Successfully applied academic knowledge to solve practical technical challenges using industry tools.",
+      "wolt": "Delivery Cyclist",
+      "wolt_period": "2023 - 2024",
+      "wolt_company": "Wolt",
+      "wolt_desc1": "Executed timely and accurate deliveries across the city in a dynamic, fast-paced environment.",
+      "wolt_desc2": "Mastered route optimization and time management to maximize efficiency and ensure high customer satisfaction.",
+      "wolt_desc3": "Developed strong problem-solving skills and resilience while working independently under pressure.",
+      "hotel": "Server",
+      "hotel_period": "June 2022 - July 2022",
+      "hotel_company": "Hotel Piroska **** Bük",
+      "hotel_desc1": "Provided exceptional service to a diverse, international clientele in a high-volume 4-star hotel environment.",
+      "hotel_desc2": "Managed all aspects of food and beverage service, ensuring a seamless and positive guest experience.",
+      "hotel_desc3": "Enhanced cross-cultural communication skills and honed my ability to perform gracefully under pressure."
+    },
+    "education": {
+      "title": "Education",
+      "university": "Bachelor's Degree in Computer Science",
+      "university_period": "2023 - Present",
+      "university_school": "University of Pécs",
+      "university_desc1": "Pursuing a comprehensive Computer Science degree with a curriculum focused on software engineering, data structures, and advanced algorithms.",
+      "university_desc2": "Actively involved in practical coursework and projects that bridge theory with real-world application.",
+      "highschool": "High School Diploma",
+      "highschool_period": "2019 - 2023",
+      "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
+      "highschool_desc": "Graduated with excellent results, establishing a strong foundation in mathematics and analytical thinking.",
+      "grades": "Final Examination Results:",
+      "subjects": {
+        "math": "Mathematics",
+        "english": "English",
+        "literature": "Hungarian Literature",
+        "history": "History",
+        "cs_basic": "Computer Science (Basic)",
+        "cs_advanced": "Computer Science (Advanced)"
+      }
+    },
+    "languages": {
+      "title": "Languages",
+      "hungarian": "Hungarian",
+      "hungarian_level": "Native",
+      "english": "English",
+      "english_level": "C1 Certified"
+    },
+    "hobbies": {
+      "title": "Hobbies & Interests",
+      "fencing": "Fencing",
+      "clarinet": "Clarinet",
+      "growth": "Personal Growth",
+      "gym": "Gym",
+      "whisky": "Whisky Tasting",
+      "cigar": "Cigar Aficionado",
+      "camping": "Camping",
+      "fishing": "Fishing"
+    }
+  },
+  "footer": {
+    "tagline": "Crafting digital experiences with precision and passion.",
+    "navigate": "Navigate",
+    "quote": "\"Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution.\"",
+    "quote_author": "William A. Foster",
+    "copyright": "© 2025 Balla Botond. All rights reserved. | Crafted with precision and passion."
+  }
+}
