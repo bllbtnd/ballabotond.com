@@ -151,6 +151,9 @@ import Footer from './Footer.astro';
   
   <!-- Enhanced smooth scrolling script -->
   <script>
+    // Declare gtag as a global function for Google Analytics
+    declare const gtag: any;
+    
     // Add smooth scrolling behavior
     document.documentElement.style.scrollBehavior = 'smooth';
     
@@ -180,7 +183,7 @@ import Footer from './Footer.astro';
     
     // Add analytics tracking for social links
     document.querySelectorAll('a[href*="ballabotond.com"]').forEach(link => {
-      link.addEventListener('click', function() {
+      link.addEventListener('click', function(this: HTMLAnchorElement) {
         if (typeof gtag !== 'undefined') {
           gtag('event', 'click', {
             'event_category': 'social',
