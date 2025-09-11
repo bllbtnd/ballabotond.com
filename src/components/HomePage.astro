@@ -46,16 +46,16 @@ const translatePath = useTranslatedPath(lang);
       </h1>
       
       <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in" style="animation-delay: 1.2s;">
+      <div id="scroll-indicator" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in cursor-pointer group" style="animation-delay: 1.2s;">
         <!-- Scroll mouse indicator -->
-        <div class="relative w-8 h-12 border-2 border-luxury-gold border-opacity-80 rounded-full backdrop-blur-sm bg-gray-900 bg-opacity-20 shadow-lg">
+        <div class="relative w-8 h-12 border-2 border-luxury-gold border-opacity-80 rounded-full backdrop-blur-sm bg-gray-900 bg-opacity-20 shadow-lg group-hover:border-opacity-100 transition-all duration-300">
           <!-- Scroll wheel -->
           <div class="absolute top-3 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-luxury-gold rounded-full animate-scroll-wheel"></div>
           <!-- Glow effect -->
           <div class="absolute inset-0 rounded-full border border-luxury-gold opacity-30 animate-pulse"></div>
         </div>
         <!-- Chevron down -->
-        <i class="fas fa-chevron-down text-luxury-gold text-xs mt-1 opacity-60 animate-bounce" style="animation-delay: 1s;"></i>
+        <i class="fas fa-chevron-down text-luxury-gold text-xs mt-1 opacity-60 animate-bounce group-hover:opacity-100 transition-opacity duration-300" style="animation-delay: 1s;"></i>
       </div>
     </div>
     
@@ -64,7 +64,7 @@ const translatePath = useTranslatedPath(lang);
       <div class="max-w-4xl mx-auto">
         
         <!-- Bio section -->
-        <div class="text-center mb-16">
+        <div id="bio-section" class="text-center mb-16 pt-12">
           <p class="font-montserrat text-lg md:text-xl text-luxury-gray font-light leading-relaxed max-w-3xl mx-auto">
             {t('home.bio')}
           </p>
@@ -216,5 +216,65 @@ const translatePath = useTranslatedPath(lang);
     document.querySelectorAll('.bg-gray-800').forEach(el => {
       observer.observe(el);
     });
+    
+    // Add click handler for scroll indicator
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    const bioSection = document.getElementById('bio-section');
+    
+    if (scrollIndicator && bioSection) {
+      scrollIndicator.addEventListener('click', () => {
+        bioSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    }
+    
+    // Hide scroll indicator when scrolled
+    let scrollTimeout: any;
+    const handleScroll = () => {
+      if (scrollIndicator) {
+        const scrollY = window.pageYOffset;
+        const fadeStart = 0; // Start fading from the very top
+        const fadeEnd = 300; // Fully faded by 300px scroll
+        
+        let opacity = 1;
+        
+        if (scrollY > fadeStart) {
+          // Calculate opacity based on scroll position
+          const fadeProgress = Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
+          opacity = 1 - fadeProgress;
+          
+          // Disable pointer events when mostly faded
+          if (opacity < 0.1) {
+            scrollIndicator.style.pointerEvents = 'none';
+          } else {
+            scrollIndicator.style.pointerEvents = 'auto';
+          }
+        } else {
+          scrollIndicator.style.pointerEvents = 'auto';
+        }
+        
+        // Apply smooth opacity transition
+        scrollIndicator.style.opacity = opacity.toString();
+        
+        // Clear existing timeout
+        clearTimeout(scrollTimeout);
+        
+        // Set new timeout to show indicator briefly when scrolling stops near the top
+        if (scrollY > fadeEnd) {
+          scrollTimeout = setTimeout(() => {
+            if (window.pageYOffset <= fadeEnd) {
+              const newOpacity = Math.max(0, 1 - (window.pageYOffset / fadeEnd));
+              scrollIndicator.style.opacity = newOpacity.toString();
+              scrollIndicator.style.pointerEvents = newOpacity > 0.1 ? 'auto' : 'none';
+            }
+          }, 150);
+        }
+      }
+    };
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
   </script>
 </main>
