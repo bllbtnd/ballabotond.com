@@ -25,12 +25,19 @@ const {
 <html lang={lang}>
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9" crossorigin="anonymous"></script>
     <script>
       (window as any).dataLayer = (window as any).dataLayer || [];
       function gtag(...args: any[]){(window as any).dataLayer.push(args);}
       gtag('js', new Date());
       gtag('config', 'G-3NZN7X2WL9');
+      
+      // Handle script loading errors gracefully
+      window.addEventListener('error', function(e) {
+        if (e.target && (e.target as any).src && (e.target as any).src.includes('googletagmanager')) {
+          console.warn('Google Analytics script blocked or failed to load');
+        }
+      });
     </script>
     
     <meta charset="UTF-8" />
