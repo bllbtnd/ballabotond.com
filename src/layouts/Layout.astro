@@ -9,6 +9,9 @@ export interface Props {
   title?: string;
   description?: string;
   keywords?: string;
+  ogImage?: string;
+  canonical?: string;
+  noindex?: boolean;
 }
 
 const lang = getLangFromUrl(Astro.url);
@@ -17,13 +20,162 @@ const t = useTranslations(lang);
 const { 
   title = t('home.title'),
   description = t('home.description'),
-  keywords = t('home.keywords')
+  keywords = t('home.keywords'),
+  ogImage = '/assets/images/image.png',
+  canonical,
+  noindex = false
 } = Astro.props;
+
+// Generate canonical URL
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+
+// Enhanced meta data for better SEO
+const siteTitle = "Balla Botond";
+const siteDescription = "Software Developer & Computer Science Student specializing in web development, innovative solutions, and quality craftsmanship. Explore projects, resume, and connect.";
+const author = "Balla Botond";
+const siteUrl = "https://ballabotond.com";
+
+// Language-specific locale mapping
+const localeMap: Record<string, string> = {
+  'en': 'en_US',
+  'hu': 'hu_HU', 
+  'it': 'it_IT',
+  'zh': 'zh_CN',
+  'ja': 'ja_JP',
+  'egy': 'ar_EG'
+};
+
+const currentLocale = localeMap[lang] || 'en_US';
 ---
 
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} dir="ltr">
   <head>
+    <!-- Essential meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO meta tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Language and regional targeting -->
+    <meta name="language" content={lang} />
+    <meta name="geo.region" content="HU" />
+    <meta name="geo.country" content="Hungary" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+    <meta property="og:image:alt" content={`${siteTitle} - ${description}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={currentLocale} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bllbtnd" />
+    <meta name="twitter:creator" content="@bllbtnd" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
+    <meta name="twitter:image:alt" content={`${siteTitle} - ${description}`} />
+    
+    <!-- Additional SEO meta tags -->
+    <meta name="theme-color" content="#c9a96b" />
+    <meta name="msapplication-TileColor" content="#c9a96b" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Structured data - Person Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Balla Botond",
+        "alternateName": ["Botond Balla", "bllbtnd"],
+        "description": "Software Developer & Computer Science Student",
+        "url": "https://ballabotond.com",
+        "image": "https://ballabotond.com/assets/images/image.png",
+        "sameAs": [
+          "https://github.com/bllbtnd",
+          "https://www.facebook.com/bllbtnd",
+          "https://www.instagram.com/bllbtnd",
+          "https://twitter.com/bllbtnd"
+        ],
+        "jobTitle": "Software Developer",
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "University of Pécs"
+        },
+        "nationality": {
+          "@type": "Country",
+          "name": "Hungary"
+        },
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "Hungarian",
+            "alternateName": "hu"
+          },
+          {
+            "@type": "Language", 
+            "name": "English",
+            "alternateName": "en"
+          }
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Software Developer",
+          "occupationLocation": {
+            "@type": "Country",
+            "name": "Hungary"
+          }
+        }
+      }
+    </script>
+    
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Balla Botond",
+        "url": "https://ballabotond.com",
+        "description": "Personal website of Balla Botond - Software Developer & Computer Science Student",
+        "inLanguage": [
+          "en-US",
+          "hu-HU", 
+          "it-IT",
+          "zh-CN",
+          "ja-JP",
+          "ar-EG"
+        ],
+        "author": {
+          "@type": "Person",
+          "name": "Balla Botond"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Balla Botond"
+        }
+      }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9" crossorigin="anonymous"></script>
     <script>
@@ -65,17 +217,27 @@ const {
     <meta property="twitter:image" content="/assets/images/image.png" />
     <meta property="twitter:creator" content="@bllbtnd" />
     
-    <link rel="canonical" href="https://www.ballabotond.com/" />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <!-- Favicon and app icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     
-    <!-- Google Fonts -->
+    <!-- DNS prefetch for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    
+    <!-- Preconnect for critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Google Fonts with display=swap for performance -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Font Awesome with integrity check -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
       /* Custom font utilities */
@@ -115,9 +277,185 @@ const {
       * {
         transition: opacity 0.3s ease-in-out;
       }
+      
+      /* Disable text selection, right-click, and drag actions - only in production */
+      body.production-mode {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Disable image dragging - only in production */
+      body.production-mode img {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+        pointer-events: none;
+      }
+      
+      /* Allow text selection only for specific elements in production */
+      body.production-mode input, 
+      body.production-mode textarea, 
+      body.production-mode [contenteditable] {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+      }
+      
+      /* Disable highlighting on buttons and links in production */
+      body.production-mode button, 
+      body.production-mode a {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
     </style>
+    
+    <!-- Disable right-click and keyboard shortcuts script -->
+    <script>
+      // Only enable protection in production
+      if (import.meta.env.PROD) {
+        // Add production mode class to body for CSS protection
+        document.body.classList.add('production-mode');
+        
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          return false;
+        });
+        
+        // Disable text selection with mouse
+        document.addEventListener('selectstart', function(e) {
+          e.preventDefault();
+          return false;
+        });
+        
+        // Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+          e.preventDefault();
+          return false;
+        });
+        
+        // Disable common keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+          // Disable F12 (Developer Tools)
+          if (e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+Shift+I (Developer Tools)
+          if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+Shift+J (Console)
+          if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+U (View Source)
+          if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+S (Save Page)
+          if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+A (Select All)
+          if (e.ctrlKey && e.keyCode === 65) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+P (Print)
+          if (e.ctrlKey && e.keyCode === 80) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+C (Copy)
+          if (e.ctrlKey && e.keyCode === 67) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+V (Paste)
+          if (e.ctrlKey && e.keyCode === 86) {
+            e.preventDefault();
+            return false;
+          }
+          
+          // Disable Ctrl+X (Cut)
+          if (e.ctrlKey && e.keyCode === 88) {
+            e.preventDefault();
+            return false;
+          }
+        });
+        
+        // Disable image saving on mobile
+        document.addEventListener('touchstart', function(e) {
+          if (e.target && (e.target as HTMLElement).tagName === 'IMG') {
+            e.preventDefault();
+          }
+        });
+        
+        // Additional protection against devtools
+        let devtools = {
+          open: false,
+          orientation: null
+        };
+        
+        const threshold = 160;
+        setInterval(function() {
+          if (window.outerHeight - window.innerHeight > threshold || 
+              window.outerWidth - window.innerWidth > threshold) {
+            if (!devtools.open) {
+              devtools.open = true;
+              console.clear();
+              console.log('%cDeveloper tools detected!', 'color: red; font-size: 20px; font-weight: bold;');
+              // Optionally redirect or take other action
+              // window.location.href = '/';
+            }
+          } else {
+            devtools.open = false;
+          }
+        }, 500);
+        
+        // Disable console
+        if (typeof console !== 'undefined') {
+          console.log = function() {};
+          console.warn = function() {};
+          console.error = function() {};
+          console.info = function() {};
+          console.debug = function() {};
+        }
+        
+        // Clear console periodically
+        setInterval(function() {
+          console.clear();
+        }, 1000);
+      } else {
+        // Development mode - show a subtle indicator
+        console.log('%cDevelopment Mode: Protection disabled', 'color: #c9a96b; font-size: 14px; background: #1a1a20; padding: 5px; border-radius: 3px;');
+      }
+    </script>
   </head>
-  <body class="bg-gray-900 text-white min-h-screen loading">
+  <body class="bg-gray-900 text-white min-h-screen loading" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
     <LoadingScreen />
     
     <!-- Language Switcher -->

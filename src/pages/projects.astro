@@ -56,7 +56,12 @@ const getStatusBadge = (status: string) => {
 };
 ---
 
-<Layout title={t('projects.title')}>
+<Layout 
+  title={t('projects.title')}
+  description={t('projects.description')}
+  keywords="Balla Botond projects, software development, web applications, TrackIt fitness app, KKI calculator, Minecraft server, programming portfolio"
+  ogImage="/assets/images/projects-og.png"
+>
   <!-- Navigation -->
   <nav class="fixed top-6 right-6 z-50">
     <a href={translatePath('/')} 
