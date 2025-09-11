@@ -19,7 +19,7 @@ function getLocalizedPath(locale: string) {
 }
 ---
 
-<div class="language-dropdown relative">
+<div class="language-dropdown relative transition-opacity duration-300 ease-out">
   <!-- Trigger button -->
   <button
     id="lang-trigger"
@@ -147,6 +147,48 @@ document.addEventListener('DOMContentLoaded', () => {
         positionDropdown();
       }
     });
+  }
+
+  // Scroll-based fade-out functionality
+  const languageSelector = document.querySelector('.language-dropdown') as HTMLElement;
+  if (languageSelector) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateFade = () => {
+      const scrollY = window.scrollY;
+      const fadeStart = 100; // Start fading after 100px scroll
+      const fadeEnd = 300; // Complete fade at 300px scroll
+
+      if (scrollY <= fadeStart) {
+        languageSelector.style.opacity = '1';
+        languageSelector.style.pointerEvents = 'auto';
+      } else if (scrollY >= fadeEnd) {
+        languageSelector.style.opacity = '0';
+        languageSelector.style.pointerEvents = 'none';
+      } else {
+        // Calculate opacity between fadeStart and fadeEnd
+        const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        const opacity = 1 - progress;
+        languageSelector.style.opacity = opacity.toString();
+        languageSelector.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
+      }
+
+      ticking = false;
+    };
+
+    const requestTick = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateFade);
+        ticking = true;
+      }
+    };
+
+    // Throttled scroll listener for better performance
+    window.addEventListener('scroll', requestTick, { passive: true });
+
+    // Initial check
+    updateFade();
   }
 });
 </script>
