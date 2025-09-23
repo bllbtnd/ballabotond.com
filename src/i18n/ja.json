@@ -29,6 +29,11 @@
     "tagline": "精密に作られた",
     "subtitle": "プロジェクト＆リンク",
     "description": "クリエイティブな取り組み、便利なツール、つながりの場",
+    "vortex": {
+      "title": "Vortex Chat",
+      "description": "WebRTCを使用したピアツーピアのAndroidチャットアプリケーション。リアルタイムメッセージング、ルームベースシステム、iOSとのクロスプラットフォーム互換性を提供。現代的なAndroid開発手法で構築。",
+      "button": "GitHubで表示"
+    },
     "kki": {
       "title": "KKI計算機",
       "description": "KKI計算を支援するシンプルなKKI計算機。",
@@ -46,13 +51,15 @@
     },
     "category": {
       "webapps": "ウェブアプリ",
+      "mobile": "モバイルアプリ",
       "health": "健康＆フィットネス",
       "gaming": "ゲーミング"
     },
     "status": {
       "live": "稼働中",
       "coming": "近日公開",
-      "maintenance": "メンテナンス中"
+      "maintenance": "メンテナンス中",
+      "past": "過去のプロジェクト"
     }
   },
   "resume": {

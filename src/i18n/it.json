@@ -29,6 +29,11 @@
     "tagline": "Creato con Precisione",
     "subtitle": "Progetti e Collegamenti",
     "description": "Sforzi creativi, strumenti utili e luoghi per connettersi",
+    "vortex": {
+      "title": "Vortex Chat",
+      "description": "Un'applicazione chat Android peer-to-peer che utilizza WebRTC per la comunicazione diretta. Messaggistica in tempo reale, sistema basato su stanze e compatibilità cross-platform con iOS. Costruita con pratiche moderne di sviluppo Android.",
+      "button": "Visualizza su GitHub"
+    },
     "kki": {
       "title": "Calcolatore KKI",
       "description": "Un semplice calcolatore KKI che aiuta con i calcoli KKI.",
@@ -46,13 +51,15 @@
     },
     "category": {
       "webapps": "App Web",
+      "mobile": "App Mobile",
       "health": "Salute e Fitness",
       "gaming": "Giochi"
     },
     "status": {
       "live": "Online",
       "coming": "Prossimamente",
-      "maintenance": "Manutenzione"
+      "maintenance": "Manutenzione",
+      "past": "Progetto Passato"
     }
   },
   "resume": {

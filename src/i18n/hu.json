@@ -29,6 +29,11 @@
     "tagline": "Precízen Megalkotva",
     "subtitle": "Projektek és Linkek",
     "description": "Kreatív törekvések, hasznos eszközök és kapcsolódási lehetőségek",
+    "vortex": {
+      "title": "Vortex Chat",
+      "description": "Peer-to-peer Android chat alkalmazás WebRTC technológiával közvetlen kommunikációhoz. Valós idejű üzenetküldés, szoba-alapú rendszer és keresztplatform kompatibilitás iOS-szel. Modern Android fejlesztési gyakorlatokkal készült.",
+      "button": "Megtekintés GitHubon"
+    },
     "kki": {
       "title": "KKI kalkulátor",
       "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban.",
@@ -46,13 +51,15 @@
     },
     "category": {
       "webapps": "Webalkalmazások",
+      "mobile": "Mobilalkalmazások",
       "health": "Egészség és Fitness",
       "gaming": "Játékok"
     },
     "status": {
       "live": "Élő",
       "coming": "Hamarosan",
-      "maintenance": "Karbantartás"
+      "maintenance": "Karbantartás",
+      "past": "Múltbeli Projekt"
     }
   },
   "resume": {

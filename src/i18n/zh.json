@@ -29,6 +29,11 @@
     "tagline": "精工制作",
     "subtitle": "项目与链接",
     "description": "创意努力、实用工具和连接之地",
+    "vortex": {
+      "title": "Vortex Chat",
+      "description": "使用WebRTC的点对点Android聊天应用程序，实现直接通信。具有实时消息传递、基于房间的系统和与iOS的跨平台兼容性。采用现代Android开发实践构建。",
+      "button": "在GitHub上查看"
+    },
     "kki": {
       "title": "KKI计算器",
       "description": "一个简单的KKI计算器，帮助进行KKI计算。",
@@ -46,13 +51,15 @@
     },
     "category": {
       "webapps": "网页应用",
+      "mobile": "移动应用",
       "health": "健康与健身",
       "gaming": "游戏"
     },
     "status": {
       "live": "运行中",
       "coming": "即将推出",
-      "maintenance": "维护中"
+      "maintenance": "维护中",
+      "past": "过去的项目"
     }
   },
   "resume": {
