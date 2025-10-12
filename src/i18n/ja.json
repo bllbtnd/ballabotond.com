@@ -32,7 +32,7 @@
     "vortex": {
       "title": "Vortex Chat",
       "description": "WebRTCを使用したピアツーピアのAndroidチャットアプリケーション。リアルタイムメッセージング、ルームベースシステム、iOSとのクロスプラットフォーム互換性を提供。現代的なAndroid開発手法で構築。",
-      "button": "GitHubで表示"
+      "button": "APKをインストール"
     },
     "kki": {
       "title": "KKI計算機",

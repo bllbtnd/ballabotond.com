@@ -32,7 +32,7 @@
     "vortex": {
       "title": "Vortex Chat",
       "description": "使用WebRTC的点对点Android聊天应用程序，实现直接通信。具有实时消息传递、基于房间的系统和与iOS的跨平台兼容性。采用现代Android开发实践构建。",
-      "button": "在GitHub上查看"
+      "button": "安装APK"
     },
     "kki": {
       "title": "KKI计算器",
