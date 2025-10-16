@@ -1,8 +1,69 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomePage from '../components/HomePage.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const siteOrigin = Astro.site ?? 'https://ballabotond.com';
+const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const heroImage = `${siteOrigin}/assets/images/image.png`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  '@id': `${pageUrl}#breadcrumb`,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: t('common.name'),
+      item: pageUrl
+    }
+  ]
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${pageUrl}#webpage`,
+  url: pageUrl,
+  name: t('home.title'),
+  description: t('home.description'),
+  inLanguage: lang,
+  isPartOf: {
+    '@id': `${siteOrigin}#website`
+  },
+  about: {
+    '@id': `${siteOrigin}#person`
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    '@id': `${heroImage}#primaryimage`,
+    url: heroImage,
+    width: 1200,
+    height: 1200,
+    caption: t('common.name')
+  },
+  mainEntity: {
+    '@id': `${siteOrigin}#person`
+  },
+  breadcrumb: {
+    '@id': `${pageUrl}#breadcrumb`
+  }
+};
+
+const structuredData = [breadcrumbSchema, webPageSchema];
 ---
 
-<Layout>
+<Layout
+  title={t('home.title')}
+  description={t('home.description')}
+  keywords={t('home.keywords')}
+  ogImage="/assets/images/image.png"
+>
+  <script slot="head" type="application/ld+json" is:inline>
+    {JSON.stringify(structuredData)}
+  </script>
   <HomePage />
 </Layout>

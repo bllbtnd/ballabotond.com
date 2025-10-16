@@ -3,7 +3,7 @@
 // Main site layout for Balla Botond, using luxury palette and modern fonts
 import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages as supportedLanguages } from '../i18n/utils';
 
 export interface Props {
   title?: string;
@@ -46,6 +46,107 @@ const localeMap: Record<string, string> = {
 };
 
 const currentLocale = localeMap[lang] || 'en_US';
+const supportedLocaleKeys = Object.keys(supportedLanguages);
+
+const sameAsLinks = [
+  'https://github.com/bllbtnd',
+  'https://www.facebook.com/bllbtnd',
+  'https://www.instagram.com/bllbtnd',
+  'https://twitter.com/bllbtnd'
+];
+
+const stripLocaleFromPath = (pathname: string) => {
+  const segments = pathname.split('/');
+  const potentialLocale = segments[1];
+  if (potentialLocale && supportedLocaleKeys.includes(potentialLocale)) {
+    const rest = segments.slice(2).join('/');
+    return rest ? `/${rest}` : '/';
+  }
+  return pathname || '/';
+};
+
+const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
+const hreflangMap = Object.fromEntries(Object.entries(localeMap).map(([key, value]) => [key, value.replace('_', '-')]));
+
+const alternateLinks = supportedLocaleKeys.map((code) => {
+  const localizedPath = code === defaultLang
+    ? defaultLocalePath
+    : `/${code}${defaultLocalePath === '/' ? '' : defaultLocalePath}`;
+  const href = new URL(localizedPath, siteUrl).toString();
+  return {
+    code,
+    href,
+    hrefLang: hreflangMap[code] || code
+  };
+});
+
+const defaultAlternateHref = new URL(defaultLocalePath, siteUrl).toString();
+const siteLanguages = supportedLocaleKeys.map((code) => hreflangMap[code] || code);
+
+const personSchema = {
+  '@type': 'Person',
+  '@id': `${siteUrl}#person`,
+  name: siteTitle,
+  alternateName: ['Botond Balla', 'bllbtnd'],
+  description: siteDescription,
+  url: siteUrl,
+  image: `${siteUrl}/assets/images/image.png`,
+  sameAs: sameAsLinks,
+  jobTitle: 'Software Developer',
+  alumniOf: {
+    '@type': 'EducationalOrganization',
+    name: 'University of Pécs'
+  },
+  nationality: {
+    '@type': 'Country',
+    name: 'Hungary'
+  },
+  knowsLanguage: [
+    {
+      '@type': 'Language',
+      name: 'Hungarian',
+      alternateName: 'hu'
+    },
+    {
+      '@type': 'Language',
+      name: 'English',
+      alternateName: 'en'
+    }
+  ],
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'Software Developer',
+    occupationLocation: {
+      '@type': 'Country',
+      name: 'Hungary'
+    }
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'LogiCloud KFT'
+  }
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${siteUrl}#website`,
+  name: siteTitle,
+  url: siteUrl,
+  description: siteDescription,
+  inLanguage: siteLanguages,
+  publisher: {
+    '@id': `${siteUrl}#person`
+  },
+  creator: {
+    '@id': `${siteUrl}#person`
+  },
+  sameAs: sameAsLinks
+};
+
+const baseSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [personSchema, websiteSchema]
+};
 ---
 
 <!DOCTYPE html>
@@ -67,6 +168,10 @@ const currentLocale = localeMap[lang] || 'en_US';
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
+    {alternateLinks.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultAlternateHref} />
     
     <!-- Language and regional targeting -->
     <meta name="language" content={lang} />
@@ -109,79 +214,9 @@ const currentLocale = localeMap[lang] || 'en_US';
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="shortcut icon" href="/favicon.png" />
     
-    <!-- Structured data - Person Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Balla Botond",
-        "alternateName": ["Botond Balla", "bllbtnd"],
-        "description": "Software Developer & Computer Science Student",
-        "url": "https://ballabotond.com",
-        "image": "https://ballabotond.com/assets/images/image.png",
-        "sameAs": [
-          "https://github.com/bllbtnd",
-          "https://www.facebook.com/bllbtnd",
-          "https://www.instagram.com/bllbtnd",
-          "https://twitter.com/bllbtnd"
-        ],
-        "jobTitle": "Software Developer",
-        "alumniOf": {
-          "@type": "EducationalOrganization",
-          "name": "University of Pécs"
-        },
-        "nationality": {
-          "@type": "Country",
-          "name": "Hungary"
-        },
-        "knowsLanguage": [
-          {
-            "@type": "Language",
-            "name": "Hungarian",
-            "alternateName": "hu"
-          },
-          {
-            "@type": "Language", 
-            "name": "English",
-            "alternateName": "en"
-          }
-        ],
-        "hasOccupation": {
-          "@type": "Occupation",
-          "name": "Software Developer",
-          "occupationLocation": {
-            "@type": "Country",
-            "name": "Hungary"
-          }
-        }
-      }
-    </script>
-    
-    <!-- Website Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Balla Botond",
-        "url": "https://ballabotond.com",
-        "description": "Personal website of Balla Botond - Software Developer & Computer Science Student",
-        "inLanguage": [
-          "en-US",
-          "hu-HU", 
-          "it-IT",
-          "zh-CN",
-          "ja-JP",
-          "ar-EG"
-        ],
-        "author": {
-          "@type": "Person",
-          "name": "Balla Botond"
-        },
-        "publisher": {
-          "@type": "Person",
-          "name": "Balla Botond"
-        }
-      }
+    <!-- Structured data graph -->
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify(baseSchema)}
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9" crossorigin="anonymous"></script>
@@ -430,6 +465,7 @@ const currentLocale = localeMap[lang] || 'en_US';
         console.log('%cDevelopment Mode: Protection disabled', 'color: #c9a96b; font-size: 14px; background: #1a1a20; padding: 5px; border-radius: 3px;');
       }
     </script>
+    <slot name="head" />
   </head>
   <body class="bg-gray-900 text-white min-h-screen loading" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
     <LoadingScreen />

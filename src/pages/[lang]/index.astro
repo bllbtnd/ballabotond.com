@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HomePage from '../../components/HomePage.astro';
-import { getLangFromUrl, useTranslations, languages } from '../../i18n/utils';
+import { useTranslations, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
   return Object.keys(languages).filter(lang => lang !== 'en').map(lang => ({
@@ -10,14 +10,68 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as keyof typeof languages);
+const typedLang = lang as keyof typeof languages;
+const t = useTranslations(typedLang);
+const siteOrigin = Astro.site ?? 'https://ballabotond.com';
+const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const heroImage = `${siteOrigin}/assets/images/image.png`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  '@id': `${pageUrl}#breadcrumb`,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: t('common.name'),
+      item: pageUrl
+    }
+  ]
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${pageUrl}#webpage`,
+  url: pageUrl,
+  name: t('home.title'),
+  description: t('home.description'),
+  inLanguage: typedLang,
+  isPartOf: {
+    '@id': `${siteOrigin}#website`
+  },
+  about: {
+    '@id': `${siteOrigin}#person`
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    '@id': `${heroImage}#primaryimage`,
+    url: heroImage,
+    width: 1200,
+    height: 1200,
+    caption: t('common.name')
+  },
+  mainEntity: {
+    '@id': `${siteOrigin}#person`
+  },
+  breadcrumb: {
+    '@id': `${pageUrl}#breadcrumb`
+  }
+};
+
+const structuredData = [breadcrumbSchema, webPageSchema];
+const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
 ---
 
 <Layout 
   title={t('home.title')}
   description={t('home.description')}
   keywords={t('home.keywords')}
-  canonical={`https://ballabotond.com/${lang}/`}
+  canonical={canonicalUrl}
 >
+  <script slot="head" type="application/ld+json" is:inline>
+    {JSON.stringify(structuredData)}
+  </script>
   <HomePage />
 </Layout>
