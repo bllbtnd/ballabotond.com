@@ -251,6 +251,42 @@ const baseSchema = {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
+      /* Global background */
+      .site-body {
+        background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);
+        min-height: 100vh;
+        position: relative;
+        isolation: isolate;
+        overflow-x: hidden;
+      }
+
+      .site-body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.12) 0%, transparent 55%),
+          radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 55%),
+          radial-gradient(circle at 50% 10%, rgba(201, 169, 107, 0.05) 0%, transparent 60%);
+        z-index: -2;
+      }
+
+      .site-background {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .site-background__canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        opacity: 0.7;
+        filter: drop-shadow(0 0 36px rgba(201, 169, 107, 0.25));
+      }
+
       /* Custom font utilities */
       .font-playfair { font-family: 'Playfair Display', serif; }
       .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -467,7 +503,11 @@ const baseSchema = {
     </script>
     <slot name="head" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen loading" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+  <body class="site-body text-white min-h-screen loading" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+    <div id="site-background" class="site-background" aria-hidden="true">
+      <canvas id="constellation-canvas" class="site-background__canvas"></canvas>
+    </div>
+
     <LoadingScreen />
     
     <!-- Language Switcher -->
@@ -476,5 +516,204 @@ const baseSchema = {
     </div>
     
     <slot />
+
+    <script>
+      document.documentElement.style.scrollBehavior = 'smooth';
+
+  const siteBackground = document.getElementById('site-background');
+  const constellationCanvas = document.getElementById('constellation-canvas') as HTMLCanvasElement | null;
+
+  if (siteBackground && constellationCanvas && !constellationCanvas.dataset.enhanced) {
+        constellationCanvas.dataset.enhanced = 'true';
+        const ctx = constellationCanvas.getContext('2d');
+
+        if (ctx) {
+          const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+          let prefersReducedMotion = motionQuery.matches;
+
+          const pointer = { x: 0, y: 0, active: false };
+          let width = 0;
+          let height = 0;
+          let stars: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
+          let animationFrame = 0;
+
+          const randomBetween = (min: number, max: number) => Math.random() * (max - min) + min;
+
+          const setCanvasSize = () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            if (width === 0 || height === 0) {
+              return;
+            }
+
+            const scale = Math.min(window.devicePixelRatio || 1, 1.5);
+            constellationCanvas.width = width * scale;
+            constellationCanvas.height = height * scale;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(scale, scale);
+          };
+
+          const seedStars = () => {
+            if (width === 0 || height === 0) {
+              stars = [];
+              return;
+            }
+
+            const area = width * height;
+            const baseCount = Math.max(60, Math.floor(area / 14000));
+            const cappedCount = Math.min(160, baseCount);
+
+            stars = Array.from({ length: cappedCount }, () => ({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: randomBetween(-0.22, 0.22),
+              vy: randomBetween(-0.22, 0.22),
+              radius: randomBetween(0.6, 1.4)
+            }));
+          };
+
+          const drawFrame = () => {
+            if (width === 0 || height === 0) {
+              return;
+            }
+
+            ctx.clearRect(0, 0, width, height);
+
+            const connectionDistance = Math.max(120, Math.min(200, Math.sqrt(width * height) * 0.12));
+
+            stars.forEach((star) => {
+              if (!prefersReducedMotion) {
+                star.x += star.vx;
+                star.y += star.vy;
+
+                if (star.x <= 0 || star.x >= width) {
+                  star.vx *= -1;
+                }
+
+                if (star.y <= 0 || star.y >= height) {
+                  star.vy *= -1;
+                }
+              }
+
+              ctx.beginPath();
+              ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(201, 169, 107, 0.75)';
+              ctx.fill();
+            });
+
+            for (let i = 0; i < stars.length; i += 1) {
+              for (let j = i + 1; j < stars.length; j += 1) {
+                const dx = stars[i].x - stars[j].x;
+                const dy = stars[i].y - stars[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < connectionDistance) {
+                  const alpha = 1 - distance / connectionDistance;
+                  ctx.strokeStyle = `rgba(201, 169, 107, ${0.16 * alpha})`;
+                  ctx.lineWidth = Math.max(0.2, 0.7 * alpha);
+                  ctx.beginPath();
+                  ctx.moveTo(stars[i].x, stars[i].y);
+                  ctx.lineTo(stars[j].x, stars[j].y);
+                  ctx.stroke();
+                }
+              }
+            }
+
+            if (pointer.active) {
+              stars.forEach((star) => {
+                const dx = pointer.x - star.x;
+                const dy = pointer.y - star.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < connectionDistance) {
+                  const alpha = 1 - distance / connectionDistance;
+                  ctx.strokeStyle = `rgba(201, 169, 107, ${0.25 * alpha})`;
+                  ctx.lineWidth = Math.max(0.25, alpha);
+                  ctx.beginPath();
+                  ctx.moveTo(pointer.x, pointer.y);
+                  ctx.lineTo(star.x, star.y);
+                  ctx.stroke();
+                }
+              });
+            }
+          };
+
+          const animate = () => {
+            drawFrame();
+            if (!prefersReducedMotion) {
+              animationFrame = window.requestAnimationFrame(animate);
+            }
+          };
+
+          const handleMotionChange = (event: MediaQueryListEvent) => {
+            prefersReducedMotion = event.matches;
+            window.cancelAnimationFrame(animationFrame);
+            if (prefersReducedMotion) {
+              drawFrame();
+            } else {
+              animate();
+            }
+          };
+
+          if (motionQuery.addEventListener) {
+            motionQuery.addEventListener('change', handleMotionChange);
+          } else if ((motionQuery as any).addListener) {
+            (motionQuery as any).addListener(handleMotionChange);
+          }
+
+          const updatePointer = (event: PointerEvent) => {
+            pointer.x = event.clientX;
+            pointer.y = event.clientY;
+            pointer.active = true;
+
+            if (prefersReducedMotion) {
+              drawFrame();
+            }
+          };
+
+          const disablePointer = () => {
+            pointer.active = false;
+            if (prefersReducedMotion) {
+              drawFrame();
+            }
+          };
+
+          window.addEventListener('pointermove', updatePointer, { passive: true });
+          window.addEventListener('pointerup', disablePointer, { passive: true });
+          window.addEventListener('pointercancel', disablePointer, { passive: true });
+          window.addEventListener('pointerleave', disablePointer, { passive: true });
+          window.addEventListener('blur', disablePointer);
+
+          setCanvasSize();
+          seedStars();
+
+          if (prefersReducedMotion) {
+            drawFrame();
+          } else {
+            animate();
+          }
+
+          window.addEventListener('resize', () => {
+            setCanvasSize();
+            seedStars();
+            if (prefersReducedMotion) {
+              drawFrame();
+            }
+          });
+
+          const handleVisibilityChange = () => {
+            if (document.hidden) {
+              window.cancelAnimationFrame(animationFrame);
+            } else if (!prefersReducedMotion) {
+              window.cancelAnimationFrame(animationFrame);
+              animate();
+            }
+          };
+
+          document.addEventListener('visibilitychange', handleVisibilityChange);
+        }
+      }
+    </script>
   </body>
 </html>
