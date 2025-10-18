@@ -277,6 +277,8 @@ const baseSchema = {
         inset: 0;
         pointer-events: none;
         z-index: -1;
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
       }
 
       .site-background__canvas {
@@ -522,16 +524,73 @@ const baseSchema = {
 
   const siteBackground = document.getElementById('site-background');
   const constellationCanvas = document.getElementById('constellation-canvas') as HTMLCanvasElement | null;
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let prefersReducedMotion = motionQuery.matches;
+
+  let parallaxCurrent = 0;
+  let parallaxTarget = 0;
+  let parallaxAnimationId = 0;
+  let parallaxMax = Math.min(180, window.innerHeight * 0.3);
+  const parallaxFactor = 0.06;
+  const parallaxEase = 0.1;
+
+  const updateParallaxBounds = () => {
+    parallaxMax = Math.min(220, window.innerHeight * 0.35);
+  };
+
+  const applyParallaxTransform = () => {
+    if (siteBackground) {
+      siteBackground.style.transform = `translate3d(0, ${parallaxCurrent}px, 0)`;
+    }
+  };
+
+  const runParallaxStep = () => {
+    if (prefersReducedMotion) {
+      parallaxCurrent = 0;
+      applyParallaxTransform();
+      parallaxAnimationId = 0;
+      return;
+    }
+
+    const delta = parallaxTarget - parallaxCurrent;
+
+    if (Math.abs(delta) < 0.1) {
+      parallaxCurrent = parallaxTarget;
+      applyParallaxTransform();
+      parallaxAnimationId = 0;
+      return;
+    }
+
+    parallaxCurrent += delta * parallaxEase;
+    applyParallaxTransform();
+    parallaxAnimationId = window.requestAnimationFrame(runParallaxStep);
+  };
+
+  const scheduleParallaxStep = () => {
+    if (parallaxAnimationId === 0) {
+      parallaxAnimationId = window.requestAnimationFrame(runParallaxStep);
+    }
+  };
+
+  const updateParallaxTarget = () => {
+    if (prefersReducedMotion) {
+      parallaxTarget = 0;
+    } else {
+      const raw = window.scrollY * -parallaxFactor;
+      parallaxTarget = Math.max(-parallaxMax, Math.min(parallaxMax, raw));
+    }
+    scheduleParallaxStep();
+  };
 
   if (siteBackground && constellationCanvas && !constellationCanvas.dataset.enhanced) {
         constellationCanvas.dataset.enhanced = 'true';
         const ctx = constellationCanvas.getContext('2d');
 
         if (ctx) {
-          const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-          let prefersReducedMotion = motionQuery.matches;
+          updateParallaxBounds();
+          updateParallaxTarget();
 
-          const pointer = { x: 0, y: 0, active: false };
+          const pointer = { rawX: 0, rawY: 0, active: false };
           let width = 0;
           let height = 0;
           let stars: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
@@ -581,6 +640,8 @@ const baseSchema = {
             ctx.clearRect(0, 0, width, height);
 
             const connectionDistance = Math.max(120, Math.min(200, Math.sqrt(width * height) * 0.12));
+            const pointerX = pointer.rawX;
+            const pointerY = pointer.rawY - parallaxCurrent;
 
             stars.forEach((star) => {
               if (!prefersReducedMotion) {
@@ -622,8 +683,8 @@ const baseSchema = {
 
             if (pointer.active) {
               stars.forEach((star) => {
-                const dx = pointer.x - star.x;
-                const dy = pointer.y - star.y;
+                const dx = pointerX - star.x;
+                const dy = pointerY - star.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < connectionDistance) {
@@ -631,7 +692,7 @@ const baseSchema = {
                   ctx.strokeStyle = `rgba(201, 169, 107, ${0.25 * alpha})`;
                   ctx.lineWidth = Math.max(0.25, alpha);
                   ctx.beginPath();
-                  ctx.moveTo(pointer.x, pointer.y);
+                  ctx.moveTo(pointerX, pointerY);
                   ctx.lineTo(star.x, star.y);
                   ctx.stroke();
                 }
@@ -649,6 +710,12 @@ const baseSchema = {
           const handleMotionChange = (event: MediaQueryListEvent) => {
             prefersReducedMotion = event.matches;
             window.cancelAnimationFrame(animationFrame);
+            if (parallaxAnimationId !== 0) {
+              window.cancelAnimationFrame(parallaxAnimationId);
+              parallaxAnimationId = 0;
+            }
+            updateParallaxTarget();
+            runParallaxStep();
             if (prefersReducedMotion) {
               drawFrame();
             } else {
@@ -663,8 +730,8 @@ const baseSchema = {
           }
 
           const updatePointer = (event: PointerEvent) => {
-            pointer.x = event.clientX;
-            pointer.y = event.clientY;
+            pointer.rawX = event.clientX;
+            pointer.rawY = event.clientY;
             pointer.active = true;
 
             if (prefersReducedMotion) {
@@ -697,10 +764,16 @@ const baseSchema = {
           window.addEventListener('resize', () => {
             setCanvasSize();
             seedStars();
+            updateParallaxBounds();
+            updateParallaxTarget();
             if (prefersReducedMotion) {
               drawFrame();
             }
           });
+
+          window.addEventListener('scroll', () => {
+            updateParallaxTarget();
+          }, { passive: true });
 
           const handleVisibilityChange = () => {
             if (document.hidden) {
