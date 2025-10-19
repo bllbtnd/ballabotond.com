@@ -465,7 +465,7 @@ const baseSchema = {
           open: false,
           orientation: null
         };
-        
+
         const threshold = 160;
         setInterval(function() {
           if (window.outerHeight - window.innerHeight > threshold || 
@@ -481,7 +481,7 @@ const baseSchema = {
             devtools.open = false;
           }
         }, 500);
-        
+
         // Disable console
         if (typeof console !== 'undefined') {
           console.log = function() {};
@@ -490,7 +490,7 @@ const baseSchema = {
           console.info = function() {};
           console.debug = function() {};
         }
-        
+
         // Clear console periodically
         setInterval(function() {
           console.clear();
@@ -513,7 +513,7 @@ const baseSchema = {
     <div class="fixed top-6 left-6 z-50">
       <LanguageSwitcher currentLang={lang} />
     </div>
-    
+
     <slot />
 
     <script>
@@ -587,11 +587,37 @@ const baseSchema = {
           updateParallaxBounds();
           updateParallaxTarget();
 
+          type StarNode = {
+            baseRadius: number;
+            baseAngle: number;
+            radius: number;
+            orbitRadius: number;
+            orbitSpeed: number;
+            orbitPhase: number;
+            swirlFactor: number;
+            swirlSpeed: number;
+            swirlPhase: number;
+            rippleSpeed: number;
+            ripplePhase: number;
+            driftMagnitude: number;
+            driftSpeed: number;
+            driftPhase: number;
+            twinkleSpeed: number;
+            twinklePhase: number;
+            tone: number;
+            glow: number;
+            lineWeight: number;
+            currentX: number;
+            currentY: number;
+          };
+
           const pointer = { rawX: 0, rawY: 0, active: false };
           let width = 0;
           let height = 0;
-          let stars: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
+          let stars: StarNode[] = [];
           let animationFrame = 0;
+          let elapsedTime = 0;
+          let lastTimestamp = 0;
 
           const randomBetween = (min: number, max: number) => Math.random() * (max - min) + min;
 
@@ -617,88 +643,209 @@ const baseSchema = {
             }
 
             const area = width * height;
-            const baseCount = Math.max(60, Math.floor(area / 14000));
-            const cappedCount = Math.min(160, baseCount);
+            const baseCount = Math.max(68, Math.floor(area / 11500));
+            const cappedCount = Math.min(140, baseCount);
 
-            stars = Array.from({ length: cappedCount }, () => ({
-              x: Math.random() * width,
-              y: Math.random() * height,
-              vx: randomBetween(-0.22, 0.22),
-              vy: randomBetween(-0.22, 0.22),
-              radius: randomBetween(0.6, 1.4)
-            }));
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const maxRadius = Math.hypot(width, height) * 0.55;
+            const minRadius = Math.min(width, height) * 0.06;
+
+            const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+            stars = Array.from({ length: cappedCount }, (_, index) => {
+              const progress = (index + 0.5) / cappedCount;
+              const easedRadius = Math.sqrt(progress);
+              const baseRadius = minRadius + easedRadius * (maxRadius - minRadius);
+              const baseAngle = (index * goldenAngle) % (Math.PI * 2);
+              const orbitRadius = randomBetween(4, 22) * (0.8 + (1 - easedRadius) * 0.4);
+              const tone = randomBetween(0, 1);
+              const glow = randomBetween(0.35, 0.95) * (1.1 - easedRadius * 0.35);
+              const lineWeight = 0.18 + glow * 0.38;
+
+              return {
+                baseRadius,
+                baseAngle,
+                radius: randomBetween(0.5, 1.25) * (1.05 - easedRadius * 0.18),
+                orbitRadius,
+                orbitSpeed: randomBetween(0.16, 0.48),
+                orbitPhase: Math.random() * Math.PI * 2,
+                swirlFactor: randomBetween(0.12, 1.08),
+                swirlSpeed: randomBetween(0.07, 0.3),
+                swirlPhase: Math.random() * Math.PI * 2,
+                rippleSpeed: randomBetween(0.28, 0.65),
+                ripplePhase: Math.random() * Math.PI * 2,
+                driftMagnitude: randomBetween(0.035, 0.2) * (0.6 + glow * 0.4),
+                driftSpeed: randomBetween(0.16, 0.4),
+                driftPhase: Math.random() * Math.PI * 2,
+                twinkleSpeed: randomBetween(0.65, 1.85),
+                twinklePhase: Math.random() * Math.PI * 2,
+                tone,
+                glow,
+                lineWeight,
+                currentX: centerX + Math.cos(baseAngle) * baseRadius,
+                currentY: centerY + Math.sin(baseAngle) * baseRadius
+              } satisfies StarNode;
+            });
+
+            elapsedTime = 0;
+            lastTimestamp = 0;
           };
 
-          const drawFrame = () => {
+          const drawFrame = (deltaMs = 16) => {
             if (width === 0 || height === 0) {
               return;
             }
 
             ctx.clearRect(0, 0, width, height);
 
+            const clampedDelta = Math.max(0, Math.min(deltaMs, 64));
+            const deltaSeconds = clampedDelta / 1000;
+
+            if (!prefersReducedMotion) {
+              elapsedTime += deltaSeconds;
+            }
+
+            const time = elapsedTime;
+            const centerX = width / 2;
+            const centerY = height / 2;
             const connectionDistance = Math.max(120, Math.min(200, Math.sqrt(width * height) * 0.12));
             const pointerX = pointer.rawX;
             const pointerY = pointer.rawY - parallaxCurrent;
 
+            const goldenRatio = (1 + Math.sqrt(5)) / 2;
+            const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+            const baseFrequency = 0.12;
+            const globalSwirl = Math.sin(time * baseFrequency) * 0.4 + Math.sin(time * (baseFrequency / goldenRatio)) * 0.25;
+            const globalPulse = 1 + Math.sin(time * (baseFrequency * goldenRatio)) * 0.05;
+            const tide = Math.sin(time * (baseFrequency * goldenRatio * 0.65)) * 0.12;
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+
             stars.forEach((star) => {
-              if (!prefersReducedMotion) {
-                star.x += star.vx;
-                star.y += star.vy;
+              const swirl = globalSwirl * star.swirlFactor + Math.sin(time * star.swirlSpeed + star.swirlPhase) * 0.45 * star.swirlFactor;
+              const angle = star.baseAngle + swirl;
 
-                if (star.x <= 0 || star.x >= width) {
-                  star.vx *= -1;
-                }
+              const localPulse = Math.sin(time * star.rippleSpeed + star.ripplePhase + goldenAngle) * 0.08 * (0.4 + star.swirlFactor);
+              const pulseRadius = star.baseRadius * (globalPulse + localPulse);
 
-                if (star.y <= 0 || star.y >= height) {
-                  star.vy *= -1;
-                }
-              }
+              const orbitAngle = star.orbitPhase + time * star.orbitSpeed;
+              const orbitX = Math.cos(orbitAngle) * star.orbitRadius;
+              const orbitY = Math.sin(orbitAngle) * star.orbitRadius * 0.55;
 
+              const driftOffset = Math.sin(time * star.driftSpeed + star.driftPhase + goldenAngle) * star.driftMagnitude * 24;
+              const driftAngle = angle + Math.PI / 2;
+              const driftX = Math.cos(driftAngle) * driftOffset;
+              const driftY = Math.sin(driftAngle) * driftOffset;
+
+              const tidalRadius = pulseRadius * (1 + tide * star.swirlFactor * 0.6);
+
+              const currentX = centerX + Math.cos(angle) * tidalRadius + orbitX + driftX;
+              const currentY = centerY + Math.sin(angle) * tidalRadius + orbitY + driftY;
+
+              star.currentX = currentX;
+              star.currentY = currentY;
+
+              const twinkle = 1 + Math.sin(time * star.twinkleSpeed + star.twinklePhase + goldenAngle) * 0.22;
+              const radius = star.radius * twinkle;
+
+              const baseR = 205;
+              const baseG = 184;
+              const baseB = 135;
+              const highlightR = 235;
+              const highlightG = 210;
+              const highlightB = 165;
+              const mix = star.tone * 0.7;
+
+              const r = Math.round(baseR + (highlightR - baseR) * mix);
+              const g = Math.round(baseG + (highlightG - baseG) * mix);
+              const b = Math.round(baseB + (highlightB - baseB) * mix);
+
+              const fillAlpha = 0.32 + star.glow * 0.28;
+              const shadowAlpha = 0.18 + star.glow * 0.22;
+
+              ctx.save();
+              ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${shadowAlpha})`;
+              ctx.shadowBlur = 6 + star.glow * 18;
               ctx.beginPath();
-              ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-              ctx.fillStyle = 'rgba(201, 169, 107, 0.75)';
+              ctx.arc(currentX, currentY, radius, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${fillAlpha})`;
               ctx.fill();
+              ctx.restore();
             });
 
+            ctx.restore();
+
             for (let i = 0; i < stars.length; i += 1) {
+              const x1 = stars[i].currentX;
+              const y1 = stars[i].currentY;
               for (let j = i + 1; j < stars.length; j += 1) {
-                const dx = stars[i].x - stars[j].x;
-                const dy = stars[i].y - stars[j].y;
+                const x2 = stars[j].currentX;
+                const y2 = stars[j].currentY;
+                const dx = x1 - x2;
+                const dy = y1 - y2;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < connectionDistance) {
                   const alpha = 1 - distance / connectionDistance;
-                  ctx.strokeStyle = `rgba(201, 169, 107, ${0.16 * alpha})`;
-                  ctx.lineWidth = Math.max(0.2, 0.7 * alpha);
+                  const pairGlow = (stars[i].glow + stars[j].glow) / 2;
+                  const strength = 0.08 + pairGlow * 0.18;
+                  const lineAlpha = alpha * strength;
+                  const weight = Math.max(0.14, pairGlow * 0.5 * alpha + 0.08);
+
+                  const lineR = Math.round(200 + pairGlow * 18);
+                  const lineG = Math.round(176 + pairGlow * 16);
+                  const lineB = Math.round(132 + pairGlow * 12);
+
+                  ctx.strokeStyle = `rgba(${lineR}, ${lineG}, ${lineB}, ${lineAlpha})`;
+                  ctx.lineWidth = weight;
+                  ctx.lineCap = 'round';
                   ctx.beginPath();
-                  ctx.moveTo(stars[i].x, stars[i].y);
-                  ctx.lineTo(stars[j].x, stars[j].y);
+                  ctx.moveTo(x1, y1);
+                  ctx.lineTo(x2, y2);
                   ctx.stroke();
                 }
               }
             }
 
             if (pointer.active) {
+              const pointerLineR = 216;
+              const pointerLineG = 192;
+              const pointerLineB = 148;
               stars.forEach((star) => {
-                const dx = pointerX - star.x;
-                const dy = pointerY - star.y;
+                const dx = pointerX - star.currentX;
+                const dy = pointerY - star.currentY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < connectionDistance) {
                   const alpha = 1 - distance / connectionDistance;
-                  ctx.strokeStyle = `rgba(201, 169, 107, ${0.25 * alpha})`;
-                  ctx.lineWidth = Math.max(0.25, alpha);
+                  const mix = 0.12 + star.glow * 0.2;
+                  const lineAlpha = alpha * (0.18 + mix);
+                  const weight = Math.max(0.22, alpha * (0.35 + star.lineWeight * 0.4));
+
+                  ctx.strokeStyle = `rgba(${pointerLineR}, ${pointerLineG}, ${pointerLineB}, ${lineAlpha})`;
+                  ctx.lineWidth = weight;
+                  ctx.lineCap = 'round';
                   ctx.beginPath();
                   ctx.moveTo(pointerX, pointerY);
-                  ctx.lineTo(star.x, star.y);
+                  ctx.lineTo(star.currentX, star.currentY);
                   ctx.stroke();
                 }
               });
             }
           };
 
-          const animate = () => {
-            drawFrame();
+          const animate = (timestamp: number) => {
+            if (lastTimestamp === 0) {
+              lastTimestamp = timestamp;
+            }
+
+            const delta = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            drawFrame(delta);
+
             if (!prefersReducedMotion) {
               animationFrame = window.requestAnimationFrame(animate);
             }
@@ -707,6 +854,7 @@ const baseSchema = {
           const handleMotionChange = (event: MediaQueryListEvent) => {
             prefersReducedMotion = event.matches;
             window.cancelAnimationFrame(animationFrame);
+            animationFrame = 0;
             if (parallaxAnimationId !== 0) {
               window.cancelAnimationFrame(parallaxAnimationId);
               parallaxAnimationId = 0;
@@ -714,9 +862,10 @@ const baseSchema = {
             updateParallaxTarget();
             runParallaxStep();
             if (prefersReducedMotion) {
-              drawFrame();
+              drawFrame(0);
             } else {
-              animate();
+              lastTimestamp = 0;
+              animationFrame = window.requestAnimationFrame(animate);
             }
           };
 
@@ -732,14 +881,14 @@ const baseSchema = {
             pointer.active = true;
 
             if (prefersReducedMotion) {
-              drawFrame();
+              drawFrame(0);
             }
           };
 
           const disablePointer = () => {
             pointer.active = false;
             if (prefersReducedMotion) {
-              drawFrame();
+              drawFrame(0);
             }
           };
 
@@ -753,9 +902,10 @@ const baseSchema = {
           seedStars();
 
           if (prefersReducedMotion) {
-            drawFrame();
+            drawFrame(0);
           } else {
-            animate();
+            lastTimestamp = 0;
+            animationFrame = window.requestAnimationFrame(animate);
           }
 
           window.addEventListener('resize', () => {
@@ -764,7 +914,7 @@ const baseSchema = {
             updateParallaxBounds();
             updateParallaxTarget();
             if (prefersReducedMotion) {
-              drawFrame();
+              drawFrame(0);
             }
           });
 
@@ -775,9 +925,12 @@ const baseSchema = {
           const handleVisibilityChange = () => {
             if (document.hidden) {
               window.cancelAnimationFrame(animationFrame);
+              animationFrame = 0;
             } else if (!prefersReducedMotion) {
               window.cancelAnimationFrame(animationFrame);
-              animate();
+              animationFrame = 0;
+              lastTimestamp = 0;
+              animationFrame = window.requestAnimationFrame(animate);
             }
           };
 
