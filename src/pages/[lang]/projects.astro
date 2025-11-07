@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
-  return Object.keys(languages).filter(lang => lang !== 'en').map(lang => ({
+  return Object.keys(languages).map(lang => ({
     params: { lang }
   }));
 }
