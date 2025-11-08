@@ -5,6 +5,8 @@ import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages as supportedLanguages } from '../i18n/utils';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -336,9 +338,9 @@ const baseSchema = {
     </style>
     
     <!-- Disable right-click and keyboard shortcuts script -->
-    <script>
+    <script define:vars={{ isProd }}>
       // Only enable protection in production
-      if (import.meta.env.PROD) {
+      if (isProd) {
         // Add production mode class to body for CSS protection
         document.body.classList.add('production-mode');
         
@@ -425,7 +427,7 @@ const baseSchema = {
         
         // Disable image saving on mobile
         document.addEventListener('touchstart', function(e) {
-          if (e.target && (e.target as HTMLElement).tagName === 'IMG') {
+          if (e.target && e.target.tagName === 'IMG') {
             e.preventDefault();
           }
         });
