@@ -184,10 +184,14 @@ const translatePath = useTranslatedPath(lang);
     document.head.appendChild(style);
     
     // Add analytics tracking for social links
+    interface WindowWithGtag extends Window {
+      gtag?: (...args: unknown[]) => void;
+    }
+    const w = window as WindowWithGtag;
     document.querySelectorAll('a[href*="ballabotond.com"]').forEach(link => {
       link.addEventListener('click', function(this: HTMLAnchorElement) {
-        if (typeof (window as any).gtag !== 'undefined') {
-          (window as any).gtag('event', 'click', {
+        if (typeof w.gtag === 'function') {
+          w.gtag('event', 'click', {
             'event_category': 'social',
             'event_label': this.href
           });
@@ -228,7 +232,7 @@ const translatePath = useTranslatedPath(lang);
     }
     
     // Hide scroll indicator when scrolled
-    let scrollTimeout: any;
+    let scrollTimeout: ReturnType<typeof setTimeout> | undefined;
     const handleScroll = () => {
       if (scrollIndicator) {
         const scrollY = window.pageYOffset;

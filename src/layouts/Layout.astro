@@ -5,7 +5,6 @@ import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages as supportedLanguages } from '../i18n/utils';
 
-const isProd = process.env.NODE_ENV === 'production';
 
 export interface Props {
   title?: string;
@@ -223,14 +222,21 @@ const baseSchema = {
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9" crossorigin="anonymous"></script>
     <script>
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      function gtag(...args: any[]){(window as any).dataLayer.push(args);}
+      interface WindowWithDataLayer extends Window {
+        dataLayer?: unknown[];
+      }
+      const w = window as WindowWithDataLayer;
+      w.dataLayer = w.dataLayer || [];
+      function gtag(...args: unknown[]): void {
+        w.dataLayer?.push(args);
+      }
       gtag('js', new Date());
       gtag('config', 'G-3NZN7X2WL9');
       
       // Handle script loading errors gracefully
       window.addEventListener('error', function(e) {
-        if (e.target && (e.target as any).src && (e.target as any).src.includes('googletagmanager')) {
+        const target = e.target as HTMLScriptElement | null;
+        if (target?.src?.includes('googletagmanager')) {
           console.warn('Google Analytics script blocked or failed to load');
         }
       });
@@ -295,186 +301,11 @@ const baseSchema = {
       * {
         transition: opacity 0.3s ease-in-out;
       }
-      
-      /* Disable text selection, right-click, and drag actions - only in production */
-      body.production-mode {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-      
-      /* Disable image dragging - only in production */
-      body.production-mode img {
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        user-drag: none;
-        pointer-events: none;
-      }
-      
-      /* Allow text selection only for specific elements in production */
-      body.production-mode input, 
-      body.production-mode textarea, 
-      body.production-mode [contenteditable] {
-        -webkit-user-select: text;
-        -moz-user-select: text;
-        -ms-user-select: text;
-        user-select: text;
-      }
-      
-      /* Disable highlighting on buttons and links in production */
-      body.production-mode button, 
-      body.production-mode a {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
     </style>
     
-    <!-- Disable right-click and keyboard shortcuts script -->
-    <script define:vars={{ isProd }}>
-      // Only enable protection in production
-      if (isProd) {
-        // Add production mode class to body for CSS protection
-        document.body.classList.add('production-mode');
-        
-        // Disable right-click context menu
-        document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-          return false;
-        });
-        
-        // Disable text selection with mouse
-        document.addEventListener('selectstart', function(e) {
-          e.preventDefault();
-          return false;
-        });
-        
-        // Disable drag and drop
-        document.addEventListener('dragstart', function(e) {
-          e.preventDefault();
-          return false;
-        });
-        
-        // Disable common keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-          // Disable F12 (Developer Tools)
-          if (e.keyCode === 123) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+Shift+I (Developer Tools)
-          if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+Shift+J (Console)
-          if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+U (View Source)
-          if (e.ctrlKey && e.keyCode === 85) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+S (Save Page)
-          if (e.ctrlKey && e.keyCode === 83) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+A (Select All)
-          if (e.ctrlKey && e.keyCode === 65) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+P (Print)
-          if (e.ctrlKey && e.keyCode === 80) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+C (Copy)
-          if (e.ctrlKey && e.keyCode === 67) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+V (Paste)
-          if (e.ctrlKey && e.keyCode === 86) {
-            e.preventDefault();
-            return false;
-          }
-          
-          // Disable Ctrl+X (Cut)
-          if (e.ctrlKey && e.keyCode === 88) {
-            e.preventDefault();
-            return false;
-          }
-        });
-        
-        // Disable image saving on mobile
-        document.addEventListener('touchstart', function(e) {
-          if (e.target && e.target.tagName === 'IMG') {
-            e.preventDefault();
-          }
-        });
-        
-        // Additional protection against devtools
-        let devtools = {
-          open: false,
-          orientation: null
-        };
-        
-        const threshold = 160;
-        setInterval(function() {
-          if (window.outerHeight - window.innerHeight > threshold || 
-              window.outerWidth - window.innerWidth > threshold) {
-            if (!devtools.open) {
-              devtools.open = true;
-              console.clear();
-              console.log('%cDeveloper tools detected!', 'color: red; font-size: 20px; font-weight: bold;');
-              // Optionally redirect or take other action
-              // window.location.href = '/';
-            }
-          } else {
-            devtools.open = false;
-          }
-        }, 500);
-        
-        // Disable console
-        if (typeof console !== 'undefined') {
-          console.log = function() {};
-          console.warn = function() {};
-          console.error = function() {};
-          console.info = function() {};
-          console.debug = function() {};
-        }
-        
-        // Clear console periodically
-        setInterval(function() {
-          console.clear();
-        }, 1000);
-      } else {
-        // Development mode - show a subtle indicator
-        console.log('%cDevelopment Mode: Protection disabled', 'color: #c9a96b; font-size: 14px; background: #1a1a20; padding: 5px; border-radius: 3px;');
-      }
-    </script>
     <slot name="head" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen loading" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+  <body class="bg-gray-900 text-white min-h-screen loading">
     <LoadingScreen />
     
     <!-- Language Switcher -->

@@ -33,13 +33,13 @@ export function getLangFromUrl(url: URL) {
   return defaultLang;
 }
 
-function getNestedTranslation(obj: any, key: string): string {
+function getNestedTranslation(obj: Record<string, unknown>, key: string): string {
   const keys = key.split('.');
-  let current = obj;
+  let current: unknown = obj;
   
   for (const k of keys) {
     if (current && typeof current === 'object' && k in current) {
-      current = current[k];
+      current = (current as Record<string, unknown>)[k];
     } else {
       return key; // Return the key if translation not found
     }
@@ -65,12 +65,3 @@ export function useTranslatedPath(lang: Languages) {
   }
 }
 
-// Auto-detect browser language
-export function getBrowserLanguage(): string {
-  if (typeof window !== 'undefined' && window.navigator) {
-    const browserLang = window.navigator.language.split('-')[0];
-    const supportedLangs = Object.keys(languages);
-    return supportedLangs.includes(browserLang) ? browserLang : defaultLang;
-  }
-  return defaultLang;
-}
