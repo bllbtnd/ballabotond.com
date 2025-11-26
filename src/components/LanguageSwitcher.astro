@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 
 // Remove language prefix to get the base path
 let basePath = currentPath;
-// Remove the language prefix if it exists (e.g., /hu/resume -> /resume, /egy/resume -> /resume)
+// Remove the language prefix if it exists (e.g., /hu/resume -> /resume)
 basePath = basePath.replace(/^\/[a-z]{2,3}(?=\/|$)/, '') || '/';
 
 // Function to get the correct path for each language

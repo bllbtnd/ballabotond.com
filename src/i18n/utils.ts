@@ -3,15 +3,13 @@ import hu from './hu.json';
 import it from './it.json';
 import zh from './zh.json';
 import ja from './ja.json';
-import egy from './egy.json';
 
 export const languages = {
   en: 'English',
   hu: 'Magyar',
   it: 'Italiano',
   zh: '中文',
-  ja: '日本語',
-  egy: '𓈖𓇉𓎡'
+  ja: '日本語'
 };
 
 export const defaultLang = 'en';
@@ -21,8 +19,7 @@ const translations = {
   hu,
   it,
   zh,
-  ja,
-  egy
+  ja
 };
 
 export type Languages = keyof typeof languages;

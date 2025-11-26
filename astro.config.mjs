@@ -16,15 +16,14 @@ export default defineConfig({
           hu: 'hu-HU',
           it: 'it-IT',
           zh: 'zh-CN',
-          ja: 'ja-JP',
-          egy: 'ar-EG'
+          ja: 'ja-JP'
         }
       }
     })
   ],
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "hu", "it", "zh", "ja", "egy"],
+    locales: ["en", "hu", "it", "zh", "ja"],
     routing: {
       prefixDefaultLocale: false
     }

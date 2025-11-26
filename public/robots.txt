@@ -8,7 +8,6 @@ Allow: /hu/
 Allow: /it/
 Allow: /zh/
 Allow: /ja/
-Allow: /egy/
 
 # Block unnecessary directories
 Disallow: /_astro/
