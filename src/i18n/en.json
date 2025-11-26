@@ -44,6 +44,11 @@
       "description": "A fitness tracking app for monitoring health.",
       "button": "Get in touch"
     },
+    "finance": {
+      "title": "Personal Finance Tracker",
+      "description": "A secure, self-hosted personal finance app built with React and Cloudflare Workers. Track your accounts, transactions, and view analytics - all running for FREE on Cloudflare's infrastructure.",
+      "button": "View Repository"
+    },
     "minecraft": {
       "title": "Minecraft Server",
       "description": "Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought \"toy\", but now quite a few people started playing on it. It runs on a Raspberry Pi 5 on a home network.",

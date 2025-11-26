@@ -44,6 +44,11 @@
       "description": "Fitness követő alkalmazás az egészség monitorozásához.",
       "button": "Vedd fel a kapcsolatot"
     },
+    "finance": {
+      "title": "Személyes Pénzügyi Követő",
+      "description": "Biztonságos, saját szerveren futtatható személyes pénzügyi alkalmazás React és Cloudflare Workers alapokon. Kövesd nyomon számláidat, tranzakcióidat és tekints meg elemzéseket - mindezt INGYEN a Cloudflare infrastruktúráján.",
+      "button": "Repozitórium Megtekintése"
+    },
     "minecraft": {
       "title": "Minecraft Szerver",
       "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel, ami tesztként indult az újonnan vásárolt \"játékom\" képességeinek ellenőrzésére, de most már elég sokan játszanak rajta. Raspberry Pi 5-ön fut otthoni hálózaton.",

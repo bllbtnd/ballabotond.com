@@ -44,6 +44,11 @@
       "description": "用于健康监测的健身追踪应用。",
       "button": "联系我"
     },
+    "finance": {
+      "title": "个人财务追踪器",
+      "description": "一个使用React和Cloudflare Workers构建的安全、自托管的个人财务应用程序。追踪您的账户、交易并查看分析 - 全部在Cloudflare的基础设施上免费运行。",
+      "button": "查看仓库"
+    },
     "minecraft": {
       "title": "Minecraft服务器",
       "description": "私人生存服务器，为朋友们提供自定义插件和友好社区，最初作为测试我新购买的\"玩具\"能力而开始，但现在有不少人在上面玩。运行在家庭网络的Raspberry Pi 5上。",
