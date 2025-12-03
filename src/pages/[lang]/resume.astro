@@ -74,6 +74,8 @@ const structuredData = [breadcrumbSchema, webPageSchema];
 
 const metaDescription = t('resume.summary.text');
 const metaKeywords = t('home.keywords');
+
+import Constellation from '../../components/Constellation.astro';
 ---
 
 <Layout
@@ -98,8 +100,11 @@ const metaKeywords = t('home.keywords');
   <!-- Main container -->
   <div class="relative min-h-screen flex flex-col" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
     
+    <!-- Interactive Constellation Background -->
+    <Constellation />
+
     <!-- Subtle background pattern -->
-    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
     
     <!-- Content container -->
     <div class="relative z-10 flex-1 py-20">

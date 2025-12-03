@@ -2,6 +2,7 @@
 // HomePage component for Balla Botond's Astro site
 import { Image } from 'astro:assets';
 import Footer from './Footer.astro';
+import Constellation from './Constellation.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 import profileImage from '../assets/images/image.png';
 
@@ -13,8 +14,11 @@ const translatePath = useTranslatedPath(lang);
 <!-- Main container with luxury background gradient -->
 <main class="relative min-h-screen" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
   
-  <!-- Subtle background pattern -->
-    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+  <!-- Interactive Constellation Background -->
+  <Constellation />
+  
+  <!-- Subtle background pattern (overlay) -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
     
     <!-- Hero section -->
     <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6">
