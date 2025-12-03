@@ -9,7 +9,7 @@ export interface Props {
 
 const { to, title = "Redirecting...", description, image } = Astro.props;
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
-const fullImage = image ? (image.startsWith('http') ? image : `${siteOrigin}${image}`) : undefined;
+const fullImage = image ? (image.startsWith('http') ? image : new URL(image, siteOrigin).href) : undefined;
 ---
 
 <!DOCTYPE html>

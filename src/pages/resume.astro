@@ -1,8 +1,17 @@
 ---
 import Redirect from '../components/Redirect.astro';
-import { defaultLang } from '../i18n/utils';
+import { defaultLang, useTranslations } from '../i18n/utils';
 
+const t = useTranslations(defaultLang);
 const redirectUrl = `/${defaultLang}/resume/`;
+const title = t('resume.title');
+const description = t('resume.summary.text');
+const image = '/assets/images/image.png';
 ---
 
-<Redirect to={redirectUrl} />
+<Redirect 
+  to={redirectUrl} 
+  title={title}
+  description={description}
+  image={image}
+/>
