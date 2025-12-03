@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import partytown from '@astrojs/partytown';
+import AstroPWA from '@vite-pwa/astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,6 +20,63 @@ export default defineConfig({
           zh: 'zh-CN',
           ja: 'ja-JP'
         }
+      }
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+    AstroPWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: "Balla Botond - Portfolio",
+        short_name: "Balla Botond",
+        description: "Personal website of Balla Botond - Software Developer & Computer Science Student",
+        theme_color: "#c9a96b",
+        background_color: "#111827",
+        display: "standalone",
+        orientation: "portrait-primary",
+        scope: "/",
+        start_url: "/",
+        icons: [
+          {
+            src: "/favicon.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable any"
+          },
+          {
+            src: "/favicon.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable any"
+          }
+        ],
+        categories: ["portfolio", "developer", "personal"],
+        shortcuts: [
+          {
+            name: "Projects",
+            short_name: "Projects",
+            description: "View my projects and work",
+            url: "/projects"
+          },
+          {
+            name: "Resume",
+            short_name: "Resume",
+            description: "View my professional resume",
+            url: "/resume"
+          }
+        ]
+      },
+      workbox: {
+        navigateFallback: '/404',
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+        maximumFileSizeToCacheInBytes: 7000000
+      },
+      devOptions: {
+        enabled: true,
+        navigateFallbackAllowlist: [/^\/404$/]
       }
     })
   ],

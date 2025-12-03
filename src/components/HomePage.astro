@@ -3,6 +3,7 @@
 import { Image } from 'astro:assets';
 import Footer from './Footer.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import profileImage from '../assets/images/image.png';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -34,7 +35,7 @@ const translatePath = useTranslatedPath(lang);
       <!-- Profile Image -->
       <div class="mb-8 animate-fade-in" style="animation-delay: 0.6s;">
         <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl">
-          <img src="/assets/images/image.png" alt="Balla Botond Profile Picture" class="w-full h-full object-cover">
+          <Image src={profileImage} alt="Balla Botond Profile Picture" class="w-full h-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-luxury-gold bg-opacity-10 hover:bg-opacity-0 transition-all duration-300"></div>
         </div>
         <p class="text-center font-montserrat text-luxury-gold text-sm mt-4 tracking-wider">{t('common.subtitle')}</p>
