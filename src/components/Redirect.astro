@@ -2,9 +2,14 @@
 // Shared redirect component to eliminate duplicate redirect pages
 export interface Props {
   to: string;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
-const { to } = Astro.props;
+const { to, title = "Redirecting...", description, image } = Astro.props;
+const siteOrigin = Astro.site ?? 'https://ballabotond.com';
+const fullImage = image ? (image.startsWith('http') ? image : `${siteOrigin}${image}`) : undefined;
 ---
 
 <!DOCTYPE html>
@@ -13,10 +18,29 @@ const { to } = Astro.props;
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content={`0;url=${to}`}>
   <meta name="robots" content="noindex">
+  
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  {description && <meta name="description" content={description} />}
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={siteOrigin} />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  {fullImage && <meta property="og:image" content={fullImage} />}
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={siteOrigin} />
+  <meta property="twitter:title" content={title} />
+  {description && <meta property="twitter:description" content={description} />}
+  {fullImage && <meta property="twitter:image" content={fullImage} />}
+
   <script is:inline define:vars={{ to }}>
     window.location.href = to;
   </script>
-  <title>Redirecting...</title>
   <style>
     body {
       margin: 0;
