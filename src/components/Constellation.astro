@@ -3,7 +3,9 @@
 // Optimized for performance using requestAnimationFrame and spatial hashing
 ---
 
-<canvas id="constellation-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+<canvas
+  id="constellation-canvas"
+  class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
 <script>
   class ConstellationEffect {
@@ -22,15 +24,15 @@
       particleCount: 60, // Reduced count for better performance
       connectionDistance: 150,
       mouseDistance: 200,
-      particleColor: 'rgba(201, 169, 107, 0.3)', // Luxury gold
-      lineColor: 'rgba(201, 169, 107, 0.15)',
+      particleColor: "rgba(201, 169, 107, 0.3)", // Luxury gold
+      lineColor: "rgba(201, 169, 107, 0.15)",
       particleSpeed: 0.3, // Slower, more elegant movement
-      particleSize: 1.5
+      particleSize: 1.5,
     };
 
     constructor(canvas: HTMLCanvasElement) {
       this.canvas = canvas;
-      this.ctx = canvas.getContext('2d', { alpha: true })!;
+      this.ctx = canvas.getContext("2d", { alpha: true })!;
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.particles = [];
@@ -62,9 +64,13 @@
       this.canvas.style.width = `${this.width}px`;
       this.canvas.style.height = `${this.height}px`;
       this.ctx.scale(this.pixelRatio, this.pixelRatio);
-      
-      // Re-create particles on resize to maintain density
-      this.createParticles();
+
+      // Don't re-create particles, just clamp them to new bounds
+      // This prevents the "reset" effect when mobile address bar toggles
+      this.particles.forEach((p) => {
+        if (p.x > this.width) p.x = this.width;
+        if (p.y > this.height) p.y = this.height;
+      });
     }
 
     createParticles() {
@@ -72,7 +78,10 @@
       // Adjust particle count based on screen size
       const area = this.width * this.height;
       const density = this.isLowPowerMode ? 15000 : 10000; // Pixels per particle
-      const count = Math.min(Math.floor(area / density), this.config.particleCount);
+      const count = Math.min(
+        Math.floor(area / density),
+        this.config.particleCount,
+      );
 
       for (let i = 0; i < count; i++) {
         this.particles.push(new Particle(this.width, this.height, this.config));
@@ -80,7 +89,7 @@
     }
 
     bindEvents() {
-      window.addEventListener('resize', () => {
+      window.addEventListener("resize", () => {
         // Debounce resize
         if (this.animationFrameId) {
           cancelAnimationFrame(this.animationFrameId);
@@ -91,18 +100,18 @@
         }, 200);
       });
 
-      document.addEventListener('mousemove', (e) => {
+      document.addEventListener("mousemove", (e) => {
         this.mouse.x = e.clientX;
         this.mouse.y = e.clientY;
       });
 
-      document.addEventListener('mouseleave', () => {
+      document.addEventListener("mouseleave", () => {
         this.mouse.x = -1000;
         this.mouse.y = -1000;
       });
-      
+
       // Handle visibility change to pause animation when tab is inactive
-      document.addEventListener('visibilitychange', () => {
+      document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           if (this.animationFrameId) {
             cancelAnimationFrame(this.animationFrameId);
@@ -121,9 +130,9 @@
 
       const render = () => {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        
+
         // Update and draw particles
-        this.particles.forEach(particle => {
+        this.particles.forEach((particle) => {
           particle.update(this.width, this.height);
           particle.draw(this.ctx);
         });
@@ -140,7 +149,7 @@
     drawConnections() {
       for (let i = 0; i < this.particles.length; i++) {
         const p1 = this.particles[i];
-        
+
         // Connect to mouse
         const dxMouse = this.mouse.x - p1.x;
         const dyMouse = this.mouse.y - p1.y;
@@ -154,9 +163,10 @@
           this.ctx.moveTo(p1.x, p1.y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
           this.ctx.stroke();
-          
+
           // Slight attraction to mouse
-          if (distMouse > 50) { // Don't collapse completely
+          if (distMouse > 50) {
+            // Don't collapse completely
             p1.vx += dxMouse * 0.0001;
             p1.vy += dyMouse * 0.0001;
           }
@@ -211,13 +221,13 @@
       // Bounce off edges
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
-      
+
       // Keep within bounds (correction)
       if (this.x < 0) this.x = 0;
       if (this.x > width) this.x = width;
       if (this.y < 0) this.y = 0;
       if (this.y > height) this.y = height;
-      
+
       // Dampen velocity (friction) to prevent infinite acceleration from mouse attraction
       // But ensure minimum movement
       const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
@@ -225,8 +235,8 @@
         this.vx *= 0.98;
         this.vy *= 0.98;
       } else if (speed < this.config.particleSpeed * 0.5) {
-         this.vx *= 1.05;
-         this.vy *= 1.05;
+        this.vx *= 1.05;
+        this.vy *= 1.05;
       }
     }
 
@@ -240,7 +250,9 @@
 
   // Initialize on load and on view transitions
   const initConstellation = () => {
-    const canvas = document.getElementById('constellation-canvas') as HTMLCanvasElement;
+    const canvas = document.getElementById(
+      "constellation-canvas",
+    ) as HTMLCanvasElement;
     if (canvas) {
       new ConstellationEffect(canvas);
     }
@@ -250,5 +262,5 @@
   initConstellation();
 
   // Re-run on Astro page swaps (View Transitions)
-  document.addEventListener('astro:page-load', initConstellation);
+  document.addEventListener("astro:page-load", initConstellation);
 </script>
