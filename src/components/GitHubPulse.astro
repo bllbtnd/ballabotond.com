@@ -25,12 +25,25 @@ const { username = "bllbtnd" } = Astro.props;
     <!-- Error state - invisible -->
     <div id="pulse-error" class="hidden"></div>
 
-    <!-- Canvas floating directly on the page background - clickable -->
-    <canvas
-        id="pulse-canvas"
-        class="w-full hidden opacity-40 hover:opacity-80 transition-opacity duration-1000 cursor-pointer"
-        style="height: 120px;"
-        data-username={username}></canvas>
+    <!-- Canvas container -->
+    <div class="relative">
+        <!-- Canvas floating directly on the page background - clickable -->
+        <canvas
+            id="pulse-canvas"
+            class="w-full hidden opacity-40 hover:opacity-80 transition-opacity duration-1000 cursor-pointer"
+            style="height: 120px;"
+            data-username={username}></canvas>
+    </div>
+
+    <!-- Date labels with GitHub icon in center -->
+    <div
+        class="flex items-center justify-between text-xs font-montserrat text-luxury-gray opacity-0 transition-opacity duration-500 mt-1 px-1"
+        id="pulse-timeline"
+    >
+        <span class="opacity-60" id="timeline-start-date">Loading...</span>
+        <i class="fab fa-github text-luxury-gold text-sm opacity-40"></i>
+        <span class="opacity-60" id="timeline-end-date">Loading...</span>
+    </div>
 </div>
 
 <!-- Modal - Beautiful stats display -->
@@ -503,6 +516,33 @@ const { username = "bllbtnd" } = Astro.props;
                     ?.classList.add("hidden");
                 document.getElementById("pulse-error")?.classList.add("hidden");
                 this.canvas.classList.remove("hidden");
+                document
+                    .getElementById("pulse-timeline")
+                    ?.classList.remove("opacity-0");
+
+                // Update timeline dates
+                if (this.data.length > 0) {
+                    const startDate = new Date(this.data[0].date);
+                    const endDate = new Date(
+                        this.data[this.data.length - 1].date,
+                    );
+
+                    const formatDate = (date: Date) =>
+                        date.getFullYear().toString();
+
+                    const startDateEl = document.getElementById(
+                        "timeline-start-date",
+                    );
+                    const endDateEl =
+                        document.getElementById("timeline-end-date");
+
+                    if (startDateEl) {
+                        startDateEl.textContent = formatDate(startDate);
+                    }
+                    if (endDateEl) {
+                        endDateEl.textContent = formatDate(endDate);
+                    }
+                }
 
                 this.calculateStats();
 
