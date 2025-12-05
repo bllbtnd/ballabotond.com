@@ -1,0 +1,932 @@
+---
+// GitHub Pulse - A creative visualization of GitHub commit activity
+// Displays as an elegant line chart that subtly represents your coding activity
+interface Props {
+    username?: string;
+}
+
+const { username = "bllbtnd" } = Astro.props;
+---
+
+<div class="github-pulse-container w-full max-w-2xl mx-auto my-12 px-6">
+    <!-- No decorative elements - completely invisible integration -->
+
+    <!-- Loading state - minimal -->
+    <div
+        id="pulse-loading"
+        class="flex items-center justify-center py-8 opacity-20"
+    >
+        <div
+            class="w-4 h-4 border border-luxury-gold border-t-transparent rounded-full animate-spin"
+        >
+        </div>
+    </div>
+
+    <!-- Error state - invisible -->
+    <div id="pulse-error" class="hidden"></div>
+
+    <!-- Canvas floating directly on the page background - clickable -->
+    <canvas
+        id="pulse-canvas"
+        class="w-full hidden opacity-40 hover:opacity-80 transition-opacity duration-1000 cursor-pointer"
+        style="height: 120px;"
+        data-username={username}></canvas>
+</div>
+
+<!-- Modal - Beautiful stats display -->
+<div
+    id="pulse-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 animate-modal-fade-in"
+>
+    <!-- Backdrop -->
+    <div
+        class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm"
+        id="pulse-modal-backdrop"
+    >
+    </div>
+
+    <!-- Modal Content - Compact version -->
+    <div
+        class="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-luxury-gold border-opacity-30 shadow-2xl max-w-3xl w-full p-4 md:p-6 animate-modal-slide-up max-h-[90vh] overflow-auto"
+    >
+        <!-- Close button -->
+        <button
+            id="pulse-modal-close"
+            class="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-800 bg-opacity-50 hover:bg-opacity-100 text-luxury-gold hover:text-luxury-gold-light transition-all duration-300 z-10"
+            aria-label="Close modal"
+        >
+            <i class="fas fa-times text-xs"></i>
+        </button>
+
+        <!-- Modal Header - Compact -->
+        <div class="text-center mb-4">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div
+                    class="w-1.5 h-1.5 bg-luxury-gold rounded-full animate-pulse"
+                >
+                </div>
+                <h2 class="font-playfair text-xl md:text-2xl text-luxury-gold">
+                    Activity Insights
+                </h2>
+                <div
+                    class="w-1.5 h-1.5 bg-luxury-gold rounded-full animate-pulse"
+                    style="animation-delay: 0.5s;"
+                >
+                </div>
+            </div>
+            <p class="text-luxury-gray text-xs font-montserrat">
+                Last 365 Days
+            </p>
+        </div>
+
+        <!-- Primary Stats Grid - Compact -->
+        <div class="grid grid-cols-4 gap-2 mb-4">
+            <div
+                class="bg-gray-800 bg-opacity-40 rounded-lg p-2 border border-gray-700 hover:border-luxury-gold transition-all duration-300"
+            >
+                <div
+                    class="text-luxury-gold font-playfair text-xl md:text-2xl font-semibold mb-0.5"
+                    id="modal-stat-total"
+                >
+                    0
+                </div>
+                <div
+                    class="text-luxury-gray text-xs font-montserrat uppercase tracking-wide"
+                >
+                    Total
+                </div>
+            </div>
+            <div
+                class="bg-gray-800 bg-opacity-40 rounded-lg p-2 border border-gray-700 hover:border-luxury-gold transition-all duration-300"
+            >
+                <div
+                    class="text-luxury-gold font-playfair text-xl md:text-2xl font-semibold mb-0.5"
+                    id="modal-stat-max"
+                >
+                    0
+                </div>
+                <div
+                    class="text-luxury-gray text-xs font-montserrat uppercase tracking-wide"
+                >
+                    Peak
+                </div>
+            </div>
+            <div
+                class="bg-gray-800 bg-opacity-40 rounded-lg p-2 border border-gray-700 hover:border-luxury-gold transition-all duration-300"
+            >
+                <div
+                    class="text-luxury-gold font-playfair text-xl md:text-2xl font-semibold mb-0.5"
+                    id="modal-stat-avg"
+                >
+                    0
+                </div>
+                <div
+                    class="text-luxury-gray text-xs font-montserrat uppercase tracking-wide"
+                >
+                    Avg/Wk
+                </div>
+            </div>
+            <div
+                class="bg-gray-800 bg-opacity-40 rounded-lg p-2 border border-gray-700 hover:border-luxury-gold transition-all duration-300"
+            >
+                <div
+                    class="text-luxury-gold font-playfair text-xl md:text-2xl font-semibold mb-0.5"
+                    id="modal-stat-streak"
+                >
+                    0
+                </div>
+                <div
+                    class="text-luxury-gray text-xs font-montserrat uppercase tracking-wide"
+                >
+                    Streak
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column Layout for Details -->
+        <div class="grid md:grid-cols-2 gap-3 mb-3">
+            <!-- Left Column -->
+            <div class="space-y-3">
+                <!-- Streaks & Activity -->
+                <div
+                    class="bg-gray-800 bg-opacity-40 rounded-lg p-3 border border-gray-700"
+                >
+                    <h3
+                        class="text-luxury-gold font-montserrat text-xs uppercase tracking-wide mb-2 flex items-center gap-1.5"
+                    >
+                        <i class="fas fa-fire text-xs"></i> Streaks & Activity
+                    </h3>
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Longest Streak</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-longest">0 days</span
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Active Days</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-active">0</span
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Quiet Days</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-quiet">0</span
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Daily Avg</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-daily-avg">0</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Day & Month -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div
+                        class="bg-gray-800 bg-opacity-40 rounded-lg p-2.5 border border-gray-700"
+                    >
+                        <h3
+                            class="text-luxury-gold font-montserrat text-xs uppercase tracking-wide mb-2 flex items-center gap-1"
+                        >
+                            <i class="fas fa-calendar-day text-xs"></i> Day
+                        </h3>
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-best-day"
+                            >
+                                -
+                            </div>
+                            <div
+                                class="text-luxury-gray text-xs font-montserrat"
+                                id="modal-stat-best-day-count"
+                            >
+                                0
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-gray-800 bg-opacity-40 rounded-lg p-2.5 border border-gray-700"
+                    >
+                        <h3
+                            class="text-luxury-gold font-montserrat text-xs uppercase tracking-wide mb-2 flex items-center gap-1"
+                        >
+                            <i class="fas fa-calendar-alt text-xs"></i> Month
+                        </h3>
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-best-month"
+                            >
+                                -
+                            </div>
+                            <div
+                                class="text-luxury-gray text-xs font-montserrat"
+                                id="modal-stat-best-month-count"
+                            >
+                                0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-3">
+                <!-- Distribution -->
+                <div
+                    class="bg-gray-800 bg-opacity-40 rounded-lg p-3 border border-gray-700"
+                >
+                    <h3
+                        class="text-luxury-gold font-montserrat text-xs uppercase tracking-wide mb-2 flex items-center gap-1.5"
+                    >
+                        <i class="fas fa-chart-bar text-xs"></i> Distribution
+                    </h3>
+                    <div class="grid grid-cols-4 gap-1.5 text-xs">
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-light"
+                            >
+                                0
+                            </div>
+                            <div
+                                class="text-luxury-gray font-montserrat text-xs"
+                            >
+                                Light
+                            </div>
+                            <div
+                                class="text-luxury-gray opacity-50 text-xs"
+                                id="modal-stat-light-pct"
+                            >
+                                0%
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-moderate"
+                            >
+                                0
+                            </div>
+                            <div
+                                class="text-luxury-gray font-montserrat text-xs"
+                            >
+                                Mod
+                            </div>
+                            <div
+                                class="text-luxury-gray opacity-50 text-xs"
+                                id="modal-stat-moderate-pct"
+                            >
+                                0%
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-heavy"
+                            >
+                                0
+                            </div>
+                            <div
+                                class="text-luxury-gray font-montserrat text-xs"
+                            >
+                                Heavy
+                            </div>
+                            <div
+                                class="text-luxury-gray opacity-50 text-xs"
+                                id="modal-stat-heavy-pct"
+                            >
+                                0%
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="text-luxury-gold font-playfair text-lg font-semibold mb-0.5"
+                                id="modal-stat-intense"
+                            >
+                                0
+                            </div>
+                            <div
+                                class="text-luxury-gray font-montserrat text-xs"
+                            >
+                                Max
+                            </div>
+                            <div
+                                class="text-luxury-gray opacity-50 text-xs"
+                                id="modal-stat-intense-pct"
+                            >
+                                0%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Insights -->
+                <div
+                    class="bg-gray-800 bg-opacity-40 rounded-lg p-3 border border-gray-700"
+                >
+                    <h3
+                        class="text-luxury-gold font-montserrat text-xs uppercase tracking-wide mb-2 flex items-center gap-1.5"
+                    >
+                        <i class="fas fa-chart-line text-xs"></i> Weekly
+                    </h3>
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Best Week</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-best-week">0</span
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Active Weeks</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                id="modal-stat-active-weeks">0</span
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-luxury-gray font-montserrat"
+                                >Total Weeks</span
+                            >
+                            <span
+                                class="text-luxury-gold font-montserrat font-semibold"
+                                >52</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Source link -->
+        <div class="text-center mt-3">
+            <a
+                href="https://github.com/bllbtnd"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-luxury-gold hover:text-luxury-gold-light text-xs font-montserrat transition-colors duration-300"
+            >
+                <i class="fab fa-github"></i>
+                View on GitHub
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes modal-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modal-slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .animate-modal-fade-in {
+        animation: modal-fade-in 0.3s ease-out forwards;
+    }
+
+    .animate-modal-slide-up {
+        animation: modal-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
+            forwards;
+    }
+
+    /* Prevent body scroll when modal is open */
+    body.modal-open {
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    interface ContributionDay {
+        date: string;
+        count: number;
+        level: number;
+    }
+
+    class GitHubPulse {
+        canvas: HTMLCanvasElement;
+        ctx: CanvasRenderingContext2D;
+        username: string;
+        data: ContributionDay[] = [];
+        animationProgress: number = 0;
+        stats: any = {};
+
+        constructor(canvas: HTMLCanvasElement, username: string) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext("2d", { alpha: true })!;
+            this.username = username;
+
+            this.setupCanvas();
+            this.loadData();
+            this.setupModalHandlers();
+        }
+
+        setupCanvas() {
+            // Wait for canvas to be properly sized
+            setTimeout(() => {
+                const dpr = window.devicePixelRatio || 1;
+                const rect = this.canvas.getBoundingClientRect();
+
+                // Ensure canvas has dimensions
+                if (rect.width === 0) {
+                    this.setupCanvas();
+                    return;
+                }
+
+                this.canvas.width = rect.width * dpr;
+                this.canvas.height = 120 * dpr;
+                this.ctx.scale(dpr, dpr);
+
+                // Click handler for modal
+                this.canvas.addEventListener("click", () => this.openModal());
+            }, 100);
+        }
+
+        async loadData() {
+            try {
+                // Fetch GitHub contribution data
+                const response = await fetch(
+                    `https://github-contributions-api.jogruber.de/v4/${this.username}?y=last`,
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+
+                const result = await response.json();
+
+                // Extract contributions from the result
+                this.data = result.contributions.map((day: any) => ({
+                    date: day.date,
+                    count: day.count,
+                    level: day.level,
+                }));
+
+                // Hide loading, show canvas
+                document
+                    .getElementById("pulse-loading")
+                    ?.classList.add("hidden");
+                document.getElementById("pulse-error")?.classList.add("hidden");
+                this.canvas.classList.remove("hidden");
+
+                this.calculateStats();
+
+                // Re-setup canvas to ensure it's properly sized now that it's visible
+                setTimeout(() => {
+                    this.animate();
+                }, 150);
+            } catch (error) {
+                console.error("Error loading GitHub data:", error);
+                document
+                    .getElementById("pulse-loading")
+                    ?.classList.add("hidden");
+                document
+                    .getElementById("pulse-error")
+                    ?.classList.remove("hidden");
+                document.getElementById("pulse-error")?.classList.add("flex");
+            }
+        }
+
+        calculateStats() {
+            const total = this.data.reduce((sum, day) => sum + day.count, 0);
+            const max = Math.max(...this.data.map((d) => d.count));
+            const avgPerWeek = Math.round((total / this.data.length) * 7);
+            const activeDays = this.data.filter((d) => d.count > 0).length;
+            const quietDays = this.data.length - activeDays;
+            const dailyAvg = (total / this.data.length).toFixed(1);
+
+            // Calculate current streak
+            let currentStreak = 0;
+            for (let i = this.data.length - 1; i >= 0; i--) {
+                if (this.data[i].count > 0) {
+                    currentStreak++;
+                } else {
+                    break;
+                }
+            }
+
+            // Calculate longest streak
+            let longestStreak = 0;
+            let tempStreak = 0;
+            this.data.forEach((day) => {
+                if (day.count > 0) {
+                    tempStreak++;
+                    longestStreak = Math.max(longestStreak, tempStreak);
+                } else {
+                    tempStreak = 0;
+                }
+            });
+
+            // Calculate best day of week
+            const dayOfWeekCounts: { [key: string]: number } = {
+                Sunday: 0,
+                Monday: 0,
+                Tuesday: 0,
+                Wednesday: 0,
+                Thursday: 0,
+                Friday: 0,
+                Saturday: 0,
+            };
+            const dayNames = [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+            ];
+
+            this.data.forEach((day) => {
+                const date = new Date(day.date);
+                const dayName = dayNames[date.getDay()];
+                dayOfWeekCounts[dayName] += day.count;
+            });
+
+            let bestDay = "N/A";
+            let bestDayCount = 0;
+            Object.entries(dayOfWeekCounts).forEach(([day, count]) => {
+                if (count > bestDayCount) {
+                    bestDayCount = count;
+                    bestDay = day;
+                }
+            });
+
+            // Calculate best month
+            const monthCounts: { [key: string]: number } = {};
+            const monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+            ];
+
+            this.data.forEach((day) => {
+                const date = new Date(day.date);
+                const monthKey = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+                monthCounts[monthKey] =
+                    (monthCounts[monthKey] || 0) + day.count;
+            });
+
+            let bestMonth = "N/A";
+            let bestMonthCount = 0;
+            Object.entries(monthCounts).forEach(([month, count]) => {
+                if (count > bestMonthCount) {
+                    bestMonthCount = count;
+                    bestMonth = month;
+                }
+            });
+
+            // Calculate contribution distribution
+            const distribution = {
+                light: this.data.filter((d) => d.level === 1).length,
+                moderate: this.data.filter((d) => d.level === 2).length,
+                heavy: this.data.filter((d) => d.level === 3).length,
+                intense: this.data.filter((d) => d.level === 4).length,
+            };
+
+            const lightPct = ((distribution.light / activeDays) * 100).toFixed(
+                1,
+            );
+            const moderatePct = (
+                (distribution.moderate / activeDays) *
+                100
+            ).toFixed(1);
+            const heavyPct = ((distribution.heavy / activeDays) * 100).toFixed(
+                1,
+            );
+            const intensePct = (
+                (distribution.intense / activeDays) *
+                100
+            ).toFixed(1);
+
+            // Calculate weekly insights
+            const weeks: number[] = [];
+            for (let i = 0; i < this.data.length; i += 7) {
+                const weekData = this.data.slice(i, i + 7);
+                const weekTotal = weekData.reduce(
+                    (sum, day) => sum + day.count,
+                    0,
+                );
+                weeks.push(weekTotal);
+            }
+
+            const bestWeek = Math.max(...weeks);
+            const activeWeeks = weeks.filter((w) => w > 0).length;
+
+            this.stats = {
+                total,
+                max,
+                avgPerWeek,
+                currentStreak,
+                longestStreak,
+                activeDays,
+                quietDays,
+                dailyAvg,
+                bestDay,
+                bestDayCount,
+                bestMonth,
+                bestMonthCount,
+                distribution,
+                lightPct,
+                moderatePct,
+                heavyPct,
+                intensePct,
+                bestWeek,
+                activeWeeks,
+            };
+        }
+
+        setupModalHandlers() {
+            const modal = document.getElementById("pulse-modal");
+            const closeBtn = document.getElementById("pulse-modal-close");
+            const backdrop = document.getElementById("pulse-modal-backdrop");
+
+            closeBtn?.addEventListener("click", () => this.closeModal());
+            backdrop?.addEventListener("click", () => this.closeModal());
+
+            // Close on Escape key
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal?.classList.contains("flex")) {
+                    this.closeModal();
+                }
+            });
+        }
+
+        openModal() {
+            const modal = document.getElementById("pulse-modal");
+            if (!modal) return;
+
+            // Populate primary stats
+            document.getElementById("modal-stat-total")!.textContent =
+                this.stats.total.toLocaleString();
+            document.getElementById("modal-stat-max")!.textContent =
+                this.stats.max.toString();
+            document.getElementById("modal-stat-avg")!.textContent =
+                this.stats.avgPerWeek.toString();
+            document.getElementById("modal-stat-streak")!.textContent =
+                this.stats.currentStreak.toString();
+
+            // Populate streaks & activity
+            document.getElementById("modal-stat-longest")!.textContent =
+                `${this.stats.longestStreak} days`;
+            document.getElementById("modal-stat-active")!.textContent =
+                this.stats.activeDays.toString();
+            document.getElementById("modal-stat-quiet")!.textContent =
+                this.stats.quietDays.toString();
+            document.getElementById("modal-stat-daily-avg")!.textContent =
+                this.stats.dailyAvg.toString();
+
+            // Populate time patterns
+            document.getElementById("modal-stat-best-day")!.textContent =
+                this.stats.bestDay;
+            document.getElementById("modal-stat-best-day-count")!.textContent =
+                `${this.stats.bestDayCount} contributions`;
+            document.getElementById("modal-stat-best-month")!.textContent =
+                this.stats.bestMonth;
+            document.getElementById(
+                "modal-stat-best-month-count",
+            )!.textContent = `${this.stats.bestMonthCount} contributions`;
+
+            // Populate distribution
+            document.getElementById("modal-stat-light")!.textContent =
+                this.stats.distribution.light.toString();
+            document.getElementById("modal-stat-light-pct")!.textContent =
+                `${this.stats.lightPct}%`;
+            document.getElementById("modal-stat-moderate")!.textContent =
+                this.stats.distribution.moderate.toString();
+            document.getElementById("modal-stat-moderate-pct")!.textContent =
+                `${this.stats.moderatePct}%`;
+            document.getElementById("modal-stat-heavy")!.textContent =
+                this.stats.distribution.heavy.toString();
+            document.getElementById("modal-stat-heavy-pct")!.textContent =
+                `${this.stats.heavyPct}%`;
+            document.getElementById("modal-stat-intense")!.textContent =
+                this.stats.distribution.intense.toString();
+            document.getElementById("modal-stat-intense-pct")!.textContent =
+                `${this.stats.intensePct}%`;
+
+            // Populate weekly insights
+            document.getElementById("modal-stat-best-week")!.textContent =
+                this.stats.bestWeek.toString();
+            document.getElementById("modal-stat-active-weeks")!.textContent =
+                this.stats.activeWeeks.toString();
+
+            // Show modal
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.classList.add("modal-open");
+        }
+
+        closeModal() {
+            const modal = document.getElementById("pulse-modal");
+            if (!modal) return;
+
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.classList.remove("modal-open");
+        }
+
+        animate() {
+            if (this.animationProgress < 1) {
+                this.animationProgress += 0.02;
+                this.render();
+                requestAnimationFrame(() => this.animate());
+            } else {
+                this.animationProgress = 1;
+                this.render();
+            }
+        }
+
+        render() {
+            const width = this.canvas.getBoundingClientRect().width;
+            const height = 120;
+            const padding = 15;
+
+            // Clear canvas
+            this.ctx.clearRect(0, 0, width, height);
+
+            if (this.data.length === 0) return;
+
+            // Calculate dimensions
+            const dataWidth = width - padding * 2;
+            const dataHeight = height - padding * 2;
+            const max = Math.max(...this.data.map((d) => d.count), 1);
+
+            // Sample data points for smoother rendering
+            const sampleRate = Math.max(
+                1,
+                Math.floor(this.data.length / Math.min(width, 500)),
+            );
+            const sampledData = this.data.filter(
+                (_, i) => i % sampleRate === 0 || i === this.data.length - 1,
+            );
+            const pointSpacing = dataWidth / (sampledData.length - 1);
+
+            // Draw gradient fill - more subtle
+            const gradient = this.ctx.createLinearGradient(
+                0,
+                padding,
+                0,
+                height - padding,
+            );
+            gradient.addColorStop(0, "rgba(201, 169, 107, 0.15)");
+            gradient.addColorStop(0.5, "rgba(201, 169, 107, 0.05)");
+            gradient.addColorStop(1, "rgba(201, 169, 107, 0)");
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(padding, height - padding);
+
+            sampledData.forEach((day, i) => {
+                const actualIndex = this.data.indexOf(day);
+                const x = padding + i * pointSpacing;
+                const progress = Math.min(
+                    actualIndex / this.data.length / this.animationProgress,
+                    1,
+                );
+                const y =
+                    height -
+                    padding -
+                    (day.count / max) * dataHeight * progress;
+
+                if (i === 0) {
+                    this.ctx.lineTo(x, y);
+                } else {
+                    // Smooth curve using quadratic bezier
+                    const prevDay = sampledData[i - 1];
+                    const prevX = padding + (i - 1) * pointSpacing;
+                    const prevProgress = Math.min(
+                        this.data.indexOf(prevDay) /
+                            this.data.length /
+                            this.animationProgress,
+                        1,
+                    );
+                    const prevY =
+                        height -
+                        padding -
+                        (prevDay.count / max) * dataHeight * prevProgress;
+
+                    const cpX = (prevX + x) / 2;
+                    const cpY = (prevY + y) / 2;
+
+                    this.ctx.quadraticCurveTo(cpX, cpY, x, y);
+                }
+            });
+
+            this.ctx.lineTo(
+                padding + (sampledData.length - 1) * pointSpacing,
+                height - padding,
+            );
+            this.ctx.lineTo(padding, height - padding);
+            this.ctx.closePath();
+            this.ctx.fillStyle = gradient;
+            this.ctx.fill();
+
+            // Draw main line
+            this.ctx.beginPath();
+            sampledData.forEach((day, i) => {
+                const actualIndex = this.data.indexOf(day);
+                const x = padding + i * pointSpacing;
+                const progress = Math.min(
+                    actualIndex / this.data.length / this.animationProgress,
+                    1,
+                );
+                const y =
+                    height -
+                    padding -
+                    (day.count / max) * dataHeight * progress;
+
+                if (i === 0) {
+                    this.ctx.moveTo(x, y);
+                } else {
+                    const prevDay = sampledData[i - 1];
+                    const prevX = padding + (i - 1) * pointSpacing;
+                    const prevProgress = Math.min(
+                        this.data.indexOf(prevDay) /
+                            this.data.length /
+                            this.animationProgress,
+                        1,
+                    );
+                    const prevY =
+                        height -
+                        padding -
+                        (prevDay.count / max) * dataHeight * prevProgress;
+
+                    const cpX = (prevX + x) / 2;
+                    const cpY = (prevY + y) / 2;
+
+                    this.ctx.quadraticCurveTo(cpX, cpY, x, y);
+                }
+            });
+
+            this.ctx.strokeStyle = "rgba(201, 169, 107, 0.5)";
+            this.ctx.lineWidth = 1;
+            this.ctx.stroke();
+        }
+    }
+
+    // Initialize on load
+    const initPulse = () => {
+        const canvas = document.getElementById(
+            "pulse-canvas",
+        ) as HTMLCanvasElement;
+        if (canvas && !canvas.dataset.initialized) {
+            canvas.dataset.initialized = "true";
+            const username = canvas.dataset.username || "bllbtnd";
+            new GitHubPulse(canvas, username);
+        }
+    };
+
+    // Run immediately and on page load
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPulse);
+    } else {
+        initPulse();
+    }
+
+    // Re-run on Astro page swaps
+    document.addEventListener("astro:page-load", initPulse);
+</script>

@@ -1,10 +1,15 @@
 ---
 // HomePage component for Balla Botond's Astro site
-import { Image } from 'astro:assets';
-import Footer from './Footer.astro';
-import Constellation from './Constellation.astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
-import profileImage from '../assets/images/image.png';
+import { Image } from "astro:assets";
+import Footer from "./Footer.astro";
+import Constellation from "./Constellation.astro";
+import GitHubPulse from "./GitHubPulse.astro";
+import {
+  getLangFromUrl,
+  useTranslations,
+  useTranslatedPath,
+} from "../i18n/utils";
+import profileImage from "../assets/images/image.png";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -12,160 +17,294 @@ const translatePath = useTranslatedPath(lang);
 ---
 
 <!-- Main container with luxury background gradient -->
-<main class="relative min-h-screen" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
-  
+<main
+  class="relative min-h-screen"
+  style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);"
+>
   <!-- Interactive Constellation Background -->
   <Constellation />
-  
+
   <!-- Subtle background pattern (overlay) -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
-    
-    <!-- Hero section -->
-    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6">
-      
-      <!-- Brand Monogram -->
-      <div class="flex items-center justify-center mb-8 animate-fade-in">
-        <span class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl">B</span>
-        <div class="mx-6 flex flex-col items-center">
-          <div class="w-px h-12 bg-luxury-gold opacity-60 animate-pulse"></div>
-        </div>
-        <span class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl">B</span>
+  <div
+    class="absolute inset-0 opacity-5 pointer-events-none"
+    style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"
+  >
+  </div>
+
+  <!-- Hero section -->
+  <div
+    class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6"
+  >
+    <!-- Brand Monogram -->
+    <div class="flex items-center justify-center mb-8 animate-fade-in">
+      <span
+        class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl"
+        >B</span
+      >
+      <div class="mx-6 flex flex-col items-center">
+        <div class="w-px h-12 bg-luxury-gold opacity-60 animate-pulse"></div>
       </div>
-      
-      <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in" style="animation-delay: 0.3s;">
-        {t('common.tagline')}
-      </p>
-      
-      <!-- Profile Image -->
-      <div class="mb-8 animate-fade-in" style="animation-delay: 0.6s;">
-        <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl">
-          <Image src={profileImage} alt="Balla Botond Profile Picture" class="w-full h-full object-cover" loading="eager" />
-          <div class="absolute inset-0 bg-luxury-gold bg-opacity-10 hover:bg-opacity-0 transition-all duration-300"></div>
-        </div>
-        <p class="text-center font-montserrat text-luxury-gold text-sm mt-4 tracking-wider">{t('common.subtitle')}</p>
-      </div>
-      
-      <!-- Main heading -->
-      <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-6 text-white leading-tight text-center animate-fade-in" style="animation-delay: 0.9s;">
-        {t('common.name')}
-      </h1>
-      
-      <!-- Scroll indicator -->
-      <div id="scroll-indicator" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in cursor-pointer group" style="animation-delay: 1.2s;">
-        <!-- Scroll mouse indicator -->
-        <div class="relative w-8 h-12 border-2 border-luxury-gold border-opacity-80 rounded-full backdrop-blur-sm bg-gray-900 bg-opacity-20 shadow-lg group-hover:border-opacity-100 transition-all duration-300">
-          <!-- Scroll wheel -->
-          <div class="absolute top-3 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-luxury-gold rounded-full animate-scroll-wheel"></div>
-          <!-- Glow effect -->
-          <div class="absolute inset-0 rounded-full border border-luxury-gold opacity-30 animate-pulse"></div>
-        </div>
-        <!-- Chevron down -->
-        <i class="fas fa-chevron-down text-luxury-gold text-xs mt-1 opacity-60 animate-bounce group-hover:opacity-100 transition-opacity duration-300" style="animation-delay: 1s;"></i>
-      </div>
+      <span
+        class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl"
+        >B</span
+      >
     </div>
-    
-    <!-- Content section -->
-    <div class="relative z-10 py-20 px-6">
-      <div class="max-w-4xl mx-auto">
-        
-        <!-- Bio section -->
-        <div id="bio-section" class="text-center mb-16 pt-12">
-          <p class="font-montserrat text-lg md:text-xl text-luxury-gray font-light leading-relaxed max-w-3xl mx-auto">
-            {t('home.bio')}
-          </p>
+
+    <p
+      class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in"
+      style="animation-delay: 0.3s;"
+    >
+      {t("common.tagline")}
+    </p>
+
+    <!-- Profile Image -->
+    <div class="mb-8 animate-fade-in" style="animation-delay: 0.6s;">
+      <div
+        class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl"
+      >
+        <Image
+          src={profileImage}
+          alt="Balla Botond Profile Picture"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+        <div
+          class="absolute inset-0 bg-luxury-gold bg-opacity-10 hover:bg-opacity-0 transition-all duration-300"
+        >
+        </div>
+      </div>
+      <p
+        class="text-center font-montserrat text-luxury-gold text-sm mt-4 tracking-wider"
+      >
+        {t("common.subtitle")}
+      </p>
+    </div>
+
+    <!-- Main heading -->
+    <h1
+      class="font-playfair text-4xl md:text-6xl font-medium mb-6 text-white leading-tight text-center animate-fade-in"
+      style="animation-delay: 0.9s;"
+    >
+      {t("common.name")}
+    </h1>
+
+    <!-- Scroll indicator -->
+    <div
+      id="scroll-indicator"
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in cursor-pointer group"
+      style="animation-delay: 1.2s;"
+    >
+      <!-- Scroll mouse indicator -->
+      <div
+        class="relative w-8 h-12 border-2 border-luxury-gold border-opacity-80 rounded-full backdrop-blur-sm bg-gray-900 bg-opacity-20 shadow-lg group-hover:border-opacity-100 transition-all duration-300"
+      >
+        <!-- Scroll wheel -->
+        <div
+          class="absolute top-3 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-luxury-gold rounded-full animate-scroll-wheel"
+        >
+        </div>
+        <!-- Glow effect -->
+        <div
+          class="absolute inset-0 rounded-full border border-luxury-gold opacity-30 animate-pulse"
+        >
+        </div>
+      </div>
+      <!-- Chevron down -->
+      <i
+        class="fas fa-chevron-down text-luxury-gold text-xs mt-1 opacity-60 animate-bounce group-hover:opacity-100 transition-opacity duration-300"
+        style="animation-delay: 1s;"></i>
+    </div>
+  </div>
+
+  <!-- Content section -->
+  <div class="relative z-10 py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Bio section -->
+      <div id="bio-section" class="text-center mb-16 pt-12">
+        <p
+          class="font-montserrat text-lg md:text-xl text-luxury-gray font-light leading-relaxed max-w-3xl mx-auto"
+        >
+          {t("home.bio")}
+        </p>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex flex-wrap justify-center gap-4 mb-16">
+        <a
+          href={translatePath("/projects/")}
+          class="px-8 py-3 rounded-full bg-luxury-gold text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover-luxury-gold hover-luxury-text transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+        >
+          <i class="fas fa-folder-open mr-2"></i>{t("nav.projects")}
+        </a>
+        <a
+          href={translatePath("/resume/")}
+          class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
+        >
+          <i class="fas fa-file-alt mr-2"></i>{t("nav.resume")}
+        </a>
+      </div>
+
+      <!-- GitHub Activity Pulse - Subtle visual separator -->
+      <GitHubPulse username="bllbtnd" />
+
+      <!-- Social Links - Elegant Symmetrical Layout -->
+      <div class="mb-16">
+        <!-- First row - 4 items -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-4"
+        >
+          <a
+            href="https://ballabotond.com/email"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fas fa-envelope text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.email")}</span
+            >
+          </a>
+
+          <a
+            href="https://signal.me/#eu/botond.25"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fa-brands fa-signal-messenger text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.signal")}</span
+            >
+          </a>
+
+          <a
+            href="https://ballabotond.com/github"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fab fa-github text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.github")}</span
+            >
+          </a>
+
+          <a
+            href="https://ballabotond.com/facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fab fa-facebook text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.facebook")}</span
+            >
+          </a>
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex flex-wrap justify-center gap-4 mb-16">
-          <a href={translatePath('/projects/')} 
-             class="px-8 py-3 rounded-full bg-luxury-gold text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover-luxury-gold hover-luxury-text transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-            <i class="fas fa-folder-open mr-2"></i>{t('nav.projects')}
+        <!-- Second row - 4 items -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-6"
+        >
+          <a
+            href="https://ballabotond.com/instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fab fa-instagram text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.instagram")}</span
+            >
           </a>
-          <a href={translatePath('/resume/')} 
-             class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105">
-            <i class="fas fa-file-alt mr-2"></i>{t('nav.resume')}
+
+          <a
+            href="https://ballabotond.com/youtube"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fab fa-youtube text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.youtube")}</span
+            >
+          </a>
+
+          <a
+            href="https://hevy.com/user/bllbtnd"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fas fa-dumbbell text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.hevy")}</span
+            >
+          </a>
+
+          <a
+            href="https://ballabotond.com/x"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+          >
+            <i
+              class="fa-brands fa-x-twitter text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
+            ></i>
+            <span
+              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+              >{t("common.twitter")}</span
+            >
           </a>
         </div>
-        
-        <!-- Social Links - Elegant Symmetrical Layout -->
-        <div class="mb-16">
-          <!-- First row - 4 items -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-4">
-            <a href="https://ballabotond.com/email" 
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fas fa-envelope text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.email')}</span>
-            </a>
-            
-            <a href="https://signal.me/#eu/botond.25" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fa-brands fa-signal-messenger text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.signal')}</span>
-            </a>
-            
-            <a href="https://ballabotond.com/github" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fab fa-github text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.github')}</span>
-            </a>
-            
-            <a href="https://ballabotond.com/facebook" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fab fa-facebook text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.facebook')}</span>
-            </a>
-          </div>
-          
-          <!-- Second row - 4 items -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-6">
-            <a href="https://ballabotond.com/instagram" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fab fa-instagram text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.instagram')}</span>
-            </a>
-            
-            <a href="https://ballabotond.com/youtube" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fab fa-youtube text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.youtube')}</span>
-            </a>
-            
-            <a href="https://hevy.com/user/bllbtnd" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fas fa-dumbbell text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.hevy')}</span>
-            </a>
-            
-            <a href="https://ballabotond.com/x" target="_blank" rel="noopener noreferrer"
-               class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300">
-              <i class="fa-brands fa-x-twitter text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"></i>
-              <span class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors">{t('common.twitter')}</span>
-            </a>
-          </div>
-          
-          <!-- Buy me a coffee - Centered Special Button -->
-          <div class="flex justify-center">
-            <a href="https://ballabotond.com/revolut" target="_blank" rel="noopener noreferrer"
-               class="group flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-luxury-gold to-luxury-gold-light text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-              <i class="fas fa-coffee text-xl mr-3 group-hover:scale-110 transition-transform"></i>
-              <span>{t('common.coffee')}</span>
-            </a>
-          </div>
+
+        <!-- Buy me a coffee - Centered Special Button -->
+        <div class="flex justify-center">
+          <a
+            href="https://ballabotond.com/revolut"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-luxury-gold to-luxury-gold-light text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+          >
+            <i
+              class="fas fa-coffee text-xl mr-3 group-hover:scale-110 transition-transform"
+            ></i>
+            <span>{t("common.coffee")}</span>
+          </a>
         </div>
-        
       </div>
     </div>
-    
-    <!-- Footer Component -->
-    <Footer variant="full" />
-  
+  </div>
+
+  <!-- Footer Component -->
+  <Footer variant="full" />
+
   <!-- Enhanced smooth scrolling script -->
   <script>
     // Add smooth scrolling behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
+    document.documentElement.style.scrollBehavior = "smooth";
+
     // Add custom scroll wheel animation
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       @keyframes scroll-wheel {
         0% {
@@ -187,55 +326,55 @@ const translatePath = useTranslatedPath(lang);
       }
     `;
     document.head.appendChild(style);
-    
+
     // Add analytics tracking for social links
     interface WindowWithGtag extends Window {
       gtag?: (...args: unknown[]) => void;
     }
     const w = window as WindowWithGtag;
-    document.querySelectorAll('a[href*="ballabotond.com"]').forEach(link => {
-      link.addEventListener('click', function(this: HTMLAnchorElement) {
-        if (typeof w.gtag === 'function') {
-          w.gtag('event', 'click', {
-            'event_category': 'social',
-            'event_label': this.href
+    document.querySelectorAll('a[href*="ballabotond.com"]').forEach((link) => {
+      link.addEventListener("click", function (this: HTMLAnchorElement) {
+        if (typeof w.gtag === "function") {
+          w.gtag("event", "click", {
+            event_category: "social",
+            event_label: this.href,
           });
         }
       });
     });
-    
+
     // Add scroll reveal animations
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: "0px 0px -50px 0px",
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          entry.target.classList.add("animate-fade-in");
         }
       });
     }, observerOptions);
-    
+
     // Observe social link cards
-    document.querySelectorAll('.bg-gray-800').forEach(el => {
+    document.querySelectorAll(".bg-gray-800").forEach((el) => {
       observer.observe(el);
     });
-    
+
     // Add click handler for scroll indicator
-    const scrollIndicator = document.getElementById('scroll-indicator');
-    const bioSection = document.getElementById('bio-section');
-    
+    const scrollIndicator = document.getElementById("scroll-indicator");
+    const bioSection = document.getElementById("bio-section");
+
     if (scrollIndicator && bioSection) {
-      scrollIndicator.addEventListener('click', () => {
+      scrollIndicator.addEventListener("click", () => {
         bioSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+          behavior: "smooth",
+          block: "start",
         });
       });
     }
-    
+
     // Hide scroll indicator when scrolled
     let scrollTimeout: ReturnType<typeof setTimeout> | undefined;
     const handleScroll = () => {
@@ -243,44 +382,48 @@ const translatePath = useTranslatedPath(lang);
         const scrollY = window.pageYOffset;
         const fadeStart = 0; // Start fading from the very top
         const fadeEnd = 300; // Fully faded by 300px scroll
-        
+
         let opacity = 1;
-        
+
         if (scrollY > fadeStart) {
           // Calculate opacity based on scroll position
-          const fadeProgress = Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
+          const fadeProgress = Math.min(
+            (scrollY - fadeStart) / (fadeEnd - fadeStart),
+            1,
+          );
           opacity = 1 - fadeProgress;
-          
+
           // Disable pointer events when mostly faded
           if (opacity < 0.1) {
-            scrollIndicator.style.pointerEvents = 'none';
+            scrollIndicator.style.pointerEvents = "none";
           } else {
-            scrollIndicator.style.pointerEvents = 'auto';
+            scrollIndicator.style.pointerEvents = "auto";
           }
         } else {
-          scrollIndicator.style.pointerEvents = 'auto';
+          scrollIndicator.style.pointerEvents = "auto";
         }
-        
+
         // Apply smooth opacity transition
         scrollIndicator.style.opacity = opacity.toString();
-        
+
         // Clear existing timeout
         clearTimeout(scrollTimeout);
-        
+
         // Set new timeout to show indicator briefly when scrolling stops near the top
         if (scrollY > fadeEnd) {
           scrollTimeout = setTimeout(() => {
             if (window.pageYOffset <= fadeEnd) {
-              const newOpacity = Math.max(0, 1 - (window.pageYOffset / fadeEnd));
+              const newOpacity = Math.max(0, 1 - window.pageYOffset / fadeEnd);
               scrollIndicator.style.opacity = newOpacity.toString();
-              scrollIndicator.style.pointerEvents = newOpacity > 0.1 ? 'auto' : 'none';
+              scrollIndicator.style.pointerEvents =
+                newOpacity > 0.1 ? "auto" : "none";
             }
           }, 150);
         }
       }
     };
-    
+
     // Add scroll event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
   </script>
 </main>
