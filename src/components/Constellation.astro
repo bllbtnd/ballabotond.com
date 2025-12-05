@@ -26,7 +26,7 @@
       mouseDistance: 200,
       particleColor: "rgba(201, 169, 107, 0.3)", // Luxury gold
       lineColor: "rgba(201, 169, 107, 0.15)",
-      particleSpeed: 0.3, // Slower, more elegant movement
+      particleSpeed: 0.2,
       particleSize: 1.5,
     };
 
@@ -164,16 +164,16 @@
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
           this.ctx.stroke();
 
-          // Slight attraction to mouse
-          if (distMouse > 50) {
-            // Don't collapse completely
-            p1.vx += dxMouse * 0.0001;
-            p1.vy += dyMouse * 0.0001;
+          // Stronger attraction to mouse
+          if (distMouse > 30) {
+            // Don't collapse completely onto cursor
+            const force = (1 - distMouse / this.config.mouseDistance) * 0.0003;
+            p1.vx += dxMouse * force;
+            p1.vy += dyMouse * force;
           }
         }
 
-        // Connect to other particles
-        // Optimization: only check particles with higher index to avoid double drawing
+        // Connect to other particles and add repulsion
         for (let j = i + 1; j < this.particles.length; j++) {
           const p2 = this.particles[j];
           const dx = p1.x - p2.x;
@@ -188,6 +188,16 @@
             this.ctx.moveTo(p1.x, p1.y);
             this.ctx.lineTo(p2.x, p2.y);
             this.ctx.stroke();
+
+            // Particle repulsion - they push each other away slightly
+            if (dist < 100 && dist > 0) {
+              const repulsionForce = (1 - dist / 100) * 0.00015;
+              const angle = Math.atan2(dy, dx);
+              p1.vx += Math.cos(angle) * repulsionForce;
+              p1.vy += Math.sin(angle) * repulsionForce;
+              p2.vx -= Math.cos(angle) * repulsionForce;
+              p2.vy -= Math.sin(angle) * repulsionForce;
+            }
           }
         }
       }
