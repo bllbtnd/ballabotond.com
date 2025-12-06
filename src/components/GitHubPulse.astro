@@ -572,7 +572,28 @@ const { username = "bllbtnd" } = Astro.props;
 
             // Calculate current streak
             let currentStreak = 0;
-            for (let i = this.data.length - 1; i >= 0; i--) {
+            let startIndex = this.data.length - 1;
+
+            // If the last day has 0 commits, check if it's today
+            // If it's today and has 0 commits, skip it (day isn't over yet)
+            if (startIndex >= 0 && this.data[startIndex].count === 0) {
+                const lastDate = new Date(this.data[startIndex].date);
+                const today = new Date();
+
+                // Check if last date is today (compare year, month, day)
+                const isToday =
+                    lastDate.getFullYear() === today.getFullYear() &&
+                    lastDate.getMonth() === today.getMonth() &&
+                    lastDate.getDate() === today.getDate();
+
+                // If it's today, start counting from yesterday
+                if (isToday) {
+                    startIndex--;
+                }
+            }
+
+            // Count consecutive days with commits
+            for (let i = startIndex; i >= 0; i--) {
                 if (this.data[i].count > 0) {
                     currentStreak++;
                 } else {
