@@ -1,6 +1,5 @@
 ---
 // Main site layout for Balla Botond, using luxury palette and modern fonts
-import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
@@ -186,11 +185,6 @@ const baseSchema = generateBaseSchema(siteLanguages);
       .hover-luxury-gold:hover { background-color: #e8c474; }
       .hover-luxury-text:hover { color: #0b0b0f; }
       
-      /* Loading screen styles */
-      body.loading {
-        overflow: hidden;
-      }
-      
       /* Smooth page transitions */
       * {
         transition: opacity 0.3s ease-in-out;
@@ -199,8 +193,7 @@ const baseSchema = generateBaseSchema(siteLanguages);
     
     <slot name="head" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen loading">
-    <LoadingScreen />
+  <body class="bg-gray-900 text-white min-h-screen">
     
     <!-- Language Switcher -->
     <div class="fixed top-6 left-6 z-50">
