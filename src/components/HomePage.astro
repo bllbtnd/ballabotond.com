@@ -132,8 +132,10 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
         </a>
       </div>
 
-      <!-- GitHub Activity Pulse - Subtle visual separator -->
-      <GitHubPulse username="bllbtnd" />
+      <!-- GitHub Activity Pulse - Lazy loaded for better performance -->
+      <div id="github-pulse-container" style="min-height: 200px;">
+        <GitHubPulse username="bllbtnd" />
+      </div>
 
       <!-- Social Links - Elegant Symmetrical Layout -->
       <div class="mb-16">

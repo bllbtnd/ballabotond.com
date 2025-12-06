@@ -1,0 +1,91 @@
+/* Critical CSS - Above the fold styles */
+/* Inline this in <head> for fastest page load */
+
+/* Font faces - critical */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local('Playfair Display'), url('/fonts/playfair.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local('Montserrat'), url('/fonts/montserrat.woff2') format('woff2');
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #111827;
+  color: #ffffff;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Critical Layout */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Loading Screen - Critical */
+body.loading {
+  overflow: hidden;
+}
+
+/* Critical Colors */
+.text-luxury-gold {
+  color: #c9a96b;
+}
+
+.bg-gray-900 {
+  background-color: #111827;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+/* Critical Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+/* Prevent FOUC */
+[x-cloak] {
+  display: none !important;
+}

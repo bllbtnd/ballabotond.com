@@ -72,6 +72,11 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
+    <!-- Resource Hints for better performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://github-contributions-api.jogruber.de" />
+    
     <!-- SEO meta tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
