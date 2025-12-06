@@ -1,32 +1,29 @@
-
 ---
 // Main site layout for Balla Botond, using luxury palette and modern fonts
 import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages as supportedLanguages } from '../i18n/utils';
+import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource/playfair-display';
 import '@fontsource/montserrat';
+import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
 
-export interface Props {
+interface Props {
   title?: string;
   description?: string;
   keywords?: string;
   ogImage?: string;
   canonical?: string;
-  noindex?: boolean;
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = getLangFromUrl(Astro.url) as Languages;
 
-const { 
-  title = t('home.title'),
-  description = t('home.description'),
-  keywords = t('home.keywords'),
+const {
+  title = SITE_CONFIG.title,
+  description = SITE_CONFIG.description,
+  keywords = 'Balla Botond, software developer, computer science, portfolio, bllbtnd',
   ogImage = '/assets/images/image.png',
-  canonical,
-  noindex = false
+  canonical = Astro.url.pathname
 } = Astro.props;
 
 // Generate canonical URL
@@ -48,14 +45,9 @@ const localeMap: Record<string, string> = {
 };
 
 const currentLocale = localeMap[lang] || 'en_US';
-const supportedLocaleKeys = Object.keys(supportedLanguages);
+const supportedLocaleKeys = Object.keys(languages);
 
-const sameAsLinks = [
-  'https://github.com/bllbtnd',
-  'https://www.facebook.com/bllbtnd',
-  'https://www.instagram.com/bllbtnd',
-  'https://twitter.com/bllbtnd'
-];
+const sameAsLinks = SCHEMA_SAME_AS_LINKS;
 
 const stripLocaleFromPath = (pathname: string) => {
   const segments = pathname.split('/');
@@ -71,7 +63,7 @@ const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
 const hreflangMap = Object.fromEntries(Object.entries(localeMap).map(([key, value]) => [key, value.replace('_', '-')]));
 
 const alternateLinks = supportedLocaleKeys.map((code) => {
-  const localizedPath = code === defaultLang
+  const localizedPath = code === 'en'
     ? defaultLocalePath
     : `/${code}${defaultLocalePath === '/' ? '' : defaultLocalePath}`;
   const href = new URL(localizedPath, siteUrl).toString();
@@ -164,7 +156,7 @@ const baseSchema = {
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
-    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
     <meta name="bingbot" content="index, follow" />
     

@@ -4,51 +4,40 @@ import { Image } from "astro:assets";
 import Footer from "./Footer.astro";
 import Constellation from "./Constellation.astro";
 import GitHubPulse from "./GitHubPulse.astro";
+import BrandMonogram from "./BrandMonogram.astro";
+import SocialLink from "./SocialLink.astro";
+import BackgroundGradient from "./BackgroundGradient.astro";
 import {
   getLangFromUrl,
   useTranslations,
   useTranslatedPath,
 } from "../i18n/utils";
+import { SOCIAL_LINKS } from "../config/constants";
 import profileImage from "../assets/images/image.png";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
+
+// Split social links into two rows (8 links = 4 + 4)
+const firstRowLinks = SOCIAL_LINKS.slice(0, 4);
+const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
 ---
 
 <!-- Main container with luxury background gradient -->
-<main
-  class="relative min-h-screen"
-  style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);"
->
+<main class="relative min-h-screen">
   <!-- Interactive Constellation Background -->
   <Constellation />
 
-  <!-- Subtle background pattern (overlay) -->
-  <div
-    class="absolute inset-0 opacity-5 pointer-events-none"
-    style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"
-  >
-  </div>
+  <!-- Background styling -->
+  <BackgroundGradient />
 
   <!-- Hero section -->
   <div
     class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6"
   >
     <!-- Brand Monogram -->
-    <div class="flex items-center justify-center mb-8 animate-fade-in">
-      <span
-        class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl"
-        >B</span
-      >
-      <div class="mx-6 flex flex-col items-center">
-        <div class="w-px h-12 bg-luxury-gold opacity-60 animate-pulse"></div>
-      </div>
-      <span
-        class="font-playfair text-6xl md:text-8xl font-light text-luxury-gold drop-shadow-2xl"
-        >B</span
-      >
-    </div>
+    <BrandMonogram size="md" className="mb-8 animate-fade-in" />
 
     <p
       class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in"
@@ -152,128 +141,32 @@ const translatePath = useTranslatedPath(lang);
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-4"
         >
-          <a
-            href="https://ballabotond.com/email"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fas fa-envelope text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.email")}</span
-            >
-          </a>
-
-          <a
-            href="https://signal.me/#eu/botond.25"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fa-brands fa-signal-messenger text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.signal")}</span
-            >
-          </a>
-
-          <a
-            href="https://ballabotond.com/github"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fab fa-github text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.github")}</span
-            >
-          </a>
-
-          <a
-            href="https://ballabotond.com/facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fab fa-facebook text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.facebook")}</span
-            >
-          </a>
+          {
+            firstRowLinks.map((link) => (
+              <SocialLink
+                href={link.href}
+                icon={link.icon}
+                label={t(link.i18nKey)}
+                external={link.external}
+              />
+            ))
+          }
         </div>
 
         <!-- Second row - 4 items -->
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-6"
         >
-          <a
-            href="https://ballabotond.com/instagram"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fab fa-instagram text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.instagram")}</span
-            >
-          </a>
-
-          <a
-            href="https://ballabotond.com/youtube"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fab fa-youtube text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.youtube")}</span
-            >
-          </a>
-
-          <a
-            href="https://hevy.com/user/bllbtnd"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fas fa-dumbbell text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.hevy")}</span
-            >
-          </a>
-
-          <a
-            href="https://ballabotond.com/x"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
-          >
-            <i
-              class="fa-brands fa-x-twitter text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300"
-            ></i>
-            <span
-              class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
-              >{t("common.twitter")}</span
-            >
-          </a>
+          {
+            secondRowLinks.map((link) => (
+              <SocialLink
+                href={link.href}
+                icon={link.icon}
+                label={t(link.i18nKey)}
+                external={link.external}
+              />
+            ))
+          }
         </div>
 
         <!-- Buy me a coffee - Centered Special Button -->

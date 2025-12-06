@@ -2,6 +2,9 @@
 // Projects page for Balla Botond's Astro site
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
+import Constellation from '../../components/Constellation.astro';
+import BackgroundGradient from '../../components/BackgroundGradient.astro';
+import BrandMonogram from '../../components/BrandMonogram.astro';
 import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -213,7 +216,6 @@ const getStatusBadge = (status: string) => {
       return { text: 'Unknown', class: 'bg-gray-500', color: '#6c757d' };
   }
 };
-import Constellation from '../../components/Constellation.astro';
 ---
 
 <Layout
@@ -236,13 +238,13 @@ import Constellation from '../../components/Constellation.astro';
   </nav>
 
   <!-- Main container -->
-  <div class="relative min-h-screen flex flex-col" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
+  <div class="relative min-h-screen flex flex-col">
     
     <!-- Interactive Constellation Background -->
     <Constellation />
 
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+    <!-- Background styling -->
+    <BackgroundGradient />
     
     <!-- Content container -->
     <div class="relative z-10 flex-1 py-20">
@@ -251,13 +253,7 @@ import Constellation from '../../components/Constellation.astro';
       <!-- Header section -->
       <header class="text-center mb-16">
         <!-- Brand Monogram -->
-        <div class="flex items-center justify-center mb-8 animate-fade-in">
-          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
-          <div class="mx-4 flex flex-col items-center">
-            <div class="w-px h-8 bg-luxury-gold opacity-60"></div>
-          </div>
-          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
-        </div>
+        <BrandMonogram size="sm" className="mb-8 animate-fade-in" />
         
         <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
           {t('projects.tagline')}

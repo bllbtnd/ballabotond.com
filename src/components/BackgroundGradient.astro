@@ -1,0 +1,23 @@
+---
+import { DESIGN_TOKENS } from "../config/constants";
+
+interface Props {
+    variant?: "default" | "projects";
+}
+
+const { variant = "default" } = Astro.props;
+---
+
+<!-- Main background gradient -->
+<div
+    class="absolute inset-0 -z-10"
+    style={`background: ${DESIGN_TOKENS.gradients.main};`}
+>
+</div>
+
+<!-- Subtle pattern overlay -->
+<div
+    class="absolute inset-0 opacity-5 pointer-events-none -z-10"
+    style={`background-image: ${DESIGN_TOKENS.gradients.pattern};`}
+>
+</div>

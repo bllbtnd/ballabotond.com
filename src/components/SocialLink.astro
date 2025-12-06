@@ -1,0 +1,28 @@
+---
+interface Props {
+    href: string;
+    icon: string;
+    label: string;
+    external?: boolean;
+}
+
+const { href, icon, label, external = false } = Astro.props;
+const externalProps = external
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+---
+
+<a
+    href={href}
+    class="group flex flex-col items-center p-4 rounded-xl bg-gray-800 bg-opacity-30 backdrop-blur-sm border border-gray-700 hover:border-luxury-gold hover:bg-opacity-50 transition-all duration-300"
+    {...externalProps}
+>
+    <i
+        class={`${icon} text-2xl text-luxury-gold mb-2 group-hover:text-luxury-gold-light group-hover:scale-110 transition-all duration-300`}
+    ></i>
+    <span
+        class="font-montserrat text-white text-sm group-hover:text-luxury-gold transition-colors"
+    >
+        {label}
+    </span>
+</a>
