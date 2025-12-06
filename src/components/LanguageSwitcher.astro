@@ -1,4 +1,5 @@
----import { languages, getLangFromUrl } from "../i18n/utils";
+---
+import { languages, getLangFromUrl } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const currentPath = Astro.url.pathname;
@@ -66,6 +67,18 @@ function getLocalizedPath(locale: string) {
     transform: translateY(0) scale(1);
   }
 
+  /* Scroll-based opacity control */
+  .language-dropdown.scrolled-down {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  .language-dropdown:hover,
+  .language-dropdown:focus-within {
+    opacity: 1 !important;
+    pointer-events: auto;
+  }
+
   /* Mobile responsive adjustments */
   @media (max-width: 768px) {
     .language-dropdown #lang-menu {
@@ -77,6 +90,9 @@ function getLocalizedPath(locale: string) {
 </style>
 
 <script>
+  // Store scroll handler reference for cleanup
+  let scrollHandler: (() => void) | null = null;
+
   function initLanguageSwitcher() {
     const trigger = document.getElementById("lang-trigger");
     const menu = document.getElementById("lang-menu");
@@ -138,6 +154,11 @@ function getLocalizedPath(locale: string) {
       }
     });
 
+    // Remove old scroll handler if it exists
+    if (scrollHandler) {
+      window.removeEventListener("scroll", scrollHandler);
+    }
+
     // Scroll-based opacity
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
@@ -145,24 +166,25 @@ function getLocalizedPath(locale: string) {
 
       if (currentScrollY > 50) {
         if (currentScrollY > lastScrollY) {
-          dropdown.style.opacity = "0.7";
+          // Scrolling down
+          dropdown.classList.add("scrolled-down");
         } else {
-          dropdown.style.opacity = "1";
+          // Scrolling up
+          dropdown.classList.remove("scrolled-down");
         }
       } else {
-        dropdown.style.opacity = "1";
+        // At top of page
+        dropdown.classList.remove("scrolled-down");
       }
 
       lastScrollY = currentScrollY;
     };
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        requestAnimationFrame(handleScroll);
-      },
-      { passive: true },
-    );
+    scrollHandler = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener("scroll", scrollHandler, { passive: true });
   }
 
   // Initialize on first load
