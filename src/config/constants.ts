@@ -94,3 +94,12 @@ export const SCHEMA_SAME_AS_LINKS = [
     'https://www.youtube.com/@bllbtnd',
     'https://hevy.com/user/bllbtnd'
 ] as const;
+
+// Project IDs for easy reference
+export const PROJECT_IDS = {
+    VORTEX_CHAT: 'vortex-chat',
+    KKI_CALCULATOR: 'kki-calculator',
+    FINANCE_TRACKER: 'finance-tracker',
+    TRACKIT_APP: 'trackit-app',
+    MINECRAFT_SERVER: 'minecraft-server'
+} as const;

@@ -7,6 +7,7 @@ import { ClientRouter } from 'astro:transitions';
 import '@fontsource/playfair-display';
 import '@fontsource/montserrat';
 import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
+import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP } from '../utils/seo';
 
 interface Props {
   title?: string;
@@ -35,16 +36,8 @@ const siteDescription = "Software Developer & Computer Science Student specializ
 const author = "Balla Botond";
 const siteUrl = "https://ballabotond.com";
 
-// Language-specific locale mapping
-const localeMap: Record<string, string> = {
-  'en': 'en_US',
-  'hu': 'hu_HU', 
-  'it': 'it_IT',
-  'zh': 'zh_CN',
-  'ja': 'ja_JP'
-};
-
-const currentLocale = localeMap[lang] || 'en_US';
+// Use locale mappings from SEO utilities
+const currentLocale = LOCALE_MAP[lang] || 'en_US';
 const supportedLocaleKeys = Object.keys(languages);
 
 const sameAsLinks = SCHEMA_SAME_AS_LINKS;
@@ -60,87 +53,15 @@ const stripLocaleFromPath = (pathname: string) => {
 };
 
 const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
-const hreflangMap = Object.fromEntries(Object.entries(localeMap).map(([key, value]) => [key, value.replace('_', '-')]));
 
-const alternateLinks = supportedLocaleKeys.map((code) => {
-  const localizedPath = code === 'en'
-    ? defaultLocalePath
-    : `/${code}${defaultLocalePath === '/' ? '' : defaultLocalePath}`;
-  const href = new URL(localizedPath, siteUrl).toString();
-  return {
-    code,
-    href,
-    hrefLang: hreflangMap[code] || code
-  };
-});
+// Use alternate links generation from SEO utilities
+const alternateLinks = generateAlternateLinks(Astro.url.pathname, supportedLocaleKeys, siteUrl);
 
 const defaultAlternateHref = new URL(defaultLocalePath, siteUrl).toString();
-const siteLanguages = supportedLocaleKeys.map((code) => hreflangMap[code] || code);
+const siteLanguages = supportedLocaleKeys.map((code) => HREFLANG_MAP[code] || code);
 
-const personSchema = {
-  '@type': 'Person',
-  '@id': `${siteUrl}#person`,
-  name: siteTitle,
-  alternateName: ['Botond Balla', 'bllbtnd'],
-  description: siteDescription,
-  url: siteUrl,
-  image: `${siteUrl}/assets/images/image.png`,
-  sameAs: sameAsLinks,
-  jobTitle: 'Software Developer',
-  alumniOf: {
-    '@type': 'EducationalOrganization',
-    name: 'University of Pécs'
-  },
-  nationality: {
-    '@type': 'Country',
-    name: 'Hungary'
-  },
-  knowsLanguage: [
-    {
-      '@type': 'Language',
-      name: 'Hungarian',
-      alternateName: 'hu'
-    },
-    {
-      '@type': 'Language',
-      name: 'English',
-      alternateName: 'en'
-    }
-  ],
-  hasOccupation: {
-    '@type': 'Occupation',
-    name: 'Software Developer',
-    occupationLocation: {
-      '@type': 'Country',
-      name: 'Hungary'
-    }
-  },
-  worksFor: {
-    '@type': 'Organization',
-    name: 'LogiCloud KFT'
-  }
-};
-
-const websiteSchema = {
-  '@type': 'WebSite',
-  '@id': `${siteUrl}#website`,
-  name: siteTitle,
-  url: siteUrl,
-  description: siteDescription,
-  inLanguage: siteLanguages,
-  publisher: {
-    '@id': `${siteUrl}#person`
-  },
-  creator: {
-    '@id': `${siteUrl}#person`
-  },
-  sameAs: sameAsLinks
-};
-
-const baseSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [personSchema, websiteSchema]
-};
+// Use schema generation from SEO utilities
+const baseSchema = generateBaseSchema(siteLanguages);
 ---
 
 <!DOCTYPE html>

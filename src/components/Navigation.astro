@@ -1,0 +1,35 @@
+---
+import { useTranslatedPath, type Languages } from "../i18n/utils";
+
+interface Props {
+    currentLang: Languages;
+    variant?: "home" | "back";
+    label?: string;
+    to?: string;
+}
+
+const { currentLang, variant = "back", label, to = "/" } = Astro.props;
+const translatePath = useTranslatedPath(currentLang);
+
+const navigationUrl = translatePath(to);
+const isHome = variant === "home";
+---
+
+<nav class="fixed top-6 right-6 z-50">
+    <a
+        href={navigationUrl}
+        class="group flex items-center gap-3 px-6 py-3 rounded-full bg-gray-900 bg-opacity-80 backdrop-blur-sm border border-luxury-gold hover:bg-luxury-gold hover:border-luxury-gold text-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+        aria-label={label || (isHome ? "Go to Home" : "Navigate back")}
+    >
+        <i
+            class={`fas fa-${isHome ? "home" : "arrow-left"} text-lg group-hover:scale-110 transition-transform duration-300`}
+        ></i>
+        {
+            label && (
+                <span class="font-montserrat font-medium text-sm uppercase tracking-wider">
+                    {label}
+                </span>
+            )
+        }
+    </a>
+</nav>
