@@ -18,13 +18,15 @@
     pixelRatio: number;
     animationFrameId: number | null = null;
     isLowPowerMode: boolean = false;
+    lastFrameTime: number = 0;
+    targetFPS: number = 60;
 
-    // Configuration
+    // Configuration - optimized for performance
     config = {
-      particleCount: 60, // Reduced count for better performance
+      particleCount: 60,
       connectionDistance: 150,
       mouseDistance: 200,
-      particleColor: "rgba(201, 169, 107, 0.3)", // Luxury gold
+      particleColor: "rgba(201, 169, 107, 0.3)",
       lineColor: "rgba(201, 169, 107, 0.15)",
       particleSpeed: 0.2,
       particleSize: 1.5,
@@ -32,18 +34,32 @@
 
     constructor(canvas: HTMLCanvasElement) {
       this.canvas = canvas;
-      this.ctx = canvas.getContext("2d", { alpha: true })!;
+      this.ctx = canvas.getContext("2d", {
+        alpha: true,
+        desynchronized: true, // Better performance
+      })!;
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.particles = [];
       this.mouse = { x: -1000, y: -1000 };
-      this.pixelRatio = window.devicePixelRatio || 1;
+      this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
 
-      // Check for low power mode preference
-      // @ts-ignore
-      if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
+      // Enhanced low power mode detection
+      const connection =
+        (navigator as any).connection || (navigator as any).mozConnection;
+      const saveData = connection?.saveData;
+      const slowConnection =
+        connection?.effectiveType === "slow-2g" ||
+        connection?.effectiveType === "2g";
+
+      if (
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        saveData ||
+        slowConnection
+      ) {
         this.isLowPowerMode = true;
-        this.config.particleCount = 30; // Reduce particles on weaker devices
+        this.config.particleCount = 30;
+        this.targetFPS = 30; // Lower FPS on weak devices
       }
 
       this.init();
@@ -128,7 +144,16 @@
         cancelAnimationFrame(this.animationFrameId);
       }
 
-      const render = () => {
+      const frameDelay = 1000 / this.targetFPS;
+
+      const render = (currentTime: number) => {
+        // FPS throttling
+        if (currentTime - this.lastFrameTime < frameDelay) {
+          this.animationFrameId = requestAnimationFrame(render);
+          return;
+        }
+
+        this.lastFrameTime = currentTime;
         this.ctx.clearRect(0, 0, this.width, this.height);
 
         // Update and draw particles
@@ -143,7 +168,7 @@
         this.animationFrameId = requestAnimationFrame(render);
       };
 
-      render();
+      this.animationFrameId = requestAnimationFrame(render);
     }
 
     drawConnections() {

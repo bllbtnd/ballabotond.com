@@ -1,0 +1,45 @@
+---
+interface Props {
+    variant?: "monogram" | "simple";
+    size?: "sm" | "md" | "lg";
+    className?: string;
+}
+
+const { variant = "monogram", size = "md", className = "" } = Astro.props;
+
+const sizeClasses = {
+    sm: "text-4xl md:text-6xl",
+    md: "text-6xl md:text-8xl",
+    lg: "text-7xl md:text-9xl",
+};
+
+const separatorSizeClasses = {
+    sm: "h-8",
+    md: "h-12",
+    lg: "h-16",
+};
+---
+
+<div class={`flex items-center justify-center ${className}`}>
+    <span
+        class={`font-playfair ${sizeClasses[size]} font-light text-luxury-gold drop-shadow-2xl`}
+    >
+        B
+    </span>
+    {
+        variant === "monogram" && (
+            <>
+                <div class="mx-6 flex flex-col items-center">
+                    <div
+                        class={`w-px ${separatorSizeClasses[size]} bg-luxury-gold opacity-60 animate-pulse`}
+                    />
+                </div>
+                <span
+                    class={`font-playfair ${sizeClasses[size]} font-light text-luxury-gold drop-shadow-2xl`}
+                >
+                    B
+                </span>
+            </>
+        )
+    }
+</div>

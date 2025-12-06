@@ -1,0 +1,152 @@
+---
+interface Props {
+    id: string;
+    title?: string;
+    maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+}
+
+const { id, title, maxWidth = "3xl" } = Astro.props;
+
+const maxWidthClass = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+}[maxWidth];
+---
+
+<div
+    id={id}
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 animate-modal-fade-in"
+>
+    <!-- Backdrop -->
+    <div
+        class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm"
+        data-modal-backdrop={id}
+    >
+    </div>
+
+    <!-- Modal Content -->
+    <div
+        class={`relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-luxury-gold border-opacity-30 shadow-2xl ${maxWidthClass} w-full p-4 md:p-6 animate-modal-slide-up max-h-[90vh] overflow-auto`}
+    >
+        <!-- Close button -->
+        <button
+            data-modal-close={id}
+            class="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-800 bg-opacity-50 hover:bg-opacity-100 text-luxury-gold hover:text-luxury-gold-light transition-all duration-300 z-10"
+            aria-label="Close modal"
+        >
+            <i class="fas fa-times text-xs"></i>
+        </button>
+
+        <!-- Modal Header (optional) -->
+        {
+            title && (
+                <div class="text-center mb-4">
+                    <h2 class="font-playfair text-xl md:text-2xl text-luxury-gold">
+                        {title}
+                    </h2>
+                </div>
+            )
+        }
+
+        <!-- Modal Content Slot -->
+        <slot />
+    </div>
+</div>
+
+<style>
+    @keyframes modal-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modal-slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .animate-modal-fade-in {
+        animation: modal-fade-in 0.3s ease-out forwards;
+    }
+
+    .animate-modal-slide-up {
+        animation: modal-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
+            forwards;
+    }
+
+    /* Prevent body scroll when modal is open */
+    :global(body.modal-open) {
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    // Modal functionality
+    document.addEventListener("DOMContentLoaded", () => {
+        // Handle all modals
+        const modals = document.querySelectorAll(
+            '[id^="modal-"], [id$="-modal"]',
+        );
+
+        modals.forEach((modal) => {
+            const modalId = modal.id;
+            const closeBtn = modal.querySelector(
+                `[data-modal-close="${modalId}"]`,
+            );
+            const backdrop = modal.querySelector(
+                `[data-modal-backdrop="${modalId}"]`,
+            );
+
+            // Close on button click
+            closeBtn?.addEventListener("click", () => {
+                closeModal(modalId);
+            });
+
+            // Close on backdrop click
+            backdrop?.addEventListener("click", () => {
+                closeModal(modalId);
+            });
+
+            // Close on Escape key
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal.classList.contains("flex")) {
+                    closeModal(modalId);
+                }
+            });
+        });
+    });
+
+    function closeModal(modalId: string) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+            document.body.classList.remove("modal-open");
+        }
+    }
+
+    // Export for use in other scripts
+    (window as any).openModal = function (modalId: string) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.classList.add("modal-open");
+        }
+    };
+
+    (window as any).closeModal = closeModal;
+</script>

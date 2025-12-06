@@ -1,24 +1,24 @@
+# robots.txt for ballabotond.com
+# Optimized for maximum search engine visibility
+
 User-agent: *
 Allow: /
 
-# Prioritize important pages
-Allow: /projects
-Allow: /resume
-Allow: /hu/
-Allow: /it/
-Allow: /zh/
-Allow: /ja/
-
-# Block unnecessary directories
-Disallow: /_astro/
-Disallow: /assets/css/
-Disallow: /assets/js/
-
-# Crawl delay to be respectful
-Crawl-delay: 1
-
-# Sitemap location
-Sitemap: https://ballabotond.com/sitemap.xml
-
-# Additional sitemap for different languages
+# Sitemap location (primary)
 Sitemap: https://ballabotond.com/sitemap-index.xml
+
+# Allow all major search engines explicitly
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /

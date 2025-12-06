@@ -2,7 +2,12 @@
 // Projects page for Balla Botond's Astro site
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
-import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
+import Constellation from '../../components/Constellation.astro';
+import BackgroundGradient from '../../components/BackgroundGradient.astro';
+import BrandMonogram from '../../components/BrandMonogram.astro';
+import Navigation from '../../components/Navigation.astro';
+import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
+import type { Project, StatusBadge } from '../../types';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -11,7 +16,7 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const typedLang = lang as keyof typeof languages;
+const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 const translatePath = useTranslatedPath(typedLang);
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
@@ -213,7 +218,6 @@ const getStatusBadge = (status: string) => {
       return { text: 'Unknown', class: 'bg-gray-500', color: '#6c757d' };
   }
 };
-import Constellation from '../../components/Constellation.astro';
 ---
 
 <Layout
@@ -225,24 +229,18 @@ import Constellation from '../../components/Constellation.astro';
   <script slot="head" type="application/ld+json" is:inline>
     {JSON.stringify(structuredData)}
   </script>
+  
   <!-- Navigation -->
-  <nav class="fixed top-6 right-6 z-50">
-    <a href={translatePath('/')} 
-       class="group flex items-center gap-3 px-6 py-3 rounded-full bg-gray-900 bg-opacity-80 backdrop-blur-sm border border-luxury-gold hover:bg-luxury-gold hover:border-luxury-gold text-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
-       aria-label="Go to Home">
-      <i class="fas fa-home text-lg group-hover:scale-110 transition-transform duration-300"></i>
-      <span class="font-montserrat font-medium text-sm uppercase tracking-wider">{t('nav.home')}</span>
-    </a>
-  </nav>
+  <Navigation currentLang={typedLang} variant="home" label={t('nav.home')} />
 
   <!-- Main container -->
-  <div class="relative min-h-screen flex flex-col" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
+  <div class="relative min-h-screen flex flex-col">
     
     <!-- Interactive Constellation Background -->
     <Constellation />
 
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
+    <!-- Background styling -->
+    <BackgroundGradient />
     
     <!-- Content container -->
     <div class="relative z-10 flex-1 py-20">
@@ -251,13 +249,7 @@ import Constellation from '../../components/Constellation.astro';
       <!-- Header section -->
       <header class="text-center mb-16">
         <!-- Brand Monogram -->
-        <div class="flex items-center justify-center mb-8 animate-fade-in">
-          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
-          <div class="mx-4 flex flex-col items-center">
-            <div class="w-px h-8 bg-luxury-gold opacity-60"></div>
-          </div>
-          <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
-        </div>
+        <BrandMonogram size="sm" className="mb-8 animate-fade-in" />
         
         <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
           {t('projects.tagline')}

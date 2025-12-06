@@ -1,32 +1,29 @@
-
 ---
 // Main site layout for Balla Botond, using luxury palette and modern fonts
-import LoadingScreen from '../components/LoadingScreen.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages as supportedLanguages } from '../i18n/utils';
+import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource/playfair-display';
 import '@fontsource/montserrat';
+import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
+import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP } from '../utils/seo';
 
-export interface Props {
+interface Props {
   title?: string;
   description?: string;
   keywords?: string;
   ogImage?: string;
   canonical?: string;
-  noindex?: boolean;
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = getLangFromUrl(Astro.url) as Languages;
 
-const { 
-  title = t('home.title'),
-  description = t('home.description'),
-  keywords = t('home.keywords'),
+const {
+  title = SITE_CONFIG.title,
+  description = SITE_CONFIG.description,
+  keywords = 'Balla Botond, software developer, computer science, portfolio, bllbtnd',
   ogImage = '/assets/images/image.png',
-  canonical,
-  noindex = false
+  canonical = Astro.url.pathname
 } = Astro.props;
 
 // Generate canonical URL
@@ -38,24 +35,11 @@ const siteDescription = "Software Developer & Computer Science Student specializ
 const author = "Balla Botond";
 const siteUrl = "https://ballabotond.com";
 
-// Language-specific locale mapping
-const localeMap: Record<string, string> = {
-  'en': 'en_US',
-  'hu': 'hu_HU', 
-  'it': 'it_IT',
-  'zh': 'zh_CN',
-  'ja': 'ja_JP'
-};
+// Use locale mappings from SEO utilities
+const currentLocale = LOCALE_MAP[lang] || 'en_US';
+const supportedLocaleKeys = Object.keys(languages);
 
-const currentLocale = localeMap[lang] || 'en_US';
-const supportedLocaleKeys = Object.keys(supportedLanguages);
-
-const sameAsLinks = [
-  'https://github.com/bllbtnd',
-  'https://www.facebook.com/bllbtnd',
-  'https://www.instagram.com/bllbtnd',
-  'https://twitter.com/bllbtnd'
-];
+const sameAsLinks = SCHEMA_SAME_AS_LINKS;
 
 const stripLocaleFromPath = (pathname: string) => {
   const segments = pathname.split('/');
@@ -68,87 +52,15 @@ const stripLocaleFromPath = (pathname: string) => {
 };
 
 const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
-const hreflangMap = Object.fromEntries(Object.entries(localeMap).map(([key, value]) => [key, value.replace('_', '-')]));
 
-const alternateLinks = supportedLocaleKeys.map((code) => {
-  const localizedPath = code === defaultLang
-    ? defaultLocalePath
-    : `/${code}${defaultLocalePath === '/' ? '' : defaultLocalePath}`;
-  const href = new URL(localizedPath, siteUrl).toString();
-  return {
-    code,
-    href,
-    hrefLang: hreflangMap[code] || code
-  };
-});
+// Use alternate links generation from SEO utilities
+const alternateLinks = generateAlternateLinks(Astro.url.pathname, supportedLocaleKeys, siteUrl);
 
 const defaultAlternateHref = new URL(defaultLocalePath, siteUrl).toString();
-const siteLanguages = supportedLocaleKeys.map((code) => hreflangMap[code] || code);
+const siteLanguages = supportedLocaleKeys.map((code) => HREFLANG_MAP[code] || code);
 
-const personSchema = {
-  '@type': 'Person',
-  '@id': `${siteUrl}#person`,
-  name: siteTitle,
-  alternateName: ['Botond Balla', 'bllbtnd'],
-  description: siteDescription,
-  url: siteUrl,
-  image: `${siteUrl}/assets/images/image.png`,
-  sameAs: sameAsLinks,
-  jobTitle: 'Software Developer',
-  alumniOf: {
-    '@type': 'EducationalOrganization',
-    name: 'University of Pécs'
-  },
-  nationality: {
-    '@type': 'Country',
-    name: 'Hungary'
-  },
-  knowsLanguage: [
-    {
-      '@type': 'Language',
-      name: 'Hungarian',
-      alternateName: 'hu'
-    },
-    {
-      '@type': 'Language',
-      name: 'English',
-      alternateName: 'en'
-    }
-  ],
-  hasOccupation: {
-    '@type': 'Occupation',
-    name: 'Software Developer',
-    occupationLocation: {
-      '@type': 'Country',
-      name: 'Hungary'
-    }
-  },
-  worksFor: {
-    '@type': 'Organization',
-    name: 'LogiCloud KFT'
-  }
-};
-
-const websiteSchema = {
-  '@type': 'WebSite',
-  '@id': `${siteUrl}#website`,
-  name: siteTitle,
-  url: siteUrl,
-  description: siteDescription,
-  inLanguage: siteLanguages,
-  publisher: {
-    '@id': `${siteUrl}#person`
-  },
-  creator: {
-    '@id': `${siteUrl}#person`
-  },
-  sameAs: sameAsLinks
-};
-
-const baseSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [personSchema, websiteSchema]
-};
+// Use schema generation from SEO utilities
+const baseSchema = generateBaseSchema(siteLanguages);
 ---
 
 <!DOCTYPE html>
@@ -159,12 +71,17 @@ const baseSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
+    <!-- Resource Hints for better performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://github-contributions-api.jogruber.de" />
+    
     <!-- SEO meta tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
-    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
     <meta name="bingbot" content="index, follow" />
     
@@ -268,11 +185,6 @@ const baseSchema = {
       .hover-luxury-gold:hover { background-color: #e8c474; }
       .hover-luxury-text:hover { color: #0b0b0f; }
       
-      /* Loading screen styles */
-      body.loading {
-        overflow: hidden;
-      }
-      
       /* Smooth page transitions */
       * {
         transition: opacity 0.3s ease-in-out;
@@ -281,8 +193,7 @@ const baseSchema = {
     
     <slot name="head" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen loading">
-    <LoadingScreen />
+  <body class="bg-gray-900 text-white min-h-screen">
     
     <!-- Language Switcher -->
     <div class="fixed top-6 left-6 z-50">

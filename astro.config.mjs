@@ -90,5 +90,25 @@ export default defineConfig({
   server: {
     port: 4322,
     host: true
+  },
+  build: {
+    inlineStylesheets: 'auto', // Inline small CSS automatically
+    assets: '_astro' // Organize assets in _astro directory
+  },
+  vite: {
+    build: {
+      cssCodeSplit: true, // Split CSS per page for better caching
+      minify: 'esbuild', // Fast minification
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // Split large libraries into separate chunks
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
+    }
   }
 });
