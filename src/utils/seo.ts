@@ -210,3 +210,45 @@ export function generateAlternateLinks(
         };
     });
 }
+
+/**
+ * Generates FAQ schema for rich snippets
+ */
+export function generateFAQSchema(faqItems: ReadonlyArray<{ question: string; answer: string }>) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map(item => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer
+            }
+        }))
+    };
+}
+
+/**
+ * Generates ProfilePage schema for personal sites
+ */
+export function generateProfilePageSchema(
+    siteUrl: string,
+    name: string,
+    description: string,
+    skills: string[]
+) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        '@id': `${siteUrl}#profilepage`,
+        mainEntity: {
+            '@type': 'Person',
+            '@id': `${siteUrl}#person`,
+            name,
+            description,
+            knowsAbout: skills,
+            url: siteUrl
+        }
+    };
+}
