@@ -157,6 +157,35 @@ const baseSchema = generateBaseSchema(siteLanguages);
         scroll-behavior: smooth;
       }
       
+      /* Samsung Internet browser fixes */
+      @supports (-webkit-overflow-scrolling: touch) {
+        /* Force GPU acceleration for Samsung Internet */
+        * {
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -webkit-perspective: 1000;
+          perspective: 1000;
+        }
+      }
+      
+      /* Prevent flashing and rendering artifacts on Samsung Internet */
+      body {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      /* Fix for gradient rendering on Samsung Internet */
+      [class*="gradient"],
+      [style*="gradient"] {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: auto;
+      }
+      
       /* Custom font utilities */
       .font-playfair { font-family: 'Playfair Display', serif; }
       .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -169,6 +198,8 @@ const baseSchema = generateBaseSchema(siteLanguages);
       
       .animate-fade-in {
         animation: fadeIn 1s ease-out forwards;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
       
       /* Custom luxury colors */

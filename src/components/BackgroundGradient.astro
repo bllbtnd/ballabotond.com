@@ -11,13 +11,13 @@ const { variant = "default" } = Astro.props;
 <!-- Main background gradient -->
 <div
     class="absolute inset-0 -z-10"
-    style={`background: ${DESIGN_TOKENS.gradients.main};`}
+    style={`background: ${DESIGN_TOKENS.gradients.main}; transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; will-change: auto;`}
 >
 </div>
 
 <!-- Subtle pattern overlay -->
 <div
     class="absolute inset-0 opacity-5 pointer-events-none -z-10"
-    style={`background-image: ${DESIGN_TOKENS.gradients.pattern};`}
+    style={`background-image: ${DESIGN_TOKENS.gradients.pattern}; transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; will-change: auto;`}
 >
 </div>

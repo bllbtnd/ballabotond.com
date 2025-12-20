@@ -5,7 +5,8 @@
 
 <canvas
   id="constellation-canvas"
-  class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  class="fixed inset-0 w-full h-full pointer-events-none z-0"
+  style="-webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translateZ(0); transform: translateZ(0); will-change: auto;"></canvas>
 
 <script>
   class ConstellationEffect {
@@ -34,15 +35,21 @@
 
     constructor(canvas: HTMLCanvasElement) {
       this.canvas = canvas;
+      
+      // Detect Samsung Internet
+      const isSamsungBrowser = /SamsungBrowser/i.test(navigator.userAgent);
+      
+      // Use more conservative settings for Samsung Internet
       this.ctx = canvas.getContext("2d", {
-        alpha: true,
-        desynchronized: true, // Better performance
+        alpha: !isSamsungBrowser, // Disable alpha for Samsung to prevent artifacts
+        desynchronized: !isSamsungBrowser, // More conservative for Samsung
+        willReadFrequently: false
       })!;
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.particles = [];
       this.mouse = { x: -1000, y: -1000 };
-      this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+      this.pixelRatio = isSamsungBrowser ? 1 : Math.min(window.devicePixelRatio || 1, 2); // Force 1x on Samsung
 
       // Enhanced low power mode detection
       const connection =
@@ -154,7 +161,14 @@
         }
 
         this.lastFrameTime = currentTime;
+        
+        // Clear canvas properly for Samsung Internet
         this.ctx.clearRect(0, 0, this.width, this.height);
+        // Fill with transparent black for Samsung Internet compatibility
+        if (/SamsungBrowser/i.test(navigator.userAgent)) {
+          this.ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+          this.ctx.fillRect(0, 0, this.width, this.height);
+        }
 
         // Update and draw particles
         this.particles.forEach((particle) => {
