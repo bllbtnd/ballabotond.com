@@ -6,7 +6,18 @@
   },
   "common": {
     "name": "Balla Botond",
-    "tagline": "Creando Soluzioni Senza Tempo",
+    "taglines": [
+      "Dove il Codice Incontra la Filosofia",
+      "Costruire Oltre il Binario",
+      "Creare Contemplazione Digitale",
+      "In Cerca di Verità Elegante",
+      "Progettare Sistemi Ponderati",
+      "Ingegneria di Soluzioni Consapevoli",
+      "Creare con Intenzione",
+      "Tra Logica e Arte",
+      "Architettare Codice Significativo",
+      "Abbracciare Complessità Purposeful"
+    ],
     "subtitle": "Creatore e Innovatore",
     "email": "Email",
     "github": "GitHub",
@@ -144,7 +155,18 @@
     }
   },
   "footer": {
-    "tagline": "Creando esperienze digitali con precisione e passione.",
+    "taglines": [
+      "Soluzioni Strategiche",
+      "Innovazione Consegnata",
+      "Risultati Guidati dalla Tecnologia",
+      "Costruire Futuri Migliori",
+      "Eccellenza Digitale",
+      "L'Esecuzione Conta",
+      "Dalla Visione al Valore",
+      "Innovazione Scalabile",
+      "Impatto Attraverso la Tecnologia",
+      "Soluzioni Che Funzionano"
+    ],
     "navigate": "Naviga",
     "quote": {
       "text": "\"La qualità non è mai accidentale; è sempre il risultato di alta intenzione, sforzo sincero, direzione intelligente ed esecuzione abile.\"",

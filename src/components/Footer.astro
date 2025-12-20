@@ -1,6 +1,7 @@
 ---
 // Footer component for Balla Botond's Astro site
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import RandomTagline from './RandomTagline.astro';
 
 export interface Props {
   variant?: 'full' | 'simple' | 'minimal';
@@ -28,9 +29,11 @@ const translatePath = useTranslatedPath(lang);
             </div>
             <span class="font-playfair text-2xl font-light text-luxury-gold drop-shadow-lg">B</span>
           </div>
-          <p class="font-montserrat text-luxury-gray-dark text-sm">
-            {t('footer.tagline')}
-          </p>
+          <RandomTagline 
+            lang={lang} 
+            source="footer"
+            className="font-montserrat text-luxury-gray-dark text-sm"
+          />
         </div>
 
         <!-- Navigation -->

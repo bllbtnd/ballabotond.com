@@ -7,6 +7,7 @@ import GitHubPulse from "./GitHubPulse.astro";
 import BrandMonogram from "./BrandMonogram.astro";
 import SocialLink from "./SocialLink.astro";
 import BackgroundGradient from "./BackgroundGradient.astro";
+import RandomTagline from "./RandomTagline.astro";
 import {
   getLangFromUrl,
   useTranslations,
@@ -39,12 +40,11 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
     <!-- Brand Monogram -->
     <BrandMonogram size="md" className="mb-8 animate-fade-in" />
 
-    <p
-      class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in"
-      style="animation-delay: 0.3s;"
-    >
-      {t("common.tagline")}
-    </p>
+    <RandomTagline 
+      lang={lang} 
+      source="common"
+      className="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in"
+    />
 
     <!-- Profile Image -->
     <div class="mb-8 animate-fade-in" style="animation-delay: 0.6s;">

@@ -6,7 +6,18 @@
   },
   "common": {
     "name": "Balla Botond",
-    "tagline": "Időtálló Megoldások Alkotása",
+    "taglines": [
+      "Ahol a Kód Találkozik a Filozófiával",
+      "Építkezés a Binárison Túl",
+      "Digitális Elmélkedés Alkotása",
+      "Az Elegáns Igazság Keresésében",
+      "Átgondolt Rendszerek Tervezése",
+      "Tudatos Megoldások Építése",
+      "Szándékos Alkotás",
+      "Logika és Művészet Között",
+      "Értelmes Kód Építése",
+      "Célzatos Komplexitás Elfogadása"
+    ],
     "subtitle": "Alkotó és Innovátor",
     "email": "Email",
     "github": "GitHub",
@@ -150,7 +161,18 @@
     }
   },
   "footer": {
-    "tagline": "Digitális élmények létrehozása precizitással és szenvedéllyel.",
+    "taglines": [
+      "Stratégiai Megoldások",
+      "Innováció Szállítva",
+      "Tech-Vezérelt Eredmények",
+      "Jobb Jövőket Építve",
+      "Digitális Kiválóság",
+      "Megvalósítás Számít",
+      "Víziótól Értékig",
+      "Skálázható Innováció",
+      "Hatás Technológián Keresztül",
+      "Működő Megoldások"
+    ],
     "navigate": "Navigáció",
     "quote": {
       "text": "\"A minőség soha nem véletlen; mindig a komoly szándék, az őszinte erőfeszítés, az intelligens irányítás és a szakszerű kivitelezés eredménye.\"",

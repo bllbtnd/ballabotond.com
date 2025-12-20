@@ -3,6 +3,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
+import RandomTagline from '../../components/RandomTagline.astro';
 import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -115,9 +116,11 @@ import Constellation from '../../components/Constellation.astro';
           <span class="font-playfair text-4xl md:text-6xl font-light text-luxury-gold drop-shadow-2xl">B</span>
         </div>
         
-        <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
-          {t('resume.tagline')}
-        </p>
+        <RandomTagline 
+          lang={typedLang} 
+          source="common"
+          className="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in"
+        />
         
         <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 text-white leading-tight animate-fade-in" style="animation-delay: 0.6s;">
           {t('resume.subtitle')}

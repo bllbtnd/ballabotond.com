@@ -1,0 +1,47 @@
+---
+import { type Languages } from '../i18n/utils';
+import en from '../i18n/en.json';
+import hu from '../i18n/hu.json';
+import it from '../i18n/it.json';
+import zh from '../i18n/zh.json';
+import ja from '../i18n/ja.json';
+
+interface Props {
+  lang: Languages;
+  source?: 'common' | 'footer';
+  className?: string;
+}
+
+const { lang, source = 'common', className = '' } = Astro.props;
+
+// Get all taglines for this language and source
+const translations = { en, hu, it, zh, ja };
+const langTranslations = translations[lang];
+const taglines = (langTranslations as any)[source]?.taglines || [];
+const taglinesJson = JSON.stringify(taglines);
+---
+
+<p class={className} data-taglines={taglinesJson}>
+  {taglines[0] || ''}
+</p>
+
+<script>
+  // Run on page load to randomize taglines
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('[data-taglines]');
+    elements.forEach((element) => {
+      const taglinesData = element.getAttribute('data-taglines');
+      if (taglinesData) {
+        try {
+          const taglines = JSON.parse(taglinesData);
+          if (Array.isArray(taglines) && taglines.length > 0) {
+            const randomIndex = Math.floor(Math.random() * taglines.length);
+            element.textContent = taglines[randomIndex];
+          }
+        } catch (e) {
+          console.error('Failed to parse taglines:', e);
+        }
+      }
+    });
+  });
+</script>

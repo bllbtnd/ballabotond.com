@@ -6,6 +6,7 @@ import Constellation from '../../components/Constellation.astro';
 import BackgroundGradient from '../../components/BackgroundGradient.astro';
 import BrandMonogram from '../../components/BrandMonogram.astro';
 import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
+import RandomTagline from '../../components/RandomTagline.astro';
 import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
 import type { Project, StatusBadge } from '../../types';
 
@@ -251,9 +252,11 @@ const getStatusBadge = (status: string) => {
         <!-- Brand Monogram -->
         <BrandMonogram size="sm" className="mb-8 animate-fade-in" />
         
-        <p class="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in" style="animation-delay: 0.3s;">
-          {t('projects.tagline')}
-        </p>
+        <RandomTagline 
+          lang={typedLang} 
+          source="common"
+          className="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-6 animate-fade-in"
+        />
         
         <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 text-white leading-tight animate-fade-in" style="animation-delay: 0.6s;">
           {t('projects.subtitle')}

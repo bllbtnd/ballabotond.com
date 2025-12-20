@@ -6,7 +6,18 @@
   },
   "common": {
     "name": "Balla Botond",
-    "tagline": "Crafting Timeless Solutions",
+    "taglines": [
+      "Where Code Meets Philosophy",
+      "Building Beyond the Binary",
+      "Crafting Digital Contemplation",
+      "In Pursuit of Elegant Truth",
+      "Designing Thoughtful Systems",
+      "Engineering Mindful Solutions",
+      "Creating with Intention",
+      "Between Logic and Art",
+      "Architecting Meaningful Code",
+      "Embracing Purposeful Complexity"
+    ],
     "subtitle": "Creator & Innovator",
     "email": "Email",
     "github": "GitHub",
@@ -150,7 +161,18 @@
     }
   },
   "footer": {
-    "tagline": "Crafting digital experiences with precision and passion.",
+    "taglines": [
+      "Strategic Solutions",
+      "Innovation Delivered",
+      "Tech-Driven Results",
+      "Building Better Futures",
+      "Digital Excellence",
+      "Execution Matters",
+      "Vision to Value",
+      "Scalable Innovation",
+      "Impact Through Technology",
+      "Solutions That Work"
+    ],
     "navigate": "Navigate",
     "quote": {
       "text": "\"Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution.\"",
