@@ -155,6 +155,8 @@ const baseSchema = generateBaseSchema(siteLanguages);
       /* Smooth scrolling for all elements */
       html {
         scroll-behavior: smooth;
+        width: 100%;
+        overflow-x: hidden;
       }
       
       /* Samsung Internet browser fixes */
@@ -172,8 +174,7 @@ const baseSchema = generateBaseSchema(siteLanguages);
       body {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+        /* Removed transform to fix modal centering */
       }
       
       /* Fix for gradient rendering on Samsung Internet */
@@ -181,8 +182,6 @@ const baseSchema = generateBaseSchema(siteLanguages);
       [style*="gradient"] {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
         will-change: auto;
       }
       
@@ -224,7 +223,7 @@ const baseSchema = generateBaseSchema(siteLanguages);
     
     <slot name="head" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen">
+  <body class="bg-gray-900 text-white min-h-screen" style="overflow-x: hidden;">
     
     <!-- Language Switcher -->
     <div class="fixed top-6 left-6 z-50">

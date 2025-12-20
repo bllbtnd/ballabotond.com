@@ -6,9 +6,34 @@
 <canvas
   id="constellation-canvas"
   class="fixed inset-0 w-full h-full pointer-events-none z-0"
-  style="background: transparent; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0);"></canvas>
+  style="background: transparent; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); transition: opacity 0.5s ease-out;"></canvas>
 
 <script>
+  // Fade out constellation on scroll
+  function updateConstellationOpacity() {
+    const canvas = document.getElementById('constellation-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fadeStart = windowHeight * 0.3; // Start fading at 30% of viewport
+    const fadeEnd = windowHeight * 1.2; // Fully faded at 120% of viewport
+    
+    if (scrollY <= fadeStart) {
+      canvas.style.opacity = '1';
+    } else if (scrollY >= fadeEnd) {
+      canvas.style.opacity = '0';
+    } else {
+      const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+      canvas.style.opacity = String(1 - fadeProgress);
+    }
+  }
+
+  // Update on scroll
+  window.addEventListener('scroll', updateConstellationOpacity, { passive: true });
+  // Initial check
+  updateConstellationOpacity();
+  
   class ConstellationEffect {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
@@ -124,8 +149,9 @@
       });
 
       document.addEventListener("mousemove", (e) => {
+        // Account for scroll position
         this.mouse.x = e.clientX;
-        this.mouse.y = e.clientY;
+        this.mouse.y = e.clientY; // Keep it relative to viewport, not page
       });
 
       document.addEventListener("mouseleave", () => {
