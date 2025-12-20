@@ -21,7 +21,7 @@ const taglines = (langTranslations as any)[source]?.taglines || [];
 const taglinesJson = JSON.stringify(taglines);
 ---
 
-<p class={className} data-taglines={taglinesJson}>
+<p class={className} data-taglines={taglinesJson} style="white-space: nowrap;">
   {taglines[0] || ''}
 </p>
 
