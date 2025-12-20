@@ -1,0 +1,45 @@
+---
+// Floating Home Navigation - Simple home button
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+---
+
+<a 
+  href={translatePath('/')} 
+  class="floating-home-nav"
+  aria-label="Return to home"
+>
+  <i class="fas fa-home"></i>
+</a>
+
+<style>
+  .floating-home-nav {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 100;
+    font-size: 20px;
+    color: #c9a96b;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .floating-home-nav:hover {
+    color: #e8c474;
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    .floating-home-nav {
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 18px;
+    }
+  }
+</style>

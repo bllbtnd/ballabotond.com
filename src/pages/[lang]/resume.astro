@@ -2,6 +2,7 @@
 // Resume page for Balla Botond's Astro site
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
+import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
 import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -87,15 +88,8 @@ import Constellation from '../../components/Constellation.astro';
   <script slot="head" type="application/ld+json" is:inline>
     {JSON.stringify(structuredData)}
   </script>
-  <!-- Navigation -->
-  <nav class="fixed top-6 right-6 z-50">
-    <a href={translatePath('/')} 
-       class="group flex items-center gap-3 px-6 py-3 rounded-full bg-gray-900 bg-opacity-80 backdrop-blur-sm border border-luxury-gold hover:bg-luxury-gold hover:border-luxury-gold text-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
-       aria-label="Go to Home">
-      <i class="fas fa-home text-lg group-hover:scale-110 transition-transform duration-300"></i>
-      <span class="font-montserrat font-medium text-sm uppercase tracking-wider">{t('nav.home')}</span>
-    </a>
-  </nav>
+  <!-- Floating Home Navigation -->
+  <FloatingHomeNav />
 
   <!-- Main container -->
   <div class="relative min-h-screen flex flex-col" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">

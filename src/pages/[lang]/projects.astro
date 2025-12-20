@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Constellation from '../../components/Constellation.astro';
 import BackgroundGradient from '../../components/BackgroundGradient.astro';
 import BrandMonogram from '../../components/BrandMonogram.astro';
-import Navigation from '../../components/Navigation.astro';
+import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
 import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
 import type { Project, StatusBadge } from '../../types';
 
@@ -230,8 +230,8 @@ const getStatusBadge = (status: string) => {
     {JSON.stringify(structuredData)}
   </script>
   
-  <!-- Navigation -->
-  <Navigation currentLang={typedLang} variant="home" label={t('nav.home')} />
+  <!-- Floating Home Navigation -->
+  <FloatingHomeNav />
 
   <!-- Main container -->
   <div class="relative min-h-screen flex flex-col">
