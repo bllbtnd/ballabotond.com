@@ -215,6 +215,16 @@ const baseSchema = generateBaseSchema(siteLanguages);
       .hover-luxury-gold:hover { background-color: #e8c474; }
       .hover-luxury-text:hover { color: #0b0b0f; }
       
+      /* Page fade-in effect */
+      body {
+        animation: pageFadeIn 0.5s ease-in-out;
+      }
+      
+      @keyframes pageFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
       /* Smooth page transitions */
       * {
         transition: opacity 0.3s ease-in-out;
