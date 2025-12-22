@@ -20,7 +20,28 @@ export default defineConfig({
           zh: 'zh-CN',
           ja: 'ja-JP'
         }
-      }
+      },
+      filter: (page) => !page.includes('/404'),
+      customPages: [
+        'https://ballabotond.com/en/',
+        'https://ballabotond.com/en/projects/',
+        'https://ballabotond.com/en/resume/',
+        'https://ballabotond.com/hu/',
+        'https://ballabotond.com/hu/projects/',
+        'https://ballabotond.com/hu/resume/',
+        'https://ballabotond.com/it/',
+        'https://ballabotond.com/it/projects/',
+        'https://ballabotond.com/it/resume/',
+        'https://ballabotond.com/zh/',
+        'https://ballabotond.com/zh/projects/',
+        'https://ballabotond.com/zh/resume/',
+        'https://ballabotond.com/ja/',
+        'https://ballabotond.com/ja/projects/',
+        'https://ballabotond.com/ja/resume/'
+      ],
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date()
     }),
     partytown({
       config: {
