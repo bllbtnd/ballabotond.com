@@ -6,6 +6,10 @@
   },
   "common": {
     "name": "Balla Botond",
+    "easterEggs": {
+      "welcomeBack": "欢迎回来，鉴赏家",
+      "patience": "耐心是一种美德"
+    },
     "taglines": [
       "代码与哲学的交汇",
       "超越二进制的构建",

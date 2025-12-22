@@ -6,6 +6,10 @@
   },
   "common": {
     "name": "Balla Botond",
+    "easterEggs": {
+      "welcomeBack": "お帰りなさい、目利き",
+      "patience": "忍耐は美徳なり"
+    },
     "taglines": [
       "コードと哲学が出会う場所",
       "バイナリを超えた構築",

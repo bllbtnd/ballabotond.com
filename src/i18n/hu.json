@@ -6,6 +6,10 @@
   },
   "common": {
     "name": "Balla Botond",
+    "easterEggs": {
+      "welcomeBack": "Üdv újra, kenner",
+      "patience": "A türelem rózsát terem"
+    },
     "taglines": [
       "Ahol a Kód Találkozik a Filozófiával",
       "Építkezés a Binárison Túl",

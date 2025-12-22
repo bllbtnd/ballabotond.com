@@ -6,6 +6,10 @@
   },
   "common": {
     "name": "Balla Botond",
+    "easterEggs": {
+      "welcomeBack": "Welcome back, connoisseur",
+      "patience": "Patience is a virtue"
+    },
     "taglines": [
       "Where Code Meets Philosophy",
       "Building Beyond the Binary",

@@ -1,0 +1,134 @@
+---
+// Subtle Easter Eggs: The Fourth Dimension & Silent Observer
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const locale = await import(`../i18n/${lang}.json`).then(m => m.default);
+---
+
+<script define:vars={{ easterEggs: locale.common.easterEggs }}>
+  const VISIT_KEY = 'balla_visit_count';
+  const OBSERVER_KEY = 'balla_observer_activated';
+  
+  // Fourth Dimension - Track visits
+  function checkVisitCount() {
+    const visits = parseInt(localStorage.getItem(VISIT_KEY) || '0');
+    const newVisits = visits + 1;
+    localStorage.setItem(VISIT_KEY, newVisits.toString());
+    
+    // Show on 4th visit, then every 5 visits after (4, 9, 14, 19, etc.)
+    if (newVisits === 4 || (newVisits > 4 && (newVisits - 4) % 5 === 0)) {
+      setTimeout(() => {
+        // Find tagline elements
+        const taglines = document.querySelectorAll('[data-taglines], .font-montserrat.text-sm.uppercase');
+        
+        taglines.forEach(el => {
+          if (el.textContent && (el.classList.contains('tracking-widest') || el.getAttribute('data-taglines'))) {
+            const originalText = el.textContent;
+            
+            // Fade out
+            el.style.transition = 'opacity 1s ease-in-out';
+            el.style.opacity = '0';
+            
+            setTimeout(() => {
+              el.textContent = easterEggs.welcomeBack;
+              el.style.opacity = '1';
+              
+              // Revert after 10 seconds
+              setTimeout(() => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                  el.textContent = originalText;
+                  el.style.opacity = '1';
+                }, 1000);
+              }, 10000);
+            }, 1000);
+          }
+        });
+      }, 3000);
+    }
+  }
+  
+  // Silent Observer - Stay 60 seconds without interaction
+  let observerTimer = null;
+  let hasScrolled = false;
+  let hasClicked = false;
+  let isHomePage = false;
+  
+  function startObserverTimer() {
+    // Check if we're on homepage
+    isHomePage = window.location.pathname === '/' || window.location.pathname.match(/^\/(en|hu|it|zh|ja)\/?$/) !== null;
+    
+    if (!isHomePage) return;
+    
+    const alreadyActivated = sessionStorage.getItem(OBSERVER_KEY);
+    if (alreadyActivated) return;
+    
+    observerTimer = setTimeout(() => {
+      if (!hasScrolled && !hasClicked) {
+        activateObserver();
+      }
+    }, 60000); // 60 seconds
+  }
+  
+  function activateObserver() {
+    sessionStorage.setItem(OBSERVER_KEY, 'true');
+    
+    // Find tagline elements (both regular and RandomTagline)
+    const taglines = document.querySelectorAll('[data-taglines], .font-montserrat.text-sm.uppercase');
+    
+    taglines.forEach(el => {
+      if (el.textContent && (el.classList.contains('tracking-widest') || el.getAttribute('data-taglines'))) {
+        const originalText = el.textContent;
+        
+        // Fade out
+        el.style.transition = 'opacity 1s ease-in-out';
+        el.style.opacity = '0';
+        
+        setTimeout(() => {
+          el.textContent = easterEggs.patience;
+          el.style.opacity = '1';
+          
+          // Revert after 5 seconds
+          setTimeout(() => {
+            el.style.opacity = '0';
+            setTimeout(() => {
+              el.textContent = originalText;
+              el.style.opacity = '1';
+            }, 1000);
+          }, 5000);
+        }, 1000);
+      }
+    });
+  }
+  
+  function cancelObserver() {
+    if (observerTimer) {
+      clearTimeout(observerTimer);
+      observerTimer = null;
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Fourth Dimension
+    checkVisitCount();
+    
+    // Silent Observer
+    startObserverTimer();
+    
+    // Track interactions
+    window.addEventListener('scroll', () => {
+      if (!hasScrolled) {
+        hasScrolled = true;
+        cancelObserver();
+      }
+    }, { once: true });
+    
+    document.addEventListener('click', () => {
+      if (!hasClicked) {
+        hasClicked = true;
+        cancelObserver();
+      }
+    }, { once: true });
+  });
+</script>

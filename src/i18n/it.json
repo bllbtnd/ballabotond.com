@@ -6,6 +6,10 @@
   },
   "common": {
     "name": "Balla Botond",
+    "easterEggs": {
+      "welcomeBack": "Ben tornato, intenditore",
+      "patience": "La pazienza è una virtù"
+    },
     "taglines": [
       "Dove il Codice Incontra la Filosofia",
       "Costruire Oltre il Binario",

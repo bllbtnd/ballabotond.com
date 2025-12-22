@@ -1,6 +1,7 @@
 ---
 // Main site layout for Balla Botond, using luxury palette and modern fonts
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import SubtleEasterEggs from '../components/SubtleEasterEggs.astro';
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource/playfair-display';
@@ -239,6 +240,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <div class="fixed top-6 left-6 z-50">
       <LanguageSwitcher currentLang={lang} />
     </div>
+    
+    <!-- Subtle Easter Eggs -->
+    <SubtleEasterEggs />
     
     <slot />
   </body>
