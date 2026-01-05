@@ -14,7 +14,6 @@ import {
   useTranslatedPath,
 } from "../i18n/utils";
 import { SOCIAL_LINKS } from "../config/constants";
-import profileImage from "../assets/images/image.png";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -51,8 +50,8 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
       <div
         class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl"
       >
-        <Image
-          src={profileImage}
+        <img
+          src="/assets/images/profile.webp"
           alt="Balla Botond Profile Picture"
           class="w-full h-full object-cover"
           loading="eager"

@@ -14,7 +14,7 @@ const typedLang = lang as keyof typeof languages;
 const t = useTranslations(typedLang);
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
 const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
-const heroImage = `${siteOrigin}/assets/images/image.png`;
+const heroImage = `${siteOrigin}/assets/images/profile.webp`;
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',

@@ -36,7 +36,7 @@ export function generatePersonSchema(): SchemaOrgPerson {
         alternateName: ['Botond Balla', 'bllbtnd'],
         description: SITE_CONFIG.description,
         url: SITE_CONFIG.url,
-        image: `${SITE_CONFIG.url}/assets/images/image.png`,
+        image: `${SITE_CONFIG.url}/assets/images/profile.webp`,
         sameAs: [...SCHEMA_SAME_AS_LINKS],
         jobTitle: 'Software Developer',
         alumniOf: {
