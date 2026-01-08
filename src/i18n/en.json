@@ -69,6 +69,11 @@
       "description": "Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought \"toy\", but now quite a few people started playing on it. It runs on a Raspberry Pi 5 on a home network.",
       "button": "Copy Server IP"
     },
+    "website": {
+      "title": "Personal Website",
+      "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect.",
+      "button": "View Source Code"
+    },
     "category": {
       "webapps": "Web Apps",
       "mobile": "Mobile Apps",

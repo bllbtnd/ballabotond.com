@@ -82,6 +82,16 @@ const projects = [
     icon: 'fas fa-cube',
     status: 'past',
     copyToClipboard: true
+  },
+  {
+    id: 'website',
+    category: t('projects.category.webapps'),
+    title: t('projects.website.title'),
+    description: t('projects.website.description'),
+    buttonText: t('projects.website.button'),
+    url: 'https://github.com/bllbtnd/ballabotond.com',
+    icon: 'fas fa-globe',
+    status: 'active'
   }
 ];
 
@@ -140,6 +150,18 @@ const projectSchemaDetails: Record<string, Record<string, unknown>> = {
       '@type': 'GameServer',
       serverStatus: 'https://schema.org/OfflineTemporarily',
       playersOnline: 0
+    }
+  },
+  'website': {
+    '@type': 'WebSite',
+    applicationCategory: 'WebApplication',
+    operatingSystem: 'Web',
+    downloadUrl: 'https://github.com/bllbtnd/ballabotond.com',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
     }
   }
 };

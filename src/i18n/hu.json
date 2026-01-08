@@ -69,6 +69,11 @@
       "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel, ami tesztként indult az újonnan vásárolt \"játékom\" képességeinek ellenőrzésére, de most már elég sokan játszanak rajta. Raspberry Pi 5-ön fut otthoni hálózaton.",
       "button": "Szerver IP másolása"
     },
+    "website": {
+      "title": "Személyes Weboldal",
+      "description": "Ez a weboldal - egy személyes portfólió Astro-val építve, modern dizájnnal és nemzetköziesítési támogatással. Bemutatja projektjeimet, önéletrajzomat és platformot biztosít a kapcsolatfelvételre.",
+      "button": "Forráskód Megtekintése"
+    },
     "category": {
       "webapps": "Webalkalmazások",
       "mobile": "Mobilalkalmazások",
