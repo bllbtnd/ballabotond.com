@@ -21,9 +21,34 @@ const taglines = (langTranslations as any)[source]?.taglines || [];
 const taglinesJson = JSON.stringify(taglines);
 ---
 
-<p class={className} data-taglines={taglinesJson} style="white-space: nowrap;">
+<p class={`tagline-responsive ${className}`} data-taglines={taglinesJson}>
   {taglines[0] || ''}
 </p>
+
+<style>
+  .tagline-responsive {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+  }
+  
+  /* Mobile optimization - scale down text if needed */
+  @media (max-width: 640px) {
+    .tagline-responsive {
+      font-size: clamp(0.65rem, 3vw, 0.875rem);
+      letter-spacing: 0.1em;
+    }
+  }
+  
+  /* Tablet */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .tagline-responsive {
+      font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+    }
+  }
+</style>
 
 <script>
   // Run on page load to randomize taglines
