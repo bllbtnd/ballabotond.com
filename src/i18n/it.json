@@ -74,6 +74,11 @@
       "description": "Questo sito web - un portfolio personale costruito con Astro, con un design moderno e supporto per l'internazionalizzazione. Mostra i miei progetti, curriculum e fornisce una piattaforma per connettersi.",
       "button": "Vedi Codice Sorgente"
     },
+    "tarckit": {
+      "title": "I Nostri Progetti di Gruppo",
+      "description": "Pagina promozionale che presenta i progetti e le applicazioni innovative del nostro gruppo. Esplora il nostro lavoro collaborativo nel monitoraggio del fitness, tecnologia sanitaria e varie iniziative di sviluppo.",
+      "button": "Visita il Sito"
+    },
     "category": {
       "webapps": "App Web",
       "mobile": "App Mobile",

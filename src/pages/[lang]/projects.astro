@@ -92,6 +92,16 @@ const projects = [
     url: 'https://github.com/bllbtnd/ballabotond.com',
     icon: 'fas fa-globe',
     status: 'active'
+  },
+  {
+    id: 'tarckit',
+    category: t('projects.category.webapps'),
+    title: t('projects.tarckit.title'),
+    description: t('projects.tarckit.description'),
+    buttonText: t('projects.tarckit.button'),
+    url: 'https://tarckit.com/',
+    icon: 'fas fa-dumbbell',
+    status: 'active'
   }
 ];
 
@@ -157,6 +167,18 @@ const projectSchemaDetails: Record<string, Record<string, unknown>> = {
     applicationCategory: 'WebApplication',
     operatingSystem: 'Web',
     downloadUrl: 'https://github.com/bllbtnd/ballabotond.com',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
+    }
+  },
+  'tarckit': {
+    '@type': 'WebPage',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Web',
+    downloadUrl: 'https://tarckit.com/',
     offers: {
       '@type': 'Offer',
       price: '0',

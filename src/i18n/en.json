@@ -74,6 +74,11 @@
       "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect.",
       "button": "View Source Code"
     },
+    "tarckit": {
+      "title": "Our Group Projects",
+      "description": "Promotional landing page showcasing our group's innovative projects and applications. Explore our collaborative work in fitness tracking, health tech, and various development initiatives.",
+      "button": "Visit Website"
+    },
     "category": {
       "webapps": "Web Apps",
       "mobile": "Mobile Apps",

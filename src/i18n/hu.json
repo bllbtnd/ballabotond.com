@@ -74,6 +74,11 @@
       "description": "Ez a weboldal - egy személyes portfólió Astro-val építve, modern dizájnnal és nemzetköziesítési támogatással. Bemutatja projektjeimet, önéletrajzomat és platformot biztosít a kapcsolatfelvételre.",
       "button": "Forráskód Megtekintése"
     },
+    "tarckit": {
+      "title": "Csoportunk Projektjei",
+      "description": "Promóciós bemutató oldal, amely csapatunk innovatív projektjeit és alkalmazásait mutatja be. Fedezd fel együttműködési munkánkat a fitness követés, egészségügyi technológia és különböző fejlesztési kezdeményezések terén.",
+      "button": "Weboldal Meglátogatása"
+    },
     "category": {
       "webapps": "Webalkalmazások",
       "mobile": "Mobilalkalmazások",
