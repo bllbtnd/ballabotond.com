@@ -5,7 +5,7 @@
     },
     {
         "title": "Interstellar",
-        "rating": 9
+        "rating": 9.5
     },
     {
         "title": "The Silence of the Lambs",
@@ -37,7 +37,7 @@
     },
     {
         "title": "Star Wars: Episode VII – The Force Awakens",
-        "rating": 5
+        "rating": 5.5
     },
     {
         "title": "Star Wars: Episode VIII – The Last Jedi",
@@ -57,15 +57,15 @@
     },
     {
         "title": "Avatar: Fire and Ash",
-        "rating": 8
-    },
-    {
-        "title": "Charlie Wilson's War",
         "rating": 8.5
     },
     {
-        "title": "James Bond: Casino Royale",
+        "title": "Charlie Wilson's War",
         "rating": 9
+    },
+    {
+        "title": "James Bond: Casino Royale",
+        "rating": 9.5
     },
     {
         "title": "James Bond: Quantum of Solace",
@@ -89,7 +89,7 @@
     },
     {
         "title": "The DaVinci Code",
-        "rating": 8
+        "rating": 8.5
     },
     {
         "title": "Angels & Demons",
@@ -113,7 +113,7 @@
     },
     {
         "title": "1917",
-        "rating": 9
+        "rating": 9.5
     },
     {
         "title": "Dune",
@@ -133,11 +133,11 @@
     },
     {
         "title": "Maze Runner",
-        "rating": 6
+        "rating": 5.5
     },
     {
         "title": "The ballad of Buster Scruggs",
-        "rating": 9
+        "rating": 9.5
     },
     {
         "title": "The Menu",
