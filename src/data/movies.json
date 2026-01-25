@@ -154,5 +154,29 @@
     {
         "title": "Futni mentem",
         "rating": 7
+    },
+    {
+        "title": "Alien",
+        "rating": 9
+    },
+    {
+        "title": "Prometheus",
+        "rating": 8
+    },
+    {
+        "title": "Alien: Covenant",
+        "rating": 8
+    },
+    {
+        "title": "Alien: Romulus",
+        "rating": 8.5
+    },
+    {
+        "title": "The Thursday Murder Club",
+        "rating": 7.5
+    },
+    {
+        "title": "Glass Onion",
+        "rating": 7
     }
 ]
