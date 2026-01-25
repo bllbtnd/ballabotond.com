@@ -39,6 +39,10 @@
     "keywords": "Balla Botond, Botond Balla, fejlesztő, trackit, szoftverfejlesztő, webfejlesztő, személyes weboldal, portfólió, bllbtnd, programozás, innováció, Magyarország, tech, projektek, GitHub, Boti, Balla Boti",
     "bio": "Mind a munkában, mind a szabadidőben igényes megközelítést alkalmazok, és olyan élmények és megoldások felé gravitálok, amelyek átgondoltan épültek fel és időtálló vonzerővel bírnak. Projektjeim a megalapozott módszerek tiszteletét tükrözik, kiegyensúlyozva az innováció és a precizitás iránti törekvéssel. Inspirációt merítek a jól megalkotott dolgok mesterségéből - legyen szó egy robusztus alkalmazás struktúrájáról, egy ritka whisky réteges ízeiről, vagy a fény és árnyék játékáról. Számomra a minőség soha nem véletlen; szándék, figyelem és az időt álló részletek megbecsülésének eredménye."
   },
+  "movies": {
+    "title": "Film Értékelések",
+    "description": "Személyes mozi krónikám"
+  },
   "projects": {
     "title": "Projektek | Balla Botond",
     "tagline": "Precízen Megalkotva",

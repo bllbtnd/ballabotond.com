@@ -9,6 +9,7 @@ import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
 import RandomTagline from '../../components/RandomTagline.astro';
 import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
 import type { Project, StatusBadge } from '../../types';
+import projectsData from '../../data/projects.json';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -31,79 +32,20 @@ const resolveProjectUrl = (url: string, id: string) => {
   return `https://${url}`;
 };
 
-const projects = [
-  {
-    id: 'vortex-chat',
-    category: t('projects.category.mobile'),
-    title: t('projects.vortex.title'),
-    description: t('projects.vortex.description'),
-    buttonText: t('projects.vortex.button'),
-    url: 'https://vortex.ballabotond.com/',
-    icon: 'fas fa-comments',
-    status: 'active'
-  },
-  {
-    id: 'kki-calculator',
-    category: t('projects.category.webapps'),
-    title: t('projects.kki.title'),
-    description: t('projects.kki.description'),
-    buttonText: t('projects.kki.button'),
-    url: 'https://kki.ballabotond.com',
-    icon: 'fas fa-brain',
-    status: 'active'
-  },
-  {
-    id: 'finance-tracker',
-    category: t('projects.category.webapps'),
-    title: t('projects.finance.title'),
-    description: t('projects.finance.description'),
-    buttonText: t('projects.finance.button'),
-    url: 'https://github.com/apptrackit/finance',
-    icon: 'fas fa-chart-line',
-    status: 'active'
-  },
-  {
-    id: 'trackit-app',
-    category: t('projects.category.health'),
-    title: t('projects.trackit.title'),
-    description: t('projects.trackit.description'),
-    buttonText: t('projects.trackit.button'),
-    url: '',
-    icon: 'fas fa-weight',
-    status: 'coming-soon'
-  },
-  {
-    id: 'minecraft-server',
-    category: t('projects.category.gaming'),
-    title: t('projects.minecraft.title'),
-    description: t('projects.minecraft.description'),
-    buttonText: t('projects.minecraft.button'),
-    url: 'mcserver.ballabotond.com',
-    icon: 'fas fa-cube',
-    status: 'past',
-    copyToClipboard: true
-  },
-  {
-    id: 'website',
-    category: t('projects.category.webapps'),
-    title: t('projects.website.title'),
-    description: t('projects.website.description'),
-    buttonText: t('projects.website.button'),
-    url: 'https://github.com/bllbtnd/ballabotond.com',
-    icon: 'fas fa-globe',
-    status: 'active'
-  },
-  {
-    id: 'tarckit',
-    category: t('projects.category.webapps'),
-    title: t('projects.tarckit.title'),
-    description: t('projects.tarckit.description'),
-    buttonText: t('projects.tarckit.button'),
-    url: 'https://tarckit.com/',
-    icon: 'fas fa-dumbbell',
-    status: 'active'
-  }
-];
+const projects = projectsData.map((project) => {
+  const localizedUrl = project.url?.startsWith('/') ? translatePath(project.url) : project.url;
+  return {
+    id: project.id,
+    category: project.categoryKey ? t(project.categoryKey as any) : (project as any).category || '',
+    title: project.titleKey ? t(project.titleKey as any) : (project as any).title || '',
+    description: project.descriptionKey ? t(project.descriptionKey as any) : (project as any).description || '',
+    buttonText: project.buttonKey ? t(project.buttonKey as any) : (project as any).buttonText || '',
+    url: localizedUrl || '',
+    icon: project.icon,
+    status: project.status,
+    copyToClipboard: project.copyToClipboard
+  } as Project;
+});
 
 const projectSchemaDetails: Record<string, Record<string, unknown>> = {
   'vortex-chat': {
@@ -358,7 +300,7 @@ const getStatusBadge = (status: string) => {
                 disabled={isButtonDisabled}
                 onclick={isButtonDisabled ? '' : (project.copyToClipboard ? 
                   `navigator.clipboard.writeText('${project.url}'); alert('${lang === 'hu' ? 'Szerver IP másolva a vágólapra!' : lang === 'it' ? 'IP server copiato negli appunti!' : 'Server IP copied to clipboard!'}');` : 
-                  `window.open('${project.url}', '_blank')`)}
+                  (project.url.startsWith('/') ? `window.location.href='${project.url}'` : `window.open('${project.url}', '_blank')`))}
               >
                 {project.buttonText}
               </button>

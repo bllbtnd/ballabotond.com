@@ -1,0 +1,381 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
+import { useTranslations, languages, type Languages } from '../../i18n/utils';
+import moviesData from '../../data/movies.json';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const typedLang = lang as Languages;
+const t = useTranslations(typedLang);
+
+const allMovies = moviesData;
+---
+
+<Layout 
+  title="Movie Ratings - Balla Botond"
+  description="My personal movie ratings and reviews"
+  keywords="movies, ratings, reviews, cinema"
+>
+  <!-- Floating Home Navigation -->
+  <FloatingHomeNav />
+
+  <main class="min-h-screen pt-32 pb-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <!-- Header -->
+      <div class="mb-12 text-center">
+        <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 pb-2 text-white leading-tight">
+          {t('movies.title')}
+        </h1>
+        <p class="font-montserrat text-lg text-luxury-gray">
+          {t('movies.description')}
+        </p>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="mb-8 bg-gradient-to-br from-[#1d0f2f]/80 via-[#0f1b2d]/80 to-[#0a1c24]/80 backdrop-blur-md rounded-2xl p-6 border border-[#2c2140] shadow-lg shadow-[#0f1020]/40">
+        <div class="flex flex-wrap gap-4 items-center justify-between">
+          <!-- Rating Filter -->
+          <div class="flex-1 min-w-[250px]">
+            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-3">
+              Filter by Rating
+            </label>
+            <div class="flex gap-2 flex-wrap" id="rating-filters">
+              <button data-rating="all" class="rating-btn active px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+                All
+              </button>
+              <button data-rating="9" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+                9+
+              </button>
+              <button data-rating="8" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+                8+
+              </button>
+              <button data-rating="7" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+                7+
+              </button>
+            </div>
+          </div>
+
+          <!-- Sort Controls -->
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
+              Sort by
+            </label>
+            <select id="sort-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+              <option value="rating-desc">Highest Rated</option>
+              <option value="rating-asc">Lowest Rated</option>
+              <option value="title-asc">Title (A-Z)</option>
+              <option value="title-desc">Title (Z-A)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div class="mt-4">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search movies..." 
+            class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat placeholder-gray-400 focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all"
+          />
+        </div>
+      </div>
+
+      <!-- Movies Grid -->
+      <div id="movies-container" class="space-y-3 mb-8">
+        <!-- Movies will be rendered here by JavaScript -->
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination" class="flex justify-center items-center gap-2">
+        <!-- Pagination will be rendered here by JavaScript -->
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer Component -->
+  <Footer variant="full" />
+</Layout>
+
+<style>
+  .rating-btn {
+    @apply bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .rating-btn.active {
+    @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold shadow-lg;
+  }
+
+  .movie-card {
+    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl p-6 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40;
+  }
+
+  .rating-circles {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .rating-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid;
+    transition: all 0.3s ease;
+  }
+
+  .rating-circle.filled {
+    background: radial-gradient(circle at 30% 30%, #fff6d7 0%, #f4c064 45%, #e3a93a 100%);
+    border-color: #f4c064;
+    box-shadow: 0 0 10px rgba(244, 192, 100, 0.6);
+  }
+
+  .rating-circle.half {
+    border-color: #f4c064;
+    background: linear-gradient(90deg, rgba(244, 192, 100, 1) 50%, transparent 50%);
+    box-shadow: 0 0 8px rgba(244, 192, 100, 0.5);
+  }
+
+  .rating-circle.empty {
+    border-color: #3e4555;
+    background: transparent;
+  }
+
+  .rating-value {
+    @apply text-luxury-gold font-montserrat font-semibold text-sm px-2 py-1 rounded-full border border-luxury-gold/50 bg-white/5;
+    letter-spacing: 0.02em;
+  }
+
+  .page-btn {
+    @apply px-4 py-2 rounded-lg font-medium font-montserrat transition-all duration-200 bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .page-btn.active {
+    @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold;
+  }
+</style>
+
+<script define:vars={{ allMovies }}>
+  // Round rating to nearest 0.5
+  function roundRating(rating) {
+    return Math.round(rating * 2) / 2;
+  }
+
+  let movies = allMovies.map(movie => ({
+    ...movie,
+    rating: roundRating(movie.rating)
+  }));
+  let filteredMovies = [...movies];
+  let currentPage = 1;
+  const moviesPerPage = 12;
+  let currentRatingFilter = 'all';
+  let currentSort = 'rating-desc';
+  let searchQuery = '';
+
+  // Generate rating circles HTML
+  function generateRatingCircles(rating) {
+    let circles = '';
+    const roundedRating = roundRating(rating);
+    
+    for (let i = 1; i <= 10; i++) {
+      if (i <= Math.floor(roundedRating)) {
+        circles += '<div class="rating-circle filled"></div>';
+      } else if (i === Math.ceil(roundedRating) && roundedRating % 1 !== 0) {
+        circles += '<div class="rating-circle half"></div>';
+      } else {
+        circles += '<div class="rating-circle empty"></div>';
+      }
+    }
+    
+    return circles;
+  }
+
+  // Filter movies
+  function filterMovies() {
+    filteredMovies = movies.filter(movie => {
+      // Rating filter
+      const ratingMatch = currentRatingFilter === 'all' || movie.rating >= parseFloat(currentRatingFilter);
+      
+      // Search filter
+      const searchMatch = searchQuery === '' || 
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return ratingMatch && searchMatch;
+    });
+
+    // Sort movies
+    sortMovies();
+    
+    // Reset to first page
+    currentPage = 1;
+    renderMovies();
+    renderPagination();
+  }
+
+  // Sort movies
+  function sortMovies() {
+    switch(currentSort) {
+      case 'rating-desc':
+        filteredMovies.sort((a, b) => b.rating - a.rating);
+        break;
+      case 'rating-asc':
+        filteredMovies.sort((a, b) => a.rating - b.rating);
+        break;
+      case 'title-asc':
+        filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'title-desc':
+        filteredMovies.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+    }
+  }
+
+  // Render movies
+  function renderMovies() {
+    const container = document.getElementById('movies-container');
+    const start = (currentPage - 1) * moviesPerPage;
+    const end = start + moviesPerPage;
+    const moviesToShow = filteredMovies.slice(start, end);
+
+    if (moviesToShow.length === 0) {
+      container.innerHTML = `
+        <div class="text-center py-12">
+          <p class="text-gray-400 text-lg">No movies found</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = moviesToShow.map(movie => `
+      <div class="movie-card">
+        <div class="flex items-center justify-between gap-6">
+          <h3 class="font-playfair text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
+          <div class="rating-circles">
+            <span class="rating-value">${movie.rating.toFixed(1)}</span>
+            ${generateRatingCircles(movie.rating)}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Render pagination
+  function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+
+    if (totalPages <= 1) {
+      pagination.innerHTML = '';
+      return;
+    }
+
+    let buttons = '';
+
+    // Previous button
+    buttons += `
+      <button 
+        class="page-btn" 
+        onclick="changePage(${currentPage - 1})" 
+        ${currentPage === 1 ? 'disabled' : ''}
+      >
+        ← Prev
+      </button>
+    `;
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 || 
+        i === totalPages || 
+        (i >= currentPage - 1 && i <= currentPage + 1)
+      ) {
+        buttons += `
+          <button 
+            class="page-btn ${i === currentPage ? 'active' : ''}" 
+            onclick="changePage(${i})"
+          >
+            ${i}
+          </button>
+        `;
+      } else if (i === currentPage - 2 || i === currentPage + 2) {
+        buttons += '<span class="text-gray-500 px-2">...</span>';
+      }
+    }
+
+    // Next button
+    buttons += `
+      <button 
+        class="page-btn" 
+        onclick="changePage(${currentPage + 1})" 
+        ${currentPage === totalPages ? 'disabled' : ''}
+      >
+        Next →
+      </button>
+    `;
+
+    pagination.innerHTML = buttons;
+  }
+
+  // Change page
+  window.changePage = function(page) {
+    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderMovies();
+    renderPagination();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Initialize function
+  function initializeMovies() {
+    // Reset state
+    currentPage = 1;
+    currentRatingFilter = 'all';
+    currentSort = 'rating-desc';
+    searchQuery = '';
+    
+    // Rating filter buttons
+    document.querySelectorAll('.rating-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentRatingFilter = e.target.dataset.rating;
+        filterMovies();
+      });
+    });
+
+    // Sort select
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+      sortSelect.value = 'rating-desc';
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        filterMovies();
+      });
+    }
+
+    // Search input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        filterMovies();
+      });
+    }
+
+    // Initial render
+    filterMovies();
+  }
+
+  // Listen for both DOMContentLoaded and Astro page loads
+  document.addEventListener('DOMContentLoaded', initializeMovies);
+  document.addEventListener('astro:page-load', initializeMovies);
+</script>

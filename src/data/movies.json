@@ -1,0 +1,142 @@
+[
+  {
+    "title": "The Godfather",
+    "rating": 7.5
+  },
+  {
+    "title": "Interstellar",
+    "rating": 9
+  },
+  {
+    "title": "The Silence of the Lambs",
+    "rating": 8.5
+  },
+    {
+        "title": "Star Wars: Episode I – The Phantom Menace",
+        "rating": 8.5
+    },
+    {
+        "title": "Star Wars: Episode II – Attack of the Clones",
+        "rating": 7
+    },
+    {
+        "title": "Star Wars: Episode III – Revenge of the Sith",
+        "rating": 10
+    },
+    {
+        "title": "Star Wars: Episode IV – A New Hope",
+        "rating": 9
+    },
+    {
+        "title": "Star Wars: Episode V – The Empire Strikes Back",
+        "rating": 9
+    },
+    {
+        "title": "Star Wars: Episode VI – Return of the Jedi",
+        "rating": 9.5
+    },
+    {
+        "title": "Star Wars: Episode VII – The Force Awakens",
+        "rating": 5
+    },
+    {
+        "title": "Star Wars: Episode VIII – The Last Jedi",
+        "rating": 4
+    },
+    {
+        "title": "Star Wars: Episode IX – The Rise of Skywalker",
+        "rating": 7
+    },
+    {
+        "title": "Avatar: The Way of Water",
+        "rating": 7
+    },
+    {
+        "title": "Avatar",
+        "rating": 7.5
+    },
+    {
+        "title": "Avatar: Fire and Ash",
+        "rating": 8
+    },
+    {
+        "title": "Charlie Wilson's War",
+        "rating": 8.5
+    },
+    {
+        "title": "James Bond: Casino Royale",
+        "rating": 9
+    },
+    {
+        "title": "James Bond: Quantum of Solace",
+        "rating": 7.5
+    },
+    {
+        "title": "James Bond: Skyfall",
+        "rating": 9
+    },
+    {
+        "title": "James Bond: Spectre",
+        "rating": 8
+    },
+    {
+        "title": "James Bond: No Time to Die",
+        "rating": 6
+    },
+    {
+        "title": "The Dictator",
+        "rating": 9
+    },
+    {
+        "title": "The DaVinci Code",
+        "rating": 8
+    },
+    {
+        "title": "Angels & Demons",
+        "rating": 7.5
+    },
+    {
+        "title": "Inferno",
+        "rating": 8
+    },
+    {
+        "title": "National Treasure",
+        "rating": 6
+    },
+    {
+        "title": "The Social Network",
+        "rating": 8.5
+    },
+    {
+        "title": "Zodiac",
+        "rating": 7.5
+    },
+    {
+        "title": "1917",
+        "rating": 9
+    },
+    {
+        "title": "Dune",
+        "rating": 2
+    },
+    {
+        "title": "Dune: Part Two",
+        "rating": 1
+    },
+    {
+        "title": "Oppenheimer",
+        "rating": 5
+    },
+    {
+        "title": "Darkest hour",
+        "rating": 8
+    },
+    {
+        "title": "Maze Runner",
+        "rating": 6
+    },
+    {
+        "title": "The ballad of Buster Scruggs",
+        "rating": 9
+    }
+]

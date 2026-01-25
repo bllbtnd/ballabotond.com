@@ -1,0 +1,83 @@
+[
+  {
+    "id": "vortex-chat",
+    "categoryKey": "projects.category.mobile",
+    "titleKey": "projects.vortex.title",
+    "descriptionKey": "projects.vortex.description",
+    "buttonKey": "projects.vortex.button",
+    "url": "https://vortex.ballabotond.com/",
+    "icon": "fas fa-comments",
+    "status": "active"
+  },
+  {
+    "id": "kki-calculator",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.kki.title",
+    "descriptionKey": "projects.kki.description",
+    "buttonKey": "projects.kki.button",
+    "url": "https://kki.ballabotond.com",
+    "icon": "fas fa-brain",
+    "status": "active"
+  },
+  {
+    "id": "finance-tracker",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.finance.title",
+    "descriptionKey": "projects.finance.description",
+    "buttonKey": "projects.finance.button",
+    "url": "https://github.com/apptrackit/finance",
+    "icon": "fas fa-chart-line",
+    "status": "active"
+  },
+  {
+    "id": "trackit-app",
+    "categoryKey": "projects.category.health",
+    "titleKey": "projects.trackit.title",
+    "descriptionKey": "projects.trackit.description",
+    "buttonKey": "projects.trackit.button",
+    "url": "",
+    "icon": "fas fa-weight",
+    "status": "coming-soon"
+  },
+  {
+    "id": "minecraft-server",
+    "categoryKey": "projects.category.gaming",
+    "titleKey": "projects.minecraft.title",
+    "descriptionKey": "projects.minecraft.description",
+    "buttonKey": "projects.minecraft.button",
+    "url": "mcserver.ballabotond.com",
+    "icon": "fas fa-cube",
+    "status": "past",
+    "copyToClipboard": true
+  },
+  {
+    "id": "website",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.website.title",
+    "descriptionKey": "projects.website.description",
+    "buttonKey": "projects.website.button",
+    "url": "https://github.com/bllbtnd/ballabotond.com",
+    "icon": "fas fa-globe",
+    "status": "active"
+  },
+  {
+    "id": "tarckit",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.tarckit.title",
+    "descriptionKey": "projects.tarckit.description",
+    "buttonKey": "projects.tarckit.button",
+    "url": "https://tarckit.com/",
+    "icon": "fas fa-dumbbell",
+    "status": "active"
+  },
+  {
+    "id": "movie-ratings",
+    "categoryKey": "projects.category.webapps",
+    "title": "Movie Ratings",
+    "description": "My personal cinema chronicles - explore, filter, and browse my movie ratings with an elegant rating system.",
+    "buttonText": "View Ratings",
+    "url": "/movies",
+    "icon": "fas fa-film",
+    "status": "active"
+  }
+]

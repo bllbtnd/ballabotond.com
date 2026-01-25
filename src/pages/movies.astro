@@ -1,0 +1,17 @@
+---
+import Redirect from '../components/Redirect.astro';
+import { defaultLang } from '../i18n/utils';
+
+const redirectUrl = `/${defaultLang}/movies/`;
+const title = 'Movie Ratings - Balla Botond';
+const description = 'My personal movie ratings and reviews';
+const image = '/assets/images/profile.webp';
+---
+
+<Redirect 
+  to={redirectUrl} 
+  title={title}
+  description={description}
+  image={image}
+/>
+
