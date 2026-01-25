@@ -178,5 +178,21 @@
     {
         "title": "Glass Onion",
         "rating": 7
+    },
+    {
+        "title": "Paddington in Peru",
+        "rating": 9.5
+    },
+    {
+        "title": "Paddington 2",
+        "rating": 8
+    },
+    {
+        "title": "Paddington",
+        "rating": 8.5
+    },
+    {
+        "title": "Shutter island",
+        "rating": 8.5
     }
 ]
