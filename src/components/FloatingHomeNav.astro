@@ -24,15 +24,21 @@ const translatePath = useTranslatedPath(lang);
     color: #c9a96b;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, opacity 0.3s ease;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+    opacity: 1;
   }
   
   .floating-home-nav:hover {
     color: #e8c474;
     transform: scale(1.1);
+  }
+
+  .floating-home-nav.scrolled-down {
+    opacity: 0;
+    pointer-events: none;
   }
   
   @media (max-width: 768px) {
@@ -43,3 +49,43 @@ const translatePath = useTranslatedPath(lang);
     }
   }
 </style>
+
+<script>
+  let scrollHandler: (() => void) | null = null;
+
+  function initFloatingHomeNav() {
+    const nav = document.querySelector('.floating-home-nav') as HTMLElement | null;
+    if (!nav) return;
+
+    // Remove old handler if exists
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+    }
+
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 50) {
+        if (currentScrollY > lastScrollY) {
+          nav.classList.add('scrolled-down');
+        } else {
+          nav.classList.remove('scrolled-down');
+        }
+      } else {
+        nav.classList.remove('scrolled-down');
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    scrollHandler = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFloatingHomeNav);
+  document.addEventListener('astro:page-load', initFloatingHomeNav);
+</script>
