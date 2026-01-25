@@ -54,8 +54,8 @@ const translatePath = useTranslatedPath(lang);
   let scrollHandler: (() => void) | null = null;
 
   function initFloatingHomeNav() {
-    const nav = document.querySelector('.floating-home-nav') as HTMLElement | null;
-    if (!nav) return;
+    const nav = document.querySelector('.floating-home-nav');
+    if (!(nav instanceof HTMLElement)) return;
 
     // Remove old handler if exists
     if (scrollHandler) {
@@ -82,6 +82,9 @@ const translatePath = useTranslatedPath(lang);
     scrollHandler = () => {
       requestAnimationFrame(handleScroll);
     };
+
+    // Run once to sync initial state
+    handleScroll();
 
     window.addEventListener('scroll', scrollHandler, { passive: true });
   }
