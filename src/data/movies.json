@@ -1,16 +1,16 @@
 [
-  {
-    "title": "The Godfather",
-    "rating": 7.5
-  },
-  {
-    "title": "Interstellar",
-    "rating": 9
-  },
-  {
-    "title": "The Silence of the Lambs",
-    "rating": 8.5
-  },
+    {
+        "title": "The Godfather",
+        "rating": 7.5
+    },
+    {
+        "title": "Interstellar",
+        "rating": 9
+    },
+    {
+        "title": "The Silence of the Lambs",
+        "rating": 8.5
+    },
     {
         "title": "Star Wars: Episode I – The Phantom Menace",
         "rating": 8.5

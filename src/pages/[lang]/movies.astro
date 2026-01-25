@@ -74,6 +74,18 @@ const allMovies = moviesData;
               <option value="title-desc">Title (Z-A)</option>
             </select>
           </div>
+
+          <!-- Per Page Controls -->
+          <div class="flex-1 min-w-[160px]">
+            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
+              Per page
+            </label>
+            <select id="per-page-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
         </div>
 
         <!-- Search -->
@@ -88,7 +100,7 @@ const allMovies = moviesData;
       </div>
 
       <!-- Movies Grid -->
-      <div id="movies-container" class="space-y-3 mb-8">
+      <div id="movies-container" class="space-y-8 mb-10">
         <!-- Movies will be rendered here by JavaScript -->
       </div>
 
@@ -114,7 +126,7 @@ const allMovies = moviesData;
   }
 
   .movie-card {
-    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl p-6 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40;
+    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl px-6 py-8 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40;
   }
 
   .rating-circles {
@@ -174,7 +186,7 @@ const allMovies = moviesData;
   }));
   let filteredMovies = [...movies];
   let currentPage = 1;
-  const moviesPerPage = 12;
+  let moviesPerPage = 50;
   let currentRatingFilter = 'all';
   let currentSort = 'rating-desc';
   let searchQuery = '';
@@ -253,8 +265,10 @@ const allMovies = moviesData;
       return;
     }
 
-    container.innerHTML = moviesToShow.map(movie => `
-      <div class="movie-card">
+    container.innerHTML = moviesToShow.map(movie => {
+      const imdbUrl = `https://www.imdb.com/find/?q=${encodeURIComponent(movie.title)}`;
+      return `
+      <a class="movie-card" href="${imdbUrl}" target="_blank" rel="noreferrer">
         <div class="flex items-center justify-between gap-6">
           <h3 class="font-playfair text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
           <div class="rating-circles">
@@ -262,8 +276,9 @@ const allMovies = moviesData;
             ${generateRatingCircles(movie.rating)}
           </div>
         </div>
-      </div>
-    `).join('');
+      </a>
+    `;
+    }).join('');
   }
 
   // Render pagination
@@ -358,6 +373,19 @@ const allMovies = moviesData;
       sortSelect.addEventListener('change', (e) => {
         currentSort = e.target.value;
         filterMovies();
+      });
+    }
+
+    // Per page select
+    const perPageSelect = document.getElementById('per-page-select');
+    if (perPageSelect) {
+      perPageSelect.value = String(moviesPerPage);
+      perPageSelect.addEventListener('change', (e) => {
+        const val = parseInt(e.target.value, 10);
+        moviesPerPage = Number.isNaN(val) ? 50 : val;
+        currentPage = 1;
+        renderMovies();
+        renderPagination();
       });
     }
 
