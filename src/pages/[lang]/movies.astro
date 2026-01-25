@@ -276,9 +276,9 @@ const allMovies = moviesData;
     }
 
     container.innerHTML = moviesToShow.map(movie => {
-      const imdbUrl = `https://www.imdb.com/find/?q=${encodeURIComponent(movie.title)}`;
+      const searchUrl = `https://www.rottentomatoes.com/search?search=${encodeURIComponent(movie.title)}`;
       return `
-      <a class="movie-card" href="${imdbUrl}" target="_blank" rel="noreferrer">
+      <a class="movie-card" href="${searchUrl}" target="_blank" rel="noreferrer">
         <div class="flex items-center justify-between gap-6">
           <h3 class="font-playfair text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
           <div class="rating-circles">
