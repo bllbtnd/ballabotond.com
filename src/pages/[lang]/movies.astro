@@ -26,48 +26,48 @@ const allMovies = moviesData;
   <!-- Floating Home Navigation -->
   <FloatingHomeNav />
 
-  <main class="min-h-screen pt-32 pb-20 px-6">
+  <main class="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6">
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
-      <div class="mb-12 text-center">
-        <h1 class="font-playfair text-4xl md:text-6xl font-medium mb-4 pb-2 text-white leading-tight">
+      <div class="mb-8 md:mb-12 text-center">
+        <h1 class="font-playfair text-3xl sm:text-4xl md:text-6xl font-medium mb-3 md:mb-4 pb-2 text-white leading-tight">
           {t('movies.title')}
         </h1>
-        <p class="font-montserrat text-lg text-luxury-gray">
+        <p class="font-montserrat text-base md:text-lg text-luxury-gray px-4">
           {t('movies.description')}
         </p>
       </div>
 
       <!-- Filter Controls -->
-      <div class="mb-8 bg-gradient-to-br from-[#1d0f2f]/80 via-[#0f1b2d]/80 to-[#0a1c24]/80 backdrop-blur-md rounded-2xl p-6 border border-[#2c2140] shadow-lg shadow-[#0f1020]/40">
-        <div class="flex flex-wrap gap-4 items-center justify-between">
+      <div class="mb-6 md:mb-8 bg-gradient-to-br from-[#1d0f2f]/80 via-[#0f1b2d]/80 to-[#0a1c24]/80 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-[#2c2140] shadow-lg shadow-[#0f1020]/40">
+        <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-4 items-stretch md:items-center justify-between">
           <!-- Rating Filter -->
-          <div class="flex-1 min-w-[250px]">
-            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-3">
+          <div class="w-full md:flex-1 md:min-w-[250px]">
+            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2 md:mb-3">
               Filter by Rating
             </label>
             <div class="flex gap-2 flex-wrap" id="rating-filters">
-              <button data-rating="all" class="rating-btn active px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+              <button data-rating="all" class="rating-btn active px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
                 All
               </button>
-              <button data-rating="9" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+              <button data-rating="9" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
                 9+
               </button>
-              <button data-rating="8" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+              <button data-rating="8" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
                 8+
               </button>
-              <button data-rating="7" class="rating-btn px-5 py-2.5 rounded-lg font-medium transition-all duration-200">
+              <button data-rating="7" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
                 7+
               </button>
             </div>
           </div>
 
           <!-- Sort Controls -->
-          <div class="flex-1 min-w-[200px]">
+          <div class="w-full sm:flex-1 md:min-w-[200px]">
             <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
               Sort by
             </label>
-            <select id="sort-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+            <select id="sort-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
               <option value="rating-desc">Highest Rated</option>
               <option value="rating-asc">Lowest Rated</option>
               <option value="title-asc">Title (A-Z)</option>
@@ -76,11 +76,11 @@ const allMovies = moviesData;
           </div>
 
           <!-- Per Page Controls -->
-          <div class="flex-1 min-w-[160px]">
+          <div class="w-full sm:flex-1 md:min-w-[160px]">
             <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
               Per page
             </label>
-            <select id="per-page-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+            <select id="per-page-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
               <option value="25">25</option>
               <option value="50">50</option>
               <option value="100">100</option>
@@ -94,7 +94,7 @@ const allMovies = moviesData;
             type="text" 
             id="search-input" 
             placeholder="Search movies..." 
-            class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-4 py-2 text-white font-montserrat placeholder-gray-400 focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all"
+            class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat placeholder-gray-400 text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all"
           />
         </div>
       </div>
@@ -105,7 +105,7 @@ const allMovies = moviesData;
       </div>
 
       <!-- Pagination -->
-      <div id="pagination" class="flex justify-center items-center gap-2">
+      <div id="pagination" class="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2">
         <!-- Pagination will be rendered here by JavaScript -->
       </div>
     </div>
@@ -124,35 +124,91 @@ const allMovies = moviesData;
   .rating-btn.active {
     @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold shadow-lg;
   }
+</style>
 
+<style is:global>
   .movie-card {
-    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl px-6 py-8 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40 block w-full;
+    display: block;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(to bottom right, rgba(20, 24, 40, 0.85), rgba(17, 20, 37, 0.85), rgba(12, 16, 32, 0.9));
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 169, 107, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
+    .movie-card {
+      padding: 1.5rem 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .movie-card {
+      padding: 2rem 1.5rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .movie-card:hover {
+    transform: scale(1.02);
+    border-color: rgba(201, 169, 107, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    .movie-card:hover {
+      transform: scale(1.05);
+    }
   }
 
   .rating-circles {
     display: flex;
-    gap: 8px;
+    gap: 3px;
     align-items: center;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .rating-circles {
+      gap: 4px;
+    }
   }
 
   .rating-circle {
-    width: 16px;
-    height: 16px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    border: 2px solid;
+    border: 1px solid;
     transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .rating-circle {
+      width: 9px;
+      height: 9px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .rating-circle {
+      width: 10px;
+      height: 10px;
+    }
   }
 
   .rating-circle.filled {
-    background: radial-gradient(circle at 30% 30%, #fff6d7 0%, #f4c064 45%, #e3a93a 100%);
-    border-color: #f4c064;
-    box-shadow: 0 0 10px rgba(244, 192, 100, 0.6);
+    background: #c9a96b;
+    border-color: #c9a96b;
   }
 
   .rating-circle.half {
-    border-color: #f4c064;
-    background: linear-gradient(90deg, rgba(244, 192, 100, 1) 50%, transparent 50%);
-    box-shadow: 0 0 8px rgba(244, 192, 100, 0.5);
+    border-color: #c9a96b;
+    background: linear-gradient(90deg, #c9a96b 50%, transparent 50%);
   }
 
   .rating-circle.empty {
@@ -161,12 +217,21 @@ const allMovies = moviesData;
   }
 
   .rating-value {
-    @apply text-luxury-gold font-montserrat font-semibold text-sm px-2 py-1 rounded-full border border-luxury-gold/50 bg-white/5;
-    letter-spacing: 0.02em;
+    color: #c9a96b;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
   }
 
   .page-btn {
-    @apply px-4 py-2 rounded-lg font-medium font-montserrat transition-all duration-200 bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-medium font-montserrat transition-all duration-200 bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .page-btn.active {
@@ -179,8 +244,22 @@ const allMovies = moviesData;
   #movies-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    #movies-container {
+      gap: 1.75rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #movies-container {
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
   }
 </style>
 
@@ -196,7 +275,7 @@ const allMovies = moviesData;
   }));
   let filteredMovies = [...movies];
   let currentPage = 1;
-  let moviesPerPage = 50;
+  let moviesPerPage = 25;
   let currentRatingFilter = 'all';
   let currentSort = 'rating-desc';
   let searchQuery = '';
@@ -279,11 +358,11 @@ const allMovies = moviesData;
       const searchUrl = `https://www.rottentomatoes.com/search?search=${encodeURIComponent(movie.title)}`;
       return `
       <a class="movie-card" href="${searchUrl}" target="_blank" rel="noreferrer">
-        <div class="flex items-center justify-between gap-6">
-          <h3 class="font-playfair text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 md:gap-6">
+          <h3 class="font-playfair text-xl sm:text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
           <div class="rating-circles">
-            <span class="rating-value">${movie.rating.toFixed(1)}</span>
             ${generateRatingCircles(movie.rating)}
+            <span class="rating-value">${movie.rating.toFixed(1)}</span>
           </div>
         </div>
       </a>
