@@ -100,7 +100,7 @@ const allMovies = moviesData;
       </div>
 
       <!-- Movies Grid -->
-      <div id="movies-container" class="space-y-8 mb-10">
+      <div id="movies-container" class="mb-12">
         <!-- Movies will be rendered here by JavaScript -->
       </div>
 
@@ -126,7 +126,7 @@ const allMovies = moviesData;
   }
 
   .movie-card {
-    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl px-6 py-8 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40;
+    @apply bg-gradient-to-br from-[#141828]/85 via-[#111425]/85 to-[#0c1020]/90 backdrop-blur-lg rounded-2xl px-6 py-8 border border-[#262d3d] hover:border-luxury-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#0f1020]/40 block w-full;
   }
 
   .rating-circles {
@@ -171,6 +171,16 @@ const allMovies = moviesData;
 
   .page-btn.active {
     @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold;
+  }
+</style>
+
+<style>
+  /* Explicit spacing between movie items */
+  #movies-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
   }
 </style>
 
