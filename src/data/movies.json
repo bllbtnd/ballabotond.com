@@ -178,5 +178,77 @@
     {
         "title": "Glass Onion",
         "rating": 7
+    },
+    {
+        "title": "God Forgives... I Don't!",
+        "rating": 5
+    },
+    {
+        "title": "They Call Me Trinity",
+        "rating": 9
+    },
+    {
+        "title": "Trinity Is Still My Name",
+        "rating": 8.5
+    },
+    {
+        "title": "All the Way, Boys!",
+        "rating": 8
+    },
+    {
+        "title": "Watch Out, We're Mad!",
+        "rating": 8.5
+    },
+    {
+        "title": "Crime Busters",
+        "rating": 8.5
+    },
+    {
+        "title": "Odds and Evens",
+        "rating": 9
+    },
+    {
+        "title": "I'm for the Hippopotamus",
+        "rating": 9
+    },
+    {
+        "title": "Who Finds a Friend Finds a Treasure",
+        "rating": 8.5
+    },
+    {
+        "title": "Go for It",
+        "rating": 7.5
+    },
+    {
+        "title": "Double Trouble",
+        "rating": 7.5
+    },
+    {
+        "title": "Miami Supercops",
+        "rating": 7
+    },
+    {
+        "title": "Troublemakers",
+        "rating": 7
+    },
+    {
+        "title": "Banana Joe",
+        "rating": 8.5
+    },
+    {
+        "title": "Even Angels Eat Beans",
+        "rating": 9
+    },
+    {
+        "title": "How to Train Your Dragon",
+        "rating": 8.5
+    },
+    {
+        "title": "How to Train Your Dragon 2",
+        "rating": 7.5
+    },
+    {
+        "title": "How to Train Your Dragon: The Hidden World",
+        "rating": 7
     }
 ]
