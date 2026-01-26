@@ -338,5 +338,25 @@
     {
         "title": "Home Alone 2: Lost in New York",
         "rating": 6.5
+    },
+    {
+        "title": "The Mask",
+        "rating": 6
+    },
+    {
+        "title": "The Wolf of Wall Street",
+        "rating": 8.5
+    },
+    {
+        "title": "Titanic",
+        "rating": 7
+    },
+    {
+        "title": "The Green Mile",
+        "rating": 6
+    },
+    {
+        "title": "The Polar Express",
+        "rating": 5.5
     }
 ]
