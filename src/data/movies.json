@@ -270,5 +270,73 @@
     {
         "title": "Y tu mamá también",
         "rating": 9
+    },
+    {
+        "title": "Journey 2: The Mysterious Island",
+        "rating": 8.5
+    },
+    {
+        "title": "Jumanji",
+        "rating": 8
+    },
+    {
+        "title": "Jumanji: Welcome to the Jungle",
+        "rating": 8
+    },
+    {
+        "title": "Jumanji: The Next Level",
+        "rating": 7.5
+    },
+    {
+        "title": "The Lord of the Rings: The Fellowship of the Ring",
+        "rating": 7.5
+    },
+    {
+        "title": "The Lord of the Rings: The Two Towers",
+        "rating": 5
+    },
+    {
+        "title": "The Lord of the Rings: The Return of the King",
+        "rating": 6
+    },
+    {
+        "title": "Harry Potter and the Philosopher's Stone",
+        "rating": 6
+    },
+    {
+        "title": "Harry Potter and the Chamber of Secrets",
+        "rating": 7
+    },
+    {
+        "title": "Harry Potter and the Prisoner of Azkaban",
+        "rating": 7.5    
+    },
+    {
+        "title": "Harry Potter and the Goblet of Fire",
+        "rating": 6
+    },
+    {
+        "title": "Harry Potter and the Order of the Phoenix",
+        "rating": 6
+    },
+    {
+        "title": "Harry Potter and the Half-Blood Prince",
+        "rating": 7
+    },
+    {
+        "title": "Harry Potter and the Deathly Hallows – Part 1",
+        "rating": 6
+    },
+    {
+        "title": "Harry Potter and the Deathly Hallows – Part 2",
+        "rating": 7
+    },
+    {
+        "title": "Home Alone",
+        "rating": 7.5
+    },
+    {
+        "title": "Home Alone 2: Lost in New York",
+        "rating": 6.5
     }
 ]
