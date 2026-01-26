@@ -358,5 +358,9 @@
     {
         "title": "The Polar Express",
         "rating": 5.5
+    },
+    {
+        "title": "The Last Remake of Beau Geste",
+        "rating": 9
     }
 ]
