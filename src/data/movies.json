@@ -358,5 +358,17 @@
     {
         "title": "The Polar Express",
         "rating": 5.5
+    },
+    {
+        "title": "Raging Bull",
+        "rating": 0
+    },
+    {
+        "title": "Scent of a Woman",
+        "rating": 0
+    },
+    {
+        "title": "Se7en",
+        "rating": 0
     }
 ]

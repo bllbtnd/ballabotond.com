@@ -42,24 +42,17 @@ const allMovies = moviesData;
       <div class="mb-6 md:mb-8 bg-gradient-to-br from-[#1d0f2f]/80 via-[#0f1b2d]/80 to-[#0a1c24]/80 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-[#2c2140] shadow-lg shadow-[#0f1020]/40">
         <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-4 items-stretch md:items-center justify-between">
           <!-- Rating Filter -->
-          <div class="w-full md:flex-1 md:min-w-[250px]">
-            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2 md:mb-3">
+          <div class="w-full sm:flex-1 md:min-w-[200px]">
+            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
               Filter by Rating
             </label>
-            <div class="flex gap-2 flex-wrap" id="rating-filters">
-              <button data-rating="all" class="rating-btn active px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
-                All
-              </button>
-              <button data-rating="9" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
-                9+
-              </button>
-              <button data-rating="8" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
-                8+
-              </button>
-              <button data-rating="7" class="rating-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">
-                7+
-              </button>
-            </div>
+            <select id="rating-filter-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+              <option value="all">All Movies</option>
+              <option value="wtw">Want to Watch</option>
+              <option value="good">Good</option>
+              <option value="medium">Medium</option>
+              <option value="bad">Bad</option>
+            </select>
           </div>
 
           <!-- Sort Controls -->
@@ -140,6 +133,17 @@ const allMovies = moviesData;
     text-decoration: none;
   }
 
+  .movie-card.want-to-watch {
+    background: linear-gradient(to bottom right, rgba(255, 107, 107, 0.1), rgba(255, 135, 135, 0.08), rgba(255, 107, 107, 0.05));
+    border: 1.5px solid rgba(255, 107, 107, 0.4);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .movie-card.want-to-watch:hover {
+    border-color: rgba(255, 107, 107, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.25), 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
   @media (min-width: 640px) {
     .movie-card {
       padding: 1.5rem 1.25rem;
@@ -216,6 +220,20 @@ const allMovies = moviesData;
     background: transparent;
   }
 
+  .wtw-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+  }
+
   .rating-value {
     color: #c9a96b;
     font-family: 'Montserrat', sans-serif;
@@ -266,12 +284,13 @@ const allMovies = moviesData;
 <script define:vars={{ allMovies }}>
   // Round rating to nearest 0.5
   function roundRating(rating) {
+    if (!rating || rating === 0) return 0;
     return Math.round(rating * 2) / 2;
   }
 
   let movies = allMovies.map(movie => ({
     ...movie,
-    rating: roundRating(movie.rating)
+    rating: movie.rating ? roundRating(movie.rating) : 0
   }));
   let filteredMovies = [...movies];
   let currentPage = 1;
@@ -282,6 +301,11 @@ const allMovies = moviesData;
 
   // Generate rating circles HTML
   function generateRatingCircles(rating) {
+    // For want to watch movies (no rating or 0)
+    if (!rating || rating === 0) {
+      return '<div class="wtw-badge">Want to Watch</div>';
+    }
+    
     let circles = '';
     const roundedRating = roundRating(rating);
     
@@ -301,8 +325,22 @@ const allMovies = moviesData;
   // Filter movies
   function filterMovies() {
     filteredMovies = movies.filter(movie => {
+      // Check if movie is in want to watch category
+      const isWantToWatch = !movie.rating || movie.rating === 0;
+      
       // Rating filter
-      const ratingMatch = currentRatingFilter === 'all' || movie.rating >= parseFloat(currentRatingFilter);
+      let ratingMatch = true;
+      if (currentRatingFilter === 'wtw') {
+        ratingMatch = isWantToWatch;
+      } else if (currentRatingFilter === 'all') {
+        ratingMatch = true;
+      } else if (currentRatingFilter === 'good') {
+        ratingMatch = !isWantToWatch && movie.rating >= 8 && movie.rating <= 10;
+      } else if (currentRatingFilter === 'medium') {
+        ratingMatch = !isWantToWatch && movie.rating >= 4 && movie.rating < 8;
+      } else if (currentRatingFilter === 'bad') {
+        ratingMatch = !isWantToWatch && movie.rating >= 1 && movie.rating < 4;
+      }
       
       // Search filter
       const searchMatch = searchQuery === '' || 
@@ -324,10 +362,18 @@ const allMovies = moviesData;
   function sortMovies() {
     switch(currentSort) {
       case 'rating-desc':
-        filteredMovies.sort((a, b) => b.rating - a.rating);
+        filteredMovies.sort((a, b) => {
+          const aRating = !a.rating || a.rating === 0 ? -1 : a.rating;
+          const bRating = !b.rating || b.rating === 0 ? -1 : b.rating;
+          return bRating - aRating;
+        });
         break;
       case 'rating-asc':
-        filteredMovies.sort((a, b) => a.rating - b.rating);
+        filteredMovies.sort((a, b) => {
+          const aRating = !a.rating || a.rating === 0 ? 11 : a.rating;
+          const bRating = !b.rating || b.rating === 0 ? 11 : b.rating;
+          return aRating - bRating;
+        });
         break;
       case 'title-asc':
         filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
@@ -356,13 +402,15 @@ const allMovies = moviesData;
 
     container.innerHTML = moviesToShow.map(movie => {
       const searchUrl = `https://www.themoviedb.org/search?query=${encodeURIComponent(movie.title)}`;
+      const isWantToWatch = !movie.rating || movie.rating === 0;
+      const ratingDisplay = isWantToWatch ? '' : `<span class="rating-value">${movie.rating.toFixed(1)}</span>`;
       return `
-      <a class="movie-card" href="${searchUrl}" target="_blank" rel="noreferrer">
+      <a class="movie-card ${isWantToWatch ? 'want-to-watch' : ''}" href="${searchUrl}" target="_blank" rel="noreferrer">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 md:gap-6">
           <h3 class="font-playfair text-xl sm:text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
           <div class="rating-circles">
             ${generateRatingCircles(movie.rating)}
-            <span class="rating-value">${movie.rating.toFixed(1)}</span>
+            ${ratingDisplay}
           </div>
         </div>
       </a>
@@ -445,15 +493,15 @@ const allMovies = moviesData;
     currentSort = 'rating-desc';
     searchQuery = '';
     
-    // Rating filter buttons
-    document.querySelectorAll('.rating-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentRatingFilter = e.target.dataset.rating;
+    // Rating filter select
+    const ratingFilterSelect = document.getElementById('rating-filter-select');
+    if (ratingFilterSelect) {
+      ratingFilterSelect.value = 'all';
+      ratingFilterSelect.addEventListener('change', (e) => {
+        currentRatingFilter = e.target.value;
         filterMovies();
       });
-    });
+    }
 
     // Sort select
     const sortSelect = document.getElementById('sort-select');
