@@ -1,0 +1,199 @@
+---
+// Calendar availability page for Balla Botond's Astro site
+// Shows availability without revealing actual event details (privacy-focused)
+import Layout from '../../layouts/Layout.astro';
+import Constellation from '../../components/Constellation.astro';
+import BackgroundGradient from '../../components/BackgroundGradient.astro';
+import BrandMonogram from '../../components/BrandMonogram.astro';
+import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
+import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
+import { fetchCalendars, getAvailability, groupByWeek } from '../../utils/calendar';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const typedLang = lang as Languages;
+const t = useTranslations(typedLang);
+const translatePath = useTranslatedPath(typedLang);
+
+const calendarUrls = import.meta.env.PUBLIC_CALENDAR_URLS?.split(',').map((url: string) => url.trim()).filter(Boolean) || [];
+
+let availability: ReturnType<typeof getAvailability> = [];
+let weeks: ReturnType<typeof groupByWeek> = [];
+
+if (calendarUrls.length > 0) {
+  try {
+    const busySlots = await fetchCalendars(calendarUrls);
+    availability = getAvailability(busySlots, 4);
+    weeks = groupByWeek(availability);
+  } catch (error) {
+    console.error('Failed to fetch calendar data:', error);
+  }
+}
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString(typedLang, { month: 'short', day: 'numeric' });
+};
+
+const getDayName = (date: Date) => {
+  return date.toLocaleDateString(typedLang, { weekday: 'short' });
+};
+
+const isToday = (date: Date) => {
+  const today = new Date();
+  return date.getDate() === today.getDate() &&
+         date.getMonth() === today.getMonth() &&
+         date.getFullYear() === today.getFullYear();
+};
+
+const hours = Array.from({ length: 17 }, (_, i) => i + 6); // 6..22
+const labeledHours = [6, 9, 12, 15, 18, 21];
+---
+
+<Layout 
+  title={t('calendar.title')}
+  description={t('calendar.description')}
+  keywords={t('calendar.keywords')}
+>
+  <BackgroundGradient />
+  <Constellation />
+  
+  <div class="fixed top-0 left-0 z-40 p-6 md:p-8">
+    <a href={translatePath('/')} class="block hover:opacity-80 transition-opacity">
+      <BrandMonogram />
+    </a>
+  </div>
+  <FloatingHomeNav lang={typedLang} />
+
+  <main class="calendar-page relative z-10 h-screen flex flex-col px-4 pt-16 pb-4 overflow-hidden">
+    <!-- Header -->
+    <div class="text-center mb-3 shrink-0">
+      <h1 class="font-playfair text-2xl md:text-3xl font-light text-white tracking-wide">
+        {t('calendar.subtitle')}
+      </h1>
+      <div class="flex items-center justify-center gap-3 mt-1">
+        <div class="h-px w-12 bg-luxury-gold/40"></div>
+        <p class="font-montserrat text-[11px] text-luxury-gold uppercase tracking-[0.2em]">
+          {t('calendar.tagline')}
+        </p>
+        <div class="h-px w-12 bg-luxury-gold/40"></div>
+      </div>
+    </div>
+
+    {calendarUrls.length === 0 ? (
+      <div class="flex-1 flex items-center justify-center">
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 text-center max-w-md">
+          <p class="text-gray-400 text-sm">{t('calendar.noCalendars')}</p>
+        </div>
+      </div>
+    ) : (
+      <!-- Calendar Grid -->
+      <div class="flex-1 flex flex-col gap-1.5 min-h-0">
+        {weeks.map((week, weekIndex) => (
+          <div class="flex-1 flex flex-col min-h-0">
+            <!-- Week row -->
+            <div class="flex gap-0.5 flex-1 min-h-0">
+              <!-- Hour labels (only on first week row shows visible labels) -->
+              <div class="w-6 shrink-0 flex flex-col pt-7">
+                {hours.map((hour) => (
+                  <div class="flex-1 flex items-center justify-end pr-1">
+                    {labeledHours.includes(hour) ? (
+                      <span class="text-[8px] font-montserrat text-gray-500 leading-none">
+                        {hour}
+                      </span>
+                    ) : (
+                      <span class="text-[8px] text-transparent">·</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Day columns */}
+              {week.map((day) => (
+                <div class="flex-1 flex flex-col min-w-0">
+                  {/* Day header */}
+                  <div class={`
+                    text-center py-1 mb-0.5 rounded-t-md
+                    ${isToday(day.date) 
+                      ? 'bg-luxury-gold/20 border-b border-luxury-gold/40' 
+                      : 'border-b border-white/5'}
+                  `}>
+                    <div class={`text-[9px] font-montserrat uppercase tracking-wider
+                      ${isToday(day.date) ? 'text-luxury-gold' : 'text-gray-500'}
+                    `}>
+                      {getDayName(day.date)}{isToday(day.date) ? ' ·' : ''}
+                    </div>
+                    <div class={`text-xs font-semibold leading-none
+                      ${isToday(day.date) ? 'text-luxury-gold' : 'text-gray-300'}
+                    `}>
+                      {day.date.getDate()}
+                    </div>
+                  </div>
+
+                  {/* Hourly slots */}
+                  <div class="flex-1 flex flex-col gap-[1px] rounded-b-md overflow-hidden">
+                    {day.hourlyAvailability?.map((avail, hourIndex) => {
+                      const hour = hourIndex + 6;
+                      return (
+                        <div 
+                          class={`
+                            flex-1 transition-colors cursor-default
+                            ${avail 
+                              ? 'cal-available hover:bg-emerald-400/30' 
+                              : 'cal-busy hover:bg-rose-400/30'}
+                          `}
+                          title={`${hour}:00 – ${hour + 1}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              {/* Fill empty days for incomplete weeks */}
+              {week.length < 7 && Array.from({ length: 7 - week.length }).map(() => (
+                <div class="flex-1 min-w-0" />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Legend & Privacy -->
+    <div class="shrink-0 flex items-center justify-center gap-6 mt-2 pt-2 border-t border-white/5">
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-sm cal-available"></div>
+        <span class="text-[10px] font-montserrat text-gray-400">{t('calendar.available')}</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-sm cal-busy"></div>
+        <span class="text-[10px] font-montserrat text-gray-400">{t('calendar.busy')}</span>
+      </div>
+      <span class="text-[9px] font-montserrat text-gray-600">
+        {t('calendar.privacyNote')}
+      </span>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .cal-available {
+    background: rgba(52, 211, 153, 0.15);
+    border-left: 2px solid rgba(52, 211, 153, 0.35);
+  }
+  .cal-busy {
+    background: rgba(251, 113, 133, 0.15);
+    border-left: 2px solid rgba(251, 113, 133, 0.45);
+  }
+  .cal-available:hover {
+    background: rgba(52, 211, 153, 0.25);
+  }
+  .cal-busy:hover {
+    background: rgba(251, 113, 133, 0.25);
+  }
+</style>

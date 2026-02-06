@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "projects": "Projects",
-    "resume": "Resume"
+    "resume": "Resume",
+    "calendar": "Calendar"
   },
   "common": {
     "name": "Balla Botond",
@@ -42,6 +43,19 @@
   "movies": {
     "title": "Movie Ratings",
     "description": "My personal cinema chronicles"
+  },
+  "calendar": {
+    "title": "Availability Calendar | Balla Botond",
+    "description": "Check my availability for the upcoming weeks. View when I'm available or busy without seeing private event details.",
+    "keywords": "Balla Botond, calendar, availability, schedule, booking, contact",
+    "tagline": "When I'm Available",
+    "subtitle": "Availability Calendar",
+    "week": "Week",
+    "available": "Available",
+    "busy": "Busy",
+    "today": "Today",
+    "noCalendars": "Calendar configuration not found. Please set up PUBLIC_CALENDAR_URLS environment variable.",
+    "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed."
   },
   "projects": {
     "title": "Projects | Balla Botond",
