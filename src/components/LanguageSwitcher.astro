@@ -379,7 +379,7 @@ const languageData = {
       });
       
       // Keyboard navigation within dropdown
-      option.addEventListener('keydown', (e) => {
+      (option as HTMLElement).addEventListener('keydown', (e: KeyboardEvent) => {
         const options = Array.from(langOptions);
         const currentIndex = options.indexOf(option);
         
@@ -393,7 +393,7 @@ const languageData = {
           (options[prevIndex] as HTMLElement).focus();
         } else if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          option.click();
+          (option as HTMLElement).click();
         }
       });
     });
