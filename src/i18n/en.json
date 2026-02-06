@@ -56,7 +56,8 @@
     "past": "Past",
     "today": "Today",
     "noCalendars": "Calendar configuration not found. Please set up PUBLIC_CALENDAR_URLS environment variable.",
-    "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed."
+    "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed.",
+    "swipeHint": "Swipe to navigate weeks"
   },
   "projects": {
     "title": "Projects | Balla Botond",

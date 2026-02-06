@@ -56,7 +56,8 @@
     "past": "Múlt",
     "today": "Ma",
     "noCalendars": "Naptár konfiguráció nem található. Kérlek állítsd be a PUBLIC_CALENDAR_URLS környezeti változót.",
-    "privacyNote": "Az adatvédelem fontos - csak az elérhetőségi státusz látható, esemény részletek nem."
+    "privacyNote": "Az adatvédelem fontos - csak az elérhetőségi státusz látható, esemény részletek nem.",
+    "swipeHint": "Csúsztasd a hetek navigálásához"
   },
   "projects": {
     "title": "Projektek | Balla Botond",
