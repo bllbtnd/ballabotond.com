@@ -69,15 +69,10 @@ const languageData = {
 <style>
   .elegant-lang-switcher {
     position: relative;
-    z-index: 1000;
   }
   
   /* Globe Button - matching home button style */
   .lang-globe-btn {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    z-index: 100;
     background: none;
     border: none;
     font-size: 20px;
@@ -127,9 +122,9 @@ const languageData = {
   
   /* Dropdown */
   .lang-dropdown {
-    position: fixed;
-    top: 4rem;
-    left: 2rem;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
     width: 16rem;
     background: rgba(17, 24, 39, 0.95);
     backdrop-filter: blur(20px);
@@ -256,14 +251,10 @@ const languageData = {
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .lang-globe-btn {
-      top: 1.5rem;
-      left: 1.5rem;
       font-size: 18px;
     }
     
     .lang-dropdown {
-      top: 3.5rem;
-      left: 1.5rem;
       width: 14rem;
     }
     

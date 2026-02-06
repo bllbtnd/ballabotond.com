@@ -238,7 +238,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
   <body class="bg-gray-900 text-white min-h-screen" style="overflow-x: hidden;">
     
     <!-- Language Switcher -->
-    <LanguageSwitcher />
+    <div class="fixed top-6 left-6 z-50">
+      <LanguageSwitcher />
+    </div>
     
     <!-- Subtle Easter Eggs -->
     <SubtleEasterEggs />
