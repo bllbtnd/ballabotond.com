@@ -64,21 +64,32 @@ function parseICSDate(dateStr: string): Date | null {
 }
 
 /**
+ * Convert webcal:// URLs to https:// URLs for fetching
+ */
+function normalizeCalendarUrl(url: string): string {
+  if (url.startsWith('webcal://')) {
+    return url.replace('webcal://', 'https://');
+  }
+  return url;
+}
+
+/**
  * Fetch and parse multiple ICS feeds
  */
 export async function fetchCalendars(urls: string[]): Promise<TimeSlot[]> {
   const allSlots: TimeSlot[] = [];
 
   for (const url of urls) {
+    const normalizedUrl = normalizeCalendarUrl(url);
     try {
-      const response = await fetch(url);
+      const response = await fetch(normalizedUrl);
       if (!response.ok) continue;
       
       const icsContent = await response.text();
       const slots = parseICS(icsContent);
       allSlots.push(...slots);
     } catch (error) {
-      console.error(`Failed to fetch calendar from ${url}:`, error);
+      console.error(`Failed to fetch calendar from ${normalizedUrl} (original: ${url}):`, error);
     }
   }
 
