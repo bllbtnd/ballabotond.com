@@ -53,6 +53,7 @@
     "week": "Settimana",
     "available": "Disponibile",
     "busy": "Occupato",
+    "past": "Passato",
     "today": "Oggi",
     "noCalendars": "Configurazione calendario non trovata. Si prega di impostare la variabile d'ambiente PUBLIC_CALENDAR_URLS.",
     "privacyNote": "La tua privacy è importante - viene mostrato solo lo stato di disponibilità, nessun dettaglio dell'evento viene rivelato."

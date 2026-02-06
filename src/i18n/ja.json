@@ -53,6 +53,7 @@
     "week": "週",
     "available": "空き",
     "busy": "予定あり",
+    "past": "過去",
     "today": "今日",
     "noCalendars": "カレンダー設定が見つかりません。PUBLIC_CALENDAR_URLS環境変数を設定してください。",
     "privacyNote": "プライバシーを重視しています - 空き状況のみが表示され、イベントの詳細は公開されません。"

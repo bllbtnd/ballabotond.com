@@ -53,6 +53,7 @@
     "week": "周",
     "available": "有空",
     "busy": "忙碌",
+    "past": "已过",
     "today": "今天",
     "noCalendars": "未找到日历配置。请设置 PUBLIC_CALENDAR_URLS 环境变量。",
     "privacyNote": "您的隐私很重要 - 仅显示可用性状态，不透露事件详情。"

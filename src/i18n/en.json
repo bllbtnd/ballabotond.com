@@ -53,6 +53,7 @@
     "week": "Week",
     "available": "Available",
     "busy": "Busy",
+    "past": "Past",
     "today": "Today",
     "noCalendars": "Calendar configuration not found. Please set up PUBLIC_CALENDAR_URLS environment variable.",
     "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed."
