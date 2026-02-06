@@ -2,7 +2,8 @@
   "nav": {
     "home": "首页",
     "projects": "项目",
-    "resume": "简历"
+    "resume": "简历",
+    "calendar": "日历"
   },
   "common": {
     "name": "Balla Botond",
@@ -42,6 +43,20 @@
   "movies": {
     "title": "电影评分",
     "description": "我的个人电影编年史"
+  },
+  "calendar": {
+    "title": "可用性日历 | Balla Botond",
+    "description": "查看我未来几周的可用性。查看我何时有空或忙碌，不显示私人事件详情。",
+    "keywords": "Balla Botond, 日历, 可用性, 日程, 预约, 联系",
+    "tagline": "我的空闲时间",
+    "subtitle": "可用性日历",
+    "week": "周",
+    "available": "有空",
+    "busy": "忙碌",
+    "past": "已过",
+    "today": "今天",
+    "noCalendars": "未找到日历配置。请设置 PUBLIC_CALENDAR_URLS 环境变量。",
+    "privacyNote": "您的隐私很重要 - 仅显示可用性状态，不透露事件详情。"
   },
   "projects": {
     "title": "项目 | Balla Botond",

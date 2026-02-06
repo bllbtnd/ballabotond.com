@@ -2,7 +2,8 @@
   "nav": {
     "home": "Főoldal",
     "projects": "Projektek",
-    "resume": "Önéletrajz"
+    "resume": "Önéletrajz",
+    "calendar": "Naptár"
   },
   "common": {
     "name": "Balla Botond",
@@ -42,6 +43,20 @@
   "movies": {
     "title": "Film Értékelések",
     "description": "Személyes mozi krónikám"
+  },
+  "calendar": {
+    "title": "Elérhetőségi Naptár | Balla Botond",
+    "description": "Nézd meg elérhetőségemet a következő hetekre. Lásd, mikor vagyok elérhető vagy elfoglalt, privát esemény részletek nélkül.",
+    "keywords": "Balla Botond, naptár, elérhetőség, időbeosztás, foglalás, kapcsolat",
+    "tagline": "Mikor Vagyok Elérhető",
+    "subtitle": "Elérhetőségi Naptár",
+    "week": "Hét",
+    "available": "Elérhető",
+    "busy": "Foglalt",
+    "past": "Múlt",
+    "today": "Ma",
+    "noCalendars": "Naptár konfiguráció nem található. Kérlek állítsd be a PUBLIC_CALENDAR_URLS környezeti változót.",
+    "privacyNote": "Az adatvédelem fontos - csak az elérhetőségi státusz látható, esemény részletek nem."
   },
   "projects": {
     "title": "Projektek | Balla Botond",

@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "projects": "Progetti",
-    "resume": "Curriculum"
+    "resume": "Curriculum",
+    "calendar": "Calendario"
   },
   "common": {
     "name": "Balla Botond",
@@ -42,6 +43,20 @@
   "movies": {
     "title": "Valutazioni Film",
     "description": "Le mie cronache cinematografiche personali"
+  },
+  "calendar": {
+    "title": "Calendario Disponibilità | Balla Botond",
+    "description": "Controlla la mia disponibilità per le prossime settimane. Visualizza quando sono disponibile o occupato senza vedere i dettagli degli eventi privati.",
+    "keywords": "Balla Botond, calendario, disponibilità, programma, prenotazione, contatto",
+    "tagline": "Quando Sono Disponibile",
+    "subtitle": "Calendario Disponibilità",
+    "week": "Settimana",
+    "available": "Disponibile",
+    "busy": "Occupato",
+    "past": "Passato",
+    "today": "Oggi",
+    "noCalendars": "Configurazione calendario non trovata. Si prega di impostare la variabile d'ambiente PUBLIC_CALENDAR_URLS.",
+    "privacyNote": "La tua privacy è importante - viene mostrato solo lo stato di disponibilità, nessun dettaglio dell'evento viene rivelato."
   },
   "projects": {
     "title": "Progetti | Balla Botond",

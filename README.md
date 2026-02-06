@@ -1,10 +1,15 @@
-# Astro Starter Kit: Basics
+# Balla Botond Personal Website
 
-```sh
-npm create astro@latest -- --template basics
-```
+A modern, multilingual personal portfolio website built with Astro, featuring internationalization support and privacy-focused calendar availability.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Features
+
+- **Multilingual Support**: English, Hungarian, Italian, Japanese, and Chinese
+- **Privacy-Focused Calendar**: Shows availability without revealing event details
+- **Modern Design**: Elegant UI with smooth animations and responsive layout
+- **Project Showcase**: Display your work and achievements
+- **Professional Resume**: Multi-language resume pages
+- **SEO Optimized**: Built-in SEO best practices
 
 ## 🚀 Project Structure
 
@@ -27,6 +32,57 @@ Inside of your Astro project, you'll see the following folders and files:
 ```
 
 To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+
+## 📅 Calendar Setup
+
+The calendar feature shows your availability for the next 4 weeks without revealing private event details.
+
+### Setting up Calendar URLs
+
+1. Copy `.env.example` to `.env`:
+   ```sh
+   cp .env.example .env
+   ```
+
+2. Add your calendar ICS URLs to the `.env` file:
+   ```env
+   PUBLIC_CALENDAR_URLS=https://calendar.google.com/calendar/ical/YOUR_ID/public/basic.ics
+   ```
+
+3. For multiple calendars, use comma-separated URLs:
+   ```env
+   PUBLIC_CALENDAR_URLS=https://example.com/cal1.ics,https://example.com/cal2.ics
+   ```
+
+### Getting Google Calendar ICS URL
+
+1. Open Google Calendar settings
+2. Select the calendar you want to share
+3. Scroll to "Integrate calendar"
+4. Copy the "Public URL to this calendar" in iCal format
+5. Make sure the calendar is set to public (or use a secret address)
+
+### For GitHub Pages Deployment
+
+When deploying to GitHub Pages, set the calendar URLs in your repository secrets:
+
+1. Go to your repository Settings → Secrets and variables → Actions
+2. Add a new repository secret named `PUBLIC_CALENDAR_URLS`
+3. Set the value to your comma-separated ICS URLs
+
+Then update your deployment workflow to include:
+```yaml
+env:
+  PUBLIC_CALENDAR_URLS: ${{ secrets.PUBLIC_CALENDAR_URLS }}
+```
+
+### Privacy Note
+
+The calendar feature is designed with privacy in mind:
+- ✅ Shows only availability status (Available/Busy)
+- ✅ Displays date and time when you're occupied
+- ❌ Never shows event titles, descriptions, or attendees
+- ❌ No location or other private details are revealed
 
 ## 🧞 Commands
 

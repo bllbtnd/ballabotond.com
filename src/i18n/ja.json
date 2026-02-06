@@ -2,7 +2,8 @@
   "nav": {
     "home": "ホーム",
     "projects": "プロジェクト",
-    "resume": "履歴書"
+    "resume": "履歴書",
+    "calendar": "カレンダー"
   },
   "common": {
     "name": "Balla Botond",
@@ -42,6 +43,20 @@
   "movies": {
     "title": "映画評価",
     "description": "私の個人的な映画の記録"
+  },
+  "calendar": {
+    "title": "空き状況カレンダー | Balla Botond",
+    "description": "今後数週間の空き状況を確認してください。プライベートイベントの詳細を見ることなく、いつ空いているか、忙しいかを表示します。",
+    "keywords": "Balla Botond, カレンダー, 空き状況, スケジュール, 予約, 連絡先",
+    "tagline": "空いている時間",
+    "subtitle": "空き状況カレンダー",
+    "week": "週",
+    "available": "空き",
+    "busy": "予定あり",
+    "past": "過去",
+    "today": "今日",
+    "noCalendars": "カレンダー設定が見つかりません。PUBLIC_CALENDAR_URLS環境変数を設定してください。",
+    "privacyNote": "プライバシーを重視しています - 空き状況のみが表示され、イベントの詳細は公開されません。"
   },
   "projects": {
     "title": "プロジェクト | Balla Botond",
