@@ -97,7 +97,7 @@ const labeledHours = [6, 9, 12, 15, 18, 21];
           <div class="cal-swipe-hint">
             <div class="cal-swipe-hint-content">
               <i class="fas fa-chevron-left"></i>
-              <span>Swipe to navigate weeks</span>
+              <span>{t('calendar.swipeHint')}</span>
               <i class="fas fa-chevron-right"></i>
             </div>
           </div>
@@ -558,45 +558,75 @@ const labeledHours = [6, 9, 12, 15, 18, 21];
 <script>
   // Mobile week navigation with scroll indicator
   if (typeof window !== 'undefined') {
-    const isMobile = window.innerWidth <= 640;
+    const mobileQuery = window.matchMedia('(max-width: 640px)');
     
-    if (isMobile) {
+    function initMobileNavigation() {
+      if (!mobileQuery.matches) return;
+      
       const grid = document.getElementById('calGrid');
       const dots = document.querySelectorAll('.cal-week-dot');
       
-      if (grid && dots.length > 0) {
-        // Update active dot based on scroll position
-        const updateActiveDot = () => {
-          const scrollLeft = grid.scrollLeft;
-          const weekWidth = grid.scrollWidth / dots.length;
-          const activeIndex = Math.round(scrollLeft / weekWidth);
-          
-          dots.forEach((dot, idx) => {
-            if (idx === activeIndex) {
-              dot.classList.add('active');
-            } else {
-              dot.classList.remove('active');
-            }
-          });
-        };
+      if (!grid || dots.length === 0) return;
+      
+      // Debounce helper
+      let scrollTimeout: number | null = null;
+      
+      // Update active dot based on scroll position
+      const updateActiveDot = () => {
+        const scrollLeft = grid.scrollLeft;
+        const weekWidth = grid.scrollWidth / dots.length;
+        const activeIndex = Math.round(scrollLeft / weekWidth);
         
-        // Initial state
-        updateActiveDot();
-        
-        // Update on scroll
-        grid.addEventListener('scroll', updateActiveDot);
-        
-        // Click on dot to scroll to that week
         dots.forEach((dot, idx) => {
-          dot.addEventListener('click', () => {
-            const weekWidth = grid.scrollWidth / dots.length;
-            grid.scrollTo({
-              left: idx * weekWidth,
-              behavior: 'smooth'
-            });
+          if (idx === activeIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      };
+      
+      // Initial state
+      updateActiveDot();
+      
+      // Debounced scroll handler
+      const handleScroll = () => {
+        if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = window.setTimeout(updateActiveDot, 50);
+      };
+      
+      // Update on scroll (debounced)
+      grid.addEventListener('scroll', handleScroll, { passive: true });
+      
+      // Click on dot to scroll to that week
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          const weekWidth = grid.scrollWidth / dots.length;
+          grid.scrollTo({
+            left: idx * weekWidth,
+            behavior: 'smooth'
           });
         });
-      }
+      });
+      
+      // Cleanup function
+      return () => {
+        grid.removeEventListener('scroll', handleScroll);
+        if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
+        }
+      };
     }
+    
+    // Initialize on load
+    let cleanup = initMobileNavigation();
+    
+    // Re-initialize on viewport resize
+    mobileQuery.addEventListener('change', (e) => {
+      if (cleanup) cleanup();
+      cleanup = initMobileNavigation();
+    });
   }
 </script>
