@@ -51,7 +51,7 @@ const isToday = (date: Date) => {
 };
 
 const hours = Array.from({ length: 17 }, (_, i) => i + 6);
-const labeledHours = [6, 9, 12, 15, 18, 21];
+const labeledHours = hours; // Show all hour labels
 ---
 
 <Layout 
@@ -439,6 +439,7 @@ const labeledHours = [6, 9, 12, 15, 18, 21];
     
     /* Mobile: Show one week at a time */
     .cal-grid {
+      flex-direction: row;
       gap: 0;
       overflow-x: auto;
       overflow-y: hidden;
