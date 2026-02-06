@@ -16,165 +16,305 @@ function getLocalizedPath(locale: string) {
   }
   return `/${locale}${basePath}`;
 }
+
+// Language metadata with flags and codes
+const languageData = {
+  en: { name: 'English', code: 'EN', flag: '🇺🇸' },
+  hu: { name: 'Magyar', code: 'HU', flag: '🇭🇺' },
+  it: { name: 'Italiano', code: 'IT', flag: '🇮🇹' },
+  zh: { name: '中文', code: 'ZH', flag: '🇨🇳' },
+  ja: { name: '日本語', code: 'JA', flag: '🇯🇵' }
+};
 ---
 
-<div
-  class="language-dropdown relative transition-opacity duration-300 ease-out"
->
-  <!-- Trigger button -->
-  <button
-    id="lang-trigger"
-    class="flex items-center gap-2 px-3 py-2 text-sm font-montserrat font-medium uppercase tracking-wider text-luxury-gold hover:text-white transition-all duration-300 group"
-    aria-label="Select language"
+<!-- Language Switcher -->
+<div class="elegant-lang-switcher">
+  <!-- Globe Trigger - matching home button style -->
+  <button 
+    id="lang-globe" 
+    class="lang-globe-btn"
+    aria-label="Change language"
+    title="Change language"
   >
-    <span
-      class="text-luxury-gold group-hover:text-white transition-colors duration-300"
-    >
-      {languages[lang]}
-    </span>
-    <i
-      class="fas fa-chevron-down text-xs text-luxury-gold group-hover:text-white transition-all duration-300 transform group-hover:rotate-180"
-    ></i>
+    <i class="fas fa-globe-americas"></i>
+    <span class="lang-current-code">{languageData[lang].code}</span>
   </button>
 
-  <!-- Dropdown menu -->
-  <div
-    id="lang-menu"
-    class="absolute top-full mt-1 bg-gray-900 bg-opacity-95 backdrop-blur-md border border-gray-700 rounded-lg shadow-xl overflow-hidden opacity-0 invisible transform translate-y-2 scale-95 transition-all duration-300 z-50 min-w-32"
-  >
-    {
-      Object.entries(languages).map(([locale, name]) => (
-        <a
+  <!-- Dropdown Menu -->
+  <div id="lang-dropdown" class="lang-dropdown">
+    <div class="lang-dropdown-header">
+      <i class="fas fa-globe-americas lang-dropdown-icon"></i>
+      <span class="lang-dropdown-title">Language</span>
+    </div>
+    
+    <div class="lang-options">
+      {Object.entries(languageData).map(([locale, data]) => (
+        <a 
           href={getLocalizedPath(locale)}
-          class={`block px-4 py-3 text-sm font-montserrat transition-all duration-200 ${
-            locale === lang
-              ? "bg-luxury-gold text-gray-900 font-semibold"
-              : "text-luxury-gray hover:bg-gray-800 hover:text-luxury-gold"
-          }`}
+          class={`lang-option ${locale === lang ? 'lang-option--active' : ''}`}
           data-locale={locale}
         >
-          <span class="uppercase tracking-wider">{name}</span>
+          <span class="lang-flag">{data.flag}</span>
+          <div class="lang-info">
+            <span class="lang-name">{data.name}</span>
+            <span class="lang-code">{data.code}</span>
+          </div>
+          {locale === lang && <i class="fas fa-check lang-check"></i>}
         </a>
-      ))
-    }
+      ))}
+    </div>
   </div>
 </div>
 
 <style>
-  .language-dropdown.active #lang-menu {
+  .elegant-lang-switcher {
+    position: relative;
+    z-index: 1000;
+  }
+  
+  /* Globe Button - matching home button style */
+  .lang-globe-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #c9a96b;
+    cursor: pointer;
+    transition: all 0.3s ease, opacity 0.3s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    opacity: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .lang-globe-btn:hover {
+    color: #e8c474;
+    transform: scale(1.1);
+  }
+  
+  .lang-globe-btn.scrolled-down {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .lang-current-code {
+    position: absolute;
+    bottom: -4px;
+    right: -8px;
+    background: #c9a96b;
+    color: #1a1a1a;
+    font-size: 8px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    padding: 1px 3px;
+    border-radius: 2px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+  
+  .lang-globe-btn:hover .lang-current-code {
+    background: #e8c474;
+  }
+  
+  /* Dropdown */
+  .lang-dropdown {
+    position: fixed;
+    top: 4rem;
+    left: 2rem;
+    width: 16rem;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 169, 107, 0.2);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(201, 169, 107, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  
+  .elegant-lang-switcher.active .lang-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
   }
-
-  /* Scroll-based opacity control */
-  .language-dropdown.scrolled-down {
-    opacity: 0 !important;
-    pointer-events: none;
+  
+  .lang-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(201, 169, 107, 0.05);
   }
-
-  .language-dropdown:hover,
-  .language-dropdown:focus-within {
-    opacity: 1 !important;
-    pointer-events: auto;
+  
+  .lang-dropdown-icon {
+    color: rgba(201, 169, 107, 0.7);
+    font-size: 1rem;
   }
-
-  /* Mobile responsive adjustments */
+  
+  .lang-dropdown-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .lang-options {
+    padding: 0.5rem 0;
+  }
+  
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .lang-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .lang-option--active {
+    background: rgba(201, 169, 107, 0.15);
+  }
+  
+  .lang-option--active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: rgba(201, 169, 107, 0.8);
+  }
+  
+  .lang-flag {
+    font-size: 1.125rem;
+    line-height: 1;
+    filter: grayscale(0.2);
+    transition: filter 0.2s ease;
+  }
+  
+  .lang-option:hover .lang-flag,
+  .lang-option--active .lang-flag {
+    filter: grayscale(0);
+  }
+  
+  .lang-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  
+  .lang-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.2;
+  }
+  
+  .lang-code {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: rgba(201, 169, 107, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .lang-option--active .lang-name {
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .lang-option--active .lang-code {
+    color: rgba(201, 169, 107, 0.9);
+  }
+  
+  .lang-check {
+    color: rgba(201, 169, 107, 0.8);
+    font-size: 0.8125rem;
+  }
+  
+  /* Mobile Responsive */
   @media (max-width: 768px) {
-    .language-dropdown #lang-menu {
-      right: -1rem;
-      left: -1rem;
-      min-width: auto;
+    .lang-globe-btn {
+      top: 1.5rem;
+      left: 1.5rem;
+      font-size: 18px;
+    }
+    
+    .lang-dropdown {
+      top: 3.5rem;
+      left: 1.5rem;
+      width: 14rem;
+    }
+    
+    .lang-current-code {
+      font-size: 7px;
+      padding: 1px 2px;
+      bottom: -3px;
+      right: -6px;
+    }
+  }
+  
+  /* Handle dropdown positioning on smaller screens */
+  @media (max-width: 480px) {
+    .lang-dropdown {
+      left: 1rem;
+      right: 1rem;
+      width: auto;
     }
   }
 </style>
 
 <script>
-  // Store scroll handler reference for cleanup
   let scrollHandler: (() => void) | null = null;
 
-  function initLanguageSwitcher() {
-    const trigger = document.getElementById("lang-trigger");
-    const menu = document.getElementById("lang-menu");
-    const dropdown = document.querySelector(
-      ".language-dropdown",
-    ) as HTMLElement;
-
-    if (!trigger || !menu || !dropdown) return;
-
+  function initElegantLanguageSwitcher() {
+    const globeBtn = document.getElementById('lang-globe');
+    const dropdown = document.getElementById('lang-dropdown');
+    const switcher = document.querySelector('.elegant-lang-switcher');
+    
+    if (!globeBtn || !dropdown || !switcher) return;
+    
     let isOpen = false;
-
-    const positionDropdown = () => {
-      const rect = trigger.getBoundingClientRect();
-      const menuRect = menu.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-
-      menu.style.left = "auto";
-      menu.style.right = "auto";
-
-      if (rect.right + menuRect.width > viewportWidth) {
-        menu.style.right = "0";
-      } else {
-        menu.style.left = "0";
-      }
-    };
-
-    const toggleDropdown = () => {
-      isOpen = !isOpen;
-      if (isOpen) {
-        positionDropdown();
-        dropdown.classList.add("active");
-      } else {
-        dropdown.classList.remove("active");
-      }
-    };
-
-    const closeDropdown = () => {
-      isOpen = false;
-      dropdown.classList.remove("active");
-    };
-
-    // Toggle on button click
-    trigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleDropdown();
-    });
-
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (e.target && !dropdown.contains(e.target as Node)) {
-        closeDropdown();
-      }
-    });
-
-    // Close on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isOpen) {
-        closeDropdown();
-      }
-    });
-
-    // Remove old scroll handler if it exists
+    
+    // Remove old scroll handler if exists
     if (scrollHandler) {
-      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener('scroll', scrollHandler);
     }
 
-    // Scroll-based opacity
+    // Scroll behavior matching home button
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > 50) {
         if (currentScrollY > lastScrollY) {
-          // Scrolling down
-          dropdown.classList.add("scrolled-down");
+          globeBtn.classList.add('scrolled-down');
         } else {
-          // Scrolling up
-          dropdown.classList.remove("scrolled-down");
+          globeBtn.classList.remove('scrolled-down');
         }
       } else {
-        // At top of page
-        dropdown.classList.remove("scrolled-down");
+        globeBtn.classList.remove('scrolled-down');
       }
 
       lastScrollY = currentScrollY;
@@ -184,12 +324,91 @@ function getLocalizedPath(locale: string) {
       requestAnimationFrame(handleScroll);
     };
 
-    window.addEventListener("scroll", scrollHandler, { passive: true });
+    // Run once to sync initial state
+    handleScroll();
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    
+    const openDropdown = () => {
+      isOpen = true;
+      switcher.classList.add('active');
+      
+      // Focus management for accessibility
+      const firstOption = dropdown.querySelector('.lang-option');
+      if (firstOption) {
+        (firstOption as HTMLElement).focus();
+      }
+    };
+    
+    const closeDropdown = () => {
+      isOpen = false;
+      switcher.classList.remove('active');
+      
+      // Return focus to globe button
+      globeBtn.focus();
+    };
+    
+    // Globe button click
+    globeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDropdown();
+      }
+    });
+    
+    // Language option interactions
+    const langOptions = dropdown.querySelectorAll('.lang-option');
+    langOptions.forEach((option) => {
+      // Add smooth transition class before navigation
+      option.addEventListener('click', (e) => {
+        document.documentElement.classList.add('lang-switching');
+        
+        // Remove class after a short delay to allow the page transition
+        setTimeout(() => {
+          document.documentElement.classList.remove('lang-switching');
+        }, 100);
+      });
+      
+      // Keyboard navigation within dropdown
+      (option as HTMLElement).addEventListener('keydown', (e: KeyboardEvent) => {
+        const options = Array.from(langOptions);
+        const currentIndex = options.indexOf(option);
+        
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIndex = (currentIndex + 1) % options.length;
+          (options[nextIndex] as HTMLElement).focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIndex = (currentIndex - 1 + options.length) % options.length;
+          (options[prevIndex] as HTMLElement).focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (option as HTMLElement).click();
+        }
+      });
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!switcher.contains(e.target as Node) && isOpen) {
+        closeDropdown();
+      }
+    });
   }
-
-  // Initialize on first load
-  document.addEventListener("DOMContentLoaded", initLanguageSwitcher);
-
-  // CRITICAL: Reinitialize after every View Transition (language/page change)
-  document.addEventListener("astro:page-load", initLanguageSwitcher);
+  
+  // Initialize on DOM load
+  document.addEventListener('DOMContentLoaded', initElegantLanguageSwitcher);
+  
+  // Reinitialize after page transitions
+  document.addEventListener('astro:page-load', initElegantLanguageSwitcher);
 </script>
