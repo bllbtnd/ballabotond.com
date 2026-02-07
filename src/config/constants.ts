@@ -72,10 +72,10 @@ export const SOCIAL_LINKS = [
         external: true
     },
     {
-        id: 'hevy',
-        href: 'https://hevy.com/user/bllbtnd',
-        icon: 'fas fa-dumbbell',
-        i18nKey: 'common.hevy',
+        id: 'linkedin',
+        href: 'https://linkedin.com/in/ballabotond',
+        icon: 'fab fa-linkedin',
+        i18nKey: 'common.linkedin',
         external: true
     },
     {
@@ -92,7 +92,7 @@ export const SCHEMA_SAME_AS_LINKS = [
     'https://www.facebook.com/balla.botond',
     'https://www.instagram.com/bllbtnd',
     'https://www.youtube.com/@bllbtnd',
-    'https://hevy.com/user/bllbtnd'
+    'https://linkedin.com/in/ballabotond'
 ] as const;
 
 // Project IDs for easy reference
