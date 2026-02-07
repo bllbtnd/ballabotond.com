@@ -269,9 +269,9 @@ const languageData = {
   /* Handle dropdown positioning on smaller screens */
   @media (max-width: 480px) {
     .lang-dropdown {
-      left: 1rem;
-      right: 1rem;
-      width: auto;
+      left: 0;
+      width: max(12rem, calc(100vw - 3rem));
+      max-width: 16rem;
     }
   }
 </style>
