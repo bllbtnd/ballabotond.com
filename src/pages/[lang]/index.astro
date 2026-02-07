@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HomePage from '../../components/HomePage.astro';
+import FloatingCalendarNav from '../../components/FloatingCalendarNav.astro';
 import { useTranslations, languages } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -73,5 +74,6 @@ const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
   <script slot="head" type="application/ld+json" is:inline>
     {JSON.stringify(structuredData)}
   </script>
+  <FloatingCalendarNav />
   <HomePage />
 </Layout>

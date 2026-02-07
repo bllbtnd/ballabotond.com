@@ -1,0 +1,100 @@
+---
+// Floating Calendar Navigation - Calendar button for the home page
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+---
+
+<a 
+  href={translatePath('/calendar')} 
+  class="floating-calendar-nav"
+  aria-label="View availability calendar"
+>
+  <i class="fas fa-calendar-alt"></i>
+</a>
+
+<style>
+  .floating-calendar-nav {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    z-index: 100;
+    font-size: 20px;
+    color: #c9a96b;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease, opacity 0.3s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+  }
+  
+  .floating-calendar-nav:hover {
+    color: #e8c474;
+    transform: scale(1.1);
+  }
+
+  .floating-calendar-nav.scrolled-down {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  @media (max-width: 768px) {
+    .floating-calendar-nav {
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 18px;
+    }
+
+  }
+</style>
+
+<script>
+  let scrollHandler: (() => void) | null = null;
+
+  function initFloatingCalendarNav() {
+    const nav = document.querySelector('.floating-calendar-nav');
+    if (!(nav instanceof HTMLElement)) return;
+
+    // Remove old handler if exists
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+    }
+
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 50) {
+        if (currentScrollY > lastScrollY) {
+          nav.classList.add('scrolled-down');
+        } else {
+          nav.classList.remove('scrolled-down');
+        }
+      } else {
+        nav.classList.remove('scrolled-down');
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    scrollHandler = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    // Run once to sync initial state
+    handleScroll();
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFloatingCalendarNav);
+  document.addEventListener('astro:page-load', initFloatingCalendarNav);
+</script>
