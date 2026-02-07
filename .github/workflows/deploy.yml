@@ -5,9 +5,9 @@ on:
   # Using a different branch name? Replace `main` with your branch's name
   push:
     branches: [ main ]
-  # Run every hour to keep calendar data fresh
+  # Run every hour from 8 AM to 4 PM UTC to keep calendar data fresh
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 8-16 * * *'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
