@@ -39,21 +39,38 @@ if (calendarUrls.length > 0) {
 }
 ---
 
-<a 
-  href={translatePath('/calendar')} 
-  class={`floating-calendar-nav ${hasCalendar && isAvailable ? 'available' : ''} ${hasCalendar && !isAvailable ? 'busy' : ''}`}
-  aria-label="View availability calendar"
-  title={hasCalendar ? (isAvailable ? 'Available - View calendar' : 'Busy - View calendar') : 'View calendar'}
->
-  <i class="fas fa-calendar-alt"></i>
-</a>
+<div class="calendar-nav-wrapper">
+  <a 
+    href={translatePath('/calendar')} 
+    class={`floating-calendar-nav ${hasCalendar && isAvailable ? 'available' : ''} ${hasCalendar && !isAvailable ? 'busy' : ''}`}
+    aria-label="View availability calendar"
+    title={hasCalendar ? (isAvailable ? 'Available - View calendar' : 'Busy - View calendar') : 'View calendar'}
+  >
+    <i class="fas fa-calendar-alt"></i>
+  </a>
+  
+  <!-- Mobile Status Indicator -->
+  {hasCalendar && (
+    <div class={`status-indicator ${isAvailable ? 'available' : 'busy'}`}>
+      {isAvailable ? 'Available' : 'Busy'}
+    </div>
+  )}
+</div>
 
 <style>
-  .floating-calendar-nav {
+  .calendar-nav-wrapper {
     position: fixed;
     top: 1.5rem;
     right: 2rem;
     z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .floating-calendar-nav {
+    position: relative;
     font-size: 20px;
     color: #c9a96b;
     cursor: pointer;
@@ -62,7 +79,6 @@ if (calendarUrls.length > 0) {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    opacity: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,11 +113,55 @@ if (calendarUrls.length > 0) {
     opacity: 0;
     pointer-events: none;
   }
-  
+
+  /* Status Indicator */
+  .status-indicator {
+    position: absolute;
+    right: 100%;
+    top: 55%;
+    transform: translateY(-50%);
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    animation: statusFadeOut 0.3s ease-in-out 4.7s forwards;
+  }
+
+  .status-indicator.available {
+    color: #10b981;
+  }
+
+  .status-indicator.busy {
+    color: #ef4444;
+  }
+
+  @keyframes statusFadeOut {
+    from {
+      opacity: 0.7;
+    }
+    to {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .calendar-nav-wrapper.scrolled-down {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   @media (max-width: 768px) {
-    .floating-calendar-nav {
+    .calendar-nav-wrapper {
       top: 1.5rem;
       right: 1.5rem;
+    }
+
+    .floating-calendar-nav {
       font-size: 18px;
     }
   }
@@ -111,8 +171,8 @@ if (calendarUrls.length > 0) {
   let scrollHandler: (() => void) | null = null;
 
   function initFloatingCalendarNav() {
-    const nav = document.querySelector('.floating-calendar-nav');
-    if (!(nav instanceof HTMLElement)) return;
+    const wrapper = document.querySelector('.calendar-nav-wrapper');
+    if (!(wrapper instanceof HTMLElement)) return;
 
     // Remove old handler if exists
     if (scrollHandler) {
@@ -125,12 +185,12 @@ if (calendarUrls.length > 0) {
 
       if (currentScrollY > 50) {
         if (currentScrollY > lastScrollY) {
-          nav.classList.add('scrolled-down');
+          wrapper.classList.add('scrolled-down');
         } else {
-          nav.classList.remove('scrolled-down');
+          wrapper.classList.remove('scrolled-down');
         }
       } else {
-        nav.classList.remove('scrolled-down');
+        wrapper.classList.remove('scrolled-down');
       }
 
       lastScrollY = currentScrollY;
