@@ -8,7 +8,6 @@ import BrandMonogram from "./BrandMonogram.astro";
 import SocialLink from "./SocialLink.astro";
 import BackgroundGradient from "./BackgroundGradient.astro";
 import RandomTagline from "./RandomTagline.astro";
-import AvailabilityIndicator from "./AvailabilityIndicator.astro";
 import {
   getLangFromUrl,
   useTranslations,
@@ -37,11 +36,6 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
   <div
     class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6"
   >
-    <!-- Availability Indicator (subtle, bottom-left) -->
-    <div class="fixed bottom-6 left-6 z-20 animate-fade-in" style="animation-delay: 1.5s;">
-      <AvailabilityIndicator lang={lang} t={t} />
-    </div>
-
     <!-- Brand Monogram -->
     <BrandMonogram size="md" className="mb-8 animate-fade-in" />
 
