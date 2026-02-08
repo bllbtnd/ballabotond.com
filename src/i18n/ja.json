@@ -59,6 +59,7 @@
     "today": "今日",
     "noCalendars": "カレンダー設定が見つかりません。PUBLIC_CALENDAR_URLS環境変数を設定してください。",
     "privacyNote": "プライバシーを重視しています - 空き状況のみが表示され、イベントの詳細は公開されません。",
+    "timezoneNote": "すべての時刻はブダペスト時間（CET/CEST）",
     "swipeHint": "スワイプして週を移動"
   },
   "projects": {

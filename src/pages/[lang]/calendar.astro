@@ -187,6 +187,9 @@ const labeledHours = hours; // Show all hour labels
           <span>{t('calendar.past') ?? 'Past'}</span>
         </div>
         <span class="cal-legend-privacy">{t('calendar.privacyNote')}</span>
+        <span class="cal-legend-timezone">
+          <i class="fas fa-clock text-xs mr-1"></i>{t('calendar.timezoneNote')}
+        </span>
       </footer>
     </main>
 
@@ -390,6 +393,13 @@ const labeledHours = hours; // Show all hour labels
     font-family: 'Montserrat', sans-serif;
     font-size: 8px !important;
     color: rgba(255,255,255,0.2) !important;
+  }
+  .cal-legend-timezone {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px !important;
+    color: rgba(198, 162, 88, 0.4) !important;
+    display: flex;
+    align-items: center;
   }
 
   /* ─── Mobile ─── */

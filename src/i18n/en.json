@@ -59,6 +59,7 @@
     "today": "Today",
     "noCalendars": "Calendar configuration not found. Please set up PUBLIC_CALENDAR_URLS environment variable.",
     "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed.",
+    "timezoneNote": "All times are in Budapest time (CET/CEST)",
     "swipeHint": "Swipe to navigate weeks"
   },
   "projects": {
