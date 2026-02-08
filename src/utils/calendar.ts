@@ -1,6 +1,8 @@
 // Calendar utility for parsing ICS feeds and determining availability
 // Only shows availability status, not event details (privacy-focused)
 
+import { toZonedTime } from 'date-fns-tz';
+
 export interface TimeSlot {
   start: Date;
   end: Date;
@@ -42,6 +44,7 @@ export function parseICS(icsContent: string): TimeSlot[] {
 
 /**
  * Parse ICS date format (supports both YYYYMMDD and YYYYMMDDTHHmmss formats)
+ * Converts all times to Budapest timezone (Europe/Budapest)
  */
 function parseICSDate(dateStr: string): Date | null {
   // Remove TZID and VALUE parameters
@@ -58,8 +61,8 @@ function parseICSDate(dateStr: string): Date | null {
   const isUTC = cleanDate.endsWith('Z');
   
   if (isUTC) {
-    // Parse as UTC and convert to local time
-    return new Date(Date.UTC(
+    // Create a UTC date first
+    const utcDate = new Date(Date.UTC(
       parseInt(year),
       parseInt(month) - 1,
       parseInt(day),
@@ -67,8 +70,12 @@ function parseICSDate(dateStr: string): Date | null {
       parseInt(minute),
       parseInt(second)
     ));
+    
+    // Convert to Budapest timezone
+    // This properly handles CET (UTC+1) in winter and CEST (UTC+2) in summer
+    return toZonedTime(utcDate, 'Europe/Budapest');
   } else {
-    // Parse as local time
+    // Non-UTC date - treat as local time (already in Budapest timezone)
     return new Date(
       parseInt(year),
       parseInt(month) - 1,
