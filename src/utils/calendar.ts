@@ -139,9 +139,19 @@ export function getAvailability(
       }))
     );
     
+    // Check if it's a weekend (Saturday = 6, Sunday = 0)
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    
     // Calculate hourly availability from 6 AM (hour 6) to 10 PM (hour 22)
     const hourlyAvailability: boolean[] = [];
     for (let hour = 6; hour <= 22; hour++) {
+      // Weekends are always busy
+      if (isWeekend) {
+        hourlyAvailability.push(false);
+        continue;
+      }
+      
       const hourStart = new Date(date);
       hourStart.setHours(hour, 0, 0, 0);
       const hourEnd = new Date(date);
@@ -159,8 +169,8 @@ export function getAvailability(
       hourlyAvailability.push(!isBusy);
     }
     
-    // Consider a day unavailable if there are any busy slots
-    const isAvailable = daySlots.length === 0;
+    // Consider a day unavailable if there are any busy slots or if it's a weekend
+    const isAvailable = !isWeekend && daySlots.length === 0;
     const isPast = date < startOfToday;
     
     availability.push({
