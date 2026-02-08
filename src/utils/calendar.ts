@@ -60,21 +60,31 @@ function parseICSDate(dateStr: string): Date | null {
   // Check if this is a UTC time (ends with Z)
   const isUTC = cleanDate.endsWith('Z');
   
-  // Create a UTC date first
-  const utcDate = new Date(Date.UTC(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day),
-    parseInt(hour),
-    parseInt(minute),
-    parseInt(second)
-  ));
-  
-  // Convert to Budapest timezone
-  // This properly handles CET (UTC+1) in winter and CEST (UTC+2) in summer
-  const budapestDate = toZonedTime(utcDate, 'Europe/Budapest');
-  
-  return budapestDate;
+  if (isUTC) {
+    // Create a UTC date first
+    const utcDate = new Date(Date.UTC(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second)
+    ));
+    
+    // Convert to Budapest timezone
+    // This properly handles CET (UTC+1) in winter and CEST (UTC+2) in summer
+    return toZonedTime(utcDate, 'Europe/Budapest');
+  } else {
+    // Non-UTC date - treat as local time (already in Budapest timezone)
+    return new Date(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second)
+    );
+  }
 }
 
 /**
