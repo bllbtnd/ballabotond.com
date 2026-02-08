@@ -2,9 +2,17 @@
 // Floating Calendar Navigation with Availability Status
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 import { fetchCalendars, getAvailability } from '../utils/calendar';
+import en from '../i18n/en.json';
+import hu from '../i18n/hu.json';
+import it from '../i18n/it.json';
+import ja from '../i18n/ja.json';
+import zh from '../i18n/zh.json';
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
+
+const translations: Record<string, any> = { en, hu, it, ja, zh };
+const t = translations[lang] || translations.en;
 
 const calendarUrls = import.meta.env.PUBLIC_CALENDAR_URLS?.split(',').map((url: string) => url.trim()).filter(Boolean) || [];
 
@@ -52,7 +60,7 @@ if (calendarUrls.length > 0) {
   <!-- Mobile Status Indicator -->
   {hasCalendar && (
     <div class={`status-indicator ${isAvailable ? 'available' : 'busy'}`}>
-      {isAvailable ? 'Available' : 'Busy'}
+      {isAvailable ? t.home.available : t.home.busy}
     </div>
   )}
 </div>
