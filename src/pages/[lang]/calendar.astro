@@ -63,6 +63,21 @@ const getDayName = (date: Date) => {
   return date.toLocaleDateString(typedLang, { weekday: 'short' });
 };
 
+const getMonthName = (date: Date) => {
+  return date.toLocaleDateString(typedLang, { month: 'short' });
+};
+
+const isMonthChange = (currentDate: Date, allDays: typeof availability, currentIndex: number) => {
+  if (currentIndex === 0) return true; // Show month on first day
+  const prevDay = allDays[currentIndex - 1];
+  if (!prevDay) return true;
+  return currentDate.getMonth() !== prevDay.date.getMonth();
+};
+
+const isFirstDayOfMonth = (date: Date) => {
+  return date.getDate() === 1;
+};
+
 const isToday = (date: Date) => {
   const today = new Date();
   return date.getDate() === today.getDate() &&
@@ -148,24 +163,31 @@ const labeledHours = hours; // Show all hour labels
                 </div>
 
                 {/* 7 day columns */}
-                {week.map((day) => (
-                  <div class={`cal-day ${day.isPast ? 'cal-day--past' : ''} ${isToday(day.date) ? 'cal-day--today' : ''}`}>
-                    {/* Day header */}
-                    <div class="cal-day-header">
-                      <span class="cal-day-name">{getDayName(day.date)}</span>
-                      <span class="cal-day-num">{day.date.getDate()}</span>
+                {week.map((day, dayIdx) => {
+                  const flatIndex = weekIdx * 5 + dayIdx; // 5 weekdays per week
+                  const showMonth = isMonthChange(day.date, availability, flatIndex);
+                  return (
+                    <div class={`cal-day ${day.isPast ? 'cal-day--past' : ''} ${isToday(day.date) ? 'cal-day--today' : ''} ${showMonth ? 'cal-day--month-start' : ''}`}>
+                      {/* Day header */}
+                      <div class="cal-day-header">
+                        <span class="cal-day-name">{getDayName(day.date)}</span>
+                        <span class="cal-day-num">{day.date.getDate()}</span>
+                        {showMonth && (
+                          <span class="cal-day-month">{getMonthName(day.date)}</span>
+                        )}
+                      </div>
+                      {/* Hour cells */}
+                      <div class="cal-day-hours">
+                        {day.hourlyAvailability?.map((avail, hi) => (
+                          <div 
+                            class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'}`}
+                            title={`${hi + 6}:00 – ${hi + 7}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
+                          />
+                        ))}
+                      </div>
                     </div>
-                    {/* Hour cells */}
-                    <div class="cal-day-hours">
-                      {day.hourlyAvailability?.map((avail, hi) => (
-                        <div 
-                          class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'}`}
-                          title={`${hi + 6}:00 – ${hi + 7}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ))}
           </div>
@@ -205,6 +227,7 @@ const labeledHours = hours; // Show all hour labels
     z-index: 10;
     background: #0b0b0b;
     min-height: 100vh;
+    overflow-x: hidden;
   }
   .calendar-main {
     height: 100vh;
@@ -212,6 +235,7 @@ const labeledHours = hours; // Show all hour labels
     flex-direction: column;
     padding: 3rem 1rem 0.5rem;
     overflow: hidden;
+    max-width: 100vw;
   }
 
   /* ─── Header ─── */
@@ -325,6 +349,22 @@ const labeledHours = hours; // Show all hour labels
     font-weight: 600;
     color: rgba(255,255,255,0.7);
     line-height: 1.1;
+  }
+  .cal-day-month {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(201, 169, 107, 0.7);
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  /* Month start styling */
+  .cal-day--month-start .cal-day-header {
+    background: rgba(201, 169, 107, 0.08);
+    border-bottom-color: rgba(201, 169, 107, 0.2);
   }
 
   /* Today styling */
@@ -479,7 +519,7 @@ const labeledHours = hours; // Show all hour labels
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE and Edge */
-      padding: 0 0.5rem;
+      padding: 0;
       scroll-behavior: smooth;
     }
     .cal-grid::-webkit-scrollbar {
@@ -490,9 +530,14 @@ const labeledHours = hours; // Show all hour labels
       min-width: 100%;
       flex-shrink: 0;
       scroll-snap-align: start;
+      scroll-snap-stop: always;
       margin-bottom: 0.5rem;
       border-radius: 8px;
       padding: 0.25rem;
+    }
+
+    .cal-container {
+      overflow: hidden;
     }
     
     /* Larger touch targets on mobile */
@@ -528,6 +573,19 @@ const labeledHours = hours; // Show all hour labels
       font-weight: 700;
       color: rgba(255,255,255,0.85);
     }
+    .cal-day-month {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: rgba(201, 169, 107, 0.8);
+      margin-top: 1px;
+    }
+    
+    /* Month start styling - more prominent on mobile */
+    .cal-day--month-start .cal-day-header {
+      background: rgba(201, 169, 107, 0.12);
+      border-bottom-color: rgba(201, 169, 107, 0.3);
+    }
     
     /* Today styling - more prominent on mobile */
     .cal-day--today .cal-day-header {
@@ -540,6 +598,9 @@ const labeledHours = hours; // Show all hour labels
       font-weight: 700;
     }
     .cal-day--today .cal-day-num {
+      color: #e8c474;
+    }
+    .cal-day--today.cal-day--month-start .cal-day-month {
       color: #e8c474;
     }
     
