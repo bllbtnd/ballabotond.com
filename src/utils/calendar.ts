@@ -53,14 +53,31 @@ function parseICSDate(dateStr: string): Date | null {
   if (!match) return null;
 
   const [, year, month, day, hour = '00', minute = '00', second = '00'] = match;
-  return new Date(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day),
-    parseInt(hour),
-    parseInt(minute),
-    parseInt(second)
-  );
+  
+  // Check if this is a UTC time (ends with Z)
+  const isUTC = cleanDate.endsWith('Z');
+  
+  if (isUTC) {
+    // Parse as UTC and convert to local time
+    return new Date(Date.UTC(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second)
+    ));
+  } else {
+    // Parse as local time
+    return new Date(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second)
+    );
+  }
 }
 
 /**
@@ -158,11 +175,10 @@ export function getAvailability(
       hourEnd.setHours(hour, 59, 59, 999);
       
       // Check if this hour overlaps with any busy slot
+      // An event must actually occupy time within the hour, not just touch its boundaries
       const isBusy = daySlots.some(slot => {
         return (
-          (slot.start <= hourStart && slot.end >= hourStart) ||
-          (slot.start <= hourEnd && slot.end >= hourEnd) ||
-          (slot.start >= hourStart && slot.end <= hourEnd)
+          (slot.start < hourEnd && slot.end > hourStart)
         );
       });
       
