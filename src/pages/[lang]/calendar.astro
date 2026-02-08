@@ -7,7 +7,7 @@ import Constellation from '../../components/Constellation.astro';
 import BackgroundGradient from '../../components/BackgroundGradient.astro';
 import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
 import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
-import { fetchCalendars, getAvailability, groupByWeek } from '../../utils/calendar';
+import { fetchCalendars, getAvailability, groupByWeek, filterWeekdays } from '../../utils/calendar';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -28,8 +28,28 @@ let weeks: ReturnType<typeof groupByWeek> = [];
 if (calendarUrls.length > 0) {
   try {
     const busySlots = await fetchCalendars(calendarUrls);
-    availability = getAvailability(busySlots, 4);
+    
+    // Check if today is a weekend
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const isWeekend = today.getDay() === 0 || today.getDay() === 6;
+    
+    // Get 5 weeks of data (in case we need to skip current week on weekends)
+    const allDays = getAvailability(busySlots, 5);
+    
+    // Filter out weekends for calendar display
+    let weekdayData = filterWeekdays(allDays);
+    
+    if (isWeekend) {
+      // Skip the current week (all past weekdays) and show next 4 weeks
+      weekdayData = weekdayData.filter(day => !day.isPast);
+    }
+    
+    availability = weekdayData;
     weeks = groupByWeek(availability);
+    
+    // Always show exactly 4 weeks
+    weeks = weeks.slice(0, 4);
   } catch (error) {
     console.error('Failed to fetch calendar data:', error);
   }

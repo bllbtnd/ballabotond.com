@@ -249,3 +249,13 @@ export function groupByWeek(days: DayAvailability[]): DayAvailability[][] {
 
   return weeks;
 }
+
+/**
+ * Filter out weekends from availability data (for calendar display)
+ */
+export function filterWeekdays(days: DayAvailability[]): DayAvailability[] {
+  return days.filter(day => {
+    const dayOfWeek = day.date.getDay();
+    return dayOfWeek !== 0 && dayOfWeek !== 6; // Exclude Sunday (0) and Saturday (6)
+  });
+}
