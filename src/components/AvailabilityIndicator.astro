@@ -3,6 +3,7 @@
 // Shows current availability status as a colored dot
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 import { fetchCalendars, getAvailability } from '../utils/calendar';
+import { toZonedTime } from 'date-fns-tz';
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
@@ -17,17 +18,21 @@ if (calendarUrls.length > 0) {
     const busySlots = await fetchCalendars(calendarUrls);
     const availability = getAvailability(busySlots, 1); // Only check current week
     
-    // Find today's availability
+    // Get current time in Budapest timezone to match calendar data
     const now = new Date();
+    const nowBudapest = toZonedTime(now, 'Europe/Budapest');
+    
+    // Find today's availability using Budapest timezone date
     const today = availability.find(day => {
-      return day.date.getDate() === now.getDate() &&
-             day.date.getMonth() === now.getMonth() &&
-             day.date.getFullYear() === now.getFullYear();
+      return day.date.getDate() === nowBudapest.getDate() &&
+             day.date.getMonth() === nowBudapest.getMonth() &&
+             day.date.getFullYear() === nowBudapest.getFullYear();
     });
     
     if (today && !today.isPast && today.hourlyAvailability) {
       // Check current hour availability (6 AM to 10 PM range)
-      const currentHour = now.getHours();
+      // Use Budapest timezone hour for accuracy
+      const currentHour = nowBudapest.getHours();
       if (currentHour >= 6 && currentHour <= 22) {
         const hourIndex = currentHour - 6; // Index 0 = 6 AM
         isAvailable = today.hourlyAvailability[hourIndex] === true;
