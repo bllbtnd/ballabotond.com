@@ -98,15 +98,32 @@ function normalizeCalendarUrl(url: string): string {
 }
 
 /**
+ * Add cache-busting query parameter to URL
+ */
+function addCacheBuster(url: string): string {
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${Date.now()}`;
+}
+
+/**
  * Fetch and parse multiple ICS feeds
+ * Always bypasses cache to ensure fresh calendar data
  */
 export async function fetchCalendars(urls: string[]): Promise<TimeSlot[]> {
   const allSlots: TimeSlot[] = [];
 
   for (const url of urls) {
     const normalizedUrl = normalizeCalendarUrl(url);
+    const urlWithCacheBuster = addCacheBuster(normalizedUrl);
     try {
-      const response = await fetch(normalizedUrl);
+      const response = await fetch(urlWithCacheBuster, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
       if (!response.ok) continue;
       
       const icsContent = await response.text();
