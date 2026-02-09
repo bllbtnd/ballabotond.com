@@ -78,22 +78,12 @@ const isFirstDayOfMonth = (date: Date) => {
   return date.getDate() === 1;
 };
 
-const isToday = (date: Date) => {
-  const today = new Date();
-  return date.getDate() === today.getDate() &&
-         date.getMonth() === today.getMonth() &&
-         date.getFullYear() === today.getFullYear();
-};
-
-const isPastHour = (date: Date, hourIndex: number): boolean => {
-  if (!isToday(date)) return false;
-  
-  const now = new Date();
-  const currentHour = now.getHours();
-  const hourStart = hourIndex + 6; // Index 0 = 6 AM
-  
-  // Hour is in the past if it's before the current hour
-  return hourStart < currentHour;
+/** Format date as YYYY-MM-DD using local time (not UTC) */
+const toLocalDateStr = (date: Date): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 };
 
 const hours = Array.from({ length: 17 }, (_, i) => i + 6);
@@ -178,7 +168,7 @@ const labeledHours = hours; // Show all hour labels
                   const flatIndex = weekIdx * 5 + dayIdx; // 5 weekdays per week
                   const showMonth = isMonthChange(day.date, availability, flatIndex);
                   return (
-                    <div class={`cal-day ${day.isPast ? 'cal-day--past' : ''} ${isToday(day.date) ? 'cal-day--today' : ''} ${showMonth ? 'cal-day--month-start' : ''}`}>
+                    <div class={`cal-day ${showMonth ? 'cal-day--month-start' : ''}`} data-date={toLocalDateStr(day.date)}>
                       {/* Day header */}
                       <div class="cal-day-header">
                         <span class="cal-day-name">{getDayName(day.date)}</span>
@@ -191,8 +181,10 @@ const labeledHours = hours; // Show all hour labels
                       <div class="cal-day-hours">
                         {day.hourlyAvailability?.map((avail, hi) => (
                           <div 
-                            class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'} ${isPastHour(day.date, hi) ? 'cal-cell--past' : ''}`}
+                            class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'}`}
                             title={`${hi + 6}:00 – ${hi + 7}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
+                            data-date={toLocalDateStr(day.date)}
+                            data-hour={hi + 6}
                           />
                         ))}
                       </div>
@@ -666,6 +658,58 @@ const labeledHours = hours; // Show all hour labels
     }
   }
 </style>
+
+<script>
+  // Dynamic past-day and past-hour detection (runs client-side so it works on static hosting)
+  function updatePastStatus() {
+    const now = new Date();
+    const todayStr = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
+    const currentHour = now.getHours();
+
+    // Update day columns
+    document.querySelectorAll('.cal-day[data-date]').forEach(dayEl => {
+      const dateStr = (dayEl as HTMLElement).dataset.date;
+      if (!dateStr) return;
+
+      dayEl.classList.remove('cal-day--past', 'cal-day--today');
+
+      if (dateStr < todayStr) {
+        dayEl.classList.add('cal-day--past');
+      } else if (dateStr === todayStr) {
+        dayEl.classList.add('cal-day--today');
+      }
+    });
+
+    // Update hour cells
+    document.querySelectorAll('.cal-cell[data-date]').forEach(cell => {
+      const el = cell as HTMLElement;
+      const dateStr = el.dataset.date;
+      const hour = parseInt(el.dataset.hour || '0');
+
+      el.classList.remove('cal-cell--past');
+
+      if (!dateStr) return;
+
+      if (dateStr < todayStr) {
+        // Entire past day
+        el.classList.add('cal-cell--past');
+      } else if (dateStr === todayStr && hour < currentHour) {
+        // Past hour today
+        el.classList.add('cal-cell--past');
+      }
+    });
+  }
+
+  // Run immediately and refresh every minute
+  updatePastStatus();
+  setInterval(updatePastStatus, 60000);
+
+  document.addEventListener('astro:page-load', () => {
+    updatePastStatus();
+  });
+</script>
 
 <script>
   // Mobile week navigation with scroll indicator
