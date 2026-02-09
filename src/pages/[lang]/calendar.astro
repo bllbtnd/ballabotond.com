@@ -85,6 +85,17 @@ const isToday = (date: Date) => {
          date.getFullYear() === today.getFullYear();
 };
 
+const isPastHour = (date: Date, hourIndex: number): boolean => {
+  if (!isToday(date)) return false;
+  
+  const now = new Date();
+  const currentHour = now.getHours();
+  const hourStart = hourIndex + 6; // Index 0 = 6 AM
+  
+  // Hour is in the past if it's before the current hour
+  return hourStart < currentHour;
+};
+
 const hours = Array.from({ length: 17 }, (_, i) => i + 6);
 const labeledHours = hours; // Show all hour labels
 ---
@@ -180,7 +191,7 @@ const labeledHours = hours; // Show all hour labels
                       <div class="cal-day-hours">
                         {day.hourlyAvailability?.map((avail, hi) => (
                           <div 
-                            class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'}`}
+                            class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'} ${isPastHour(day.date, hi) ? 'cal-cell--past' : ''}`}
                             title={`${hi + 6}:00 – ${hi + 7}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
                           />
                         ))}
@@ -411,6 +422,13 @@ const labeledHours = hours; // Show all hour labels
   }
   .cal-cell--busy:hover {
     background: rgba(251, 113, 133, 0.35);
+  }
+  .cal-cell--past {
+    background: rgba(255, 255, 255, 0.05) !important;
+    cursor: not-allowed;
+  }
+  .cal-cell--past:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
   }
 
   /* ─── Legend ─── */
