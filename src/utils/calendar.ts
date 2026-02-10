@@ -13,7 +13,7 @@ export interface DayAvailability {
   slots: TimeSlot[];
   isAvailable: boolean;
   isPast: boolean;
-  hourlyAvailability?: boolean[]; // Index 0 = 6 AM, Index 16 = 10 PM
+  hourlyAvailability?: boolean[]; // Index 0 = 8 AM, Index 12 = 8 PM
 }
 
 /**
@@ -184,9 +184,9 @@ export function getAvailability(
     const dayOfWeek = date.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     
-    // Calculate hourly availability from 6 AM (hour 6) to 10 PM (hour 22)
+    // Calculate hourly availability from 8 AM (hour 8) to 8 PM (hour 20)
     const hourlyAvailability: boolean[] = [];
-    for (let hour = 6; hour <= 22; hour++) {
+    for (let hour = 8; hour <= 20; hour++) {
       // Weekends are always busy
       if (isWeekend) {
         hourlyAvailability.push(false);

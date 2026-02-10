@@ -86,7 +86,7 @@ const toLocalDateStr = (date: Date): string => {
   return `${y}-${m}-${d}`;
 };
 
-const hours = Array.from({ length: 17 }, (_, i) => i + 6);
+const hours = Array.from({ length: 13 }, (_, i) => i + 8);
 const labeledHours = hours; // Show all hour labels
 ---
 
@@ -182,9 +182,9 @@ const labeledHours = hours; // Show all hour labels
                         {day.hourlyAvailability?.map((avail, hi) => (
                           <div 
                             class={`cal-cell ${avail ? 'cal-cell--free' : 'cal-cell--busy'}`}
-                            title={`${hi + 6}:00 – ${hi + 7}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
+                            title={`${hi + 8}:00 – ${hi + 9}:00 · ${avail ? t('calendar.available') : t('calendar.busy')}`}
                             data-date={toLocalDateStr(day.date)}
-                            data-hour={hi + 6}
+                            data-hour={hi + 8}
                           />
                         ))}
                       </div>

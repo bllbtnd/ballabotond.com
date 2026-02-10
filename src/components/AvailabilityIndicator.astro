@@ -30,13 +30,16 @@ if (calendarUrls.length > 0) {
     });
     
     if (today && !today.isPast && today.hourlyAvailability) {
-      // Check current hour availability (6 AM to 10 PM range)
+      // Check current hour availability (8 AM to 8 PM range)
       // Use Budapest timezone hour for accuracy
       const currentHour = nowBudapest.getHours();
-      if (currentHour >= 6 && currentHour <= 22) {
-        const hourIndex = currentHour - 6; // Index 0 = 6 AM
+      showIndicator = true;
+      if (currentHour >= 8 && currentHour <= 20) {
+        const hourIndex = currentHour - 8; // Index 0 = 8 AM
         isAvailable = today.hourlyAvailability[hourIndex] === true;
-        showIndicator = true;
+      } else {
+        // Outside working hours — always busy
+        isAvailable = false;
       }
     }
   } catch (error) {
