@@ -15,32 +15,7 @@ const { lang } = Astro.params;
 const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 
-// ── Resolve stories: auto-prefix image paths, resolve coordinates ──
-// Geocode cache — avoids duplicate requests for the same place within a build
-const geocodeCache = new Map<string, { lat: number; lng: number }>();
-
-// Geocode location names via Nominatim (free, no API key, build-time only)
-async function geocode(query: string): Promise<{ lat: number; lng: number } | null> {
-  const key = query.toLowerCase();
-  if (geocodeCache.has(key)) return geocodeCache.get(key)!;
-  try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`;
-    const res = await fetch(url, {
-      headers: { 'User-Agent': 'ballabotond.com/1.0 (personal site, build-time geocoding)' }
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.length > 0) {
-      const coords = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
-      geocodeCache.set(key, coords);
-      return coords;
-    }
-    console.warn(`[stories] Nominatim returned no results for "${query}"`);
-  } catch (err) {
-    console.warn(`[stories] Geocoding failed for "${query}":`, err);
-  }
-  return null;
-}
+import { geocode } from '../../utils/geocode';
 
 // Sort newest first
 const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));

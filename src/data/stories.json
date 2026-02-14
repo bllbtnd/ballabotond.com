@@ -19,5 +19,55 @@
     "image": "4.png",
     "date": "2025-05-10",
     "location": "Pécs, Hungary"
+  },
+  {
+    "image": "5.png",
+    "date": "2025-07-22",
+    "location": "Vysoké Tatry, Slovakia"
+  },
+  {
+    "image": "6.png",
+    "date": "2025-07-24",
+    "location": "Kezmarok, Slovakia"
+  },
+  {
+    "image": "7.png",
+    "date": "2025-07-19",
+    "location": "Hydra, Greece"
+  },
+  {
+    "image": "8.png",
+    "date": "2023-08-03",
+    "location": "Radhimë, Albania"
+  },
+  {
+    "image": "9.png",
+    "date": "2023-07-18",
+    "location": "Berat, Albania"
+  },
+  {
+    "image": "10.png",
+    "date": "2025-07-16",
+    "location": "Mostar, Bosnia and Herzegovina"
+  },
+  {
+    "image": "11.png",
+    "date": "2024-07-10",
+    "location": "Zlatni Rat, Croatia"
+  },
+  {
+    "image": "12.png",
+    "date": "2025-07-05",
+    "location": "Split, Croatia"
+  },
+  {
+    "image": "13.png",
+    "date": "2024-07-06",
+    "location": "Jelsa, Croatia"
+  },
+  {
+    "image": "14.png",
+    "date": "2025-07-23",
+    "location": "Sveti Stefan, Montenegro"
   }
 ]
