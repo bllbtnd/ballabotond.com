@@ -15,31 +15,22 @@ const { lang } = Astro.params;
 const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 
-// ── Resolve stories: auto-prefix image paths, geocode city names ──
-// Nominatim geocoder (free, no API key, runs at build time only)
-const geocodeCache = new Map<string, { lat: number; lng: number }>();
-
-async function geocode(query: string) {
-  if (geocodeCache.has(query)) return geocodeCache.get(query)!;
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`,
-      { headers: { 'User-Agent': 'ballabotond-personal-site/1.0' } }
-    );
-    const data = await res.json();
-    if (data.length > 0) {
-      const coords = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
-      geocodeCache.set(query, coords);
-      return coords;
-    }
-  } catch (_) {}
-  return null;
-}
+// ── Resolve stories: auto-prefix image paths, look up city coordinates ──
+// Hardcoded coords for city names — instant, offline, never breaks
+const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
+  'dubrovnik, croatia':    { lat: 42.6507, lng: 18.0944 },
+  'pécs, hungary':         { lat: 46.0727, lng: 18.2323 },
+  'budapest, hungary':     { lat: 47.4979, lng: 19.0402 },
+  'bük, hungary':          { lat: 47.3839, lng: 16.7422 },
+  'lake balaton, hungary': { lat: 46.8300, lng: 17.7100 },
+  'milan, italy':          { lat: 45.4642, lng: 9.1900 },
+  'florence, italy':       { lat: 43.7696, lng: 11.2558 },
+  'rome, italy':           { lat: 41.9028, lng: 12.4964 },
+};
 
 // Sort newest first
 const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));
 
-// Resolve each story sequentially (respects Nominatim rate limit)
 type ResolvedStory = {
   photo: string;
   date: string;
@@ -61,12 +52,15 @@ for (const s of sorted) {
     lng = s.location[1];
     label = (s as any).label || `${lat.toFixed(2)}, ${lng.toFixed(2)}`;
   } else {
-    // City name string → geocode it
+    // City name string → look up from table
     label = s.location;
-    const coords = await geocode(s.location);
+    const key = s.location.toLowerCase();
+    const coords = CITY_COORDS[key];
     if (coords) {
       lat = coords.lat;
       lng = coords.lng;
+    } else {
+      console.warn(`[stories] Unknown location "${s.location}" — add it to CITY_COORDS in stories.astro`);
     }
   }
 
@@ -94,7 +88,7 @@ for (const s of sorted) {
   </div>
 
   <!-- Photo lightbox overlay -->
-  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center" style="background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);">
+  <div id="lightbox" class="fixed inset-0 z-[200] hidden items-center justify-center" style="background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);">
     <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10 cursor-pointer" aria-label={t('stories.close')}>
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
@@ -109,7 +103,7 @@ for (const s of sorted) {
   </div>
 
   <!-- Hidden data for JS -->
-  <script id="stories-data" type="application/json" set:html={JSON.stringify(stories)} />
+  <div id="stories-data" style="display:none" data-stories={JSON.stringify(stories)}></div>
 
   <!-- MapLibre CSS -->
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
@@ -133,7 +127,9 @@ for (const s of sorted) {
       var dataEl = document.getElementById('stories-data');
       if (!dataEl) return;
 
-      var stories = JSON.parse(dataEl.textContent || '[]');
+      var stories = JSON.parse(dataEl.getAttribute('data-stories') || '[]');
+      // Filter out entries with invalid coordinates
+      stories = stories.filter(function(s) { return s.lat !== 0 || s.lng !== 0; });
       if (!stories.length) return;
 
       // Calculate center from all stories
