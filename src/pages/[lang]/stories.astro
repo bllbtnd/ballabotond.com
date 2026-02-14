@@ -15,18 +15,32 @@ const { lang } = Astro.params;
 const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 
-// ── Resolve stories: auto-prefix image paths, look up city coordinates ──
-// Hardcoded coords for city names — instant, offline, never breaks
-const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
-  'dubrovnik, croatia':    { lat: 42.6507, lng: 18.0944 },
-  'pécs, hungary':         { lat: 46.0727, lng: 18.2323 },
-  'budapest, hungary':     { lat: 47.4979, lng: 19.0402 },
-  'bük, hungary':          { lat: 47.3839, lng: 16.7422 },
-  'lake balaton, hungary': { lat: 46.8300, lng: 17.7100 },
-  'milan, italy':          { lat: 45.4642, lng: 9.1900 },
-  'florence, italy':       { lat: 43.7696, lng: 11.2558 },
-  'rome, italy':           { lat: 41.9028, lng: 12.4964 },
-};
+// ── Resolve stories: auto-prefix image paths, resolve coordinates ──
+// Geocode cache — avoids duplicate requests for the same place within a build
+const geocodeCache = new Map<string, { lat: number; lng: number }>();
+
+// Geocode location names via Nominatim (free, no API key, build-time only)
+async function geocode(query: string): Promise<{ lat: number; lng: number } | null> {
+  const key = query.toLowerCase();
+  if (geocodeCache.has(key)) return geocodeCache.get(key)!;
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`;
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'ballabotond.com/1.0 (personal site, build-time geocoding)' }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.length > 0) {
+      const coords = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+      geocodeCache.set(key, coords);
+      return coords;
+    }
+    console.warn(`[stories] Nominatim returned no results for "${query}"`);
+  } catch (err) {
+    console.warn(`[stories] Geocoding failed for "${query}":`, err);
+  }
+  return null;
+}
 
 // Sort newest first
 const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));
@@ -52,15 +66,12 @@ for (const s of sorted) {
     lng = s.location[1];
     label = (s as any).label || `${lat.toFixed(2)}, ${lng.toFixed(2)}`;
   } else {
-    // City name string → look up from table
+    // City/place name string → look up or geocode
     label = s.location;
-    const key = s.location.toLowerCase();
-    const coords = CITY_COORDS[key];
+    const coords = await geocode(s.location);
     if (coords) {
       lat = coords.lat;
       lng = coords.lng;
-    } else {
-      console.warn(`[stories] Unknown location "${s.location}" — add it to CITY_COORDS in stories.astro`);
     }
   }
 
