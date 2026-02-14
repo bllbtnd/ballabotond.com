@@ -3,7 +3,16 @@
     "home": "首页",
     "projects": "项目",
     "resume": "简历",
-    "calendar": "日历"
+    "calendar": "日历",
+    "stories": "故事"
+  },
+  "stories": {
+    "title": "故事 | Balla Botond",
+    "tagline": "时刻与地点",
+    "subtitle": "我的故事",
+    "description": "我走过的地方和沿途捕捉的瞬间。",
+    "zoomIn": "滚动缩放 • 点击照片探索",
+    "close": "关闭"
   },
   "common": {
     "name": "Balla Botond",
