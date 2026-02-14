@@ -45,19 +45,24 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
       className="font-montserrat text-sm uppercase tracking-widest text-luxury-gold mb-8 animate-fade-in"
     />
 
-    <!-- Profile Image -->
+    <!-- Profile Image (click → stories) -->
     <div class="mb-8 animate-fade-in" style="animation-delay: 0.6s;">
       <div
-        class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl"
+        id="profile-stories-trigger"
+        class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-luxury-gold shadow-2xl cursor-pointer group"
+        role="button"
+        tabindex="0"
+        aria-label="View my stories"
+        data-stories-url={translatePath('/stories/')}
       >
         <img
           src="/assets/images/profile.webp"
           alt="Balla Botond Profile Picture"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           loading="eager"
         />
         <div
-          class="absolute inset-0 bg-luxury-gold bg-opacity-10 hover:bg-opacity-0 transition-all duration-300"
+          class="absolute inset-0 bg-luxury-gold bg-opacity-10 group-hover:bg-opacity-0 transition-all duration-300"
         >
         </div>
       </div>
@@ -68,6 +73,11 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
       </p>
     </div>
 
+    <!-- Stories transition overlay -->
+    <div id="stories-transition" class="fixed inset-0 z-[100] pointer-events-none flex items-center justify-center" style="opacity:0; background: #111827;">
+      <p class="font-playfair text-3xl md:text-5xl text-white tracking-wide" style="opacity:0;" id="stories-transition-text">{t('stories.subtitle')}…</p>
+    </div>
+
     <!-- Main heading -->
     <h1
       class="font-playfair text-4xl md:text-6xl font-medium mb-6 text-white leading-tight text-center animate-fade-in"
@@ -75,6 +85,41 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
     >
       {t("common.name")}
     </h1>
+
+    <script is:inline>
+      (function() {
+        var trigger = document.getElementById('profile-stories-trigger');
+        if (!trigger) return;
+        var overlay = document.getElementById('stories-transition');
+        var text = document.getElementById('stories-transition-text');
+        var url = trigger.getAttribute('data-stories-url');
+
+        function go() {
+          overlay.style.transition = 'opacity 0.6s ease';
+          overlay.style.opacity = '1';
+          overlay.style.pointerEvents = 'auto';
+
+          setTimeout(function() {
+            text.style.transition = 'opacity 0.8s ease';
+            text.style.opacity = '1';
+          }, 400);
+
+          setTimeout(function() {
+            text.style.transition = 'opacity 0.5s ease';
+            text.style.opacity = '0';
+          }, 1800);
+
+          setTimeout(function() {
+            window.location.href = url;
+          }, 2300);
+        }
+
+        trigger.addEventListener('click', go);
+        trigger.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+        });
+      })();
+    </script>
 
     <!-- Scroll indicator -->
     <div
@@ -128,6 +173,12 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
           class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
         >
           <i class="fas fa-file-alt mr-2"></i>{t("nav.resume")}
+        </a>
+        <a
+          href={translatePath("/stories/")}
+          class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
+        >
+          <i class="fas fa-map-marked-alt mr-2"></i>{t("nav.stories")}
         </a>
       </div>
 

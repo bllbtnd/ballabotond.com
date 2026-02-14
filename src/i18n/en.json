@@ -3,7 +3,16 @@
     "home": "Home",
     "projects": "Projects",
     "resume": "Resume",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "stories": "Stories"
+  },
+  "stories": {
+    "title": "Stories | Balla Botond",
+    "tagline": "Moments & Places",
+    "subtitle": "My Stories",
+    "description": "A collection of places I have visited and moments I have captured along the way.",
+    "zoomIn": "Scroll to zoom • Click a photo to explore",
+    "close": "Close"
   },
   "common": {
     "name": "Balla Botond",

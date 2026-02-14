@@ -3,7 +3,16 @@
     "home": "ホーム",
     "projects": "プロジェクト",
     "resume": "履歴書",
-    "calendar": "カレンダー"
+    "calendar": "カレンダー",
+    "stories": "ストーリー"
+  },
+  "stories": {
+    "title": "ストーリー | Balla Botond",
+    "tagline": "瞬間と場所",
+    "subtitle": "私のストーリー",
+    "description": "訪れた場所と、道中で捉えた瞬間のコレクション。",
+    "zoomIn": "スクロールでズーム • 写真をクリックして探索",
+    "close": "閉じる"
   },
   "common": {
     "name": "Balla Botond",

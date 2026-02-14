@@ -3,7 +3,16 @@
     "home": "Főoldal",
     "projects": "Projektek",
     "resume": "Önéletrajz",
-    "calendar": "Naptár"
+    "calendar": "Naptár",
+    "stories": "Történetek"
+  },
+  "stories": {
+    "title": "Történetek | Balla Botond",
+    "tagline": "Pillanatok & Helyszínek",
+    "subtitle": "Történeteim",
+    "description": "Helyek, ahol jártam és pillanatok, amiket útközben megörökítettem.",
+    "zoomIn": "Görgess a nagyításhoz • Kattints egy fotóra a felfedezéshez",
+    "close": "Bezárás"
   },
   "common": {
     "name": "Balla Botond",

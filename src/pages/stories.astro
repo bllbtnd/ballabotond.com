@@ -1,0 +1,16 @@
+---
+import Redirect from '../components/Redirect.astro';
+import { defaultLang } from '../i18n/utils';
+
+const redirectUrl = `/${defaultLang}/stories/`;
+const title = 'Stories - Balla Botond';
+const description = 'Places I have visited and moments captured along the way';
+const image = '/assets/images/profile.webp';
+---
+
+<Redirect 
+  to={redirectUrl} 
+  title={title}
+  description={description}
+  image={image}
+/>
