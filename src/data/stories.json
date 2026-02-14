@@ -12,7 +12,8 @@
   {
     "image": "3.png",
     "date": "2023-09-20",
-    "location": "Esztergom, Hungary"
+    "location": [47.7856, 18.7403],
+    "label": "Esztergom, Hungary"
   },
   {
     "image": "4.png",

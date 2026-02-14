@@ -371,10 +371,14 @@ for (const s of sorted) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    position: relative;
   }
 
   .story-marker-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.625rem;
     font-weight: 600;
@@ -389,13 +393,12 @@ for (const s of sorted) {
     border: 1px solid rgba(201, 169, 107, 0.2);
     pointer-events: none;
     opacity: 0;
-    transform: translateY(4px);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .story-marker-container:hover .story-marker-label {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   /* Marker entrance animation — applied to a wrapper inside
