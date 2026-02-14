@@ -23,6 +23,13 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Restore geocode cache
+        uses: actions/cache@v4
+        with:
+          path: .geocode-cache.json
+          key: geocode-${{ hashFiles('src/data/stories.json') }}
+          restore-keys: |
+            geocode-
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         env:
