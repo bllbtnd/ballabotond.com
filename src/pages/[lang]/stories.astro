@@ -16,12 +16,42 @@ const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 
 import { geocode } from '../../utils/geocode';
+import sharp from 'sharp';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { join, extname } from 'node:path';
+
+// Generate 128px JPEG thumbnails (64px marker × 2 for retina)
+const THUMB_SIZE = 128;
+const STORIES_DIR = join(process.cwd(), 'public/assets/images/stories');
+const THUMBS_DIR = join(STORIES_DIR, 'thumbs');
+
+if (!existsSync(THUMBS_DIR)) {
+  mkdirSync(THUMBS_DIR, { recursive: true });
+}
+
+async function ensureThumb(filename: string): Promise<string> {
+  const thumbName = filename.replace(/\.\w+$/, '.webp');
+  const thumbPath = join(THUMBS_DIR, thumbName);
+
+  if (!existsSync(thumbPath)) {
+    const srcPath = join(STORIES_DIR, filename);
+    if (!existsSync(srcPath)) return `/assets/images/stories/${filename}`;
+
+    await sharp(srcPath)
+      .resize(THUMB_SIZE, THUMB_SIZE, { fit: 'cover', position: 'centre' })
+      .webp({ quality: 80 })
+      .toFile(thumbPath);
+  }
+
+  return `/assets/images/stories/thumbs/${thumbName}`;
+}
 
 // Sort newest first
 const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));
 
 type ResolvedStory = {
   photo: string;
+  thumb: string;
   date: string;
   lat: number;
   lng: number;
@@ -32,10 +62,15 @@ const stories: ResolvedStory[] = [];
 
 for (const s of sorted) {
   const photo = `/assets/images/stories/${s.image}`;
+  const thumb = await ensureThumb(s.image);
   const description = (s as any).description || '';
   let lat = 0, lng = 0, label = '';
 
-  if (Array.isArray(s.location)) {
+  if (!s.location) {
+    // Missing location — skip this entry
+    console.warn(`[stories] Skipping "${s.image}": no location field`);
+    continue;
+  } else if (Array.isArray(s.location)) {
     // User provided [lat, lng] directly
     lat = s.location[0];
     lng = s.location[1];
@@ -50,7 +85,7 @@ for (const s of sorted) {
     }
   }
 
-  stories.push({ photo, date: s.date, lat, lng, label, description });
+  stories.push({ photo, thumb, date: s.date, lat, lng, label, description });
 }
 ---
 
@@ -183,7 +218,7 @@ for (const s of sorted) {
             var img = document.createElement('div');
             img.className = 'story-marker';
             img.style.animationDelay = (markerIndex * 0.1) + 's';
-            img.style.backgroundImage = 'url(' + story.photo + ')';
+            img.style.backgroundImage = 'url(' + story.thumb + ')';
 
             var label = document.createElement('div');
             label.className = 'story-marker-label';

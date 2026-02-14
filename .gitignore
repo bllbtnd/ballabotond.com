@@ -4,6 +4,9 @@ dist/
 # geocode cache
 .geocode-cache.json
 
+# generated thumbnails
+public/assets/images/stories/thumbs/
+
 # generated types
 .astro/
 

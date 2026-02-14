@@ -12,8 +12,7 @@
   {
     "image": "3.png",
     "date": "2023-09-20",
-    "location": [47.7856, 18.7403],
-    "label": "Esztergom, Hungary"
+    "location": "Esztergom, Hungary"
   },
   {
     "image": "4.png",
@@ -47,7 +46,7 @@
   },
   {
     "image": "10.png",
-    "date": "2025-07-16",
+    "date": "2024-07-16",
     "location": "Mostar, Bosnia and Herzegovina"
   },
   {
@@ -57,7 +56,7 @@
   },
   {
     "image": "12.png",
-    "date": "2025-07-05",
+    "date": "2023-07-05",
     "location": "Split, Croatia"
   },
   {
@@ -67,7 +66,32 @@
   },
   {
     "image": "14.png",
-    "date": "2025-07-23",
-    "location": "Sveti Stefan, Montenegro"
+    "date": "2024-08-10",
+    "location": "Wieliczka Salt Mine, Poland"
+  },
+  {
+    "image": "15.png",
+    "date": "2024-08-09",
+    "location": "Kraków, Poland"
+  },
+  {
+    "image": "16.png",
+    "date": "2024-08-07",
+    "location": "Morskie Oko, Poland"
+  },
+  {
+    "image": "17.png",
+    "date": "2024-08-05",
+    "location": "Zakopane, Poland"
+  },
+  {
+    "image": "18.png",
+    "date": "2024-08-11",
+    "location": "Kasprowy Wierch, Poland"
+  },
+  {
+    "image": "19.png",
+    "date": "2025-07-21",
+    "location": "Lomnický štít, Slovakia"
   }
 ]
