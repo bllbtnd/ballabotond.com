@@ -249,7 +249,7 @@ for (const s of sorted) {
               container.style.pointerEvents = 'none';
             }
 
-            var marker = new maplibregl.Marker({ element: container, anchor: 'bottom', offset: [0, 0] })
+            var marker = new maplibregl.Marker({ element: container, anchor: 'center', offset: [0, 0] })
               .setLngLat([story.lng, story.lat])
               .addTo(map);
 
