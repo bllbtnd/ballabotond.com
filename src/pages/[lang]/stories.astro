@@ -17,33 +17,32 @@ const t = useTranslations(typedLang);
 
 import { geocode } from '../../utils/geocode';
 import sharp from 'sharp';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
-import { join, extname } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
-// Generate 128px JPEG thumbnails (64px marker × 2 for retina)
+// Generate 128px WebP thumbnails as base64 data URLs (64px marker × 2 for retina)
+// Embedded directly in the page so there are no extra HTTP requests
+// and no build-timing issues with public/ directory copying.
 const THUMB_SIZE = 128;
 const STORIES_DIR = join(process.cwd(), 'public/assets/images/stories');
-const THUMBS_DIR = join(STORIES_DIR, 'thumbs');
 
-if (!existsSync(THUMBS_DIR)) {
-  mkdirSync(THUMBS_DIR, { recursive: true });
-}
+// Cache generated data URLs across page renders (multiple langs)
+const thumbCache = new Map<string, string>();
 
-async function ensureThumb(filename: string): Promise<string> {
-  const thumbName = filename.replace(/\.\w+$/, '.webp');
-  const thumbPath = join(THUMBS_DIR, thumbName);
+async function generateThumbDataUrl(filename: string): Promise<string> {
+  if (thumbCache.has(filename)) return thumbCache.get(filename)!;
 
-  if (!existsSync(thumbPath)) {
-    const srcPath = join(STORIES_DIR, filename);
-    if (!existsSync(srcPath)) return `/assets/images/stories/${filename}`;
+  const srcPath = join(STORIES_DIR, filename);
+  if (!existsSync(srcPath)) return '';
 
-    await sharp(srcPath)
-      .resize(THUMB_SIZE, THUMB_SIZE, { fit: 'cover', position: 'centre' })
-      .webp({ quality: 80 })
-      .toFile(thumbPath);
-  }
+  const buffer = await sharp(srcPath)
+    .resize(THUMB_SIZE, THUMB_SIZE, { fit: 'cover', position: 'centre' })
+    .webp({ quality: 80 })
+    .toBuffer();
 
-  return `/assets/images/stories/thumbs/${thumbName}`;
+  const dataUrl = `data:image/webp;base64,${buffer.toString('base64')}`;
+  thumbCache.set(filename, dataUrl);
+  return dataUrl;
 }
 
 // Sort newest first
@@ -62,7 +61,7 @@ const stories: ResolvedStory[] = [];
 
 for (const s of sorted) {
   const photo = `/assets/images/stories/${s.image}`;
-  const thumb = await ensureThumb(s.image);
+  const thumb = await generateThumbDataUrl(s.image);
   const description = (s as any).description || '';
   let lat = 0, lng = 0, label = '';
 
