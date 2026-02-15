@@ -73,9 +73,9 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
       </p>
     </div>
 
-    <!-- Stories transition overlay -->
-    <div id="stories-transition" class="fixed inset-0 z-[100] pointer-events-none flex items-center justify-center" style="opacity:0; background: #111827;">
-      <p class="font-playfair text-3xl md:text-5xl text-white tracking-wide" style="opacity:0;" id="stories-transition-text">{t('stories.subtitle')}…</p>
+    <!-- Stories transition overlay — acts as loading screen -->
+    <div id="stories-transition" class="fixed inset-0 z-[100] flex items-center justify-center" style="opacity:0; pointer-events: none; background: #111827; transition: opacity 0.3s ease;">
+      <p class="font-playfair text-3xl md:text-5xl text-white tracking-wide" style="opacity:0; transition: opacity 0.8s ease;" id="stories-transition-text">{t('stories.subtitle')}…</p>
     </div>
 
     <!-- Main heading -->
@@ -95,23 +95,23 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
         var url = trigger.getAttribute('data-stories-url');
 
         function go() {
-          overlay.style.transition = 'opacity 0.6s ease';
+          overlay.style.transition = 'opacity 0.8s ease-out';
           overlay.style.opacity = '1';
           overlay.style.pointerEvents = 'auto';
 
           setTimeout(function() {
-            text.style.transition = 'opacity 0.8s ease';
+            text.style.transition = 'opacity 0.6s ease-in-out';
             text.style.opacity = '1';
-          }, 400);
+          }, 500);
 
           setTimeout(function() {
-            text.style.transition = 'opacity 0.5s ease';
+            text.style.transition = 'opacity 0.7s ease-in-out';
             text.style.opacity = '0';
-          }, 1800);
+          }, 1900);
 
           setTimeout(function() {
             window.location.href = url;
-          }, 2300);
+          }, 2700);
         }
 
         trigger.addEventListener('click', go);
