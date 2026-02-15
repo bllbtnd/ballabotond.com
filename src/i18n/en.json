@@ -3,8 +3,8 @@
     "home": "Home",
     "projects": "Projects",
     "resume": "Resume",
-    "calendar": "Calendar",
-    "stories": "Stories"
+    "stories": "Stories",
+    "movies": "Movies"
   },
   "stories": {
     "title": "Stories | Balla Botond",
@@ -54,22 +54,6 @@
   "movies": {
     "title": "Movie Ratings",
     "description": "My personal cinema chronicles"
-  },
-  "calendar": {
-    "title": "Availability Calendar | Balla Botond",
-    "description": "Check my availability for the upcoming weeks. View when I'm available or busy without seeing private event details.",
-    "keywords": "Balla Botond, calendar, availability, schedule, booking, contact",
-    "tagline": "When I'm Available",
-    "subtitle": "Availability Calendar",
-    "week": "Week",
-    "available": "Available",
-    "busy": "Busy",
-    "past": "Past",
-    "today": "Today",
-    "noCalendars": "Calendar configuration not found. Please set up PUBLIC_CALENDAR_URLS environment variable.",
-    "privacyNote": "Your privacy matters - only availability status is shown, no event details are revealed.",
-    "timezoneNote": "All times are in Budapest time (CET/CEST)",
-    "swipeHint": "Swipe to navigate weeks"
   },
   "projects": {
     "title": "Projects | Balla Botond",

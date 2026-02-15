@@ -1,7 +1,8 @@
 ---
-// Floating Calendar Navigation with Availability Status
-import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+// Floating Calendar Icon with Availability Status (no link)
+import { getLangFromUrl } from '../i18n/utils';
 import { fetchCalendars, getAvailability } from '../utils/calendar';
+import { toZonedTime } from 'date-fns-tz';
 import en from '../i18n/en.json';
 import hu from '../i18n/hu.json';
 import it from '../i18n/it.json';
@@ -9,7 +10,6 @@ import ja from '../i18n/ja.json';
 import zh from '../i18n/zh.json';
 
 const lang = getLangFromUrl(Astro.url);
-const translatePath = useTranslatedPath(lang);
 
 const translations: Record<string, any> = { en, hu, it, ja, zh };
 const t = translations[lang] || translations.en;
@@ -25,19 +25,19 @@ if (calendarUrls.length > 0) {
     const availability = getAvailability(busySlots, 1); // Only check current week
     hasCalendar = true;
     
-    // Find today's availability
+    // Find today's availability using Budapest timezone
     const now = new Date();
+    const nowBudapest = toZonedTime(now, 'Europe/Budapest');
     const today = availability.find(day => {
-      return day.date.getDate() === now.getDate() &&
-             day.date.getMonth() === now.getMonth() &&
-             day.date.getFullYear() === now.getFullYear();
+      return day.date.getDate() === nowBudapest.getDate() &&
+             day.date.getMonth() === nowBudapest.getMonth() &&
+             day.date.getFullYear() === nowBudapest.getFullYear();
     });
     
     if (today && !today.isPast && today.hourlyAvailability) {
-      // Check current hour availability (6 AM to 10 PM range)
-      const currentHour = now.getHours();
+      const currentHour = nowBudapest.getHours();
       if (currentHour >= 6 && currentHour <= 22) {
-        const hourIndex = currentHour - 6; // Index 0 = 6 AM
+        const hourIndex = currentHour - 6;
         isAvailable = today.hourlyAvailability[hourIndex] === true;
       }
     }
@@ -48,14 +48,13 @@ if (calendarUrls.length > 0) {
 ---
 
 <div class="calendar-nav-wrapper">
-  <a 
-    href={translatePath('/calendar')} 
+  <div 
     class={`floating-calendar-nav ${hasCalendar && isAvailable ? 'available' : ''} ${hasCalendar && !isAvailable ? 'busy' : ''}`}
-    aria-label="View availability calendar"
-    title={hasCalendar ? (isAvailable ? 'Available - View calendar' : 'Busy - View calendar') : 'View calendar'}
+    aria-label={hasCalendar ? (isAvailable ? 'Available' : 'Busy') : 'Availability status'}
+    title={hasCalendar ? (isAvailable ? t.home.available : t.home.busy) : ''}
   >
     <i class="fas fa-calendar-alt"></i>
-  </a>
+  </div>
   
   <!-- Mobile Status Indicator -->
   {hasCalendar && (
@@ -81,7 +80,6 @@ if (calendarUrls.length > 0) {
     position: relative;
     font-size: 20px;
     color: #c9a96b;
-    cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease, color 0.3s ease;
     -webkit-user-select: none;
@@ -92,11 +90,6 @@ if (calendarUrls.length > 0) {
     justify-content: center;
     padding: 0;
     line-height: 1;
-  }
-  
-  .floating-calendar-nav:hover {
-    color: #e8c474;
-    transform: scale(1.1);
   }
 
   .floating-calendar-nav.available {
