@@ -87,7 +87,7 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
     </h1>
 
     <script is:inline>
-      (function() {
+      function initStoriesTrigger() {
         var trigger = document.getElementById('profile-stories-trigger');
         if (!trigger) return;
         var overlay = document.getElementById('stories-transition');
@@ -118,7 +118,13 @@ const secondRowLinks = SOCIAL_LINKS.slice(4, 8);
         trigger.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
         });
-      })();
+      }
+
+      // Initialize on page load
+      initStoriesTrigger();
+      
+      // Re-initialize after Astro transitions (language changes, etc.)
+      document.addEventListener('astro:after-swap', initStoriesTrigger);
     </script>
 
     <!-- Scroll indicator -->
