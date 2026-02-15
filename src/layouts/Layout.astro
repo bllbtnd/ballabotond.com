@@ -246,5 +246,32 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <SubtleEasterEggs />
     
     <slot />
+
+    <!-- Lenis smooth scroll -->
+    <script>
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+
+      let lenis: InstanceType<typeof Lenis> | null = null;
+
+      function initLenis() {
+        // Destroy previous instance if it exists
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+
+        lenis = new Lenis({
+          autoRaf: true,
+          lerp: 0.1,
+          smoothWheel: true,
+          wheelMultiplier: 1,
+        });
+      }
+
+      // Init on first load and on Astro page transitions
+      initLenis();
+      document.addEventListener('astro:after-swap', initLenis);
+    </script>
   </body>
 </html>
