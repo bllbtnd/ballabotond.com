@@ -139,14 +139,17 @@ export async function fetchCalendars(urls: string[]): Promise<TimeSlot[]> {
 
 /**
  * Get availability for exactly N full weeks, starting from Monday of the current week
+ * All dates are calculated in Budapest timezone
  */
 export function getAvailability(
   busySlots: TimeSlot[],
   weeksAhead: number = 4
 ): DayAvailability[] {
   const availability: DayAvailability[] = [];
-  const now = new Date();
-  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  // Get current time in Budapest timezone
+  const nowBudapest = toZonedTime(new Date(), 'Europe/Budapest');
+  const startOfToday = new Date(nowBudapest.getFullYear(), nowBudapest.getMonth(), nowBudapest.getDate());
   
   // Find the Monday of the current week (Monday = 1, Sunday = 0)
   const dayOfWeek = startOfToday.getDay();
