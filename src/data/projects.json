@@ -10,6 +10,16 @@
     "status": "active"
   },
   {
+    "id": "task-manager",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.taskmanager.title",
+    "descriptionKey": "projects.taskmanager.description",
+    "buttonKey": "projects.taskmanager.button",
+    "url": "https://taskmanager.ballabotond.com",
+    "icon": "fas fa-tasks",
+    "status": "active"
+  },
+  {
     "id": "kki-calculator",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.kki.title",

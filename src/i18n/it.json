@@ -65,6 +65,11 @@
       "description": "Un'applicazione chat Android peer-to-peer che utilizza WebRTC per la comunicazione diretta. Messaggistica in tempo reale, sistema basato su stanze e compatibilità cross-platform con iOS. Costruita con pratiche moderne di sviluppo Android.",
       "button": "Dai un'occhiata"
     },
+    "taskmanager": {
+      "title": "TaskManager",
+      "description": "Un'applicazione completa di gestione di progetti e attività progettata per aiutarti a rimanere organizzato e produttivo. Organizza il tuo lavoro con più progetti e attività, monitora i progressi attraverso tre livelli di stato e segui le statistiche in tempo reale. Accedi alle tue attività ovunque con l'esperienza desktop completa e la visualizzazione di riepilogo mobile.",
+      "button": "Inizia"
+    },
     "kki": {
       "title": "Calcolatore KKI",
       "description": "Un semplice calcolatore KKI che aiuta con i calcoli KKI.",

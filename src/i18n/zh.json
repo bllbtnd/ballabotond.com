@@ -65,6 +65,11 @@
       "description": "使用WebRTC的点对点Android聊天应用程序，实现直接通信。具有实时消息传递、基于房间的系统和与iOS的跨平台兼容性。采用现代Android开发实践构建。",
       "button": "看看"
     },
+    "taskmanager": {
+      "title": "TaskManager",
+      "description": "一个全面的项目和任务管理应用程序，旨在帮助您保持组织和生产力。使用多个项目和任务组织您的工作，通过三个状态级别跟踪进度，并监视实时统计数据。通过完整的桌面体验和移动摘要视图在任何地方访问您的任务。",
+      "button": "开始使用"
+    },
     "kki": {
       "title": "KKI计算器",
       "description": "一个简单的KKI计算器，帮助进行KKI计算。",

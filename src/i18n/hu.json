@@ -65,6 +65,11 @@
       "description": "Peer-to-peer Android chat alkalmazás WebRTC technológiával közvetlen kommunikációhoz. Valós idejű üzenetküldés, szoba-alapú rendszer és keresztplatform kompatibilitás iOS-szel. Modern Android fejlesztési gyakorlatokkal készült.",
       "button": "Nézd meg"
     },
+    "taskmanager": {
+      "title": "TaskManager",
+      "description": "Egy átfogó projekt- és feladatkezelő alkalmazás, amely segít rendszeren és produktívan maradni. Szervezze meg a munkáját több projekttel és feladattal, kövesse nyomon az előrehaladást három állapotszinten, és figyelje a valós idejű statisztikákat. Hozzáférhető feladataihoz bárhonnan teljes szövetben asztali élménnyel és mobil összefoglalás nézettel.",
+      "button": "Kezdj el"
+    },
     "kki": {
       "title": "KKI kalkulátor",
       "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban.",
