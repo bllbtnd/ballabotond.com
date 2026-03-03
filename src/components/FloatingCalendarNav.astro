@@ -37,9 +37,16 @@ if (calendarUrls.length > 0) {
     if (today && !today.isPast && today.hourlyAvailability) {
       const currentHour = nowBudapest.getHours();
       // Hourly availability array covers 8 AM (hour 8) to 8 PM (hour 20)
-      if (currentHour >= 8 && currentHour <= 20) {
+      // Outside these hours, consider as not available
+      if (currentHour >= 8 && currentHour < 20) {
         const hourIndex = currentHour - 8;
         isAvailable = today.hourlyAvailability[hourIndex] === true;
+      } else if (currentHour === 20) {
+        // At 8 PM (hour 20), check the last slot (index 12)
+        isAvailable = today.hourlyAvailability[12] === true;
+      } else {
+        // Before 8 AM or after 8 PM - not available
+        isAvailable = false;
       }
     }
   } catch (error) {
