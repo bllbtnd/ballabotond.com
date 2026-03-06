@@ -15,6 +15,7 @@ import ProjectGallery from '../../components/portfolio/ProjectGallery';
 import MegaFooter from '../../components/portfolio/MegaFooter';
 
 import projects from '../../data/projects.json';
+import { getCurrentAvailability } from '../../utils/calendar';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -28,6 +29,11 @@ const t = useTranslations(typedLang);
 const translatePath = useTranslatedPath(typedLang);
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
 const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+// ── Calendar-based availability ────────────────────────
+const calendarUrlsRaw = import.meta.env.PUBLIC_CALENDAR_URLS || '';
+const calendarUrls = calendarUrlsRaw.split(',').map((u: string) => u.trim()).filter(Boolean);
+const { isBusyNow, busyWindows } = await getCurrentAvailability(calendarUrls);
 const heroImage = `${siteOrigin}/assets/images/profile.webp`;
 const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
 
@@ -224,7 +230,9 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         profileLink={translatePath('/stories/')}
         scrollCta={t('portfolio.scroll')}
         availabilityLabel={t('home.available')}
-        isAvailable={true}
+        busyLabel={t('home.busy')}
+        initialBusy={isBusyNow}
+        busyWindows={busyWindows}
       />
     </div>
 
