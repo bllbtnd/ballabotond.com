@@ -78,9 +78,8 @@ export default function MegaFooter({
         {/* Top section — CTA / Tagline */}
         <motion.div
           variants={prefersReducedMotion ? undefined : containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          animate="visible"
         >
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
@@ -113,9 +112,8 @@ export default function MegaFooter({
         {/* Multi-column grid */}
         <motion.div
           variants={prefersReducedMotion ? undefined : containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          animate="visible"
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 md:gap-8"
         >
           {/* Column 1 — Brand */}
@@ -204,9 +202,8 @@ export default function MegaFooter({
         {/* Bottom bar */}
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-col md:flex-row items-center justify-between mt-10 md:mt-16 pt-6 border-t border-pf-bg/10"
         >
           <p className="pf-grotesk text-fluid-xs text-pf-bg/30">
