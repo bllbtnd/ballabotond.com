@@ -4,11 +4,13 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
 import AstroPWA from '@vite-pwa/astro';
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ballabotond.com',
   integrations: [
+    react(),
     tailwind(),
     sitemap({
       i18n: {

@@ -1,8 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
-import Footer from '../../components/Footer.astro';
-import { useTranslations, languages, type Languages } from '../../i18n/utils';
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
 import storiesRaw from '../../data/stories.json';
 
 export function getStaticPaths() {
@@ -14,6 +12,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
+const translatePath = useTranslatedPath(typedLang);
 
 import { geocode } from '../../utils/geocode';
 import sharp from 'sharp';
@@ -88,12 +87,27 @@ for (const s of sorted) {
 }
 ---
 
-<Layout 
+<PortfolioLayout
   title={t('stories.title')}
   description={t('stories.description')}
   keywords="Balla Botond, stories, travel, photos, map, places, moments"
 >
-  <FloatingHomeNav />
+  <!-- Portfolio-style nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <div class="max-w-[90vw] mx-auto px-6 md:px-12 py-4 md:py-5 flex items-center justify-between">
+      <a href={translatePath('/')} class="pf-grotesk text-fluid-sm font-medium text-white/90 tracking-tight hover:text-white transition-colors duration-300">
+        Balla Botond
+      </a>
+      <div class="flex items-center gap-6">
+        <a href={translatePath('/movies/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-white/50 hover:text-white/90 transition-colors duration-300">
+          {t('nav.movies')}
+        </a>
+        <a href={translatePath('/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-white/50 hover:text-white/90 transition-colors duration-300">
+          {t('nav.home')}
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <!-- Map container - full screen -->
   <div id="stories-map" class="fixed inset-0 z-0"></div>
@@ -344,7 +358,7 @@ for (const s of sorted) {
     }
     document.addEventListener('astro:page-load', initStoriesMap);
   </script>
-</Layout>
+</PortfolioLayout>
 
 <style is:global>
   /* Map takes full viewport */

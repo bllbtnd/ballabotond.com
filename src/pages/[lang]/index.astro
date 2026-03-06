@@ -1,8 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import HomePage from '../../components/HomePage.astro';
-import FloatingCalendarNav from '../../components/FloatingCalendarNav.astro';
-import { useTranslations, languages } from '../../i18n/utils';
+/**
+ * [lang]/index.astro — Single-page portfolio homepage.
+ * Merges hero manifesto, interactive resume, project gallery.
+ * Aesthetic: Digital Sobriety — Collectif Parcelles inspired.
+ */
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
+import { SOCIAL_LINKS } from '../../config/constants';
+
+import PortfolioNav from '../../components/portfolio/PortfolioNav';
+import ParallaxHero from '../../components/portfolio/ParallaxHero';
+import ResumeTimeline from '../../components/portfolio/ResumeTimeline';
+import ProjectGallery from '../../components/portfolio/ProjectGallery';
+import MegaFooter from '../../components/portfolio/MegaFooter';
+
+import projects from '../../data/projects.json';
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -13,21 +25,19 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const typedLang = lang as keyof typeof languages;
 const t = useTranslations(typedLang);
+const translatePath = useTranslatedPath(typedLang);
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
 const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 const heroImage = `${siteOrigin}/assets/images/profile.webp`;
+const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
 
+// ── Structured data ────────────────────────────────────
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   '@id': `${pageUrl}#breadcrumb`,
   itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: t('common.name'),
-      item: pageUrl
-    }
+    { '@type': 'ListItem', position: 1, name: t('common.name'), item: pageUrl }
   ]
 };
 
@@ -39,12 +49,8 @@ const webPageSchema = {
   name: t('home.title'),
   description: t('home.description'),
   inLanguage: typedLang,
-  isPartOf: {
-    '@id': `${siteOrigin}#website`
-  },
-  about: {
-    '@id': `${siteOrigin}#person`
-  },
+  isPartOf: { '@id': `${siteOrigin}#website` },
+  about: { '@id': `${siteOrigin}#person` },
   primaryImageOfPage: {
     '@type': 'ImageObject',
     '@id': `${heroImage}#primaryimage`,
@@ -53,19 +59,135 @@ const webPageSchema = {
     height: 1200,
     caption: t('common.name')
   },
-  mainEntity: {
-    '@id': `${siteOrigin}#person`
-  },
-  breadcrumb: {
-    '@id': `${pageUrl}#breadcrumb`
-  }
+  mainEntity: { '@id': `${siteOrigin}#person` },
+  breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 };
 
 const structuredData = [breadcrumbSchema, webPageSchema];
-const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
+
+// ── Nav sections ───────────────────────────────────────
+const navSections = [
+  { id: 'manifesto', label: t('portfolio.about') },
+  { id: 'resume', label: t('nav.resume') },
+  { id: 'projects', label: t('nav.projects') },
+  { id: 'contact', label: t('portfolio.contact') },
+];
+
+// ── Resume Data ────────────────────────────────────────
+const experienceEntries = [
+  {
+    year: t('resume.experience.current_period'),
+    title: t('resume.experience.current'),
+    company: t('resume.experience.current_company'),
+    companyUrl: 'https://logicloud.hu',
+    description: [
+      t('resume.experience.current_desc1'),
+      t('resume.experience.current_desc2'),
+      t('resume.experience.current_desc3'),
+    ],
+    isCurrent: true,
+  },
+  {
+    year: t('resume.experience.intern_period'),
+    title: t('resume.experience.intern'),
+    company: t('resume.experience.intern_company'),
+    companyUrl: 'https://logicloud.hu',
+    description: [
+      t('resume.experience.intern_desc1'),
+      t('resume.experience.intern_desc2'),
+      t('resume.experience.intern_desc3'),
+    ],
+  },
+  {
+    year: t('resume.experience.wolt_period'),
+    title: t('resume.experience.wolt'),
+    company: t('resume.experience.wolt_company'),
+    companyUrl: 'https://wolt.com',
+    description: [
+      t('resume.experience.wolt_desc1'),
+      t('resume.experience.wolt_desc2'),
+      t('resume.experience.wolt_desc3'),
+    ],
+  },
+  {
+    year: t('resume.experience.hotel_period'),
+    title: t('resume.experience.hotel'),
+    company: t('resume.experience.hotel_company'),
+    companyUrl: 'https://www.hotelpiroska.hu',
+    description: [
+      t('resume.experience.hotel_desc1'),
+      t('resume.experience.hotel_desc2'),
+      t('resume.experience.hotel_desc3'),
+    ],
+  },
+];
+
+const educationEntries = [
+  {
+    year: t('resume.education.university_period'),
+    title: t('resume.education.university'),
+    company: t('resume.education.university_school'),
+    companyUrl: 'https://pte.hu',
+    description: [
+      t('resume.education.university_desc1'),
+      t('resume.education.university_desc2'),
+    ],
+    isCurrent: true,
+  },
+  {
+    year: t('resume.education.highschool_period'),
+    title: t('resume.education.highschool'),
+    company: t('resume.education.highschool_school'),
+    companyUrl: 'https://szent-erzsebet.hu/',
+    description: [t('resume.education.highschool_desc')],
+  },
+];
+
+const skills = [
+  {
+    category: t('resume.skills.programming'),
+    items: ['Java', 'Python', 'C++', 'C#', 'Kotlin', 'Go', 'JavaScript'],
+  },
+  {
+    category: t('resume.skills.frameworks'),
+    items: ['React', 'Node.js', 'Express.js', 'Spring Boot', 'Next.js', 'ASP.NET', 'Astro'],
+  },
+  {
+    category: t('resume.skills.tools'),
+    items: ['Git', 'Docker', 'Linux', 'Bash', 'MySQL', 'MongoDB', 'PostgreSQL', 'SQLite'],
+  },
+];
+
+// ── Project Data ───────────────────────────────────────
+const projectItems = projects
+  .filter((p: any) => p.status !== 'past')
+  .map((p: any, index: number) => ({
+    id: p.id,
+    title: p.titleKey ? t(p.titleKey) : (p.title || p.id),
+    category: p.categoryKey ? t(p.categoryKey) : 'Project',
+    description: p.descriptionKey ? t(p.descriptionKey) : (p.description || ''),
+    url: p.url || '',
+    status: p.status as 'active' | 'coming-soon' | 'past',
+    index,
+  }));
+
+// ── Footer Data ────────────────────────────────────────
+const footerNavigation = [
+  { label: t('nav.home'), href: translatePath('/') },
+  { label: t('nav.resume'), href: translatePath('/resume/') },
+  { label: t('nav.projects'), href: translatePath('/projects/') },
+  { label: t('nav.stories'), href: translatePath('/stories/') },
+  { label: t('nav.movies'), href: translatePath('/movies/') },
+];
+
+const footerSocials = SOCIAL_LINKS.map(link => ({
+  label: t(link.i18nKey),
+  href: link.href,
+  icon: link.icon,
+}));
 ---
 
-<Layout 
+<PortfolioLayout
   title={t('home.title')}
   description={t('home.description')}
   keywords={t('home.keywords')}
@@ -74,6 +196,79 @@ const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
   <script slot="head" type="application/ld+json" is:inline>
     {JSON.stringify(structuredData)}
   </script>
-  <FloatingCalendarNav />
-  <HomePage />
-</Layout>
+
+  <PortfolioNav
+    client:load
+    homeHref={translatePath('/')}
+    sections={navSections}
+    languages={Object.entries(languages).map(([code, label]) => ({
+      code: code.toUpperCase(),
+      label: label as string,
+      href: `/${code}/`,
+      active: code === lang,
+    }))}
+  />
+
+  <main>
+    <!-- SECTION 1: THE MANIFESTO (Hero) -->
+    <div id="manifesto">
+      <ParallaxHero
+        client:load
+        name={t('common.name')}
+        tagline={t('portfolio.heroTagline')}
+        subtitle={t('portfolio.heroSubtitle')}
+        description={t('portfolio.heroDescription')}
+        description2={t('portfolio.heroDescription2')}
+        profileImage="/assets/images/profile.webp"
+        profileAlt={t('common.name')}
+        profileLink={translatePath('/stories/')}
+        scrollCta={t('portfolio.scroll')}
+        availabilityLabel={t('home.available')}
+        isAvailable={true}
+      />
+    </div>
+
+    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
+      <hr class="pf-divider" />
+    </div>
+
+    <!-- SECTION 2: THE INTERACTIVE RESUME -->
+    <div id="resume">
+      <ResumeTimeline
+        client:visible
+        sectionTitle={t('resume.subtitle')}
+        experienceEntries={experienceEntries}
+        educationTitle={t('resume.education.title')}
+        educationEntries={educationEntries}
+        skillsTitle={t('resume.skills.title')}
+        skills={skills}
+      />
+    </div>
+
+    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
+      <hr class="pf-divider" />
+    </div>
+
+    <!-- SECTION 3: THE PROJECT GALLERY -->
+    <div id="projects">
+      <ProjectGallery
+        client:visible
+        sectionTitle={t('projects.subtitle')}
+        projects={projectItems}
+      />
+    </div>
+  </main>
+
+  <!-- SECTION 4: THE MEGA-FOOTER -->
+  <div id="contact">
+    <MegaFooter
+      client:visible
+      name={t('common.name')}
+      email="ballabotond@ballabotond.com"
+      navigation={footerNavigation}
+      socials={footerSocials}
+      tagline="Quality is never accidental; it is the result of intention, care, and precision."
+      copyright={t('footer.copyright')}
+    />
+  </div>
+</PortfolioLayout>

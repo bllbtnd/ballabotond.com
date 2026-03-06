@@ -1,0 +1,260 @@
+---
+/**
+ * PortfolioLayout.astro
+ * 
+ * Global layout shell for the single-page portfolio.
+ * Configures Lenis smooth scrolling, loads premium typography,
+ * and sets up the light monochrome aesthetic.
+ */
+import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource/space-grotesk/300.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
+import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP } from '../utils/seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const lang = getLangFromUrl(Astro.url) as Languages;
+
+const {
+  title = SITE_CONFIG.title,
+  description = SITE_CONFIG.description,
+  keywords = 'Balla Botond, software developer, computer science, portfolio, bllbtnd',
+  ogImage = '/assets/images/profile.webp',
+  canonical = Astro.url.pathname
+} = Astro.props;
+
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+const siteTitle = "Balla Botond";
+const author = "Balla Botond";
+const siteUrl = "https://ballabotond.com";
+const currentLocale = LOCALE_MAP[lang] || 'en_US';
+const supportedLocaleKeys = Object.keys(languages);
+const alternateLinks = generateAlternateLinks(Astro.url.pathname, supportedLocaleKeys, siteUrl);
+
+const stripLocaleFromPath = (pathname: string) => {
+  const segments = pathname.split('/');
+  const potentialLocale = segments[1];
+  if (potentialLocale && supportedLocaleKeys.includes(potentialLocale)) {
+    const rest = segments.slice(2).join('/');
+    return rest ? `/${rest}` : '/';
+  }
+  return pathname || '/';
+};
+
+const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
+const defaultAlternateHref = new URL(defaultLocalePath, siteUrl).toString();
+const siteLanguages = supportedLocaleKeys.map((code) => HREFLANG_MAP[code] || code);
+const baseSchema = generateBaseSchema(siteLanguages);
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir="ltr" class="lenis lenis-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+    {alternateLinks.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultAlternateHref} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+    <meta property="og:locale" content={currentLocale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bllbtnd" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#F0EBE3" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify(baseSchema)}
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <ClientRouter />
+
+    <style is:global>
+      /* ============================================
+         PORTFOLIO GLOBAL STYLES
+         Digital Sobriety. Zero decorative borders.
+         Structure via negative space + asymmetric grid.
+         ============================================ */
+
+      /* Lenis overrides */
+      html.lenis, html.lenis body {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      /* Base typography & body */
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: 'kern' 1, 'liga' 1;
+      }
+
+      body {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        background-color: #F0EBE3;
+        color: #1A1A1A;
+        overflow-x: hidden;
+      }
+
+      /* Selection color */
+      ::selection {
+        background-color: #7A6C5D;
+        color: #F9F9F7;
+      }
+
+      /* Reduced motion fallback */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+        .motion-reduce-hidden {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      /* Portfolio utility classes */
+      .pf-serif {
+        font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+      }
+      .pf-grotesk {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+      }
+
+      /* Smooth link underlines */
+      .pf-link {
+        position: relative;
+        display: inline-block;
+      }
+      .pf-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .pf-link:hover::after {
+        width: 100%;
+      }
+
+      /* Horizontal rule style */
+      .pf-divider {
+        height: 1px;
+        background-color: #E5E2DC;
+        border: none;
+      }
+    </style>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Lenis Smooth Scroll Initialization -->
+    <script>
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+
+      let lenis: InstanceType<typeof Lenis> | null = null;
+
+      function initLenis() {
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+
+        // Respect prefers-reduced-motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (prefersReducedMotion) {
+          return; // Skip smooth scrolling entirely
+        }
+
+        lenis = new Lenis({
+          autoRaf: true,
+          lerp: 0.08,
+          smoothWheel: true,
+          wheelMultiplier: 0.8,
+        });
+      }
+
+      initLenis();
+      document.addEventListener('astro:after-swap', initLenis);
+
+      // Listen for reduced motion preference changes
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+        if (e.matches && lenis) {
+          lenis.destroy();
+          lenis = null;
+        } else if (!e.matches && !lenis) {
+          initLenis();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,8 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import FloatingHomeNav from '../../components/FloatingHomeNav.astro';
-import { useTranslations, languages, type Languages } from '../../i18n/utils';
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
 import moviesData from '../../data/movies.json';
 
 export function getStaticPaths() {
@@ -14,39 +12,55 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
+const translatePath = useTranslatedPath(typedLang);
 
 const allMovies = moviesData;
 ---
 
-<Layout 
+<PortfolioLayout
   title="Movie Ratings - Balla Botond"
   description="My personal movie ratings and reviews"
   keywords="movies, ratings, reviews, cinema"
 >
-  <!-- Floating Home Navigation -->
-  <FloatingHomeNav />
+  <!-- Portfolio-style nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-pf-bg/90 backdrop-blur-md border-b border-pf-border">
+    <div class="max-w-[90vw] mx-auto px-6 md:px-12 py-4 md:py-5 flex items-center justify-between">
+      <a href={translatePath('/')} class="pf-grotesk text-fluid-sm font-medium text-pf-text tracking-tight hover:text-pf-accent transition-colors duration-300">
+        Balla Botond
+      </a>
+      <div class="flex items-center gap-6">
+        <a href={translatePath('/stories/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+          {t('nav.stories')}
+        </a>
+        <a href={translatePath('/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+          {t('nav.home')}
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <main class="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6">
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
       <div class="mb-8 md:mb-12 text-center">
-        <h1 class="font-playfair text-3xl sm:text-4xl md:text-6xl font-medium mb-3 md:mb-4 pb-2 text-white leading-tight">
+        <h1 class="pf-serif text-pf-text leading-tight-display tracking-brutal" style="font-size: clamp(2.5rem, 1.5rem + 5vw, 7rem);">
           {t('movies.title')}
         </h1>
-        <p class="font-montserrat text-base md:text-lg text-luxury-gray px-4">
+        <div class="pf-divider mt-6 mb-4"></div>
+        <p class="pf-grotesk text-fluid-base text-pf-muted px-4">
           {t('movies.description')}
         </p>
       </div>
 
       <!-- Filter Controls -->
-      <div class="mb-6 md:mb-8 bg-gradient-to-br from-[#1d0f2f]/80 via-[#0f1b2d]/80 to-[#0a1c24]/80 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-[#2c2140] shadow-lg shadow-[#0f1020]/40">
+      <div class="mb-6 md:mb-8 bg-pf-surface rounded-lg p-4 md:p-6 border border-pf-border">
         <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-4 items-stretch md:items-center justify-between">
           <!-- Rating Filter -->
           <div class="w-full sm:flex-1 md:min-w-[200px]">
-            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
+            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
               Filter by Rating
             </label>
-            <select id="rating-filter-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+            <select id="rating-filter-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
               <option value="all">All Movies</option>
               <option value="wtw">Want to Watch</option>
               <option value="good">Good</option>
@@ -57,10 +71,10 @@ const allMovies = moviesData;
 
           <!-- Sort Controls -->
           <div class="w-full sm:flex-1 md:min-w-[200px]">
-            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
+            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
               Sort by
             </label>
-            <select id="sort-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+            <select id="sort-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
               <option value="rating-desc">Highest Rated</option>
               <option value="rating-asc">Lowest Rated</option>
               <option value="title-asc">Title (A-Z)</option>
@@ -70,10 +84,10 @@ const allMovies = moviesData;
 
           <!-- Per Page Controls -->
           <div class="w-full sm:flex-1 md:min-w-[160px]">
-            <label class="block text-sm font-medium font-montserrat text-luxury-gray mb-2">
+            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
               Per page
             </label>
-            <select id="per-page-select" class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all">
+            <select id="per-page-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
               <option value="25">25</option>
               <option value="50">50</option>
               <option value="100">100</option>
@@ -87,7 +101,7 @@ const allMovies = moviesData;
             type="text" 
             id="search-input" 
             placeholder="Search movies..." 
-            class="w-full bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-white font-montserrat placeholder-gray-400 text-sm md:text-base focus:ring-2 focus:ring-luxury-gold focus:border-transparent transition-all"
+            class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk placeholder-pf-muted text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all"
           />
         </div>
       </div>
@@ -103,19 +117,16 @@ const allMovies = moviesData;
       </div>
     </div>
   </main>
-  
-  <!-- Footer Component -->
-  <Footer variant="full" />
-</Layout>
+</PortfolioLayout>
 
 <style>
   .rating-btn {
-    @apply bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600;
-    font-family: 'Montserrat', sans-serif;
+    @apply bg-pf-surface text-pf-muted hover:bg-pf-accent hover:bg-opacity-10 hover:text-pf-accent border border-pf-border;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
   
   .rating-btn.active {
-    @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold shadow-lg;
+    @apply bg-pf-accent bg-opacity-10 text-pf-accent border-pf-accent shadow-sm;
   }
 </style>
 
@@ -123,49 +134,50 @@ const allMovies = moviesData;
   .movie-card {
     display: block;
     width: 100%;
-    padding: 1.5rem 1rem;
-    border-radius: 0.75rem;
-    background: linear-gradient(to bottom right, rgba(20, 24, 40, 0.85), rgba(17, 20, 37, 0.85), rgba(12, 16, 32, 0.9));
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(201, 169, 107, 0.25);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 1.25rem 1rem;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #E5E2DC;
+    box-shadow: none;
     transition: all 0.3s ease;
     text-decoration: none;
   }
 
   .movie-card.want-to-watch {
-    background: linear-gradient(to bottom right, rgba(255, 107, 107, 0.1), rgba(255, 135, 135, 0.08), rgba(255, 107, 107, 0.05));
-    border: 1.5px solid rgba(255, 107, 107, 0.4);
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(122, 108, 93, 0.04);
+    border-bottom: 1px solid #E5E2DC;
+    box-shadow: none;
   }
 
   .movie-card.want-to-watch:hover {
-    border-color: rgba(255, 107, 107, 0.6);
-    box-shadow: 0 0 30px rgba(255, 107, 107, 0.25), 0 4px 16px rgba(0, 0, 0, 0.3);
+    background: rgba(122, 108, 93, 0.08);
+    border-bottom-color: #7A6C5D;
+    box-shadow: none;
   }
 
   @media (min-width: 640px) {
     .movie-card {
-      padding: 1.5rem 1.25rem;
+      padding: 1.5rem 1rem;
     }
   }
 
   @media (min-width: 768px) {
     .movie-card {
-      padding: 2rem 1.5rem;
-      border-radius: 1rem;
+      padding: 1.5rem 0;
     }
   }
 
   .movie-card:hover {
-    transform: scale(1.02);
-    border-color: rgba(201, 169, 107, 0.5);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transform: none;
+    border-bottom-color: #7A6C5D;
+    box-shadow: none;
+    background: rgba(122, 108, 93, 0.04);
   }
 
   @media (min-width: 768px) {
     .movie-card:hover {
-      transform: scale(1.05);
+      transform: none;
     }
   }
 
@@ -206,45 +218,51 @@ const allMovies = moviesData;
   }
 
   .rating-circle.filled {
-    background: #c9a96b;
-    border-color: #c9a96b;
+    background: #7A6C5D;
+    border-color: #7A6C5D;
   }
 
   .rating-circle.half {
-    border-color: #c9a96b;
-    background: linear-gradient(90deg, #c9a96b 50%, transparent 50%);
+    border-color: #7A6C5D;
+    background: linear-gradient(90deg, #7A6C5D 50%, transparent 50%);
   }
 
   .rating-circle.empty {
-    border-color: #3e4555;
+    border-color: #E5E2DC;
     background: transparent;
   }
 
   .wtw-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 0.875rem;
+    background: transparent;
+    color: #7A6C5D;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.25rem;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-    border: 1px solid rgba(255, 107, 107, 0.5);
+    box-shadow: none;
+    border: 1px solid #E5E2DC;
   }
 
   .rating-value {
-    color: #c9a96b;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    color: #7A6C5D;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 500;
     font-size: 0.875rem;
     margin-left: 0.5rem;
     white-space: nowrap;
   }
 
   .page-btn {
-    @apply px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-medium font-montserrat transition-all duration-200 bg-gray-700 bg-opacity-30 text-luxury-gray hover:bg-luxury-gold hover:bg-opacity-20 hover:text-luxury-gold border border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base;
+    @apply px-3 sm:px-4 py-2 sm:py-2.5 rounded-md font-medium transition-all duration-200 border disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: transparent;
+    color: #B8B2A8;
+    border-color: #E5E2DC;
     min-width: 44px;
     min-height: 44px;
     display: inline-flex;
@@ -252,8 +270,15 @@ const allMovies = moviesData;
     justify-content: center;
   }
 
+  .page-btn:hover {
+    color: #7A6C5D;
+    border-color: #7A6C5D;
+  }
+
   .page-btn.active {
-    @apply bg-luxury-gold bg-opacity-20 text-luxury-gold border-luxury-gold;
+    background: rgba(122, 108, 93, 0.08);
+    color: #7A6C5D;
+    border-color: #7A6C5D;
   }
 </style>
 
@@ -394,7 +419,7 @@ const allMovies = moviesData;
     if (moviesToShow.length === 0) {
       container.innerHTML = `
         <div class="text-center py-12">
-          <p class="text-gray-400 text-lg">No movies found</p>
+          <p class="pf-grotesk text-pf-muted text-lg">No movies found</p>
         </div>
       `;
       return;
@@ -407,7 +432,7 @@ const allMovies = moviesData;
       return `
       <a class="movie-card ${isWantToWatch ? 'want-to-watch' : ''}" href="${searchUrl}" target="_blank" rel="noreferrer">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 md:gap-6">
-          <h3 class="font-playfair text-xl sm:text-2xl font-medium text-white flex-1 leading-tight">${movie.title}</h3>
+          <h3 class="pf-serif text-xl sm:text-2xl font-medium text-pf-text flex-1 leading-tight">${movie.title}</h3>
           <div class="rating-circles">
             ${generateRatingCircles(movie.rating)}
             ${ratingDisplay}
