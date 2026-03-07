@@ -26,20 +26,10 @@ export default defineConfig({
       filter: (page) => !page.includes('/404'),
       customPages: [
         'https://ballabotond.com/en/',
-        'https://ballabotond.com/en/projects/',
-        'https://ballabotond.com/en/resume/',
         'https://ballabotond.com/hu/',
-        'https://ballabotond.com/hu/projects/',
-        'https://ballabotond.com/hu/resume/',
         'https://ballabotond.com/it/',
-        'https://ballabotond.com/it/projects/',
-        'https://ballabotond.com/it/resume/',
         'https://ballabotond.com/zh/',
-        'https://ballabotond.com/zh/projects/',
-        'https://ballabotond.com/zh/resume/',
-        'https://ballabotond.com/ja/',
-        'https://ballabotond.com/ja/projects/',
-        'https://ballabotond.com/ja/resume/'
+        'https://ballabotond.com/ja/'
       ],
       changefreq: 'weekly',
       priority: 0.7,
@@ -77,20 +67,7 @@ export default defineConfig({
           }
         ],
         categories: ["portfolio", "developer", "personal"],
-        shortcuts: [
-          {
-            name: "Projects",
-            short_name: "Projects",
-            description: "View my projects and work",
-            url: "/projects"
-          },
-          {
-            name: "Resume",
-            short_name: "Resume",
-            description: "View my professional resume",
-            url: "/resume"
-          }
-        ]
+        shortcuts: []
       },
       workbox: {
         navigateFallback: '/404',

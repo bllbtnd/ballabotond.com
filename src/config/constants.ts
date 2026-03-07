@@ -31,17 +31,10 @@ export const DESIGN_TOKENS = {
 export const SOCIAL_LINKS = [
     {
         id: 'email',
-        href: 'https://ballabotond.com/email',
+        href: 'mailto:contact@ballabotond.com',
         icon: 'fas fa-envelope',
         i18nKey: 'common.email',
         external: false
-    },
-    {
-        id: 'signal',
-        href: 'https://signal.me/#eu/botond.25',
-        icon: 'fa-brands fa-signal-messenger',
-        i18nKey: 'common.signal',
-        external: true
     },
     {
         id: 'github',

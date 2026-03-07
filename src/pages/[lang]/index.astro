@@ -196,8 +196,6 @@ const projectItems = projects
 // ── Footer Data ────────────────────────────────────────
 const footerNavigation = [
   { label: t('nav.home'), href: translatePath('/') },
-  { label: t('nav.resume'), href: translatePath('/resume/') },
-  { label: t('nav.projects'), href: translatePath('/projects/') },
   { label: t('nav.stories'), href: translatePath('/stories/') },
   { label: t('nav.movies'), href: translatePath('/movies/') },
 ];
@@ -262,9 +260,8 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         client:visible
         sectionTitle={t('resume.lifeStory.title')}
         storyText={lifeStoryParagraphs}
-        profileImage="/assets/images/profile.webp"
+        profileImage="/assets/images/story-portrait.webp"
         profileAlt={t('resume.lifeStory.caption')}
-        caption={t('resume.lifeStory.caption')}
       />
     </div>
 

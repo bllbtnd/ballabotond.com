@@ -191,8 +191,8 @@ export default function ResumeTimeline({
           <div className="pf-divider mt-8" />
         </motion.div>
 
-        {/* Two-column asymmetric layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-asymmetric gap-16 lg:gap-24">
+        {/* Two-column 50/50 layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left column — Experience */}
           <div>
             <motion.div

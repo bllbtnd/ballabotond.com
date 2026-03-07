@@ -68,7 +68,7 @@ export default function LifeStory({
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-40 overflow-hidden"
+      className="relative py-24 md:py-40"
       aria-label="Life Story"
     >
       <div className="max-w-[90vw] mx-auto px-6 md:px-12">
@@ -89,50 +89,50 @@ export default function LifeStory({
           <div className="pf-divider mt-8" />
         </motion.div>
 
-        {/* Two-column layout: photo left, story right */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.618fr] gap-12 lg:gap-20 items-start">
-          {/* Left column — Portrait with parallax */}
-          <div className="lg:sticky lg:top-24">
-            <motion.div
-              ref={imageRef}
-              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative overflow-hidden aspect-[3/4] rounded-sm"
-            >
-              <motion.img
-                src={profileImage}
-                alt={profileAlt}
-                className="w-full h-full object-cover"
-                style={
-                  prefersReducedMotion
-                    ? {}
-                    : {
-                        y: imageY,
-                        scale: imageScale,
-                      }
-                }
-                loading="eager"
-                width={600}
-                height={800}
-              />
-              {/* Subtle overlay gradient at bottom */}
-              <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-pf-bg/40 to-transparent pointer-events-none" />
-            </motion.div>
-
-            {/* Caption under image */}
-            {caption && (
-              <motion.p
-                initial={prefersReducedMotion ? false : { opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="pf-grotesk text-fluid-xs text-pf-muted mt-4 tracking-wide"
+        {/* Two-column layout: photo left (sticky), story right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          {/* Left column — Portrait (sticky) */}
+          <div>
+            <div className="lg:sticky lg:top-24">
+              <motion.div
+                ref={imageRef}
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative overflow-hidden aspect-square rounded-sm"
               >
-                {caption}
-              </motion.p>
-            )}
+                <motion.img
+                  src={profileImage}
+                  alt={profileAlt}
+                  className="w-full h-full object-cover"
+                  style={
+                    prefersReducedMotion
+                      ? {}
+                      : {
+                          y: imageY,
+                          scale: imageScale,
+                        }
+                  }
+                  loading="eager"
+                  width={600}
+                  height={800}
+                />
+              </motion.div>
+
+              {/* Caption under image */}
+              {caption && (
+                <motion.p
+                  initial={prefersReducedMotion ? false : { opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="pf-grotesk text-fluid-xs text-pf-muted mt-4 tracking-wide"
+                >
+                  {caption}
+                </motion.p>
+              )}
+            </div>
           </div>
 
           {/* Right column — Story text */}
