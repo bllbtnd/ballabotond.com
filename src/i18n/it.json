@@ -117,6 +117,18 @@
     "title": "Curriculum | Balla Botond",
     "tagline": "Soluzioni Ponderate",
     "subtitle": "Curriculum Professionale",
+    "lifeStory": {
+      "title": "La Mia Storia",
+      "caption": "Balla Botond — Ungheria",
+      "paragraphs": [
+        "Sono nato a Budapest, la capitale dell'Ungheria, dove il parlamento si erge maestoso sul fiume e la storia permea ogni ciottolo. Sono cresciuto a Esztergom, una città a solo un'ora di distanza, dove il significato storico e la bellezza naturale mi hanno dato un precoce apprezzamento per l'artigianato, quel tipo di lavoro paziente e deliberato che resiste alla prova del tempo.",
+        "Da bambino ero infinitamente curioso. Smontavo tutto ciò che potevo — radio, vecchi computer, orologi meccanici — spinto dal bisogno di capire come funzionassero le cose sotto la superficie. Quella stessa curiosità mi ha portato alle mie prime righe di codice. Avevo circa 14 anni quando ho scritto il mio primo vero programma, e la sensazione di creare qualcosa dal nulla è stata elettrizzante.",
+        "Durante il liceo all'Árpád-házi Szent Erzsébet Gimnázium, ho bilanciato gli studi con l'amore per la scherma e la musica — suonare il clarinetto mi ha insegnato disciplina e ritmo e ha acceso la mia passione per la musica classica, mentre la scherma ha affinato la mia concentrazione e il pensiero strategico. Non erano solo hobby; hanno plasmato il modo in cui affronto i problemi oggi.",
+        "Dopo essermi diplomato con ottimi risultati, mi sono trasferito a Pécs per studiare Informatica all'Università di Pécs. La vita universitaria ha aperto un nuovo capitolo, non solo accademicamente, ma anche personalmente. Ho iniziato a costruire progetti reali, a collaborare con i colleghi e a scoprire che la mia passione non era solo scrivere codice, ma architettare soluzioni che fanno una differenza tangibile. Ho incontrato persone incredibili che mi hanno aiutato a crescere, mi hanno sfidato a pensare in grande e mi hanno reso un uomo migliore.",
+        "Fuori dallo schermo, trovo equilibrio all'aria aperta — viaggi in campeggio e lunghe passeggiate che liberano la mente. Ho sviluppato anche un gusto per le cose raffinate: un buon single malt whisky, un sigaro scelto con cura, della bella musica classica e conversazioni che vanno oltre le chiacchiere superficiali. Questi piaceri mi ricordano che la qualità, in tutte le sue forme, vale la pena di essere perseguita.",
+        "Oggi lavoro come sviluppatore software continuando i miei studi, dividendo il mio tempo tra Budapest, Esztergom e Pécs. Ogni progetto che intraprendo porta la stessa filosofia: costruisci qualcosa di significativo, costruiscilo bene, e non accontentarti mai del 'abbastanza buono.' Questo sito web, e tutto ciò che contiene, è un riflesso di questa convinzione."
+      ]
+    },
     "position": "Studente di Informatica, Sviluppatore Software e Imprenditore",
     "summary": {
       "title": "Riassunto Professionale",
@@ -251,5 +263,16 @@
       "author": "William A. Foster"
     },
     "copyright": "© 2026 Balla Botond. Tutti i diritti riservati. | Creato con precisione e passione."
+  },
+  "notFound": {
+    "title": "Pagina Non Trovata",
+    "heading": "404",
+    "subtitle": "Perso nel vuoto",
+    "description": "La pagina che stai cercando sembra essersi persa nel vuoto digitale. Ma non preoccuparti, possiamo aiutarti a ritrovare la strada.",
+    "goHome": "Vai alla Home",
+    "viewProjects": "Vedi Progetti",
+    "suggestion": "O forse vorresti esplorare il mio",
+    "resumeLink": "curriculum",
+    "instead": "invece?"
   }
 }

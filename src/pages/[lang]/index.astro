@@ -5,17 +5,26 @@
  * Aesthetic: Digital Sobriety — Collectif Parcelles inspired.
  */
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
-import { useTranslations, useTranslatedPath, languages } from '../../i18n/utils';
+import { useTranslations, useTranslatedPath, languages, defaultLang } from '../../i18n/utils';
 import { SOCIAL_LINKS } from '../../config/constants';
 
 import PortfolioNav from '../../components/portfolio/PortfolioNav';
 import ParallaxHero from '../../components/portfolio/ParallaxHero';
+import LifeStory from '../../components/portfolio/LifeStory';
 import ResumeTimeline from '../../components/portfolio/ResumeTimeline';
 import ProjectGallery from '../../components/portfolio/ProjectGallery';
 import MegaFooter from '../../components/portfolio/MegaFooter';
 
 import projects from '../../data/projects.json';
 import { getCurrentAvailability } from '../../utils/calendar';
+
+// Direct imports for array access (t() only returns strings)
+import en from '../../i18n/en.json';
+import hu from '../../i18n/hu.json';
+import it from '../../i18n/it.json';
+import zh from '../../i18n/zh.json';
+import ja from '../../i18n/ja.json';
+const allTranslations = { en, hu, it, zh, ja } as Record<string, any>;
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({
@@ -71,9 +80,16 @@ const webPageSchema = {
 
 const structuredData = [breadcrumbSchema, webPageSchema];
 
+// ── Life Story Data ────────────────────────────────────
+const lifeStoryParagraphs: string[] =
+  allTranslations[typedLang]?.resume?.lifeStory?.paragraphs ??
+  allTranslations[defaultLang]?.resume?.lifeStory?.paragraphs ??
+  [];
+
 // ── Nav sections ───────────────────────────────────────
 const navSections = [
   { id: 'manifesto', label: t('portfolio.about') },
+  { id: 'story', label: t('resume.lifeStory.title') },
   { id: 'resume', label: t('nav.resume') },
   { id: 'projects', label: t('nav.projects') },
   { id: 'contact', label: t('portfolio.contact') },
@@ -233,6 +249,22 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         busyLabel={t('home.busy')}
         initialBusy={isBusyNow}
         busyWindows={busyWindows}
+      />
+    </div>
+
+    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
+      <hr class="pf-divider" />
+    </div>
+
+    <!-- SECTION 1.5: LIFE STORY -->
+    <div id="story">
+      <LifeStory
+        client:visible
+        sectionTitle={t('resume.lifeStory.title')}
+        storyText={lifeStoryParagraphs}
+        profileImage="/assets/images/profile.webp"
+        profileAlt={t('resume.lifeStory.caption')}
+        caption={t('resume.lifeStory.caption')}
       />
     </div>
 

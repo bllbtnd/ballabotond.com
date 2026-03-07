@@ -1,63 +1,77 @@
 ---
 // 404 page for Balla Botond's Astro site
-import Layout from '../layouts/Layout.astro';
-import Footer from '../components/Footer.astro';
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import { defaultLang, useTranslations } from '../i18n/utils';
+
+const t = useTranslations(defaultLang);
 ---
 
-<Layout title="Balla Botond">
-  <!-- Main container -->
-  <div class="relative min-h-screen flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #0b0b0f 0%, #1a1a20 50%, #0b0b0f 100%);">
-    
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 20%, rgba(201, 169, 107, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(201, 169, 107, 0.08) 0%, transparent 50%);"></div>
-    
-    <!-- Content container -->
-    <div class="relative z-10 text-center px-6 max-w-2xl mx-auto">
-      
-      <!-- 404 Number -->
-      <div class="mb-8 animate-fade-in">
-        <h1 class="font-playfair text-8xl md:text-9xl font-light text-luxury-gold drop-shadow-2xl leading-none">404</h1>
-      </div>
-      
-      <!-- Error message -->
-      <h2 class="font-playfair text-3xl md:text-4xl font-medium mb-4 text-white leading-tight animate-fade-in" style="animation-delay: 0.3s;">
-        Page Not Found
-      </h2>
-      
-      <p class="font-montserrat text-lg text-luxury-gray font-light mb-8 leading-relaxed animate-fade-in" style="animation-delay: 0.6s;">
-        The page you're looking for seems to have wandered off into the digital void. But don't worry, we can help you find your way back.
+<PortfolioLayout title={`${t('notFound.title')} | ${t('common.name')}`}>
+
+  <main class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+
+    {/* Background typographic layer — large faded 404 */}
+    <div
+      class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+      aria-hidden="true"
+    >
+      <span
+        class="pf-serif text-pf-border whitespace-nowrap"
+        style="font-size: clamp(10rem, 5rem + 30vw, 40rem); line-height: 0.85; letter-spacing: -0.04em; opacity: 1;"
+      >
+        {t('notFound.heading')}
+      </span>
+    </div>
+
+    {/* Accent line — decorative */}
+    <div class="absolute top-1/2 left-0 w-full pointer-events-none" aria-hidden="true">
+      <div class="h-px bg-pf-border w-full"></div>
+    </div>
+
+    {/* Foreground content */}
+    <div class="relative z-10 w-full max-w-[90vw] px-6 md:px-12 text-center">
+      <p class="pf-grotesk text-fluid-sm uppercase tracking-[0.3em] text-pf-accent mb-6 md:mb-8">
+        {t('notFound.subtitle')}
       </p>
-      
-      <!-- Action buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 animate-fade-in" style="animation-delay: 0.9s;">
-        <a href="/" 
-           class="px-8 py-3 rounded-full bg-luxury-gold text-gray-900 font-montserrat font-semibold text-sm uppercase tracking-wider shadow-lg hover-luxury-gold hover-luxury-text transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-          Go Home
+
+      <h1
+        class="pf-serif text-pf-text leading-tight-display tracking-brutal mb-8"
+        style="font-size: clamp(2.5rem, 1.5rem + 5vw, 7rem);"
+      >
+        {t('notFound.title')}
+      </h1>
+
+      <p class="pf-grotesk text-fluid-base text-pf-muted leading-relaxed max-w-xl mx-auto mb-12">
+        {t('notFound.description')}
+      </p>
+
+      {/* Action buttons */}
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
+        <a
+          href="/"
+          class="pf-grotesk text-fluid-sm uppercase tracking-[0.2em] text-pf-text border-b border-pf-text pb-1 hover:text-pf-accent hover:border-pf-accent transition-colors duration-300"
+        >
+          {t('notFound.goHome')}
         </a>
-        <a href="/projects/" 
-           class="px-8 py-3 rounded-full border-2 border-luxury-gold text-luxury-gold font-montserrat font-semibold text-sm uppercase tracking-wider hover:bg-luxury-gold hover:text-gray-900 transition-all duration-300 transform hover:scale-105">
-          View Projects
+        <a
+          href="/en/projects/"
+          class="pf-grotesk text-fluid-sm uppercase tracking-[0.2em] text-pf-accent border-b border-pf-accent pb-1 hover:text-pf-text hover:border-pf-text transition-colors duration-300"
+        >
+          {t('notFound.viewProjects')}
         </a>
       </div>
-      
-      <!-- Fun suggestion -->
-      <p class="font-montserrat text-sm text-luxury-gray-dark animate-fade-in" style="animation-delay: 1.2s;">
-        Or perhaps you'd like to explore my <a href="/resume/" class="text-luxury-gold hover:text-luxury-gold-light underline">resume</a> instead?
+
+      <p class="pf-grotesk text-fluid-xs text-pf-muted tracking-wide">
+        {t('notFound.suggestion')} <a href="/en/resume/" class="pf-link text-pf-accent">{t('notFound.resumeLink')}</a> {t('notFound.instead')}
       </p>
-      
     </div>
-    
-    <!-- Floating animation elements -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-luxury-gold rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
-      <div class="absolute top-3/4 right-1/4 w-1 h-1 bg-luxury-gold rounded-full opacity-30 animate-pulse" style="animation-delay: 3s;"></div>
-      <div class="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-luxury-gold rounded-full opacity-25 animate-pulse" style="animation-delay: 4s;"></div>
+
+    {/* Scroll indicator aesthetic — bottom left */}
+    <div class="absolute bottom-8 left-6 md:left-12 flex items-center gap-3">
+      <div class="w-px h-12 bg-pf-muted origin-top"></div>
+      <span class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted">404</span>
     </div>
-    
-    <!-- Footer Component positioned at bottom -->
-    <div class="absolute bottom-0 left-0 right-0 z-10">
-      <Footer variant="minimal" />
-    </div>
-    
-  </div>
-</Layout>
+
+  </main>
+
+</PortfolioLayout>

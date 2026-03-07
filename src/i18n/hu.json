@@ -117,6 +117,18 @@
     "title": "Önéletrajz | Balla Botond",
     "tagline": "Átgondolt Megoldások",
     "subtitle": "Szakmai Önéletrajz",
+    "lifeStory": {
+      "title": "Az Én Történetem",
+      "caption": "Balla Botond — Magyarország",
+      "paragraphs": [
+        "Budapesten születtem, Magyarország fővárosában, ahol az Országház a folyó fölé magasodik és a történelem minden macskakőből árad. Esztergomban nőttem fel, egy alig egy órányira lévő városban, ahol a történelmi jelentőség és a természeti szépség korán megtanított a kézművesség értékelésére — a türelmes, átgondolt munka értékelésére, ami kiállja az idő próbáját.",
+        "Gyerekként végtelenül kíváncsi voltam. Mindent szétszedtem, amihez hozzáfértem — rádiókat, régi számítógépeket, mechanikus órákat — hajtott a vágy, hogy megértsem, hogyan működnek a dolgok a felszín alatt. Ugyanez a kíváncsiság vezetett el az első kódsoraimhoz. Nagyjából 14 éves voltam, amikor megírtam az első igazi programomat, és a semmiből való alkotás érzése lenyűgöző volt.",
+        "A gimnáziumi évek alatt az Árpád-házi Szent Erzsébet Gimnáziumban egyensúlyt tartottam a tanulás, a vívás és a zene iránti szeretetem között — a klarinétozás megtanított a fegyelemre és a ritmusra, valamint elindított a klasszikus zene iránti szenvedélyem útján, míg a vívás élesítette a fókuszomat és a stratégiai gondolkodásomat. Ezek nem csupán hobbik voltak; formálták azt, ahogyan ma a problémákat megközelítem.",
+        "Az érettségi után kiváló eredményekkel Pécsre költöztem, hogy informatikát tanuljak a Pécsi Tudományegyetemen. Az egyetemi élet új fejezetet nyitott — nem csak tanulmányi, hanem személyes szempontból is. Elkezdtem valódi projekteket építeni, társakkal együttműködni, és felfedezni, hogy a szenvedélyem nem csupán a kódírás, hanem olyan megoldások tervezése, amelyek valódi változást hoznak. Hihetetlen emberekkel találkoztam, akik segítettek fejlődnöm, nagyobbra gondolkozásra ösztönöztek és jobb emberré tettek.",
+        "A képernyőn kívül a szabadban találom meg az egyensúlyt — kempingezés és hosszú séták, amelyek kitisztítják az elmét. Kifejlesztettem az ízlésemet a finomabb dolgok iránt is: egy jó single malt whisky, egy gondosan kiválasztott szivar, gyönyörű klasszikus zene és olyan beszélgetések, amelyek túlmutatnak a felszínes csevegésen. Ezek az élvezetek emlékeztetnek arra, hogy a minőség minden formájában érdemes törekedni rá.",
+        "Ma szoftverfejlesztőként dolgozom tanulmányaim folytatása mellett, időmet Budapest, Esztergom és Pécs között megosztva. Minden projekt, amibe belevágok, ugyanazt a filozófiát hordozza: építs valamit, aminek értelme van, építsd jól, és soha ne elégedj meg az 'elég jó'-val. Ez a weboldal és minden, ami rajta van, ennek a hitnek a tükröződése."
+      ]
+    },
     "position": "Informatika Hallgató, Szoftverfejlesztő és Vállalkozó",
     "summary": {
       "title": "Szakmai Összefoglaló",
@@ -251,5 +263,16 @@
       "author": "William A. Foster"
     },
     "copyright": "© 2026 Balla Botond. Minden jog fenntartva. | Precizitással és szenvedéllyel alkotva."
+  },
+  "notFound": {
+    "title": "Az oldal nem található",
+    "heading": "404",
+    "subtitle": "Elveszett az űrben",
+    "description": "A keresett oldal úgy tűnik, eltévedt a digitális űrben. De ne aggódj, segítünk visszatalálni.",
+    "goHome": "Főoldal",
+    "viewProjects": "Projektek",
+    "suggestion": "Vagy esetleg érdekelne az",
+    "resumeLink": "önéletrajzom",
+    "instead": "helyette?"
   }
 }
