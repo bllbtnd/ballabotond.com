@@ -66,13 +66,29 @@ export default function PortfolioNav({ homeHref, sections, languages = [] }: Por
         aria-label="Main navigation"
       >
         <div
-          className={`relative max-w-[90vw] mx-auto rounded-full border overflow-hidden transition-all duration-500 ${
-            isScrolled
-              ? 'bg-pf-bg/70 backdrop-blur-xl backdrop-saturate-150 border-pf-border/80 shadow-lg'
-              : 'bg-pf-bg/45 backdrop-blur-lg backdrop-saturate-125 border-pf-border/60 shadow-sm'
-          }`}
+          className={`relative max-w-[90vw] mx-auto rounded-full overflow-hidden transition-all duration-500`}
+          style={{
+            background: isScrolled
+              ? 'rgba(240, 235, 227, 0.22)'
+              : 'rgba(240, 235, 227, 0.12)',
+            backdropFilter: `blur(${isScrolled ? '48px' : '36px'}) saturate(${isScrolled ? '1.8' : '1.5'})`,
+            WebkitBackdropFilter: `blur(${isScrolled ? '48px' : '36px'}) saturate(${isScrolled ? '1.8' : '1.5'})`,
+            border: '0.5px solid rgba(255, 255, 255, 0.35)',
+            boxShadow: isScrolled
+              ? '0 8px 32px rgba(26,26,26,0.08), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(26,26,26,0.04)'
+              : '0 4px 20px rgba(26,26,26,0.04), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(26,26,26,0.02)',
+          }}
         >
-          <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-pf-bg/60 via-pf-bg/15 to-transparent" />
+          {/* Specular highlight — top edge gleam */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-[1px] rounded-full"
+            style={{ background: 'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.6) 50%, transparent 90%)' }}
+          />
+          {/* Refraction tint — subtle depth gradient */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-full"
+            style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 50%, rgba(240,235,227,0.06) 100%)' }}
+          />
           <div className="relative px-6 md:px-10 py-3.5 md:py-4.5 flex items-center justify-between">
             {/* Logo / Name */}
             <a
@@ -115,7 +131,14 @@ export default function PortfolioNav({ homeHref, sections, languages = [] }: Por
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-full mt-2 bg-pf-bg/70 backdrop-blur-xl border border-pf-border/70 rounded-2xl shadow-lg py-1 min-w-[120px] z-50"
+                        className="absolute right-0 top-full mt-2 rounded-2xl py-1 min-w-[120px] z-50"
+                        style={{
+                          background: 'rgba(240, 235, 227, 0.22)',
+                          backdropFilter: 'blur(48px) saturate(1.8)',
+                          WebkitBackdropFilter: 'blur(48px) saturate(1.8)',
+                          border: '0.5px solid rgba(255,255,255,0.35)',
+                          boxShadow: '0 8px 32px rgba(26,26,26,0.08), inset 0 1px 0 rgba(255,255,255,0.4)',
+                        }}
                       >
                         {languages.map((lang) => (
                           <a
