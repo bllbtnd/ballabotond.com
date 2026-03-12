@@ -13,7 +13,6 @@ import {
   useScroll,
   useTransform,
   useReducedMotion,
-  AnimatePresence,
   type Variants,
 } from 'motion/react';
 
@@ -62,7 +61,7 @@ export default function LifeStory({
   const prefersReducedMotion = useReducedMotion();
 
   // Mobile "Read more" state
-  const MOBILE_PREVIEW_COUNT = 2;
+  const MOBILE_PREVIEW_COUNT = 1;
   const [expanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -160,39 +159,34 @@ export default function LifeStory({
           <div>
             <motion.div
               variants={prefersReducedMotion ? undefined : containerVariants}
-              initial="hidden"
-              whileInView="visible"
+              initial={isMobile ? false : 'hidden'}
+              whileInView={isMobile ? undefined : 'visible'}
               viewport={{ once: true, margin: '-50px' }}
               className="space-y-6"
             >
-              {visibleParagraphs.map((paragraph, i) => (
-                <motion.p
-                  key={i}
-                  variants={prefersReducedMotion ? undefined : paragraphVariants}
-                  className="pf-grotesk text-fluid-base text-pf-text leading-relaxed"
-                  style={{
-                    textIndent: i === 0 ? '0' : '2em',
-                  }}
-                >
-                  {paragraph}
-                </motion.p>
-              ))}
+              {visibleParagraphs.map((paragraph, i) => {
+                const paragraphClass = 'pf-grotesk text-fluid-base text-pf-text leading-relaxed';
+                const paragraphStyle = { textIndent: i === 0 ? '0' : '2em' };
 
-              <AnimatePresence>
-                {expanded && isMobile && storyText.slice(MOBILE_PREVIEW_COUNT).map((paragraph, i) => (
+                if (isMobile) {
+                  return (
+                    <p key={i} className={paragraphClass} style={paragraphStyle}>
+                      {paragraph}
+                    </p>
+                  );
+                }
+
+                return (
                   <motion.p
-                    key={`extra-${i}`}
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="pf-grotesk text-fluid-base text-pf-text leading-relaxed overflow-hidden"
-                    style={{ textIndent: '2em' }}
+                    key={i}
+                    variants={prefersReducedMotion ? undefined : paragraphVariants}
+                    className={paragraphClass}
+                    style={paragraphStyle}
                   >
                     {paragraph}
                   </motion.p>
-                ))}
-              </AnimatePresence>
+                );
+              })}
             </motion.div>
 
             {/* Read more / Show less — mobile only */}
