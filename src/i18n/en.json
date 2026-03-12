@@ -41,7 +41,9 @@
     "twitter": "X (Twitter)",
     "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "Buy me a coffee"
+    "coffee": "Buy me a coffee",
+    "readMore": "Read more",
+    "showLess": "Show less"
   },
   "home": {
     "title": "Balla Botond",

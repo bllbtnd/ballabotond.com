@@ -9,23 +9,38 @@
   style="background: transparent; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); transition: opacity 0.5s ease-out;"></canvas>
 
 <script>
-  // Fade out constellation on scroll
+  // Fade out constellation on scroll & pause when invisible
+  let constellationInstance: ConstellationEffect | null = null;
+  let constellationPaused = false;
+
   function updateConstellationOpacity() {
     const canvas = document.getElementById('constellation-canvas') as HTMLCanvasElement;
     if (!canvas) return;
     
     const scrollY = window.scrollY;
     const windowHeight = window.innerHeight;
-    const fadeStart = windowHeight * 0.3; // Start fading at 30% of viewport
-    const fadeEnd = windowHeight * 1.2; // Fully faded at 120% of viewport
+    const fadeStart = windowHeight * 0.3;
+    const fadeEnd = windowHeight * 1.2;
     
     if (scrollY <= fadeStart) {
       canvas.style.opacity = '1';
+      if (constellationPaused && constellationInstance) {
+        constellationInstance.resume();
+        constellationPaused = false;
+      }
     } else if (scrollY >= fadeEnd) {
       canvas.style.opacity = '0';
+      if (!constellationPaused && constellationInstance) {
+        constellationInstance.pause();
+        constellationPaused = true;
+      }
     } else {
       const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
       canvas.style.opacity = String(1 - fadeProgress);
+      if (constellationPaused && constellationInstance) {
+        constellationInstance.resume();
+        constellationPaused = false;
+      }
     }
   }
 
@@ -91,7 +106,15 @@
       ) {
         this.isLowPowerMode = true;
         this.config.particleCount = 30;
-        this.targetFPS = 30; // Lower FPS on weak devices
+        this.targetFPS = 30;
+      }
+
+      // Further reduce on mobile
+      const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
+      if (isMobile) {
+        this.config.particleCount = Math.min(this.config.particleCount, 25);
+        this.config.connectionDistance = 100;
+        this.targetFPS = Math.min(this.targetFPS, 30);
       }
 
       this.init();
@@ -162,14 +185,24 @@
       // Handle visibility change to pause animation when tab is inactive
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
-          if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
-            this.animationFrameId = null;
-          }
+          this.pause();
         } else {
-          this.animate();
+          this.resume();
         }
       });
+    }
+
+    pause() {
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+        this.animationFrameId = null;
+      }
+    }
+
+    resume() {
+      if (!this.animationFrameId) {
+        this.animate();
+      }
     }
 
     animate() {
@@ -324,7 +357,7 @@
       "constellation-canvas",
     ) as HTMLCanvasElement;
     if (canvas) {
-      new ConstellationEffect(canvas);
+      constellationInstance = new ConstellationEffect(canvas);
     }
   };
 

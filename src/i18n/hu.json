@@ -41,7 +41,9 @@
     "twitter": "X (Twitter)",
     "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "Vegyél egy kávét"
+    "coffee": "Vegyél egy kávét",
+    "readMore": "Tovább olvasom",
+    "showLess": "Kevesebb"
   },
   "home": {
     "title": "Balla Botond",

@@ -41,7 +41,9 @@
     "twitter": "X (Twitter)",
     "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "コーヒーをおごる"
+    "coffee": "コーヒーをおごる",
+    "readMore": "続きを読む",
+    "showLess": "閉じる"
   },
   "home": {
     "title": "Balla Botond",

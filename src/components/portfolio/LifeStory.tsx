@@ -7,12 +7,13 @@
  * Uses Motion (Framer Motion) for parallax and viewport-triggered animations.
  * All animations use hardware-accelerated properties only (transform, opacity).
  */
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
   useReducedMotion,
+  AnimatePresence,
   type Variants,
 } from 'motion/react';
 
@@ -22,6 +23,8 @@ interface LifeStoryProps {
   profileImage: string;
   profileAlt: string;
   caption?: string;
+  readMoreLabel?: string;
+  showLessLabel?: string;
 }
 
 const paragraphVariants: Variants = {
@@ -51,10 +54,28 @@ export default function LifeStory({
   profileImage,
   profileAlt,
   caption,
+  readMoreLabel = 'Read more',
+  showLessLabel = 'Show less',
 }: LifeStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  // Mobile "Read more" state
+  const MOBILE_PREVIEW_COUNT = 2;
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 1023px)');
+    setIsMobile(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  const shouldTruncate = isMobile && !expanded && storyText.length > MOBILE_PREVIEW_COUNT;
+  const visibleParagraphs = shouldTruncate ? storyText.slice(0, MOBILE_PREVIEW_COUNT) : storyText;
 
   // Parallax for the portrait image — scrolls at 0.5x creating depth
   const { scrollYProgress } = useScroll({
@@ -144,7 +165,7 @@ export default function LifeStory({
               viewport={{ once: true, margin: '-50px' }}
               className="space-y-6"
             >
-              {storyText.map((paragraph, i) => (
+              {visibleParagraphs.map((paragraph, i) => (
                 <motion.p
                   key={i}
                   variants={prefersReducedMotion ? undefined : paragraphVariants}
@@ -156,7 +177,43 @@ export default function LifeStory({
                   {paragraph}
                 </motion.p>
               ))}
+
+              <AnimatePresence>
+                {expanded && isMobile && storyText.slice(MOBILE_PREVIEW_COUNT).map((paragraph, i) => (
+                  <motion.p
+                    key={`extra-${i}`}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="pf-grotesk text-fluid-base text-pf-text leading-relaxed overflow-hidden"
+                    style={{ textIndent: '2em' }}
+                  >
+                    {paragraph}
+                  </motion.p>
+                ))}
+              </AnimatePresence>
             </motion.div>
+
+            {/* Read more / Show less — mobile only */}
+            {isMobile && storyText.length > MOBILE_PREVIEW_COUNT && (
+              <button
+                onClick={() => setExpanded(prev => !prev)}
+                className="mt-6 pf-grotesk text-fluid-sm text-pf-accent uppercase tracking-[0.2em] hover:opacity-70 transition-opacity duration-300 flex items-center gap-2"
+                aria-expanded={expanded}
+              >
+                <span>{expanded ? showLessLabel : readMoreLabel}</span>
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>
