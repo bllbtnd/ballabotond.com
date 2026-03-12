@@ -30,7 +30,6 @@ interface ParallaxHeroProps {
   profileImage?: string;
   profileAlt?: string;
   profileLink?: string;
-  scrollCta?: string;
 }
 
 export default function ParallaxHero({
@@ -47,7 +46,6 @@ export default function ParallaxHero({
   profileImage,
   profileAlt = '',
   profileLink,
-  scrollCta = 'Scroll',
 }: ParallaxHeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -226,17 +224,28 @@ export default function ParallaxHero({
         </div>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        className="absolute bottom-8 left-6 md:left-12 flex items-center gap-3"
+        transition={{ delay: 2.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-8 right-6 md:right-12 h-14 w-[2px] bg-pf-muted overflow-hidden"
+        aria-hidden="true"
       >
-        <div className="w-px h-12 bg-pf-muted origin-top" />
-        <span className="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted rotate-0">
-          {scrollCta}
-        </span>
+        <motion.div
+          className="absolute top-0 left-0 h-5 w-[2px] bg-pf-accent"
+          animate={prefersReducedMotion ? undefined : { y: [0, 40, 0], opacity: [0.45, 1, 0.45] }}
+          transition={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  duration: 1.6,
+                  ease: [0.4, 0, 0.2, 1],
+                  delay: 2.25,
+                  repeat: Infinity,
+                  repeatDelay: 0.7,
+                }
+          }
+        />
       </motion.div>
 
     </section>

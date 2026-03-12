@@ -160,6 +160,17 @@ const baseSchema = generateBaseSchema(siteLanguages);
         width: 100%;
         overflow-x: hidden;
       }
+
+      html,
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        display: none;
+      }
       
       /* Samsung Internet browser fixes */
       @supports (-webkit-overflow-scrolling: touch) {
