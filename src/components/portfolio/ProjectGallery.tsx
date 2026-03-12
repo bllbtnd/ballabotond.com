@@ -69,44 +69,46 @@ function ProjectCard({
   index: number;
   prefersReducedMotion: boolean | null;
 }) {
-  const isEven = index % 2 === 0;
-
-  // Stagger: odd items get top padding on desktop for visual offset
-  const staggerClass = index % 2 === 1 ? 'md:pt-16' : '';
+  const statusLabel =
+    project.status === 'active'
+      ? 'Live'
+      : project.status === 'coming-soon'
+        ? 'Coming Soon'
+        : 'Archived';
 
   const content = (
     <motion.article
       variants={prefersReducedMotion ? undefined : projectCardVariants}
-      className={`group ${staggerClass}`}
+      className="group border border-pf-border/60 hover:border-pf-accent/40 transition-colors duration-300"
     >
-      <div className="py-8 md:py-10">
-        {/* Project number + category */}
-        <div className="flex items-baseline justify-between mb-4">
-          <span className="pf-grotesk text-fluid-xs text-pf-muted tracking-[0.15em] uppercase">
+      <div className="px-6 py-7 md:px-8 md:py-8">
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <span className="pf-grotesk text-fluid-xs text-pf-muted tracking-[0.18em] uppercase">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <span className="pf-grotesk text-fluid-xs text-pf-muted tracking-[0.1em] uppercase">
-            {project.category}
+          <span className="pf-grotesk text-fluid-xs text-pf-muted tracking-[0.14em] uppercase">
+            {statusLabel}
           </span>
         </div>
 
-        {/* Title — large, striking */}
         <h3
           className="pf-serif text-pf-text leading-tight-display tracking-tight-brutal mb-4 group-hover:text-pf-accent transition-colors duration-300"
           style={{
-            fontSize: 'clamp(1.75rem, 1rem + 3vw, 4rem)',
+            fontSize: 'clamp(1.6rem, 1.05rem + 2.7vw, 3.2rem)',
           }}
         >
           {project.title}
         </h3>
 
-        {/* Description — minimal citation style */}
-        <p className="pf-grotesk text-fluid-sm text-pf-muted leading-relaxed max-w-lg mb-4">
+        <p className="pf-grotesk text-fluid-sm text-pf-muted leading-relaxed max-w-3xl mb-6">
           {project.description}
         </p>
 
-        {/* Status + link */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-pf-border/60">
+          <span className="pf-grotesk text-fluid-xs uppercase tracking-[0.14em] text-pf-muted">
+            {project.category}
+          </span>
+
           {project.status === 'active' && project.url && (
             <a
               href={project.url}
@@ -114,23 +116,10 @@ function ProjectCard({
               rel="noopener noreferrer"
               className="pf-link pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-text"
             >
-              View Project
+              Open Project
             </a>
           )}
-          {project.status === 'coming-soon' && (
-            <span className="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted">
-              Coming Soon
-            </span>
-          )}
-          {project.status === 'past' && (
-            <span className="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted italic">
-              Archived
-            </span>
-          )}
         </div>
-
-        {/* Divider line */}
-        <div className="pf-divider mt-8" />
       </div>
     </motion.article>
   );
@@ -184,7 +173,7 @@ export default function ProjectGallery({
       )}
 
       <div className="max-w-[90vw] mx-auto px-6 md:px-12 relative z-10">
-        {/* Section header with sticky behavior */}
+        {/* Section header */}
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -192,24 +181,22 @@ export default function ProjectGallery({
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 md:mb-24"
         >
-          <div className="sticky top-0 pt-6 pb-4 bg-pf-bg z-20">
-            <h2
-              className="pf-serif text-pf-text leading-tight-display tracking-brutal"
-              style={{ fontSize: 'clamp(2.5rem, 1.5rem + 5vw, 7rem)' }}
-            >
-              {sectionTitle}
-            </h2>
-            <div className="pf-divider mt-8" />
-          </div>
+          <h2
+            className="pf-serif text-pf-text leading-tight-display tracking-brutal"
+            style={{ fontSize: 'clamp(2.5rem, 1.5rem + 5vw, 7rem)' }}
+          >
+            {sectionTitle}
+          </h2>
+          <div className="pf-divider mt-8" />
         </motion.div>
 
-        {/* Asymmetric project grid — 2-column with proper spacing */}
+        {/* Project list */}
         <motion.div
           variants={prefersReducedMotion ? undefined : galleryContainerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-4"
+          className="space-y-5 md:space-y-6"
         >
           {projects.map((project, index) => (
             <ProjectCard

@@ -114,11 +114,12 @@ export default function MegaFooter({
           variants={prefersReducedMotion ? undefined : containerVariants}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 md:gap-8"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-10"
         >
           {/* Column 1 — Brand */}
           <motion.div
             variants={prefersReducedMotion ? undefined : itemVariants}
+            className="lg:pr-8"
           >
             <h3
               className="pf-serif mb-4"
@@ -134,68 +135,66 @@ export default function MegaFooter({
             </p>
           </motion.div>
 
-          {/* Column 2 — Navigation */}
+          {/* Column 2 — Links */}
           <motion.div
             variants={prefersReducedMotion ? undefined : itemVariants}
+            className="lg:col-span-2"
           >
-            <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-6">
-              Navigate
-            </h4>
-            <nav className="space-y-3">
-              {navigation.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="block pf-grotesk text-fluid-sm text-pf-bg/70 hover:text-pf-bg transition-colors duration-300"
-                  {...(link.external
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
-                    : {})}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              <div>
+                <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-5">
+                  Navigate
+                </h4>
+                <nav className="space-y-3">
+                  {navigation.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="block pf-grotesk text-fluid-sm text-pf-bg/70 hover:text-pf-bg transition-colors duration-300"
+                      {...(link.external
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
 
-          {/* Column 3 — Social */}
-          <motion.div
-            variants={prefersReducedMotion ? undefined : itemVariants}
-          >
-            <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-6">
-              Connect
-            </h4>
-            <div className="space-y-3">
-              {socials.map((social) => (
-                <a
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 pf-grotesk text-fluid-sm text-pf-bg/70 hover:text-pf-bg transition-colors duration-300 group"
-                >
-                  <i
-                    className={`${social.icon} w-4 text-center text-pf-bg/40 group-hover:text-pf-bg transition-colors duration-300`}
-                  />
-                  {social.label}
-                </a>
-              ))}
+              <div>
+                <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-5">
+                  Connect
+                </h4>
+                <div className="space-y-3">
+                  {socials.map((social) => (
+                    <a
+                      key={social.href}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 pf-grotesk text-fluid-sm text-pf-bg/70 hover:text-pf-bg transition-colors duration-300 group"
+                    >
+                      <i
+                        className={`${social.icon} w-4 text-center text-pf-bg/40 group-hover:text-pf-bg transition-colors duration-300`}
+                      />
+                      {social.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
-          </motion.div>
 
-          {/* Column 4 — Location / Info */}
-          <motion.div
-            variants={prefersReducedMotion ? undefined : itemVariants}
-            className="md:col-span-3 lg:col-span-1"
-          >
-            <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-6">
-              Based in
-            </h4>
-            <p className="pf-grotesk text-fluid-sm text-pf-bg/70 mb-2">
-              Budapest · Esztergom · Pécs
-            </p>
-            <p className="pf-grotesk text-fluid-xs text-pf-bg/40">
-              Available for freelance &amp; collaboration
-            </p>
+            <div className="mt-8 pt-6 border-t border-pf-bg/10">
+              <h4 className="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-bg/40 mb-3">
+                Based in
+              </h4>
+              <p className="pf-grotesk text-fluid-sm text-pf-bg/70 mb-2">
+                Budapest · Esztergom · Pécs
+              </p>
+              <p className="pf-grotesk text-fluid-xs text-pf-bg/40">
+                Available for freelance &amp; collaboration
+              </p>
+            </div>
           </motion.div>
         </motion.div>
 
