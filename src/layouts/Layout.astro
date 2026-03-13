@@ -2,6 +2,7 @@
 // Main site layout for Balla Botond, using luxury palette and modern fonts
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import SubtleEasterEggs from '../components/SubtleEasterEggs.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource/playfair-display';
@@ -139,6 +140,24 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <script type="application/ld+json" is:inline>
       {JSON.stringify(baseSchema)}
     </script>
+    <!-- GA4 Consent Mode v2 — must run before gtag loads -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      // Default everything to denied until user consents
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 800,
+      });
+      // If already accepted on a previous visit — grant immediately
+      if (localStorage.getItem('cookie_consent') === 'accepted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
     <script type="text/partytown">
@@ -257,6 +276,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <SubtleEasterEggs />
     
     <slot />
+
+    <!-- Cookie consent banner -->
+    <CookieBanner />
 
     <!-- Lenis smooth scroll -->
     <script>

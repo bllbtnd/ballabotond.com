@@ -8,6 +8,7 @@
  */
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
+import CookieBanner from '../components/CookieBanner.astro';
 import '@fontsource/space-grotesk/300.css';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
@@ -112,6 +113,31 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <!-- Structured Data -->
     <script type="application/ld+json" is:inline>
       {JSON.stringify(baseSchema)}
+    </script>
+
+    <!-- GA4 Consent Mode v2 — must run before gtag loads -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 800,
+      });
+      if (localStorage.getItem('cookie_consent') === 'accepted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3NZN7X2WL9');
     </script>
 
     <!-- Font Awesome -->
@@ -226,6 +252,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
   </head>
   <body>
     <slot />
+
+    <!-- Cookie consent banner -->
+    <CookieBanner />
 
     <!-- Lenis Smooth Scroll Initialization -->
     <script>
