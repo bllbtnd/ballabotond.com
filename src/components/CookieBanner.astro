@@ -5,20 +5,20 @@
 ---
 
 <div
-  id="cookie-banner"
+  id="consent-notice"
   role="dialog"
   aria-modal="false"
   aria-label="Cookie consent"
 >
-  <span id="cookie-text">This site uses analytics cookies.</span>
-  <div id="cookie-actions">
-    <button id="cookie-decline" type="button">Decline</button>
-    <button id="cookie-accept" type="button">Accept</button>
+  <span id="consent-text">This site uses analytics cookies.</span>
+  <div id="consent-actions">
+    <button id="consent-decline" type="button">Decline</button>
+    <button id="consent-accept" type="button">Accept</button>
   </div>
 </div>
 
 <style>
-  #cookie-banner {
+  #consent-notice {
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
@@ -42,7 +42,7 @@
     transition-delay: 0s, 0.5s;
   }
 
-  #cookie-banner.visible {
+  #consent-notice.visible {
     visibility: visible;
     transform: translateX(-50%) translateY(0);
     transition-property: transform, visibility;
@@ -51,7 +51,7 @@
     transition-delay: 0s, 0s;
   }
 
-  #cookie-banner.hiding {
+  #consent-notice.hiding {
     transform: translateX(-50%) translateY(calc(100% + 2.5rem));
     visibility: hidden;
     transition-property: transform, visibility;
@@ -60,22 +60,22 @@
     transition-delay: 0s, 0.45s;
   }
 
-  #cookie-text {
+  #consent-text {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
     letter-spacing: 0.04em;
     color: #B8B2A8;
   }
 
-  #cookie-actions {
+  #consent-actions {
     display: flex;
     align-items: center;
     gap: 0.4rem;
     flex-shrink: 0;
   }
 
-  #cookie-decline,
-  #cookie-accept {
+  #consent-decline,
+  #consent-accept {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: clamp(0.65rem, 0.6rem + 0.2vw, 0.75rem);
     font-weight: 500;
@@ -89,27 +89,27 @@
     white-space: nowrap;
   }
 
-  #cookie-decline {
+  #consent-decline {
     background: transparent;
     color: #7A7570;
   }
 
-  #cookie-decline:hover {
+  #consent-decline:hover {
     color: #B8B2A8;
   }
 
-  #cookie-accept {
+  #consent-accept {
     background: #7A6C5D;
     color: #F0EBE3;
   }
 
-  #cookie-accept:hover {
+  #consent-accept:hover {
     background: #9B8E7E;
   }
 
   /* Mobile: wrap to two lines if viewport too narrow */
   @media (max-width: 420px) {
-    #cookie-banner {
+    #consent-notice {
       white-space: normal;
       flex-direction: column;
       align-items: flex-start;
@@ -119,7 +119,7 @@
       width: calc(100% - 2rem);
       bottom: 1rem;
     }
-    #cookie-actions {
+    #consent-actions {
       width: 100%;
       justify-content: flex-end;
     }
@@ -148,9 +148,9 @@
 
   function init() {
     console.log('[CookieBanner] init() called');
-    const banner = document.getElementById('cookie-banner') as HTMLElement | null;
+    const banner = document.getElementById('consent-notice') as HTMLElement | null;
     if (!banner) {
-      console.warn('[CookieBanner] #cookie-banner element not found in DOM');
+      console.warn('[CookieBanner] #consent-notice element not found in DOM');
       return;
     }
     console.log('[CookieBanner] banner element found');
@@ -175,8 +175,8 @@
     }, 1200);
 
     // Attach listeners only once
-    const acceptBtn = document.getElementById('cookie-accept');
-    const declineBtn = document.getElementById('cookie-decline');
+    const acceptBtn = document.getElementById('consent-accept');
+    const declineBtn = document.getElementById('consent-decline');
 
     acceptBtn?.addEventListener('click', () => {
       localStorage.setItem(STORAGE_KEY, 'accepted');
