@@ -137,7 +137,20 @@
       "text": "Eredményorientált informatika hallgató, aki szenvedélyesen alakítja át a komplex problémákat elegáns szoftvermegoldásokká. Akadémiai alapjaimat valós projektek aktív keresésével egészítem ki, hiszem, hogy a gyakorlati tapasztalat kulcsa az igazi mesterségnek. Motivál a teljes fejlesztési életciklus, a funkció konceptualizálásától a működőképes, magas minőségű termék, például webalkalmazás vagy hatékony algoritmus telepítéséig. Élethosszig tartó tanuló vagyok, folyamatosan fedezek fel új technológiákat és keretrendszereket problémamegoldó készségeim élesítése érdekében."
     },
     "skills": {
-      "title": "Technikai Készségek",
+      "title": "Készségek",
+      "softSkills": "Soft Skillek",
+      "softSkillItems": [
+        "Kommunikáció",
+        "Problémamegoldás",
+        "Kritikus gondolkodás",
+        "Csapatmunka és együttműködés",
+        "Alkalmazkodóképesség",
+        "Időgazdálkodás",
+        "Vezetői készség",
+        "Precizitás és figyelmesség",
+        "Önmotiváció",
+        "Folyamatos tanulás"
+      ],
       "programming": "Programozási Nyelvek",
       "frameworks": "Keretrendszerek és Könyvtárak",
       "tools": "Eszközök és Technológiák"

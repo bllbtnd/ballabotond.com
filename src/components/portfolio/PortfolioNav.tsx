@@ -66,7 +66,7 @@ export default function PortfolioNav({ homeHref, sections, languages = [] }: Por
         aria-label="Main navigation"
       >
         <div
-          className={`relative max-w-[90vw] mx-auto rounded-full overflow-hidden transition-all duration-500`}
+          className={`relative max-w-[90vw] mx-auto rounded-full transition-all duration-500`}
           style={{
             background: isScrolled
               ? 'rgba(240, 235, 227, 0.14)'

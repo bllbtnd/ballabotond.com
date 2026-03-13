@@ -137,7 +137,20 @@
       "text": "A results-driven Computer Science student with a passion for transforming complex problems into elegant software solutions. I complement my academic foundations by actively seeking real-world projects, believing that hands-on experience is key to true mastery. I am motivated by the entire development lifecycle, from conceptualizing a feature to deploying a functional, high-quality product like a web application or an efficient algorithm. I am a lifelong learner, constantly exploring new technologies and frameworks to sharpen my problem-solving skills."
     },
     "skills": {
-      "title": "Technical Skills",
+      "title": "Skills",
+      "softSkills": "Soft Skills",
+      "softSkillItems": [
+        "Communication",
+        "Problem Solving",
+        "Critical Thinking",
+        "Teamwork & Collaboration",
+        "Adaptability",
+        "Time Management",
+        "Leadership",
+        "Attention to Detail",
+        "Self-Motivation",
+        "Continuous Learning"
+      ],
       "programming": "Programming Languages",
       "frameworks": "Frameworks & Libraries",
       "tools": "Tools & Technologies"

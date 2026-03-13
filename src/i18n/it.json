@@ -137,7 +137,20 @@
       "text": "Uno studente di Informatica orientato ai risultati con una passione per trasformare problemi complessi in eleganti soluzioni software. Completo le mie basi accademiche cercando attivamente progetti nel mondo reale, credendo che l'esperienza pratica sia la chiave per la vera maestria. Sono motivato dall'intero ciclo di vita dello sviluppo, dalla concettualizzazione di una funzionalità alla distribuzione di un prodotto funzionale e di alta qualità come un'applicazione web o un algoritmo efficiente. Sono un apprendista per tutta la vita, esplorando costantemente nuove tecnologie e framework per affinare le mie competenze di problem-solving."
     },
     "skills": {
-      "title": "Competenze Tecniche",
+      "title": "Competenze",
+      "softSkills": "Soft Skills",
+      "softSkillItems": [
+        "Comunicazione",
+        "Risoluzione dei problemi",
+        "Pensiero critico",
+        "Lavoro di squadra e collaborazione",
+        "Adattabilità",
+        "Gestione del tempo",
+        "Leadership",
+        "Attenzione ai dettagli",
+        "Automotivazione",
+        "Apprendimento continuo"
+      ],
       "programming": "Linguaggi di Programmazione",
       "frameworks": "Framework e Librerie",
       "tools": "Strumenti e Tecnologie"

@@ -167,6 +167,11 @@ const educationEntries = [
 
 const skills = [
   {
+    category: t('resume.skills.softSkills'),
+    items: allTranslations[typedLang]?.resume?.skills?.softSkillItems
+      ?? allTranslations['en'].resume.skills.softSkillItems,
+  },
+  {
     category: t('resume.skills.programming'),
     items: ['Java', 'Python', 'C++', 'C#', 'Kotlin', 'Go', 'JavaScript'],
   },
