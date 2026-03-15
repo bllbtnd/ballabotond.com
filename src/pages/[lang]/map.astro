@@ -239,7 +239,7 @@ for (const [index, s] of sorted.entries()) {
     const hungaryZoom = 6;
 
     const map = L.map('stories-map', {
-      zoomControl: true,
+      zoomControl: false,
       attributionControl: false,
       minZoom: 2,
       maxZoom: 15,
@@ -255,6 +255,8 @@ for (const [index, s] of sorted.entries()) {
       wheelDebounceTime: 40,
       wheelPxPerZoomLevel: 90
     }).setView(hungaryCenter, hungaryZoom);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       subdomains: 'abcd',
