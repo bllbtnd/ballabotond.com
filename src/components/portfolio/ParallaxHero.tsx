@@ -194,12 +194,12 @@ export default function ParallaxHero({
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
               className="space-y-6"
             >
-              {/* Profile image — clickable, links to stories */}
+              {/* Profile image — clickable, links to map */}
               {profileImage && (
                 <a
                   href={profileLink || '#'}
                   className="block w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden saturate-[0.85] hover:saturate-100 transition-all duration-700 group/img"
-                  aria-label="View my stories"
+                  aria-label="View my map"
                 >
                   <img
                     src={profileImage}

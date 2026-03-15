@@ -3,14 +3,14 @@
     "home": "Home",
     "projects": "Progetti",
     "resume": "Curriculum",
-    "stories": "Storie",
+    "stories": "My Map",
     "movies": "Film"
   },
   "stories": {
-    "title": "Storie | Balla Botond",
+    "title": "My Map | Balla Botond",
     "tagline": "Momenti & Luoghi",
-    "subtitle": "Le Mie Storie",
-    "description": "Una raccolta di luoghi che ho visitato e momenti che ho catturato lungo il cammino.",
+    "subtitle": "My Map",
+    "description": "Una mappa dei luoghi che ho visitato e che voglio visitare.",
     "zoomIn": "Scorri per zoomare • Clicca una foto per esplorare",
     "close": "Chiudi"
   },

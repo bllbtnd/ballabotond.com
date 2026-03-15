@@ -3,14 +3,14 @@
     "home": "Home",
     "projects": "Projects",
     "resume": "Resume",
-    "stories": "Stories",
+    "stories": "My Map",
     "movies": "Movies"
   },
   "stories": {
-    "title": "Stories | Balla Botond",
+    "title": "My Map | Balla Botond",
     "tagline": "Moments & Places",
-    "subtitle": "My Stories",
-    "description": "A collection of places I have visited and moments I have captured along the way.",
+    "subtitle": "My Map",
+    "description": "A map of places I have visited and places I plan to visit.",
     "zoomIn": "Scroll to zoom • Click a photo to explore",
     "close": "Close"
   },
