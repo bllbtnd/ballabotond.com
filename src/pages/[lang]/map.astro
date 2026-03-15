@@ -24,11 +24,35 @@ type StoryItem = {
   label: string;
 };
 
-const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));
+type StorySourceItem = {
+  image?: string;
+  date?: string;
+  location?: string | [number, number];
+  label?: string;
+};
+
+const sorted = [...(storiesRaw as StorySourceItem[])].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 const stories: StoryItem[] = [];
 const visitedCountries = new Set<string>();
+const plannedCountries = new Set<string>();
 
 for (const [index, s] of sorted.entries()) {
+  const isTravelPlan = !s.image && !s.date && typeof s.location === 'string';
+
+  if (isTravelPlan) {
+    if (typeof s.location === 'string') {
+      const labelParts = s.location.split(',').map((part) => part.trim()).filter(Boolean);
+      if (labelParts.length > 0) {
+        plannedCountries.add(labelParts[labelParts.length - 1]);
+      }
+    }
+    continue;
+  }
+
+  if (!s.image || !s.date) {
+    continue;
+  }
+
   const photo = `/assets/images/stories/${s.image}`;
   let lat = 0;
   let lng = 0;
@@ -116,6 +140,7 @@ for (const [index, s] of sorted.entries()) {
 
     <div id="stories-data" style="display:none" data-stories={JSON.stringify(stories)}></div>
     <div id="visited-countries-data" style="display:none" data-countries={JSON.stringify(Array.from(visitedCountries))}></div>
+    <div id="planned-countries-data" style="display:none" data-countries={JSON.stringify(Array.from(plannedCountries))}></div>
   </main>
 
 </PortfolioLayout>
@@ -178,19 +203,22 @@ for (const [index, s] of sorted.entries()) {
     const mapStatus = document.getElementById('map-status');
     const dataEl = document.getElementById('stories-data');
     const visitedCountriesEl = document.getElementById('visited-countries-data');
+    const plannedCountriesEl = document.getElementById('planned-countries-data');
     const lightbox = document.getElementById('map-lightbox');
     const lightboxImg = document.getElementById('map-lightbox-img');
     const lightboxClose = document.getElementById('map-lightbox-close');
-    if (!mapContainer || !dataEl || !visitedCountriesEl) return;
+    if (!mapContainer || !dataEl || !visitedCountriesEl || !plannedCountriesEl) return;
     if (!lightbox || !lightboxImg || !lightboxClose) return;
     if (mapContainer.dataset.initialized === 'true') return;
     mapContainer.dataset.initialized = 'true';
 
     const stories = JSON.parse(dataEl.getAttribute('data-stories') || '[]');
     const visitedCountries = JSON.parse(visitedCountriesEl.getAttribute('data-countries') || '[]');
+    const plannedCountries = JSON.parse(plannedCountriesEl.getAttribute('data-countries') || '[]');
     const homeCountry = 'Hungary';
     const otherVisitedCountries = visitedCountries.filter((country) => country !== homeCountry);
-    if (!stories.length) return;
+    const travelPlanCountries = plannedCountries.filter((country) => country !== homeCountry && !otherVisitedCountries.includes(country));
+    if (!stories.length && !visitedCountries.length && !plannedCountries.length) return;
 
     const map = L.map('stories-map', {
       zoomControl: true,
@@ -287,6 +315,16 @@ for (const [index, s] of sorted.entries()) {
                 weight: 1.4,
                 fillColor: '#7A6C5D',
                 fillOpacity: 0.38
+              };
+            }
+
+            if (travelPlanCountries.includes(name)) {
+              return {
+                color: '#9A6FB0',
+                weight: 1.6,
+                dashArray: '6 4',
+                fillColor: '#B792C8',
+                fillOpacity: 0.34
               };
             }
 
