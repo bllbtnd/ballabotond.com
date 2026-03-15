@@ -38,7 +38,7 @@ export function generatePersonSchema(): SchemaOrgPerson {
         url: SITE_CONFIG.url,
         image: `${SITE_CONFIG.url}/assets/images/profile.webp`,
         sameAs: [...SCHEMA_SAME_AS_LINKS],
-        jobTitle: 'Software Developer',
+        jobTitle: 'Software Engineer',
         alumniOf: {
             '@type': 'EducationalOrganization',
             name: 'University of Pécs'
@@ -61,7 +61,7 @@ export function generatePersonSchema(): SchemaOrgPerson {
         ],
         hasOccupation: {
             '@type': 'Occupation',
-            name: 'Software Developer',
+            name: 'Software Engineer',
             occupationLocation: {
                 '@type': 'Country',
                 name: 'Hungary'

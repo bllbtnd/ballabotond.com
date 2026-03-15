@@ -45,7 +45,7 @@ export default defineConfig({
       manifest: {
         name: "Balla Botond - Portfolio",
         short_name: "Balla Botond",
-        description: "Personal website of Balla Botond - Software Developer & Computer Science Student",
+        description: "Personal website of Balla Botond - Software Engineer & Computer Science Student",
         theme_color: "#c9a96b",
         background_color: "#111827",
         display: "standalone",

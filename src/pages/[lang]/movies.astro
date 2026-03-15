@@ -14,7 +14,16 @@ const typedLang = lang as Languages;
 const t = useTranslations(typedLang);
 const translatePath = useTranslatedPath(typedLang);
 
-const allMovies = moviesData;
+const allMovies = moviesData.map((movie) => ({
+  ...movie,
+  rating: movie.rating ? Math.round(movie.rating * 2) / 2 : 0
+}));
+
+const ratedMovies = allMovies.filter((movie) => movie.rating > 0);
+const avgRating = ratedMovies.length
+  ? (ratedMovies.reduce((sum, movie) => sum + movie.rating, 0) / ratedMovies.length).toFixed(1)
+  : '0.0';
+const topRatedCount = ratedMovies.filter((movie) => movie.rating >= 8.5).length;
 ---
 
 <PortfolioLayout
@@ -22,550 +31,261 @@ const allMovies = moviesData;
   description="My personal movie ratings and reviews"
   keywords="movies, ratings, reviews, cinema"
 >
-  <!-- Portfolio-style nav -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-pf-bg/90 backdrop-blur-md border-b border-pf-border">
-    <div class="max-w-[90vw] mx-auto px-6 md:px-12 py-4 md:py-5 flex items-center justify-between">
-      <a href={translatePath('/')} class="pf-grotesk text-fluid-sm font-medium text-pf-text tracking-tight hover:text-pf-accent transition-colors duration-300">
-        Balla Botond
-      </a>
-      <div class="flex items-center gap-6">
-        <a href={translatePath('/stories/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
-          {t('nav.stories')}
+  <main class="min-h-screen px-4 sm:px-6 pb-16 md:pb-20">
+    <div class="max-w-6xl mx-auto pt-10 md:pt-14">
+      <nav class="mb-10 md:mb-14 flex items-center justify-between border-b border-pf-border pb-4">
+        <a href={translatePath('/')} class="pf-grotesk text-fluid-sm font-medium text-pf-text hover:text-pf-accent transition-colors duration-300">
+          Balla Botond
         </a>
-        <a href={translatePath('/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
-          {t('nav.home')}
-        </a>
-      </div>
-    </div>
-  </nav>
+        <div class="flex items-center gap-5 md:gap-8">
+          <a href={translatePath('/map/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+            {t('nav.stories')}
+          </a>
+          <a href={translatePath('/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+            {t('nav.home')}
+          </a>
+        </div>
+      </nav>
 
-  <main class="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto">
-      <!-- Header -->
-      <div class="mb-8 md:mb-12 text-center">
-        <h1 class="pf-serif text-pf-text leading-tight-display tracking-brutal" style="font-size: clamp(2.5rem, 1.5rem + 5vw, 7rem);">
+      <header class="mb-8 md:mb-10">
+        <p class="pf-grotesk text-fluid-xs uppercase tracking-[0.3em] text-pf-accent mb-4">Cinema</p>
+        <h1 class="pf-serif text-pf-text leading-tight-display tracking-brutal" style="font-size: clamp(2.4rem, 1.4rem + 4.8vw, 6rem);">
           {t('movies.title')}
         </h1>
-        <div class="pf-divider mt-6 mb-4"></div>
-        <p class="pf-grotesk text-fluid-base text-pf-muted px-4">
+        <p class="pf-grotesk text-fluid-base text-pf-muted mt-4 max-w-2xl">
           {t('movies.description')}
         </p>
-      </div>
+      </header>
 
-      <!-- Filter Controls -->
-      <div class="mb-6 md:mb-8 bg-pf-surface rounded-lg p-4 md:p-6 border border-pf-border">
-        <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-4 items-stretch md:items-center justify-between">
-          <!-- Rating Filter -->
-          <div class="w-full sm:flex-1 md:min-w-[200px]">
-            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
-              Filter by Rating
-            </label>
-            <select id="rating-filter-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
-              <option value="all">All Movies</option>
-              <option value="wtw">Want to Watch</option>
-              <option value="good">Good</option>
-              <option value="medium">Medium</option>
-              <option value="bad">Bad</option>
-            </select>
-          </div>
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-8 md:mb-10">
+        <article class="rounded-xl border border-pf-border bg-pf-surface px-4 py-4 md:px-5">
+          <p class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted">Total</p>
+          <p class="pf-serif text-fluid-xl text-pf-text mt-2">{allMovies.length}</p>
+        </article>
+        <article class="rounded-xl border border-pf-border bg-pf-surface px-4 py-4 md:px-5">
+          <p class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted">Average</p>
+          <p class="pf-serif text-fluid-xl text-pf-text mt-2">{avgRating}</p>
+        </article>
+        <article class="rounded-xl border border-pf-border bg-pf-surface px-4 py-4 md:px-5">
+          <p class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted">8.5+ Rated</p>
+          <p class="pf-serif text-fluid-xl text-pf-text mt-2">{topRatedCount}</p>
+        </article>
+      </section>
 
-          <!-- Sort Controls -->
-          <div class="w-full sm:flex-1 md:min-w-[200px]">
-            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
-              Sort by
-            </label>
-            <select id="sort-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
-              <option value="rating-desc">Highest Rated</option>
-              <option value="rating-asc">Lowest Rated</option>
-              <option value="title-asc">Title (A-Z)</option>
-              <option value="title-desc">Title (Z-A)</option>
+      <section class="rounded-2xl border border-pf-border bg-pf-surface p-4 sm:p-5 md:p-6 mb-8 md:mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          <label class="block">
+            <span class="block pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted mb-2">{t('portfolio.filterByRating')}</span>
+            <select id="rating-filter-select" class="w-full bg-pf-bg border border-pf-border rounded-lg px-3 py-2.5 text-pf-text pf-grotesk text-fluid-sm focus:outline-none focus:border-pf-accent transition-colors">
+              <option value="all">{t('portfolio.allMovies')}</option>
+              <option value="wtw">{t('portfolio.wantToWatch')}</option>
+              <option value="good">{t('portfolio.good')}</option>
+              <option value="medium">{t('portfolio.medium')}</option>
+              <option value="bad">{t('portfolio.bad')}</option>
             </select>
-          </div>
+          </label>
 
-          <!-- Per Page Controls -->
-          <div class="w-full sm:flex-1 md:min-w-[160px]">
-            <label class="block text-sm font-medium pf-grotesk text-pf-muted mb-2">
-              Per page
-            </label>
-            <select id="per-page-select" class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all">
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
+          <label class="block">
+            <span class="block pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted mb-2">{t('portfolio.sortBy')}</span>
+            <select id="sort-select" class="w-full bg-pf-bg border border-pf-border rounded-lg px-3 py-2.5 text-pf-text pf-grotesk text-fluid-sm focus:outline-none focus:border-pf-accent transition-colors">
+              <option value="rating-desc">{t('portfolio.highestRated')}</option>
+              <option value="rating-asc">{t('portfolio.lowestRated')}</option>
+              <option value="title-asc">{t('portfolio.titleAZ')}</option>
+              <option value="title-desc">{t('portfolio.titleZA')}</option>
             </select>
-          </div>
+          </label>
+
+          <label class="block">
+            <span class="block pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted mb-2">{t('portfolio.perPage')}</span>
+            <select id="per-page-select" class="w-full bg-pf-bg border border-pf-border rounded-lg px-3 py-2.5 text-pf-text pf-grotesk text-fluid-sm focus:outline-none focus:border-pf-accent transition-colors">
+              <option value="18">18</option>
+              <option value="36">36</option>
+              <option value="72">72</option>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="block pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted mb-2">Search</span>
+            <input
+              id="search-input"
+              type="text"
+              placeholder={t('portfolio.searchMovies')}
+              class="w-full bg-pf-bg border border-pf-border rounded-lg px-3 py-2.5 text-pf-text pf-grotesk text-fluid-sm placeholder:text-pf-muted focus:outline-none focus:border-pf-accent transition-colors"
+            />
+          </label>
         </div>
+      </section>
 
-        <!-- Search -->
-        <div class="mt-4">
-          <input 
-            type="text" 
-            id="search-input" 
-            placeholder="Search movies..." 
-            class="w-full bg-pf-bg border border-pf-border rounded-md px-3 md:px-4 py-2.5 md:py-2 text-pf-text pf-grotesk placeholder-pf-muted text-sm md:text-base focus:ring-2 focus:ring-pf-accent focus:border-transparent transition-all"
-          />
-        </div>
-      </div>
+      <section id="movies-container" class="space-y-3 md:space-y-4" aria-live="polite"></section>
 
-      <!-- Movies Grid -->
-      <div id="movies-container" class="mb-12">
-        <!-- Movies will be rendered here by JavaScript -->
-      </div>
-
-      <!-- Pagination -->
-      <div id="pagination" class="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2">
-        <!-- Pagination will be rendered here by JavaScript -->
-      </div>
+      <section id="pagination" class="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-2"></section>
     </div>
   </main>
 </PortfolioLayout>
 
-<style>
-  .rating-btn {
-    @apply bg-pf-surface text-pf-muted hover:bg-pf-accent hover:bg-opacity-10 hover:text-pf-accent border border-pf-border;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-  }
-  
-  .rating-btn.active {
-    @apply bg-pf-accent bg-opacity-10 text-pf-accent border-pf-accent shadow-sm;
-  }
-</style>
+<script define:vars={{ allMovies, labels: {
+  noMoviesFound: t('portfolio.noMoviesFound'),
+  prev: t('portfolio.prev'),
+  next: t('portfolio.next'),
+  wantToWatch: t('portfolio.wantToWatch')
+} }}>
+  const container = document.getElementById('movies-container');
+  const pagination = document.getElementById('pagination');
+  const ratingFilter = document.getElementById('rating-filter-select');
+  const sortSelect = document.getElementById('sort-select');
+  const perPageSelect = document.getElementById('per-page-select');
+  const searchInput = document.getElementById('search-input');
 
-<style is:global>
-  .movie-card {
-    display: block;
-    width: 100%;
-    padding: 1.25rem 1rem;
-    border-radius: 0;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #E5E2DC;
-    box-shadow: none;
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .movie-card.want-to-watch {
-    background: rgba(122, 108, 93, 0.04);
-    border-bottom: 1px solid #E5E2DC;
-    box-shadow: none;
-  }
-
-  .movie-card.want-to-watch:hover {
-    background: rgba(122, 108, 93, 0.08);
-    border-bottom-color: #7A6C5D;
-    box-shadow: none;
-  }
-
-  @media (min-width: 640px) {
-    .movie-card {
-      padding: 1.5rem 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .movie-card {
-      padding: 1.5rem 0;
-    }
-  }
-
-  .movie-card:hover {
-    transform: none;
-    border-bottom-color: #7A6C5D;
-    box-shadow: none;
-    background: rgba(122, 108, 93, 0.04);
-  }
-
-  @media (min-width: 768px) {
-    .movie-card:hover {
-      transform: none;
-    }
-  }
-
-  .rating-circles {
-    display: flex;
-    gap: 3px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 640px) {
-    .rating-circles {
-      gap: 4px;
-    }
-  }
-
-  .rating-circle {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1px solid;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 640px) {
-    .rating-circle {
-      width: 9px;
-      height: 9px;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .rating-circle {
-      width: 10px;
-      height: 10px;
-    }
-  }
-
-  .rating-circle.filled {
-    background: #7A6C5D;
-    border-color: #7A6C5D;
-  }
-
-  .rating-circle.half {
-    border-color: #7A6C5D;
-    background: linear-gradient(90deg, #7A6C5D 50%, transparent 50%);
-  }
-
-  .rating-circle.empty {
-    border-color: #E5E2DC;
-    background: transparent;
-  }
-
-  .wtw-badge {
-    display: inline-block;
-    background: transparent;
-    color: #7A6C5D;
-    padding: 0.35rem 0.75rem;
-    border-radius: 0.25rem;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-weight: 500;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    box-shadow: none;
-    border: 1px solid #E5E2DC;
-  }
-
-  .rating-value {
-    color: #7A6C5D;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    margin-left: 0.5rem;
-    white-space: nowrap;
-  }
-
-  .page-btn {
-    @apply px-3 sm:px-4 py-2 sm:py-2.5 rounded-md font-medium transition-all duration-200 border disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    background: transparent;
-    color: #B8B2A8;
-    border-color: #E5E2DC;
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .page-btn:hover {
-    color: #7A6C5D;
-    border-color: #7A6C5D;
-  }
-
-  .page-btn.active {
-    background: rgba(122, 108, 93, 0.08);
-    color: #7A6C5D;
-    border-color: #7A6C5D;
-  }
-</style>
-
-<style>
-  /* Explicit spacing between movie items */
-  #movies-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (min-width: 640px) {
-    #movies-container {
-      gap: 1.75rem;
-      margin-bottom: 2rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    #movies-container {
-      gap: 2rem;
-      margin-bottom: 2.5rem;
-    }
-  }
-</style>
-
-<script define:vars={{ allMovies }}>
-  // Round rating to nearest 0.5
-  function roundRating(rating) {
-    if (!rating || rating === 0) return 0;
-    return Math.round(rating * 2) / 2;
-  }
-
-  let movies = allMovies.map(movie => ({
-    ...movie,
-    rating: movie.rating ? roundRating(movie.rating) : 0
-  }));
-  let filteredMovies = [...movies];
   let currentPage = 1;
-  let moviesPerPage = 25;
-  let currentRatingFilter = 'all';
-  let currentSort = 'rating-desc';
-  let searchQuery = '';
+  let filtered = [...allMovies];
 
-  // Generate rating circles HTML
-  function generateRatingCircles(rating) {
-    // For want to watch movies (no rating or 0)
-    if (!rating || rating === 0) {
-      return '<div class="wtw-badge">Want to Watch</div>';
-    }
-    
-    let circles = '';
-    const roundedRating = roundRating(rating);
-    
-    for (let i = 1; i <= 10; i++) {
-      if (i <= Math.floor(roundedRating)) {
-        circles += '<div class="rating-circle filled"></div>';
-      } else if (i === Math.ceil(roundedRating) && roundedRating % 1 !== 0) {
-        circles += '<div class="rating-circle half"></div>';
-      } else {
-        circles += '<div class="rating-circle empty"></div>';
-      }
-    }
-    
-    return circles;
+  function ratingGroup(rating) {
+    if (!rating || rating === 0) return 'wtw';
+    if (rating >= 7) return 'good';
+    if (rating >= 5) return 'medium';
+    return 'bad';
   }
 
-  // Filter movies
-  function filterMovies() {
-    filteredMovies = movies.filter(movie => {
-      // Check if movie is in want to watch category
-      const isWantToWatch = !movie.rating || movie.rating === 0;
-      
-      // Rating filter
-      let ratingMatch = true;
-      if (currentRatingFilter === 'wtw') {
-        ratingMatch = isWantToWatch;
-      } else if (currentRatingFilter === 'all') {
-        ratingMatch = true;
-      } else if (currentRatingFilter === 'good') {
-        ratingMatch = !isWantToWatch && movie.rating >= 8 && movie.rating <= 10;
-      } else if (currentRatingFilter === 'medium') {
-        ratingMatch = !isWantToWatch && movie.rating >= 4 && movie.rating < 8;
-      } else if (currentRatingFilter === 'bad') {
-        ratingMatch = !isWantToWatch && movie.rating >= 1 && movie.rating < 4;
-      }
-      
-      // Search filter
-      const searchMatch = searchQuery === '' || 
-        movie.title.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      return ratingMatch && searchMatch;
+  function sortMovies(list, sortType) {
+    return [...list].sort((a, b) => {
+      if (sortType === 'rating-desc') return b.rating - a.rating;
+      if (sortType === 'rating-asc') return a.rating - b.rating;
+      if (sortType === 'title-desc') return b.title.localeCompare(a.title);
+      return a.title.localeCompare(b.title);
     });
-
-    // Sort movies
-    sortMovies();
-    
-    // Reset to first page
-    currentPage = 1;
-    renderMovies();
-    renderPagination();
   }
 
-  // Sort movies
-  function sortMovies() {
-    switch(currentSort) {
-      case 'rating-desc':
-        filteredMovies.sort((a, b) => {
-          const aRating = !a.rating || a.rating === 0 ? -1 : a.rating;
-          const bRating = !b.rating || b.rating === 0 ? -1 : b.rating;
-          return bRating - aRating;
-        });
-        break;
-      case 'rating-asc':
-        filteredMovies.sort((a, b) => {
-          const aRating = !a.rating || a.rating === 0 ? 11 : a.rating;
-          const bRating = !b.rating || b.rating === 0 ? 11 : b.rating;
-          return aRating - bRating;
-        });
-        break;
-      case 'title-asc':
-        filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case 'title-desc':
-        filteredMovies.sort((a, b) => b.title.localeCompare(a.title));
-        break;
+  function ratingPills(rating) {
+    if (!rating || rating === 0) {
+      return '<span class="inline-flex items-center rounded-full border border-pf-border px-3 py-1 pf-grotesk text-fluid-xs uppercase tracking-[0.14em] text-pf-accent">' + labels.wantToWatch + '</span>';
     }
+    const width = Math.max(0, Math.min(100, (rating / 10) * 100));
+    return (
+      '<div class="flex items-center gap-3">' +
+        '<div class="w-24 h-2 rounded-full bg-pf-border overflow-hidden">' +
+          '<div class="h-2 bg-pf-accent" style="width:' + width + '%"></div>' +
+        '</div>' +
+        '<span class="pf-grotesk text-fluid-sm text-pf-accent font-medium">' + rating.toFixed(1) + '</span>' +
+      '</div>'
+    );
   }
 
-  // Render movies
   function renderMovies() {
-    const container = document.getElementById('movies-container');
-    const start = (currentPage - 1) * moviesPerPage;
-    const end = start + moviesPerPage;
-    const moviesToShow = filteredMovies.slice(start, end);
+    if (!container || !pagination || !perPageSelect) return;
 
-    if (moviesToShow.length === 0) {
+    const perPage = Number(perPageSelect.value);
+    const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
+    if (currentPage > pageCount) currentPage = pageCount;
+
+    const start = (currentPage - 1) * perPage;
+    const items = filtered.slice(start, start + perPage);
+
+    if (!items.length) {
       container.innerHTML = `
-        <div class="text-center py-12">
-          <p class="pf-grotesk text-pf-muted text-lg">No movies found</p>
+        <div class="rounded-2xl border border-pf-border bg-pf-surface px-6 py-12 text-center">
+          <p class="pf-grotesk text-fluid-base text-pf-muted">${labels.noMoviesFound}</p>
         </div>
       `;
-      return;
+    } else {
+      container.innerHTML = items.map((movie) => `
+        <article class="rounded-2xl border border-pf-border bg-pf-surface px-4 sm:px-5 md:px-6 py-4 md:py-5 hover:border-pf-accent/50 transition-colors duration-300">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h2 class="pf-serif text-fluid-lg text-pf-text leading-tight">${movie.title}</h2>
+            ${ratingPills(movie.rating)}
+          </div>
+        </article>
+      `).join('');
     }
 
-    container.innerHTML = moviesToShow.map(movie => {
-      const searchUrl = `https://www.themoviedb.org/search?query=${encodeURIComponent(movie.title)}`;
-      const isWantToWatch = !movie.rating || movie.rating === 0;
-      const ratingDisplay = isWantToWatch ? '' : `<span class="rating-value">${movie.rating.toFixed(1)}</span>`;
-      return `
-      <a class="movie-card ${isWantToWatch ? 'want-to-watch' : ''}" href="${searchUrl}" target="_blank" rel="noreferrer">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 md:gap-6">
-          <h3 class="pf-serif text-xl sm:text-2xl font-medium text-pf-text flex-1 leading-tight">${movie.title}</h3>
-          <div class="rating-circles">
-            ${generateRatingCircles(movie.rating)}
-            ${ratingDisplay}
-          </div>
-        </div>
-      </a>
-    `;
-    }).join('');
+    renderPagination(pageCount);
   }
 
-  // Render pagination
-  function renderPagination() {
-    const pagination = document.getElementById('pagination');
-    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+  function renderPagination(pageCount) {
+    if (!pagination) return;
 
-    if (totalPages <= 1) {
+    if (pageCount <= 1) {
       pagination.innerHTML = '';
       return;
     }
 
-    let buttons = '';
-
-    // Previous button
-    buttons += `
-      <button 
-        class="page-btn" 
-        onclick="changePage(${currentPage - 1})" 
-        ${currentPage === 1 ? 'disabled' : ''}
-      >
-        ← Prev
-      </button>
-    `;
-
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
+    const pages = [];
+    for (let page = 1; page <= pageCount; page += 1) {
       if (
-        i === 1 || 
-        i === totalPages || 
-        (i >= currentPage - 1 && i <= currentPage + 1)
+        page === 1 ||
+        page === pageCount ||
+        Math.abs(page - currentPage) <= 1
       ) {
-        buttons += `
-          <button 
-            class="page-btn ${i === currentPage ? 'active' : ''}" 
-            onclick="changePage(${i})"
-          >
-            ${i}
-          </button>
-        `;
-      } else if (i === currentPage - 2 || i === currentPage + 2) {
-        buttons += '<span class="text-gray-500 px-2">...</span>';
+        pages.push(page);
       }
     }
 
-    // Next button
-    buttons += `
-      <button 
-        class="page-btn" 
-        onclick="changePage(${currentPage + 1})" 
-        ${currentPage === totalPages ? 'disabled' : ''}
-      >
-        Next →
-      </button>
+    const compact = pages.filter((value, index) => index === 0 || value !== pages[index - 1] + 1 ? true : true);
+
+    let pageButtons = '';
+    compact.forEach((value, index) => {
+      if (index > 0 && value - compact[index - 1] > 1) {
+        pageButtons += '<span class="px-2 text-pf-muted">…</span>';
+      }
+      pageButtons += `
+        <button class="page-btn ${value === currentPage ? 'active' : ''}" data-page="${value}">${value}</button>
+      `;
+    });
+
+    pagination.innerHTML = `
+      <button class="page-btn" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''}>${labels.prev}</button>
+      ${pageButtons}
+      <button class="page-btn" data-page="${currentPage + 1}" ${currentPage === pageCount ? 'disabled' : ''}>${labels.next}</button>
     `;
 
-    pagination.innerHTML = buttons;
+    pagination.querySelectorAll('button[data-page]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextPage = Number(button.getAttribute('data-page'));
+        if (!Number.isNaN(nextPage)) {
+          currentPage = nextPage;
+          renderMovies();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
   }
 
-  // Change page
-  window.changePage = function(page) {
-    const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
-    if (page < 1 || page > totalPages) return;
-    currentPage = page;
-    renderMovies();
-    renderPagination();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  function applyFilters() {
+    if (!ratingFilter || !sortSelect || !searchInput) return;
 
-  // Initialize function
-  function initializeMovies() {
-    // Reset state
+    const selectedRating = ratingFilter.value;
+    const selectedSort = sortSelect.value;
+    const query = searchInput.value.trim().toLowerCase();
+
+    filtered = allMovies.filter((movie) => {
+      const matchesRating = selectedRating === 'all' || ratingGroup(movie.rating) === selectedRating;
+      const matchesQuery = !query || movie.title.toLowerCase().includes(query);
+      return matchesRating && matchesQuery;
+    });
+
+    filtered = sortMovies(filtered, selectedSort);
     currentPage = 1;
-    currentRatingFilter = 'all';
-    currentSort = 'rating-desc';
-    searchQuery = '';
-    
-    // Rating filter select
-    const ratingFilterSelect = document.getElementById('rating-filter-select');
-    if (ratingFilterSelect) {
-      ratingFilterSelect.value = 'all';
-      ratingFilterSelect.addEventListener('change', (e) => {
-        currentRatingFilter = e.target.value;
-        filterMovies();
-      });
-    }
-
-    // Sort select
-    const sortSelect = document.getElementById('sort-select');
-    if (sortSelect) {
-      sortSelect.value = 'rating-desc';
-      sortSelect.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        filterMovies();
-      });
-    }
-
-    // Per page select
-    const perPageSelect = document.getElementById('per-page-select');
-    if (perPageSelect) {
-      perPageSelect.value = String(moviesPerPage);
-      perPageSelect.addEventListener('change', (e) => {
-        const val = parseInt(e.target.value, 10);
-        moviesPerPage = Number.isNaN(val) ? 50 : val;
-        currentPage = 1;
-        renderMovies();
-        renderPagination();
-      });
-    }
-
-    // Search input
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      searchInput.value = '';
-      searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        filterMovies();
-      });
-    }
-
-    // Initial render
-    filterMovies();
+    renderMovies();
   }
 
-  // Listen for both DOMContentLoaded and Astro page loads
-  document.addEventListener('DOMContentLoaded', initializeMovies);
-  document.addEventListener('astro:page-load', initializeMovies);
+  [ratingFilter, sortSelect, perPageSelect].forEach((control) => {
+    if (control) control.addEventListener('change', applyFilters);
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilters);
+  }
+
+  applyFilters();
 </script>
+
+<style is:global>
+  .page-btn {
+    @apply inline-flex items-center justify-center min-h-11 px-3 py-2 rounded-lg border border-pf-border text-pf-muted bg-pf-bg hover:text-pf-accent hover:border-pf-accent transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(0.82rem, 0.8rem + 0.15vw, 0.95rem);
+  }
+
+  .page-btn.active {
+    @apply border-pf-accent text-pf-accent bg-pf-surface;
+  }
+</style>

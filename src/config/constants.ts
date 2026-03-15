@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
     title: 'Balla Botond',
     url: 'https://ballabotond.com',
     author: 'Balla Botond',
-    description: 'Personal website of Balla Botond - Software Developer & Computer Science Student',
+    description: 'Personal website of Balla Botond - Software Engineer & Computer Science Student',
     github: {
         username: 'bllbtnd',
         apiUrl: 'https://github-contributions-api.jogruber.de/v4'

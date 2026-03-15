@@ -47,8 +47,8 @@
   },
   "home": {
     "title": "Balla Botond",
-    "description": "Balla Botond - Developer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.",
-    "keywords": "Balla Botond, Botond Balla, developer, trackit, software developer, web developer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti",
+    "description": "Balla Botond - Engineer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.",
+    "keywords": "Balla Botond, Botond Balla, engineer, trackit, software engineer, web engineer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti",
     "bio": "With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal. My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things - whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow. For me, quality is never accidental; it's the result of intention, care, and an appreciation for the details that stand the test of time.",
     "available": "Available",
     "busy": "Busy"
@@ -128,10 +128,10 @@
         "Throughout high school at Árpád-házi Szent Erzsébet Gimnázium, I balanced academics with a love for fencing and music. Playing clarinet taught me discipline and rhythm, and it started my lasting passion for classical music. Fencing, on the other hand, sharpened my focus and strategic thinking in ways I still rely on today. These weren't just hobbies; they shaped how I approach problems, how I stay composed under pressure, and how I find structure in complexity.",
         "After graduating with strong results, I moved to Pécs to study Computer Science at the University of Pécs. University life opened a new chapter, not just academically, but personally. I started building real projects, collaborating with peers, and discovering that my passion wasn't just writing code, but architecting solutions that make a tangible difference. Along the way, I met incredible people who helped me grow, challenged me to think bigger, and pushed me to become a better man. That environment taught me the value of surrounding yourself with people who raise the bar.",
         "Outside the screen, I find balance in the outdoors, camping trips, and long walks that clear the mind. I've developed a taste for the finer things too: a good single malt whisky, a carefully chosen cigar, some beautiful classical music, and conversations that go deeper than small talk. These pleasures remind me that quality, in all its forms, is worth pursuing. They keep me grounded and give me perspective that carries over into everything I build.",
-        "Today, I work as a software developer while continuing my studies, splitting my time between Budapest, Esztergom, and Pécs. Every project I take on carries the same philosophy: build something meaningful, build it well, and never settle for 'good enough.' This website, and everything on it, is a reflection of that belief. It represents not just what I can do, but who I am and where I am headed."
+        "Today, I work as a software engineer while continuing my studies, splitting my time between Budapest, Esztergom, and Pécs. Every project I take on carries the same philosophy: build something meaningful, build it well, and never settle for 'good enough.' This website, and everything on it, is a reflection of that belief. It represents not just what I can do, but who I am and where I am headed."
       ]
     },
-    "position": "Computer Science Student, Software Developer & Entrepreneur",
+    "position": "Computer Science Student, Software Engineer & Entrepreneur",
     "summary": {
       "title": "Professional Summary",
       "text": "A results-driven Computer Science student with a passion for transforming complex problems into elegant software solutions. I complement my academic foundations by actively seeking real-world projects, believing that hands-on experience is key to true mastery. I am motivated by the entire development lifecycle, from conceptualizing a feature to deploying a functional, high-quality product like a web application or an efficient algorithm. I am a lifelong learner, constantly exploring new technologies and frameworks to sharpen my problem-solving skills."
@@ -157,10 +157,10 @@
     },
     "experience": {
       "title": "Professional Experience",
-      "current": "Software Developer",
+      "current": "Software Engineer",
       "current_period": "July 2025 - Present",
       "current_company": "LogiCloud KFT",
-      "current_desc1": "Developing software solutions for various companies, including Suzuki, as a part-time developer while pursuing university studies.",
+      "current_desc1": "Developing software solutions for various companies, including Suzuki, as a part-time software engineer while pursuing university studies.",
       "current_desc2": "Contributing to production-grade software projects within a specialized development team.",
       "current_desc3": "Successfully balancing professional development experience with academic responsibilities.",
       "intern": "Software Development Intern",
@@ -224,8 +224,8 @@
   },
   "portfolio": {
     "heroTagline": "Crafting\nDigital\nExperiences",
-    "heroSubtitle": "Software Developer & Entrepreneur",
-    "heroDescription": "Software Developer & Entrepreneur.",
+    "heroSubtitle": "Software Engineer & Entrepreneur",
+    "heroDescription": "Software Engineer & Entrepreneur.",
     "heroDescription2": "Crafting precision-driven digital experiences.",
     "scroll": "Scroll",
     "about": "About",

@@ -131,7 +131,7 @@ export default function MegaFooter({
               {name}
             </h3>
             <p className="pf-grotesk text-fluid-xs text-pf-bg/40 leading-relaxed">
-              Software Developer &amp; Entrepreneur
+              Software Engineer &amp; Entrepreneur
             </p>
           </motion.div>
 

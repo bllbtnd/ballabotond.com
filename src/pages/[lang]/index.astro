@@ -201,7 +201,7 @@ const projectItems = projects
 // ── Footer Data ────────────────────────────────────────
 const footerNavigation = [
   { label: t('nav.home'), href: translatePath('/') },
-  { label: t('nav.stories'), href: translatePath('/stories/') },
+  { label: t('nav.stories'), href: translatePath('/map/') },
   { label: t('nav.movies'), href: translatePath('/movies/') },
 ];
 
@@ -246,7 +246,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         description2={t('portfolio.heroDescription2')}
         profileImage="/assets/images/profile.webp"
         profileAlt={t('common.name')}
-        profileLink={translatePath('/stories/')}
+        profileLink={translatePath('/map/')}
         availabilityLabel={t('home.available')}
         busyLabel={t('home.busy')}
         initialBusy={isBusyNow}

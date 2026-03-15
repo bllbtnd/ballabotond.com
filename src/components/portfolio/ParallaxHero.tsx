@@ -36,7 +36,7 @@ export default function ParallaxHero({
   name,
   tagline,
   subtitle,
-  description = 'Software Developer & Entrepreneur.',
+  description = 'Software Engineer & Entrepreneur.',
   description2 = 'Crafting precision-driven digital experiences.',
   locations = 'Budapest · Esztergom · Pécs',
   availabilityLabel = 'Available',

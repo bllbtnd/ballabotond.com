@@ -1,0 +1,382 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import { useTranslations, useTranslatedPath, languages, type Languages } from '../../i18n/utils';
+import storiesRaw from '../../data/stories.json';
+import { geocode } from '../../utils/geocode';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const typedLang = lang as Languages;
+const t = useTranslations(typedLang);
+const translatePath = useTranslatedPath(typedLang);
+
+type StoryItem = {
+  id: number;
+  photo: string;
+  date: string;
+  lat: number;
+  lng: number;
+  label: string;
+};
+
+const sorted = [...storiesRaw].sort((a, b) => b.date.localeCompare(a.date));
+const stories: StoryItem[] = [];
+const visitedCountries = new Set<string>();
+
+for (const [index, s] of sorted.entries()) {
+  const photo = `/assets/images/stories/${s.image}`;
+  let lat = 0;
+  let lng = 0;
+  let label = '';
+
+  if (!s.location) {
+    continue;
+  } else if (Array.isArray(s.location)) {
+    lat = s.location[0];
+    lng = s.location[1];
+    label = (s as any).label || `${lat.toFixed(2)}, ${lng.toFixed(2)}`;
+  } else {
+    label = s.location;
+    const labelParts = s.location.split(',').map((part) => part.trim()).filter(Boolean);
+    if (labelParts.length > 0) {
+      visitedCountries.add(labelParts[labelParts.length - 1]);
+    }
+    const coords = await geocode(s.location);
+    if (coords) {
+      lat = coords.lat;
+      lng = coords.lng;
+    }
+  }
+
+  if (lat === 0 && lng === 0) continue;
+
+  stories.push({
+    id: index,
+    photo,
+    date: s.date,
+    lat,
+    lng,
+    label
+  });
+}
+---
+
+<PortfolioLayout
+  title={t('stories.title')}
+  description={t('stories.description')}
+  keywords="Balla Botond, stories, map, travel, places"
+>
+  <main class="relative h-screen overflow-hidden">
+    <div id="stories-map" class="absolute inset-0 z-0">
+      <div id="map-status" class="absolute inset-0 flex items-center justify-center pf-grotesk text-fluid-sm text-pf-accent bg-pf-bg/90">
+        Loading map...
+      </div>
+    </div>
+
+    <div class="absolute inset-0 z-20 pointer-events-none" style="background: linear-gradient(to bottom, rgba(240,235,227,0.9) 0%, rgba(240,235,227,0.62) 22%, rgba(240,235,227,0.05) 48%, rgba(240,235,227,0) 100%);"></div>
+
+    <div class="relative z-30 px-4 sm:px-6 pt-8 md:pt-10 pointer-events-none">
+      <div class="max-w-7xl mx-auto">
+        <nav class="mb-6 md:mb-7 flex items-center justify-between border-b border-pf-border/70 pb-4 pointer-events-auto">
+          <a href={translatePath('/')} class="pf-grotesk text-fluid-sm font-medium text-pf-text hover:text-pf-accent transition-colors duration-300">
+            Balla Botond
+          </a>
+          <div class="flex items-center gap-5 md:gap-8">
+            <a href={translatePath('/movies/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+              {t('nav.movies')}
+            </a>
+            <a href={translatePath('/')} class="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300">
+              {t('nav.home')}
+            </a>
+          </div>
+        </nav>
+
+        <div class="max-w-2xl">
+          <h1 class="pf-serif text-pf-text leading-tight-display tracking-brutal" style="font-size: clamp(2rem, 1.2rem + 4vw, 4.5rem);">
+            {t('stories.subtitle')}
+          </h1>
+          <p class="pf-grotesk text-fluid-sm text-pf-muted mt-2">
+            {t('stories.description')}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="map-lightbox" class="fixed inset-0 z-[120] hidden items-center justify-center p-4 sm:p-6">
+      <button id="map-lightbox-close" type="button" class="absolute top-4 right-4 md:top-6 md:right-6 text-white/80 hover:text-white transition-colors" aria-label={t('stories.close')}>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <img id="map-lightbox-img" src="" alt="" class="max-w-full max-h-[86vh] object-contain rounded-lg" />
+    </div>
+
+    <div id="stories-data" style="display:none" data-stories={JSON.stringify(stories)}></div>
+    <div id="visited-countries-data" style="display:none" data-countries={JSON.stringify(Array.from(visitedCountries))}></div>
+  </main>
+
+</PortfolioLayout>
+
+<script is:inline>
+  function ensureLeafletAssets() {
+    const cssId = 'leaflet-css-runtime';
+    if (!document.getElementById(cssId)) {
+      const link = document.createElement('link');
+      link.id = cssId;
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+    }
+  }
+
+  function loadScript(url) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => reject(new Error('Failed to load ' + url));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function ensureLeafletRuntime() {
+    ensureLeafletAssets();
+    if (typeof L !== 'undefined') return true;
+
+    const scriptUrls = [
+      'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+      'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js'
+    ];
+
+    for (const url of scriptUrls) {
+      try {
+        await loadScript(url);
+        if (typeof L !== 'undefined') return true;
+      } catch {
+        continue;
+      }
+    }
+
+    return false;
+  }
+
+  async function initMapPage() {
+    const hasRuntime = await ensureLeafletRuntime();
+    if (!hasRuntime) {
+      const fallbackContainer = document.getElementById('stories-map');
+      if (fallbackContainer) {
+        fallbackContainer.innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#7A6C5D;font-family:Space Grotesk,sans-serif;font-size:0.95rem;letter-spacing:.04em;text-transform:uppercase;">Map failed to load</div>';
+      }
+      return;
+    }
+
+    const mapContainer = document.getElementById('stories-map');
+    const mapStatus = document.getElementById('map-status');
+    const dataEl = document.getElementById('stories-data');
+    const visitedCountriesEl = document.getElementById('visited-countries-data');
+    const lightbox = document.getElementById('map-lightbox');
+    const lightboxImg = document.getElementById('map-lightbox-img');
+    const lightboxClose = document.getElementById('map-lightbox-close');
+    if (!mapContainer || !dataEl || !visitedCountriesEl) return;
+    if (!lightbox || !lightboxImg || !lightboxClose) return;
+    if (mapContainer.dataset.initialized === 'true') return;
+    mapContainer.dataset.initialized = 'true';
+
+    const stories = JSON.parse(dataEl.getAttribute('data-stories') || '[]');
+    const visitedCountries = JSON.parse(visitedCountriesEl.getAttribute('data-countries') || '[]');
+    const homeCountry = 'Hungary';
+    const otherVisitedCountries = visitedCountries.filter((country) => country !== homeCountry);
+    if (!stories.length) return;
+
+    const map = L.map('stories-map', {
+      zoomControl: true,
+      attributionControl: false,
+      minZoom: 2,
+      maxZoom: 15,
+      worldCopyJump: true
+    }).setView([47.7, 18.8], 4);
+
+    const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd',
+      maxZoom: 20,
+      crossOrigin: true
+    }).addTo(map);
+
+    const initTimeout = setTimeout(() => {
+      if (mapStatus && !mapStatus.classList.contains('hidden')) {
+        mapStatus.textContent = 'Map initialized';
+        mapStatus.classList.add('hidden');
+      }
+    }, 2200);
+
+    tileLayer.on('load', () => {
+      if (mapStatus) mapStatus.classList.add('hidden');
+    });
+
+    tileLayer.on('tileerror', () => {
+      if (mapStatus) {
+        mapStatus.textContent = 'Map tiles could not load';
+        mapStatus.classList.remove('hidden');
+      }
+    });
+
+    const bounds = L.latLngBounds([]);
+
+    function openLightbox(story) {
+      lightboxImg.src = story.photo;
+      lightboxImg.alt = story.label;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    }
+
+    if (!lightbox.dataset.bound) {
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeLightbox();
+      });
+      lightbox.dataset.bound = 'true';
+    }
+
+    (async () => {
+      let countriesData = null;
+      const geoJsonUrls = [
+        'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson',
+        'https://cdn.jsdelivr.net/gh/datasets/geo-countries@master/data/countries.geojson'
+      ];
+
+      for (const url of geoJsonUrls) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) continue;
+          countriesData = await response.json();
+          break;
+        } catch {
+          continue;
+        }
+      }
+
+      if (countriesData) {
+        L.geoJSON(countriesData, {
+          style: (feature) => {
+            const name = feature?.properties?.name;
+            if (name === homeCountry) {
+              return {
+                color: '#2E646B',
+                weight: 1.8,
+                fillColor: '#3F7C85',
+                fillOpacity: 0.5
+              };
+            }
+
+            if (otherVisitedCountries.includes(name)) {
+              return {
+                color: '#6B5D50',
+                weight: 1.4,
+                fillColor: '#7A6C5D',
+                fillOpacity: 0.38
+              };
+            }
+
+            return {
+              color: 'transparent',
+              weight: 0,
+              fillOpacity: 0
+            };
+          },
+          interactive: false
+        }).addTo(map);
+      }
+
+      stories.forEach((story) => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'map-photo-marker';
+        el.style.backgroundImage = `url(${story.photo})`;
+        el.setAttribute('aria-label', story.label);
+
+        el.title = story.label;
+        el.addEventListener('click', () => openLightbox(story));
+
+        const markerIcon = L.divIcon({
+          className: '',
+          html: el.outerHTML,
+          iconSize: [34, 34],
+          iconAnchor: [17, 17]
+        });
+
+        const marker = L.marker([story.lat, story.lng], { icon: markerIcon }).addTo(map);
+        marker.on('click', () => openLightbox(story));
+        bounds.extend([story.lat, story.lng]);
+      });
+
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [66, 66] });
+      }
+
+      clearTimeout(initTimeout);
+      if (mapStatus) mapStatus.classList.add('hidden');
+    })();
+  }
+
+  initMapPage();
+  document.addEventListener('astro:after-swap', () => {
+    initMapPage();
+  });
+</script>
+
+<style is:global>
+  .map-photo-marker {
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+    border: 2px solid #F0EBE3;
+    box-shadow: 0 6px 16px rgba(26, 26, 26, 0.22);
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .map-photo-marker:hover {
+    transform: scale(1.12);
+    border-color: #7A6C5D;
+  }
+
+  .maplibregl-control-container .maplibregl-ctrl-group {
+    border: 1px solid #E5E2DC;
+    box-shadow: none;
+  }
+
+  .maplibregl-ctrl-bottom-right,
+  .maplibregl-ctrl-bottom-left,
+  .maplibregl-ctrl-attrib,
+  .maplibregl-ctrl-logo {
+    display: none !important;
+  }
+
+  #map-lightbox {
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(4px);
+  }
+
+  #map-lightbox.active {
+    display: flex;
+  }
+
+  #stories-map .leaflet-container {
+    background: #E6E1D9;
+  }
+</style>
