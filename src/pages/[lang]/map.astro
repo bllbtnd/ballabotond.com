@@ -220,18 +220,34 @@ for (const [index, s] of sorted.entries()) {
     const travelPlanCountries = plannedCountries.filter((country) => country !== homeCountry && !otherVisitedCountries.includes(country));
     if (!stories.length && !visitedCountries.length && !plannedCountries.length) return;
 
+    const hungaryCenter = [47.1625, 19.5033];
+    const hungaryZoom = 6;
+
     const map = L.map('stories-map', {
       zoomControl: true,
       attributionControl: false,
       minZoom: 2,
       maxZoom: 15,
-      worldCopyJump: true
-    }).setView([47.7, 18.8], 4);
+      worldCopyJump: true,
+      zoomAnimation: true,
+      fadeAnimation: true,
+      markerZoomAnimation: true,
+      inertia: true,
+      inertiaDeceleration: 2500,
+      inertiaMaxSpeed: 1800,
+      zoomSnap: 0.25,
+      zoomDelta: 0.25,
+      wheelDebounceTime: 40,
+      wheelPxPerZoomLevel: 90
+    }).setView(hungaryCenter, hungaryZoom);
 
     const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       subdomains: 'abcd',
       maxZoom: 20,
-      crossOrigin: true
+      crossOrigin: true,
+      keepBuffer: 8,
+      updateWhenZooming: true,
+      updateWhenIdle: false
     }).addTo(map);
 
     const initTimeout = setTimeout(() => {
@@ -251,8 +267,6 @@ for (const [index, s] of sorted.entries()) {
         mapStatus.classList.remove('hidden');
       }
     });
-
-    const bounds = L.latLngBounds([]);
 
     function openLightbox(story) {
       lightboxImg.src = story.photo;
@@ -357,12 +371,7 @@ for (const [index, s] of sorted.entries()) {
 
         const marker = L.marker([story.lat, story.lng], { icon: markerIcon }).addTo(map);
         marker.on('click', () => openLightbox(story));
-        bounds.extend([story.lat, story.lng]);
       });
-
-      if (bounds.isValid()) {
-        map.fitBounds(bounds, { padding: [66, 66] });
-      }
 
       clearTimeout(initTimeout);
       if (mapStatus) mapStatus.classList.add('hidden');
