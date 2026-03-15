@@ -132,7 +132,20 @@ for (const [index, s] of sorted.entries()) {
       <button id="map-lightbox-close" type="button" class="absolute top-4 right-4 md:top-6 md:right-6 text-white/80 hover:text-white transition-colors" aria-label={t('stories.close')}>
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
-      <img id="map-lightbox-img" src="" alt="" class="max-w-full max-h-[86vh] object-contain rounded-lg" />
+      <button id="map-lightbox-prev" type="button" class="absolute left-4 md:left-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/45 p-3 text-white/90 transition hover:bg-black/60 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Previous image">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button id="map-lightbox-next" type="button" class="absolute right-4 md:right-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/45 p-3 text-white/90 transition hover:bg-black/60 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Next image">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div id="map-lightbox-media" class="relative w-full max-w-6xl flex flex-col items-center gap-4">
+        <img id="map-lightbox-img" src="" alt="" class="max-w-full max-h-[78vh] object-contain rounded-lg" />
+
+        <div class="w-full max-w-4xl text-center text-white/90 pf-grotesk tracking-[0.04em] uppercase text-fluid-xs flex flex-col gap-1 pb-1">
+          <p id="map-lightbox-meta-date"></p>
+          <p id="map-lightbox-meta-location" class="text-white"></p>
+        </div>
+      </div>
     </div>
 
     <div id="stories-data" style="display:none" data-stories={JSON.stringify(stories)}></div>
@@ -204,8 +217,13 @@ for (const [index, s] of sorted.entries()) {
     const lightbox = document.getElementById('map-lightbox');
     const lightboxImg = document.getElementById('map-lightbox-img');
     const lightboxClose = document.getElementById('map-lightbox-close');
+    const lightboxPrev = document.getElementById('map-lightbox-prev');
+    const lightboxNext = document.getElementById('map-lightbox-next');
+    const lightboxMetaDate = document.getElementById('map-lightbox-meta-date');
+    const lightboxMetaLocation = document.getElementById('map-lightbox-meta-location');
+    const lightboxMedia = document.getElementById('map-lightbox-media');
     if (!mapContainer || !dataEl || !visitedCountriesEl || !plannedCountriesEl) return;
-    if (!lightbox || !lightboxImg || !lightboxClose) return;
+    if (!lightbox || !lightboxImg || !lightboxClose || !lightboxPrev || !lightboxNext || !lightboxMetaDate || !lightboxMetaLocation || !lightboxMedia) return;
     if (mapContainer.dataset.initialized === 'true') return;
     mapContainer.dataset.initialized = 'true';
 
@@ -265,26 +283,138 @@ for (const [index, s] of sorted.entries()) {
       }
     });
 
-    function openLightbox(story) {
+    const dateFormatter = new Intl.DateTimeFormat(document.documentElement.lang || 'en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    let orderedStories = [];
+    let currentLightboxIndex = -1;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function toRadians(value) {
+      return (value * Math.PI) / 180;
+    }
+
+    function distanceInKm(a, b) {
+      const earthRadiusKm = 6371;
+      const dLat = toRadians(b.lat - a.lat);
+      const dLng = toRadians(b.lng - a.lng);
+      const latA = toRadians(a.lat);
+      const latB = toRadians(b.lat);
+
+      const haversine = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(latA) * Math.cos(latB);
+
+      return 2 * earthRadiusKm * Math.asin(Math.sqrt(haversine));
+    }
+
+    function buildNearestPath(startStory) {
+      const remaining = stories.filter((item) => item.id !== startStory.id);
+      const nearestPath = [startStory];
+      let current = startStory;
+
+      while (remaining.length > 0) {
+        let nearestIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        for (let index = 0; index < remaining.length; index += 1) {
+          const candidate = remaining[index];
+          const candidateDistance = distanceInKm(current, candidate);
+          if (candidateDistance < nearestDistance) {
+            nearestDistance = candidateDistance;
+            nearestIndex = index;
+          }
+        }
+
+        const [nearestStory] = remaining.splice(nearestIndex, 1);
+        nearestPath.push(nearestStory);
+        current = nearestStory;
+      }
+
+      return nearestPath;
+    }
+
+    function updateLightboxStory(index) {
+      if (index < 0 || index >= orderedStories.length) return;
+      currentLightboxIndex = index;
+
+      const story = orderedStories[index];
+      map.panTo([story.lat, story.lng], {
+        animate: true,
+        duration: 0.55
+      });
       lightboxImg.src = story.photo;
       lightboxImg.alt = story.label;
+      lightboxMetaDate.textContent = story.date ? dateFormatter.format(new Date(story.date)) : '';
+      lightboxMetaLocation.textContent = story.label || '';
+      lightboxPrev.disabled = index === 0;
+      lightboxNext.disabled = index === orderedStories.length - 1;
+    }
+
+    function openLightbox(story) {
+      orderedStories = buildNearestPath(story);
+      updateLightboxStory(0);
       lightbox.classList.remove('hidden');
       lightbox.classList.add('active');
+    }
+
+    function showPreviousStory() {
+      if (currentLightboxIndex <= 0) return;
+      updateLightboxStory(currentLightboxIndex - 1);
+    }
+
+    function showNextStory() {
+      if (currentLightboxIndex < 0 || currentLightboxIndex >= orderedStories.length - 1) return;
+      updateLightboxStory(currentLightboxIndex + 1);
     }
 
     function closeLightbox() {
       lightbox.classList.add('hidden');
       lightbox.classList.remove('active');
       lightboxImg.src = '';
+      lightboxMetaDate.textContent = '';
+      lightboxMetaLocation.textContent = '';
+      orderedStories = [];
+      currentLightboxIndex = -1;
     }
 
     if (!lightbox.dataset.bound) {
       lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', showPreviousStory);
+      lightboxNext.addEventListener('click', showNextStory);
+
+      lightboxMedia.addEventListener('touchstart', (event) => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      }, { passive: true });
+
+      lightboxMedia.addEventListener('touchend', (event) => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const minSwipeDistance = 40;
+        const maxVerticalDrift = 70;
+
+        if (Math.abs(deltaX) < minSwipeDistance || Math.abs(deltaY) > maxVerticalDrift) return;
+        if (deltaX > 0) {
+          showPreviousStory();
+        } else {
+          showNextStory();
+        }
+      }, { passive: true });
+
       lightbox.addEventListener('click', (event) => {
         if (event.target === lightbox) closeLightbox();
       });
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') closeLightbox();
+        if (!lightbox.classList.contains('active')) return;
+        if (event.key === 'ArrowLeft') showPreviousStory();
+        if (event.key === 'ArrowRight') showNextStory();
       });
       lightbox.dataset.bound = 'true';
     }
@@ -418,6 +548,10 @@ for (const [index, s] of sorted.entries()) {
 
   #map-lightbox.active {
     display: flex;
+  }
+
+  #map-lightbox-media {
+    touch-action: pan-y;
   }
 
   #stories-map .leaflet-container {
