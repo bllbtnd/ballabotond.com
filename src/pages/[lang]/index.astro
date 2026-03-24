@@ -15,6 +15,10 @@ import ResumeTimeline from '../../components/portfolio/ResumeTimeline';
 import ProjectGallery from '../../components/portfolio/ProjectGallery';
 import MegaFooter from '../../components/portfolio/MegaFooter';
 
+import { getImage } from 'astro:assets';
+import profileImageSrc from '../../assets/images/profile.webp';
+import storyPortraitSrc from '../../assets/images/story-portrait.webp';
+
 import projects from '../../data/projects.json';
 import { getCurrentAvailability } from '../../utils/calendar';
 
@@ -43,6 +47,21 @@ const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 const calendarUrlsRaw = import.meta.env.PUBLIC_CALENDAR_URLS || '';
 const calendarUrls = calendarUrlsRaw.split(',').map((u: string) => u.trim()).filter(Boolean);
 const { isBusyNow, busyWindows } = await getCurrentAvailability(calendarUrls);
+// ── Optimized images ─────────────────────────────────
+const optimizedProfile = await getImage({
+  src: profileImageSrc,
+  width: 416,
+  height: 416,
+  format: 'webp',
+});
+
+const optimizedStoryPortrait = await getImage({
+  src: storyPortraitSrc,
+  width: 1200,
+  height: 1179,
+  format: 'webp',
+});
+
 const heroImage = `${siteOrigin}/assets/images/profile.webp`;
 const canonicalUrl = new URL(`/${lang}/`, siteOrigin).toString();
 
@@ -244,7 +263,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         subtitle={t('portfolio.heroSubtitle')}
         description={t('portfolio.heroDescription')}
         description2={t('portfolio.heroDescription2')}
-        profileImage="/assets/images/profile.webp"
+        profileImage={optimizedProfile.src}
         profileAlt={t('common.name')}
         profileLink={translatePath('/map/')}
         availabilityLabel={t('home.available')}
@@ -264,7 +283,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         client:visible
         sectionTitle={t('resume.lifeStory.title')}
         storyText={lifeStoryParagraphs}
-        profileImage="/assets/images/story-portrait.webp"
+        profileImage={optimizedStoryPortrait.src}
         profileAlt={t('resume.lifeStory.caption')}
         readMoreLabel={t('common.readMore')}
         showLessLabel={t('common.showLess')}
