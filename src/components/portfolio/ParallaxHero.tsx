@@ -118,7 +118,7 @@ export default function ParallaxHero({
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 md:pt-24"
       aria-label="Hero section"
     >
       {/* Background typographic layer — slow parallax (0.5x speed) */}
