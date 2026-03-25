@@ -1,27 +1,23 @@
 /**
  * ScrollHighlightText.tsx
  *
- * Wraps multiple paragraphs and progressively highlights words
- * based on scroll progress. Words stay highlighted once scrolled past.
- * All paragraphs share one global progress.
+ * Premium scroll-highlight effect: words progressively illuminate
+ * as they cross an invisible "reading line" at 80% from the top
+ * of the viewport. Words above the line are highlighted, words
+ * below are dimmed, with a soft gradient transition.
  *
- * Uses a single scroll listener + CSS transitions for performance,
- * avoiding per-word motion values that cause jank on mobile.
+ * Performance: bypasses React rendering entirely — uses refs to
+ * directly update DOM opacity via requestAnimationFrame. Zero
+ * re-renders during scroll.
  */
-import { useRef, useState, useCallback } from 'react';
-import {
-  useScroll,
-  useMotionValueEvent,
-  useReducedMotion,
-} from 'motion/react';
+import { useRef, useEffect } from 'react';
+import { useReducedMotion } from 'motion/react';
 
 interface ScrollHighlightGroupProps {
   paragraphs: string[];
   className?: string;
   paragraphStyle?: (index: number) => React.CSSProperties | undefined;
-  /** Number of paragraphs to show when collapsed (mobile). Undefined = show all. */
   previewCount?: number;
-  /** Whether the full text is expanded */
   expanded?: boolean;
 }
 
@@ -33,22 +29,75 @@ export default function ScrollHighlightGroup({
   expanded = true,
 }: ScrollHighlightGroupProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const wordSpansRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const rafRef = useRef<number>(0);
   const prefersReducedMotion = useReducedMotion();
-  const [progress, setProgress] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 0.9', 'end 0.1'],
-  });
-
-  // Single scroll listener — update progress state at ~60fps via rAF
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    setProgress(v);
-  });
-
-  // Pre-split all words with global indices
   const allParagraphWords = paragraphs.map((text) => text.split(/\s+/));
   const totalWords = allParagraphWords.reduce((sum, w) => sum + w.length, 0);
+
+  const dimOpacity = 0.15;
+  // The reading line position: 80% from top of viewport
+  const readingLineRatio = 0.80;
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const update = () => {
+      const viewportH = window.innerHeight;
+      const readingLineY = viewportH * readingLineRatio;
+      const spans = wordSpansRef.current;
+      // One line-height worth of extra range for within-line word progression
+      const lineHeight = spans[0]?.getBoundingClientRect().height || 24;
+
+      for (let i = 0; i < spans.length; i++) {
+        const span = spans[i];
+        if (!span) continue;
+
+        const rect = span.getBoundingClientRect();
+        const wordCenterY = rect.top + rect.height / 2;
+
+        if (wordCenterY < readingLineY - lineHeight) {
+          // Line is fully above the reading zone — highlighted
+          span.style.opacity = '1';
+        } else if (wordCenterY > readingLineY) {
+          // Below the reading line — dimmed
+          span.style.opacity = String(dimOpacity);
+        } else {
+          // On the reading line — use horizontal position for word-by-word reveal
+          // Words further left on the line get highlighted first
+          const container = containerRef.current;
+          if (!container) { span.style.opacity = String(dimOpacity); continue; }
+          const containerRect = container.getBoundingClientRect();
+          const containerWidth = containerRect.width || 1;
+          const wordX = (rect.left - containerRect.left) / containerWidth;
+          // Map vertical position within the line-height zone to a threshold
+          const lineProgress = 1 - (wordCenterY - (readingLineY - lineHeight)) / lineHeight;
+          // Word highlights when its horizontal position is less than the line progress
+          span.style.opacity = wordX <= lineProgress ? '1' : String(dimOpacity);
+        }
+      }
+    };
+
+    // Use passive scroll listener for best performance
+    const onScroll = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Also listen for resize (viewport height changes)
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Initial paint
+    update();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [prefersReducedMotion, totalWords]);
 
   const showAll = expanded || previewCount === undefined;
   const visibleCount = showAll ? paragraphs.length : previewCount;
@@ -65,27 +114,17 @@ export default function ScrollHighlightGroup({
     );
   }
 
-  // Build paragraphs with word-level opacity based on current progress
   let globalIndex = 0;
   const allParagraphElements = allParagraphWords.map((words, pIdx) => {
     const wordElements = words.map((word, wIdx) => {
-      const wordStart = globalIndex / totalWords;
-      const wordEnd = (globalIndex + 1) / totalWords;
-
-      // Compute opacity: interpolate between 0.15 and 1
-      let opacity: number;
-      if (progress >= wordEnd) {
-        opacity = 1;
-      } else if (progress <= wordStart) {
-        opacity = 0.15;
-      } else {
-        const t = (progress - wordStart) / (wordEnd - wordStart);
-        opacity = 0.15 + t * 0.85;
-      }
-
+      const idx = globalIndex;
       globalIndex++;
       return (
-        <span key={`${pIdx}-${wIdx}`} style={{ opacity }}>
+        <span
+          key={`${pIdx}-${wIdx}`}
+          ref={(el) => { wordSpansRef.current[idx] = el; }}
+          style={{ opacity: dimOpacity }}
+        >
           {word}{' '}
         </span>
       );
@@ -110,6 +149,8 @@ export default function ScrollHighlightGroup({
       </div>
     );
   });
+
+  wordSpansRef.current.length = totalWords;
 
   return (
     <div ref={containerRef}>
