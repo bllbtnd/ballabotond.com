@@ -15,6 +15,7 @@ import {
   useReducedMotion,
   type Variants,
 } from 'motion/react';
+import ScrollHighlightGroup from './ScrollHighlightText';
 
 interface LifeStoryProps {
   sectionTitle: string;
@@ -155,39 +156,15 @@ export default function LifeStory({
             </div>
           </div>
 
-          {/* Right column — Story text */}
+          {/* Right column — Story text with scroll-highlight */}
           <div>
-            <motion.div
-              variants={prefersReducedMotion ? undefined : containerVariants}
-              initial={isMobile ? false : 'hidden'}
-              whileInView={isMobile ? undefined : 'visible'}
-              viewport={{ once: true, margin: '-50px' }}
-              className="space-y-6"
-            >
-              {visibleParagraphs.map((paragraph, i) => {
-                const paragraphClass = 'pf-grotesk text-fluid-base text-pf-text leading-relaxed';
-                const paragraphStyle = { textIndent: i === 0 ? '0' : '2em' };
-
-                if (isMobile) {
-                  return (
-                    <p key={i} className={paragraphClass} style={paragraphStyle}>
-                      {paragraph}
-                    </p>
-                  );
-                }
-
-                return (
-                  <motion.p
-                    key={i}
-                    variants={prefersReducedMotion ? undefined : paragraphVariants}
-                    className={paragraphClass}
-                    style={paragraphStyle}
-                  >
-                    {paragraph}
-                  </motion.p>
-                );
-              })}
-            </motion.div>
+            <ScrollHighlightGroup
+              paragraphs={storyText}
+              className="pf-grotesk text-fluid-base text-pf-text leading-relaxed"
+              paragraphStyle={(i) => ({ textIndent: i === 0 ? '0' : '2em' })}
+              previewCount={isMobile ? MOBILE_PREVIEW_COUNT : undefined}
+              expanded={!isMobile || expanded}
+            />
 
             {/* Read more / Show less — mobile only */}
             {isMobile && storyText.length > MOBILE_PREVIEW_COUNT && (
