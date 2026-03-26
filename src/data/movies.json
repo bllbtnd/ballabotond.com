@@ -378,5 +378,13 @@
     {
         "title": "The Pianist",
         "rating": 0
+    },
+    {
+        "title": "Ready or Not",
+        "rating": 8.5
+    },
+    {
+        "title": "Ready or Not 2: Here I Come",
+        "rating": 9
     }
 ]
