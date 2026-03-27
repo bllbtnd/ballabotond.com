@@ -220,7 +220,7 @@ const projectItems = projects
 // ── Footer Data ────────────────────────────────────────
 const footerNavigation = [
   { label: t('nav.home'), href: translatePath('/') },
-  { label: t('nav.stories'), href: translatePath('/map/') },
+  { label: t('nav.stories'), href: 'https://map.ballabotond.com' },
   { label: t('nav.movies'), href: translatePath('/movies/') },
 ];
 
@@ -265,7 +265,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         description2={t('portfolio.heroDescription2')}
         profileImage={optimizedProfile.src}
         profileAlt={t('common.name')}
-        profileLink={translatePath('/map/')}
+        profileLink="https://map.ballabotond.com"
         availabilityLabel={t('home.available')}
         busyLabel={t('home.busy')}
         initialBusy={isBusyNow}
