@@ -3,6 +3,7 @@
     "home": "Főoldal",
     "projects": "Projektek",
     "resume": "Önéletrajz",
+    "stack": "Stack",
     "stories": "My Map",
     "movies": "Filmek"
   },
@@ -114,6 +115,9 @@
       "maintenance": "Karbantartás",
       "past": "Múltbeli Projekt"
     }
+  },
+  "stack": {
+    "subtitle": "Tech Stack."
   },
   "resume": {
     "title": "Önéletrajz | Balla Botond",

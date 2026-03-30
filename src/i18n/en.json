@@ -3,6 +3,7 @@
     "home": "Home",
     "projects": "Projects",
     "resume": "Resume",
+    "stack": "Stack",
     "stories": "My Map",
     "movies": "Movies"
   },
@@ -114,6 +115,9 @@
       "maintenance": "Maintenance",
       "past": "Past Project"
     }
+  },
+  "stack": {
+    "subtitle": "Tech Stack."
   },
   "resume": {
     "title": "Resume | Balla Botond",

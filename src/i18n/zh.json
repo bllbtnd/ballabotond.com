@@ -3,6 +3,7 @@
     "home": "首页",
     "projects": "项目",
     "resume": "简历",
+    "stack": "技术栈",
     "stories": "My Map",
     "movies": "电影"
   },
@@ -114,6 +115,9 @@
       "maintenance": "维护中",
       "past": "过去的项目"
     }
+  },
+  "stack": {
+    "subtitle": "技术栈."
   },
   "resume": {
     "title": "简历 | Balla Botond",

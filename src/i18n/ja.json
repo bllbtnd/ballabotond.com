@@ -3,6 +3,7 @@
     "home": "ホーム",
     "projects": "プロジェクト",
     "resume": "履歴書",
+    "stack": "スタック",
     "stories": "My Map",
     "movies": "映画"
   },
@@ -114,6 +115,9 @@
       "maintenance": "メンテナンス中",
       "past": "過去のプロジェクト"
     }
+  },
+  "stack": {
+    "subtitle": "技術スタック."
   },
   "resume": {
     "title": "履歴書 | Balla Botond",

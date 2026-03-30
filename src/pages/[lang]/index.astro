@@ -184,23 +184,41 @@ const educationEntries = [
   },
 ];
 
-const skills = [
+
+// ── Stack Data ─────────────────────────────────────────
+const stackCategories = [
   {
-    category: t('resume.skills.softSkills'),
+    label: 'Languages',
+    items: ['Java', 'Python', 'JavaScript', 'Go', 'C#', 'Kotlin', 'C++'],
+  },
+  {
+    label: 'Frontend',
+    items: ['React', 'Next.js', 'Astro', 'TailwindCSS'],
+  },
+  {
+    label: 'Backend',
+    items: ['Node.js', 'Express.js', 'Spring Boot', 'ASP.NET'],
+  },
+  {
+    label: 'Database',
+    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'SQLite'],
+  },
+  {
+    label: 'DevOps',
+    items: ['Docker', 'Git', 'Linux', 'Bash', 'GitHub Actions'],
+  },
+  {
+    label: 'Cloud',
+    items: ['Cloudflare Workers', 'Vercel', 'GitHub Pages', 'AWS'],
+  },
+  {
+    label: t('resume.skills.softSkills'),
     items: allTranslations[typedLang]?.resume?.skills?.softSkillItems
       ?? allTranslations['en'].resume.skills.softSkillItems,
   },
   {
-    category: t('resume.skills.programming'),
-    items: ['Java', 'Python', 'C++', 'C#', 'Kotlin', 'Go', 'JavaScript'],
-  },
-  {
-    category: t('resume.skills.frameworks'),
-    items: ['React', 'Node.js', 'Express.js', 'Spring Boot', 'Next.js', 'ASP.NET', 'Astro'],
-  },
-  {
-    category: t('resume.skills.tools'),
-    items: ['Git', 'Docker', 'Linux', 'Bash', 'MySQL', 'MongoDB', 'PostgreSQL', 'SQLite'],
+    label: 'Spoken',
+    items: ['English (C1)', 'Italian (A1)', 'Hungarian (Native)'],
   },
 ];
 
@@ -302,8 +320,8 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         experienceEntries={experienceEntries}
         educationTitle={t('resume.education.title')}
         educationEntries={educationEntries}
-        skillsTitle={t('resume.skills.title')}
-        skills={skills}
+        stackTitle={t('nav.stack')}
+        categories={stackCategories}
       />
     </div>
 
