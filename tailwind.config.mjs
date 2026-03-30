@@ -8,14 +8,14 @@ export default {
         'luxury-gold-light': '#e8c474',
         'luxury-gray': '#b4b4b6',
         'luxury-gray-dark': '#8e8e93',
-        // Portfolio palette
-        'pf-bg': '#F0EBE3',
-        'pf-text': '#1A1A1A',
-        'pf-accent': '#7A6C5D',
-        'pf-accent-light': '#9B8E7E',
-        'pf-muted': '#B8B2A8',
-        'pf-border': '#E5E2DC',
-        'pf-surface': '#F0EDE8',
+        // Portfolio palette — resolved via CSS custom properties for runtime weather theming
+        'pf-bg': 'var(--pf-bg)',
+        'pf-text': 'var(--pf-text)',
+        'pf-accent': 'var(--pf-accent)',
+        'pf-accent-light': 'var(--pf-accent-light)',
+        'pf-muted': 'var(--pf-muted)',
+        'pf-border': 'var(--pf-border)',
+        'pf-surface': 'var(--pf-surface)',
       },
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],

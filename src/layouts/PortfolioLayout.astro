@@ -9,6 +9,7 @@
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import CookieBanner from '../components/CookieBanner.astro';
+import WeatherTheme from '../components/WeatherTheme.astro';
 import '@fontsource/space-grotesk/300.css';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
@@ -147,6 +148,253 @@ const baseSchema = generateBaseSchema(siteLanguages);
 
     <style is:global>
       /* ============================================
+         CSS CUSTOM PROPERTIES — Weather-Adaptive Palette
+         Registered with @property for smooth animated
+         transitions between weather / time-of-day themes.
+         ============================================ */
+
+      @property --pf-bg {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #F0EBE3;
+      }
+      @property --pf-text {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #1A1A1A;
+      }
+      @property --pf-accent {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #7A6C5D;
+      }
+      @property --pf-accent-light {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #9B8E7E;
+      }
+      @property --pf-muted {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #B8B2A8;
+      }
+      @property --pf-border {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #E5E2DC;
+      }
+      @property --pf-surface {
+        syntax: '<color>';
+        inherits: true;
+        initial-value: #F0EDE8;
+      }
+
+      /* Default palette — day-clear */
+      :root {
+        --pf-bg: #F0EBE3;
+        --pf-text: #1A1A1A;
+        --pf-accent: #7A6C5D;
+        --pf-accent-light: #9B8E7E;
+        --pf-muted: #B8B2A8;
+        --pf-border: #E5E2DC;
+        --pf-surface: #F0EDE8;
+
+        /* Animate theme transitions via registered @property */
+        transition:
+          --pf-bg 2s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-text 2s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-accent 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-accent-light 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-muted 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-border 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+          --pf-surface 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* ─── Dawn ─── */
+      html[data-wx="dawn"] {
+        --pf-bg: #F5E8D0; --pf-text: #1C0F06;
+        --pf-accent: #C4762C; --pf-accent-light: #E09050;
+        --pf-muted: #B0804A; --pf-border: #EBD8B8; --pf-surface: #F8EDD8;
+      }
+      /* ─── Dusk ─── */
+      html[data-wx="dusk"] {
+        --pf-bg: #F2D8B8; --pf-text: #180A02;
+        --pf-accent: #C06030; --pf-accent-light: #E08050;
+        --pf-muted: #A87050; --pf-border: #E4C8A0; --pf-surface: #F8E0C4;
+      }
+
+      /* ─── Day variants ─── */
+      html[data-wx="day-clear"] {
+        --pf-bg: #F0EBE3; --pf-text: #1A1A1A;
+        --pf-accent: #7A6C5D; --pf-accent-light: #9B8E7E;
+        --pf-muted: #B8B2A8; --pf-border: #E5E2DC; --pf-surface: #F0EDE8;
+      }
+      html[data-wx="day-cloudy"] {
+        --pf-bg: #E5E1DA; --pf-text: #1A1A1A;
+        --pf-accent: #6A6059; --pf-accent-light: #8A8078;
+        --pf-muted: #A8A49E; --pf-border: #D8D4CE; --pf-surface: #EDEAE4;
+      }
+      html[data-wx="day-fog"] {
+        --pf-bg: #E8E3DC; --pf-text: #252318;
+        --pf-accent: #7A7568; --pf-accent-light: #9A9488;
+        --pf-muted: #ACA89E; --pf-border: #DEDAD4; --pf-surface: #ECEAE5;
+      }
+      html[data-wx="day-drizzle"] {
+        --pf-bg: #E0E5E9; --pf-text: #182028;
+        --pf-accent: #507088; --pf-accent-light: #7090A8;
+        --pf-muted: #8898A8; --pf-border: #CDD5DC; --pf-surface: #E8ECF0;
+      }
+      /* Rain: dark, heavy, slate-blue */
+      html[data-wx="day-rain"] {
+        --pf-bg: #C5D0DB; --pf-text: #090F18;
+        --pf-accent: #364F68; --pf-accent-light: #527090;
+        --pf-muted: #6080A0; --pf-border: #AABBC8; --pf-surface: #CDD8E3;
+      }
+      /* Snow: bright, crisp, icy white-blue */
+      html[data-wx="day-snow"] {
+        --pf-bg: #F0F5FC; --pf-text: #18203A;
+        --pf-accent: #4858B0; --pf-accent-light: #6878D0;
+        --pf-muted: #8090C8; --pf-border: #CCD8F0; --pf-surface: #F8FBFF;
+      }
+      html[data-wx="day-thunder"] {
+        --pf-bg: #C8D0D8; --pf-text: #0C1520;
+        --pf-accent: #304858; --pf-accent-light: #506878;
+        --pf-muted: #607880; --pf-border: #B0BCC8; --pf-surface: #D5DDE5;
+      }
+
+      /* ─── Night variants ─── */
+      html[data-wx="night-clear"] {
+        --pf-bg: #0F1117; --pf-text: #E5E0D8;
+        --pf-accent: #8B7F6E; --pf-accent-light: #B0A090;
+        --pf-muted: #5A5550; --pf-border: #1E2230; --pf-surface: #151824;
+      }
+      html[data-wx="night-cloudy"] {
+        --pf-bg: #111110; --pf-text: #DDD8D0;
+        --pf-accent: #887870; --pf-accent-light: #A8988E;
+        --pf-muted: #585450; --pf-border: #1C1C1A; --pf-surface: #1A1918;
+      }
+      html[data-wx="night-fog"] {
+        --pf-bg: #100F0C; --pf-text: #D0CCC4;
+        --pf-accent: #807068; --pf-accent-light: #A08C7C;
+        --pf-muted: #504840; --pf-border: #1E1C18; --pf-surface: #181714;
+      }
+      html[data-wx="night-drizzle"] {
+        --pf-bg: #0D1016; --pf-text: #C8D4DC;
+        --pf-accent: #406080; --pf-accent-light: #6080A0;
+        --pf-muted: #3C5068; --pf-border: #141C28; --pf-surface: #10151E;
+      }
+      /* Night rain: deep dark slate */
+      html[data-wx="night-rain"] {
+        --pf-bg: #070A10; --pf-text: #B8C8D8;
+        --pf-accent: #2C4460; --pf-accent-light: #486080;
+        --pf-muted: #284058; --pf-border: #0E141E; --pf-surface: #0A0D14;
+      }
+      /* Night snow: dark but noticeably lighter and bluer */
+      html[data-wx="night-snow"] {
+        --pf-bg: #12182A; --pf-text: #D8E8FF;
+        --pf-accent: #5870C0; --pf-accent-light: #7890E0;
+        --pf-muted: #4060A8; --pf-border: #1E2A48; --pf-surface: #18203C;
+      }
+      html[data-wx="night-thunder"] {
+        --pf-bg: #080A10; --pf-text: #B8C0CC;
+        --pf-accent: #283440; --pf-accent-light: #405060;
+        --pf-muted: #283040; --pf-border: #0C1018; --pf-surface: #0A0C14;
+      }
+
+      /* Fog overlay */
+      html[data-wx-effect="fog"] body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 995;
+        background: radial-gradient(ellipse at center, transparent 30%, rgba(200, 195, 185, 0.25) 100%);
+        backdrop-filter: blur(1px);
+      }
+
+      /* ─── Image tinting — weather-adaptive ─── */
+      img, video {
+        transition: filter 2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Dawn: warm golden lift */
+      html[data-wx="dawn"] img,
+      html[data-wx="dawn"] video {
+        filter: brightness(1.05) saturate(1.15) sepia(0.18);
+      }
+      /* Dusk: amber warmth */
+      html[data-wx="dusk"] img,
+      html[data-wx="dusk"] video {
+        filter: brightness(0.98) saturate(1.1) sepia(0.25) hue-rotate(-8deg);
+      }
+      /* Day clear: default, no filter */
+      html[data-wx="day-clear"] img,
+      html[data-wx="day-clear"] video {
+        filter: none;
+      }
+      /* Day cloudy: slightly desaturated */
+      html[data-wx="day-cloudy"] img,
+      html[data-wx="day-cloudy"] video {
+        filter: saturate(0.88) brightness(0.98);
+      }
+      /* Fog: hazy desaturated */
+      html[data-wx="day-fog"] img,
+      html[data-wx="day-fog"] video,
+      html[data-wx="night-fog"] img,
+      html[data-wx="night-fog"] video {
+        filter: saturate(0.7) brightness(0.92) blur(0.3px);
+      }
+      /* Drizzle & rain: cool desaturated */
+      html[data-wx="day-drizzle"] img,
+      html[data-wx="day-drizzle"] video {
+        filter: saturate(0.82) brightness(0.97) hue-rotate(8deg);
+      }
+      /* Rain: dark, heavy, desaturated blue */
+      html[data-wx="day-rain"] img,
+      html[data-wx="day-rain"] video {
+        filter: brightness(0.85) saturate(0.62) hue-rotate(18deg);
+      }
+      /* Snow: bright, crisp, almost monochrome with cold cast */
+      html[data-wx="day-snow"] img,
+      html[data-wx="day-snow"] video {
+        filter: brightness(1.1) saturate(0.38) hue-rotate(200deg) contrast(0.95);
+      }
+      /* Thunder: dramatic contrast */
+      html[data-wx="day-thunder"] img,
+      html[data-wx="day-thunder"] video {
+        filter: saturate(0.6) brightness(0.85) contrast(1.08);
+      }
+      /* Night clear: subtle cool tint */
+      html[data-wx="night-clear"] img,
+      html[data-wx="night-clear"] video {
+        filter: brightness(0.9) saturate(0.88) hue-rotate(8deg);
+      }
+      /* Night cloudy */
+      html[data-wx="night-cloudy"] img,
+      html[data-wx="night-cloudy"] video {
+        filter: brightness(0.86) saturate(0.82);
+      }
+      /* Night drizzle & rain: dark, heavy */
+      html[data-wx="night-drizzle"] img,
+      html[data-wx="night-drizzle"] video {
+        filter: brightness(0.82) saturate(0.7) hue-rotate(10deg);
+      }
+      html[data-wx="night-rain"] img,
+      html[data-wx="night-rain"] video {
+        filter: brightness(0.78) saturate(0.62) hue-rotate(15deg);
+      }
+      /* Night snow: brighter, icy, heavily desaturated */
+      html[data-wx="night-snow"] img,
+      html[data-wx="night-snow"] video {
+        filter: brightness(0.95) saturate(0.32) hue-rotate(200deg) contrast(0.9);
+      }
+      /* Night thunder */
+      html[data-wx="night-thunder"] img,
+      html[data-wx="night-thunder"] video {
+        filter: brightness(0.78) saturate(0.65) contrast(1.05);
+      }
+
+      /* ============================================
          PORTFOLIO GLOBAL STYLES
          Digital Sobriety. Zero decorative borders.
          Structure via negative space + asymmetric grid.
@@ -176,9 +424,10 @@ const baseSchema = generateBaseSchema(siteLanguages);
 
       body {
         font-family: 'Space Grotesk', system-ui, sans-serif;
-        background-color: #F0EBE3;
-        color: #1A1A1A;
+        background-color: var(--pf-bg);
+        color: var(--pf-text);
         overflow-x: clip;
+        transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1), color 2s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       /* Hide scrollbar globally while preserving scroll */
@@ -195,8 +444,8 @@ const baseSchema = generateBaseSchema(siteLanguages);
 
       /* Selection color */
       ::selection {
-        background-color: #7A6C5D;
-        color: #F9F9F7;
+        background-color: var(--pf-accent);
+        color: var(--pf-bg);
       }
 
       /* Reduced motion fallback */
@@ -243,8 +492,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
       /* Horizontal rule style */
       .pf-divider {
         height: 1px;
-        background-color: #E5E2DC;
+        background-color: var(--pf-border);
         border: none;
+        transition: background-color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
       }
     </style>
 
@@ -255,6 +505,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
 
     <!-- Cookie consent banner -->
     <CookieBanner />
+
+    <!-- Weather-adaptive theming + consent -->
+    <WeatherTheme />
 
     <!-- Lenis Smooth Scroll Initialization -->
     <script>

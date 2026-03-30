@@ -1,0 +1,463 @@
+---
+/**
+ * WeatherTheme.astro
+ *
+ * Auto-detects location via IP (ipapi.co), fetches current weather
+ * from Open-Meteo (free, no API key), applies time-of-day + weather
+ * CSS theme variables to <html>, renders rain/snow/lightning effects,
+ * and shows a small weather line below the footer.
+ *
+ * No IP addresses or location data are stored by this site.
+ * The IP is sent to ipapi.co/open-meteo.com solely to resolve weather.
+ */
+---
+
+<!-- Canvas for precipitation + lightning effects -->
+<canvas id="wx-fx" aria-hidden="true"></canvas>
+
+<!-- Weather toggle pill -->
+<button id="wx-toggle" type="button" aria-label="Toggle weather theme" title="Toggle weather theme">
+  <i id="wx-toggle-icon" class="fa-solid fa-sun" aria-hidden="true"></i>
+</button>
+
+<style is:global>
+  #wx-fx {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 996;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+
+  #wx-fx.active {
+    opacity: 1;
+  }
+
+  /* ─── Weather toggle pill ─── */
+  #wx-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 9997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border: 0.5px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+    pointer-events: none;
+  }
+
+  #wx-toggle.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  #wx-toggle.wx-off {
+    opacity: 0.35;
+  }
+
+  #wx-toggle:hover {
+    background: rgba(26, 26, 26, 0.88);
+    opacity: 1 !important;
+  }
+
+  #wx-toggle-icon {
+    font-size: 0.82rem;
+    color: rgba(240, 235, 227, 0.75);
+    transition: color 0.3s ease, filter 0.3s ease;
+  }
+
+  #wx-toggle.wx-off #wx-toggle-icon {
+    filter: grayscale(1);
+    color: rgba(240, 235, 227, 0.35);
+  }
+
+  @media (max-width: 480px) {
+    #wx-toggle { bottom: 1rem; left: 1rem; }
+  }
+
+  /* Fog overlay */
+  html[data-wx-effect="fog"] body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 995;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(200, 195, 185, 0.22) 100%);
+    backdrop-filter: blur(1px);
+  }
+</style>
+
+<script>
+  const WX_CACHE_KEY    = 'wx_data';
+  const WX_DISABLED_KEY = 'wx_disabled';
+  const WX_CACHE_TTL    = 30 * 60 * 1000; // 30 min
+
+  /* ──────────────────────────────────────────────
+     API helpers
+  ────────────────────────────────────────────── */
+
+  async function fetchLocation(): Promise<{
+    lat: number; lon: number; timezone: string;
+  } | null> {
+    try {
+      const r = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
+      if (!r.ok) return null;
+      const d = await r.json();
+      if (!d.latitude || !d.longitude) return null;
+      return { lat: d.latitude, lon: d.longitude, timezone: d.timezone || 'auto' };
+    } catch {
+      return null;
+    }
+  }
+
+  async function fetchWeather(lat: number, lon: number, timezone: string): Promise<{
+    code: number; isDay: number; sunrise: string; sunset: string;
+  } | null> {
+    try {
+      const url =
+        `https://api.open-meteo.com/v1/forecast` +
+        `?latitude=${lat}&longitude=${lon}` +
+        `&current=weather_code,is_day` +
+        `&daily=sunrise,sunset` +
+        `&timezone=${encodeURIComponent(timezone)}` +
+        `&forecast_days=1`;
+      const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
+      if (!r.ok) return null;
+      const d = await r.json();
+      return {
+        code:    d.current?.weather_code ?? 0,
+        isDay:   d.current?.is_day ?? 1,
+        sunrise: d.daily?.sunrise?.[0] ?? '',
+        sunset:  d.daily?.sunset?.[0]  ?? '',
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  /* ──────────────────────────────────────────────
+     Cache
+  ────────────────────────────────────────────── */
+
+  interface WxCache {
+    theme: string; effect: string; ts: number;
+  }
+
+  function loadCache(): WxCache | null {
+    try {
+      const raw = localStorage.getItem(WX_CACHE_KEY);
+      if (!raw) return null;
+      const c: WxCache = JSON.parse(raw);
+      if (Date.now() - c.ts > WX_CACHE_TTL) return null;
+      return c;
+    } catch { return null; }
+  }
+
+  function saveCache(d: WxCache) {
+    try { localStorage.setItem(WX_CACHE_KEY, JSON.stringify(d)); } catch {}
+  }
+
+  /* ──────────────────────────────────────────────
+     Theme resolution
+  ────────────────────────────────────────────── */
+
+  function weatherCondition(code: number): string {
+    if (code === 0)  return 'clear';
+    if (code <= 3)   return 'cloudy';
+    if (code <= 48)  return 'fog';
+    if (code <= 57)  return 'drizzle';
+    if (code <= 67)  return 'rain';
+    if (code <= 77)  return 'snow';
+    if (code <= 82)  return 'rain';
+    if (code <= 86)  return 'snow';
+    return 'thunder';
+  }
+
+  function timeOfDay(
+    isDay: number, sunrise: string, sunset: string
+  ): 'dawn' | 'day' | 'dusk' | 'night' {
+    if (!sunrise || !sunset) return isDay ? 'day' : 'night';
+    const now   = Date.now();
+    const rise  = new Date(sunrise).getTime();
+    const set   = new Date(sunset).getTime();
+    const delta = 45 * 60 * 1000;
+    if (now >= rise - delta && now <= rise + delta) return 'dawn';
+    if (now >= set  - delta && now <= set  + delta) return 'dusk';
+    return isDay ? 'day' : 'night';
+  }
+
+  function resolveTheme(
+    code: number, isDay: number, sunrise: string, sunset: string
+  ): { theme: string; effect: string } {
+    const cond  = weatherCondition(code);
+    const tod   = timeOfDay(isDay, sunrise, sunset);
+    const theme = (tod === 'dawn' || tod === 'dusk') ? tod : `${tod}-${cond}`;
+    return { theme, effect: cond };
+  }
+
+  /* ──────────────────────────────────────────────
+     Theme application
+  ────────────────────────────────────────────── */
+
+  const CONDITION_FA: Record<string, string> = {
+    clear:   'fa-sun',
+    cloudy:  'fa-cloud',
+    fog:     'fa-smog',
+    drizzle: 'fa-cloud-sun-rain',
+    rain:    'fa-cloud-showers-heavy',
+    snow:    'fa-snowflake',
+    thunder: 'fa-cloud-bolt',
+  };
+
+  function iconForTheme(theme: string, effect: string): string {
+    if (theme === 'dawn' || theme === 'dusk') return 'fa-sun';
+    if (theme.startsWith('night')) return effect === 'clear' ? 'fa-moon' : CONDITION_FA[effect] ?? 'fa-moon';
+    return CONDITION_FA[effect] ?? 'fa-sun';
+  }
+
+  function setToggleIcon(theme: string, effect: string) {
+    const icon = document.getElementById('wx-toggle-icon') as HTMLElement | null;
+    if (!icon) return;
+    // Remove all fa- classes, keep fa-solid
+    icon.className = 'fa-solid ' + iconForTheme(theme, effect);
+  }
+
+  function applyTheme(theme: string, effect: string) {
+    document.documentElement.setAttribute('data-wx', theme);
+    document.documentElement.setAttribute('data-wx-effect', effect);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      startEffects(effect);
+    }
+    const btn = document.getElementById('wx-toggle');
+    if (btn) { btn.classList.add('visible'); btn.classList.remove('wx-off'); }
+    setToggleIcon(theme, effect);
+  }
+
+  function disableTheme() {
+    document.documentElement.removeAttribute('data-wx');
+    document.documentElement.removeAttribute('data-wx-effect');
+    stopEffects();
+    const btn = document.getElementById('wx-toggle');
+    if (btn) btn.classList.add('wx-off');
+  }
+
+  function initToggle() {
+    const btn = document.getElementById('wx-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const isOff = localStorage.getItem(WX_DISABLED_KEY) === 'true';
+      if (isOff) {
+        // Turn on
+        localStorage.removeItem(WX_DISABLED_KEY);
+        const cached = loadCache();
+        if (cached) applyTheme(cached.theme, cached.effect);
+        else fetchAndApply();
+      } else {
+        // Turn off
+        localStorage.setItem(WX_DISABLED_KEY, 'true');
+        disableTheme();
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     Canvas effects — Rain, Snow, Thunder
+  ────────────────────────────────────────────── */
+
+  let fxRaf: number | null = null;
+  let thunderInterval: ReturnType<typeof setInterval> | null = null;
+
+  function stopEffects() {
+    if (fxRaf !== null) { cancelAnimationFrame(fxRaf); fxRaf = null; }
+    if (thunderInterval !== null) { clearInterval(thunderInterval); thunderInterval = null; }
+    const canvas = document.getElementById('wx-fx') as HTMLCanvasElement | null;
+    if (canvas) {
+      canvas.classList.remove('active');
+      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  function startEffects(effect: string) {
+    stopEffects();
+    const canvas = document.getElementById('wx-fx') as HTMLCanvasElement | null;
+    if (!canvas) return;
+
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }, { passive: true });
+
+    if (effect === 'rain' || effect === 'drizzle') {
+      canvas.classList.add('active');
+      canvas.style.opacity = effect === 'drizzle' ? '0.25' : '0.35';
+      animateRain(canvas, effect === 'drizzle');
+    } else if (effect === 'snow') {
+      canvas.classList.add('active');
+      canvas.style.opacity = '0.45';
+      animateSnow(canvas);
+    } else if (effect === 'thunder') {
+      canvas.classList.add('active');
+      canvas.style.opacity = '0.35';
+      animateRain(canvas, false);
+      thunderInterval = setInterval(() => {
+        if (Math.random() < 0.4) triggerLightning();
+      }, 4000 + Math.random() * 12000);
+    }
+  }
+
+  function animateRain(canvas: HTMLCanvasElement, light: boolean) {
+    const ctx = canvas.getContext('2d')!;
+    const count = light ? 60 : 140;
+    const drops = Array.from({ length: count }, () => ({
+      x:       Math.random() * canvas.width,
+      y:       Math.random() * canvas.height,
+      len:     light ? 8 + Math.random() * 10 : 12 + Math.random() * 22,
+      speed:   light ? 5 + Math.random() * 5   : 9 + Math.random() * 9,
+      opacity: light ? 0.08 + Math.random() * 0.15 : 0.1 + Math.random() * 0.25,
+      width:   0.4 + Math.random() * 0.8,
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drops.forEach(d => {
+        ctx.strokeStyle = `rgba(160,185,210,${d.opacity})`;
+        ctx.lineWidth = d.width;
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - d.len * 0.15, d.y + d.len);
+        ctx.stroke();
+        d.y += d.speed;
+        d.x -= d.speed * 0.12;
+        if (d.y > canvas.height + d.len) {
+          d.y = -d.len;
+          d.x = Math.random() * (canvas.width + 60);
+        }
+        if (d.x < -20) d.x = canvas.width + Math.random() * 40;
+      });
+      fxRaf = requestAnimationFrame(draw);
+    }
+    fxRaf = requestAnimationFrame(draw);
+  }
+
+  function animateSnow(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d')!;
+    const flakes = Array.from({ length: 90 }, () => ({
+      x:           Math.random() * canvas.width,
+      y:           Math.random() * canvas.height,
+      r:           0.8 + Math.random() * 2.8,
+      speed:       0.4 + Math.random() * 1.2,
+      opacity:     0.3 + Math.random() * 0.55,
+      drift:       (Math.random() - 0.5) * 0.4,
+      wobble:      Math.random() * Math.PI * 2,
+      wobbleSpeed: 0.008 + Math.random() * 0.015,
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      flakes.forEach(f => {
+        f.wobble += f.wobbleSpeed;
+        f.x += Math.sin(f.wobble) * 0.6 + f.drift;
+        f.y += f.speed;
+        ctx.fillStyle = `rgba(210,225,255,${f.opacity})`;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fill();
+        if (f.y > canvas.height + f.r) { f.y = -f.r * 2; f.x = Math.random() * canvas.width; }
+        if (f.x < -10)               f.x = canvas.width + 5;
+        if (f.x > canvas.width + 10) f.x = -5;
+      });
+      fxRaf = requestAnimationFrame(draw);
+    }
+    fxRaf = requestAnimationFrame(draw);
+  }
+
+  function triggerLightning() {
+    const flash = document.createElement('div');
+    flash.style.cssText =
+      'position:fixed;inset:0;background:#e8f0ff;opacity:0;pointer-events:none;z-index:9900;' +
+      'transition:opacity 60ms linear;';
+    document.body.appendChild(flash);
+    requestAnimationFrame(() => {
+      flash.style.opacity = '0.12';
+      setTimeout(() => {
+        flash.style.opacity = '0';
+        setTimeout(() => {
+          flash.style.opacity = '0.06';
+          setTimeout(() => {
+            flash.style.opacity = '0';
+            setTimeout(() => flash.remove(), 100);
+          }, 80);
+        }, 70);
+      }, 60);
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     Main init
+  ────────────────────────────────────────────── */
+
+  async function initWeatherTheme() {
+    initToggle();
+
+    if (localStorage.getItem(WX_DISABLED_KEY) === 'true') {
+      const btn  = document.getElementById('wx-toggle');
+      const icon = document.getElementById('wx-toggle-icon') as HTMLElement | null;
+      if (btn && icon) {
+        icon.className = 'fa-solid fa-cloud-sun';
+        btn.classList.add('visible', 'wx-off');
+      }
+      return;
+    }
+
+    const cached = loadCache();
+    if (cached) {
+      applyTheme(cached.theme, cached.effect);
+      return;
+    }
+    await fetchAndApply();
+  }
+
+  async function fetchAndApply() {
+    const loc = await fetchLocation();
+    if (!loc) return;
+    const wx = await fetchWeather(loc.lat, loc.lon, loc.timezone);
+    if (!wx) return;
+    const { theme, effect } = resolveTheme(wx.code, wx.isDay, wx.sunrise, wx.sunset);
+    saveCache({ theme, effect, ts: Date.now() });
+    applyTheme(theme, effect);
+  }
+
+  /* ──────────────────────────────────────────────
+     Lifecycle — Astro view transitions
+  ────────────────────────────────────────────── */
+
+  initWeatherTheme();
+
+  document.addEventListener('astro:after-swap', () => {
+    initToggle();
+    if (localStorage.getItem(WX_DISABLED_KEY) === 'true') return;
+    const cached = loadCache();
+    if (!cached) return;
+    applyTheme(cached.theme, cached.effect);
+  });
+
+  document.addEventListener('astro:before-swap', () => stopEffects());
+</script>
