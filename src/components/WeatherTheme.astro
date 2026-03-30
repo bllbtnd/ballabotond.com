@@ -283,11 +283,16 @@
   let fxRaf: number | null = null;
   let thunderInterval: ReturnType<typeof setInterval> | null = null;
 
+  function isNightTheme(): boolean {
+    return (document.documentElement.getAttribute('data-wx') ?? '').startsWith('night');
+  }
+
   function stopEffects() {
     if (fxRaf !== null) { cancelAnimationFrame(fxRaf); fxRaf = null; }
     if (thunderInterval !== null) { clearInterval(thunderInterval); thunderInterval = null; }
     const canvas = document.getElementById('wx-fx') as HTMLCanvasElement | null;
     if (canvas) {
+      canvas.style.opacity = '0';
       canvas.classList.remove('active');
       canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -305,18 +310,21 @@
       canvas.height = window.innerHeight;
     }, { passive: true });
 
+    const show = (opacity: string, fn: () => void) => {
+      fn();
+      // rAF delay ensures CSS transition fires from 0 → target
+      requestAnimationFrame(() => {
+        canvas.classList.add('active');
+        canvas.style.opacity = opacity;
+      });
+    };
+
     if (effect === 'rain' || effect === 'drizzle') {
-      canvas.classList.add('active');
-      canvas.style.opacity = effect === 'drizzle' ? '0.25' : '0.35';
-      animateRain(canvas, effect === 'drizzle');
+      show(effect === 'drizzle' ? '0.6' : '0.75', () => animateRain(canvas, effect === 'drizzle'));
     } else if (effect === 'snow') {
-      canvas.classList.add('active');
-      canvas.style.opacity = '0.45';
-      animateSnow(canvas);
+      show('0.8', () => animateSnow(canvas));
     } else if (effect === 'thunder') {
-      canvas.classList.add('active');
-      canvas.style.opacity = '0.35';
-      animateRain(canvas, false);
+      show('0.75', () => animateRain(canvas, false));
       thunderInterval = setInterval(() => {
         if (Math.random() < 0.4) triggerLightning();
       }, 4000 + Math.random() * 12000);
@@ -325,20 +333,23 @@
 
   function animateRain(canvas: HTMLCanvasElement, light: boolean) {
     const ctx = canvas.getContext('2d')!;
-    const count = light ? 60 : 140;
+    const night = isNightTheme();
+    // Dark drops on light backgrounds, light drops on dark backgrounds
+    const dropColor = night ? '180,205,235' : '40,65,110';
+    const count = light ? 70 : 160;
     const drops = Array.from({ length: count }, () => ({
       x:       Math.random() * canvas.width,
       y:       Math.random() * canvas.height,
       len:     light ? 8 + Math.random() * 10 : 12 + Math.random() * 22,
       speed:   light ? 5 + Math.random() * 5   : 9 + Math.random() * 9,
-      opacity: light ? 0.08 + Math.random() * 0.15 : 0.1 + Math.random() * 0.25,
-      width:   0.4 + Math.random() * 0.8,
+      opacity: light ? 0.15 + Math.random() * 0.25 : 0.2 + Math.random() * 0.35,
+      width:   0.5 + Math.random() * 0.9,
     }));
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drops.forEach(d => {
-        ctx.strokeStyle = `rgba(160,185,210,${d.opacity})`;
+        ctx.strokeStyle = `rgba(${dropColor},${d.opacity})`;
         ctx.lineWidth = d.width;
         ctx.beginPath();
         ctx.moveTo(d.x, d.y);
@@ -359,12 +370,15 @@
 
   function animateSnow(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext('2d')!;
+    const night = isNightTheme();
+    // Dark flakes on light backgrounds, light flakes on dark backgrounds
+    const flakeColor = night ? '200,220,255' : '60,90,150';
     const flakes = Array.from({ length: 90 }, () => ({
       x:           Math.random() * canvas.width,
       y:           Math.random() * canvas.height,
-      r:           0.8 + Math.random() * 2.8,
+      r:           1 + Math.random() * 3,
       speed:       0.4 + Math.random() * 1.2,
-      opacity:     0.3 + Math.random() * 0.55,
+      opacity:     0.4 + Math.random() * 0.5,
       drift:       (Math.random() - 0.5) * 0.4,
       wobble:      Math.random() * Math.PI * 2,
       wobbleSpeed: 0.008 + Math.random() * 0.015,
@@ -376,7 +390,7 @@
         f.wobble += f.wobbleSpeed;
         f.x += Math.sin(f.wobble) * 0.6 + f.drift;
         f.y += f.speed;
-        ctx.fillStyle = `rgba(210,225,255,${f.opacity})`;
+        ctx.fillStyle = `rgba(${flakeColor},${f.opacity})`;
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
         ctx.fill();
