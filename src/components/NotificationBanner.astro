@@ -1,0 +1,284 @@
+---
+/**
+ * NotificationBanner.astro
+ *
+ * Reads from src/data/notifications.json and displays dismissable
+ * alert banners at the top of the page. Supports all 5 site languages
+ * with English fallback. Dismissed state is persisted in localStorage.
+ *
+ * To add a new notification:
+ *   1. Edit src/data/notifications.json
+ *   2. Add an entry with a unique "id", set "active": true,
+ *      choose a "type" ("info" | "warning" | "success" | "error"),
+ *      and provide "translations" for each language.
+ *      A "linkText"/"linkUrl" pair is optional per translation.
+ *   3. Rebuild the site.
+ */
+import notificationsData from '../data/notifications.json';
+
+const activeNotifications = (notificationsData as any[]).filter(n => n.active);
+---
+
+{activeNotifications.length > 0 && (
+  <div id="notif-stack" aria-label="Site notifications">
+    {activeNotifications.map((notif: any) => (
+      <div
+        class={`notif-item notif-type-${notif.type}`}
+        data-id={notif.id}
+        data-translations={JSON.stringify(notif.translations)}
+        role="alert"
+        aria-atomic="true"
+      >
+        <span class="notif-dot" aria-hidden="true"></span>
+        <span class="notif-body">
+          <span class="notif-message"></span>
+          <a class="notif-link" href=""></a>
+        </span>
+        <button class="notif-close" type="button" aria-label="Dismiss notification">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    ))}
+  </div>
+)}
+
+<style>
+  #notif-stack {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    min-width: min(440px, calc(100vw - 2rem));
+    pointer-events: none;
+  }
+
+  .notif-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.6rem 0.65rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(20, 20, 20, 0.92);
+    backdrop-filter: blur(48px) saturate(1.8);
+    -webkit-backdrop-filter: blur(48px) saturate(1.8);
+    border: 0.5px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.22),
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.07);
+    pointer-events: all;
+    opacity: 0;
+    transform: translateY(-1.25rem);
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .notif-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .notif-item.hiding {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Coloured type dot */
+  .notif-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .notif-type-info    .notif-dot { background: #6B9FD4; }
+  .notif-type-warning .notif-dot { background: #D4A24A; }
+  .notif-type-success .notif-dot { background: #5BA87A; }
+  .notif-type-error   .notif-dot { background: #C4605A; }
+
+  /* Subtle tinted border per type */
+  .notif-type-info    { border-color: rgba(107, 159, 212, 0.22); }
+  .notif-type-warning { border-color: rgba(212, 162,  74, 0.22); }
+  .notif-type-success { border-color: rgba( 91, 168, 122, 0.22); }
+  .notif-type-error   { border-color: rgba(196,  96,  90, 0.22); }
+
+  .notif-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .notif-message {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+    letter-spacing: 0.02em;
+    color: #B8B2A8;
+    line-height: 1.5;
+  }
+
+  .notif-link {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(0.63rem, 0.58rem + 0.2vw, 0.72rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9B8E7E;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(155, 142, 126, 0.4);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .notif-link:hover {
+    color: #C8BAB0;
+    border-color: rgba(200, 186, 176, 0.6);
+  }
+
+  .notif-link[style*="display: none"] {
+    display: none !important;
+  }
+
+  .notif-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #5A5550;
+    padding: 0;
+    margin-left: 0.1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .notif-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #A09890;
+  }
+
+  /* Mobile: switch to card style */
+  @media (max-width: 500px) {
+    #notif-stack {
+      top: 0.75rem;
+    }
+
+    .notif-item {
+      border-radius: 1.1rem;
+      padding: 0.8rem 0.7rem 0.8rem 1rem;
+      align-items: flex-start;
+    }
+
+    .notif-dot {
+      margin-top: 0.35rem;
+    }
+
+    .notif-body {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+
+    .notif-close {
+      margin-left: 0;
+      margin-top: -0.1rem;
+    }
+  }
+</style>
+
+<script>
+  function getLang(): string {
+    const match = window.location.pathname.match(/^\/(hu|it|zh|ja)(\/|$)/);
+    return match ? match[1] : 'en';
+  }
+
+  function resolveTranslation(translations: Record<string, any>, lang: string) {
+    return translations[lang] ?? translations['en'] ?? null;
+  }
+
+  function hideItem(item: HTMLElement): void {
+    item.classList.remove('visible');
+    item.classList.add('hiding');
+    setTimeout(() => {
+      item.remove();
+      const stack = document.getElementById('notif-stack');
+      if (stack && stack.children.length === 0) stack.remove();
+    }, 350);
+  }
+
+  function init(): void {
+    const stack = document.getElementById('notif-stack');
+    if (!stack) return;
+
+    const lang = getLang();
+    const items = Array.from(stack.querySelectorAll<HTMLElement>('.notif-item'));
+    let visibleCount = 0;
+
+    items.forEach((item, index) => {
+      const id = item.dataset.id;
+      if (!id) {
+        item.remove();
+        return;
+      }
+
+      let translations: Record<string, any>;
+      try {
+        translations = JSON.parse(item.dataset.translations ?? '{}');
+      } catch {
+        item.remove();
+        return;
+      }
+
+      const t = resolveTranslation(translations, lang);
+      if (!t?.message) {
+        item.remove();
+        return;
+      }
+
+      // Populate text
+      const msgEl = item.querySelector<HTMLElement>('.notif-message');
+      if (msgEl) msgEl.textContent = t.message;
+
+      const linkEl = item.querySelector<HTMLAnchorElement>('.notif-link');
+      if (linkEl) {
+        if (t.linkText && t.linkUrl) {
+          linkEl.textContent = t.linkText;
+          linkEl.href = t.linkUrl;
+          linkEl.style.removeProperty('display');
+        } else {
+          linkEl.style.display = 'none';
+        }
+      }
+
+      // Staggered slide-in
+      setTimeout(() => item.classList.add('visible'), 500 + index * 110);
+      visibleCount++;
+
+      // Dismiss on close (current view only — reappears on reload)
+      item.querySelector('.notif-close')?.addEventListener('click', () => {
+        hideItem(item);
+      }, { once: true });
+    });
+
+    if (visibleCount === 0) stack.remove();
+  }
+
+  init();
+  document.addEventListener('astro:after-swap', init);
+</script>

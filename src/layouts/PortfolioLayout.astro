@@ -10,6 +10,7 @@ import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import CookieBanner from '../components/CookieBanner.astro';
 import WeatherTheme from '../components/WeatherTheme.astro';
+import NotificationBanner from '../components/NotificationBanner.astro';
 import '@fontsource/space-grotesk/300.css';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
@@ -502,6 +503,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
   </head>
   <body>
     <slot />
+
+    <!-- Site notification banners -->
+    <NotificationBanner />
 
     <!-- Cookie consent banner -->
     <CookieBanner />

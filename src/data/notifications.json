@@ -1,0 +1,34 @@
+[
+  {
+    "id": "example-notification",
+    "active": false,
+    "type": "info",
+    "translations": {
+      "en": {
+        "message": "Welcome to my portfolio! I'm currently open to new opportunities.",
+        "linkText": "Say hello",
+        "linkUrl": "#contact"
+      },
+      "hu": {
+        "message": "Üdvözöllek a portfoliómon! Jelenleg nyitott vagyok új lehetőségekre.",
+        "linkText": "Írj nekem",
+        "linkUrl": "#contact"
+      },
+      "it": {
+        "message": "Benvenuto nel mio portfolio! Sono attualmente aperto a nuove opportunità.",
+        "linkText": "Salutami",
+        "linkUrl": "#contact"
+      },
+      "zh": {
+        "message": "欢迎来到我的作品集！我目前对新机会持开放态度。",
+        "linkText": "打招呼",
+        "linkUrl": "#contact"
+      },
+      "ja": {
+        "message": "ポートフォリオへようこそ！現在、新しい機会を探しています。",
+        "linkText": "ご連絡を",
+        "linkUrl": "#contact"
+      }
+    }
+  }
+]
