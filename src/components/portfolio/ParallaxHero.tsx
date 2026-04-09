@@ -219,6 +219,7 @@ export default function ParallaxHero({
               <p className="pf-grotesk text-fluid-xs text-pf-muted tracking-wide">
                 {locations}{statusLabel ? ` · ${statusLabel}` : ''}
               </p>
+
             </motion.div>
           </div>
         </div>
