@@ -84,7 +84,6 @@ export default function LifeStory({
   });
 
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.03]);
 
   return (
     <section
@@ -127,14 +126,7 @@ export default function LifeStory({
                   src={profileImage}
                   alt={profileAlt}
                   className="w-full h-full object-cover"
-                  style={
-                    prefersReducedMotion
-                      ? {}
-                      : {
-                          y: imageY,
-                          scale: imageScale,
-                        }
-                  }
+                  style={prefersReducedMotion ? {} : { y: imageY }}
                   loading="eager"
                   width={600}
                   height={800}
