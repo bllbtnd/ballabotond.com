@@ -240,7 +240,7 @@ const footerNavigation = [
   { label: t('nav.home'), href: translatePath('/') },
   { label: t('nav.stories'), href: 'https://map.ballabotond.com' },
   { label: t('nav.movies'), href: translatePath('/movies/') },
-  { label: 'Download CV', href: '/ballabotondcv2.pdf', external: true },
+  { label: 'CV', href: 'https://cv.ballabotond.com', external: true },
 ];
 
 const footerSocials = SOCIAL_LINKS.map(link => ({
@@ -264,6 +264,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
     client:load
     homeHref={translatePath('/')}
     sections={navSections}
+    cvHref="https://cv.ballabotond.com"
     languages={Object.entries(languages).map(([code, label]) => ({
       code: code.toUpperCase(),
       label: label as string,

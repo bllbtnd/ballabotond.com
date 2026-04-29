@@ -25,9 +25,10 @@ interface PortfolioNavProps {
   homeHref: string;
   sections: { id: string; label: string }[];
   languages?: LangOption[];
+  cvHref?: string;
 }
 
-export default function PortfolioNav({ homeHref, sections, languages = [] }: PortfolioNavProps) {
+export default function PortfolioNav({ homeHref, sections, languages = [], cvHref }: PortfolioNavProps) {
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -109,6 +110,17 @@ export default function PortfolioNav({ homeHref, sections, languages = [] }: Por
                   {section.label}
                 </button>
               ))}
+
+              {cvHref && (
+                <a
+                  href={cvHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300"
+                >
+                  CV ↗
+                </a>
+              )}
 
               {/* Language switcher */}
               {languages.length > 0 && (
@@ -213,6 +225,24 @@ export default function PortfolioNav({ homeHref, sections, languages = [] }: Por
                 {section.label}
               </motion.button>
             ))}
+
+            {cvHref && (
+              <motion.a
+                href={cvHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: sections.length * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="pf-serif text-pf-text text-3xl tracking-tight-brutal"
+              >
+                CV ↗
+              </motion.a>
+            )}
 
             {/* Language switcher in mobile menu */}
             {languages.length > 0 && (
