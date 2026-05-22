@@ -71,16 +71,6 @@
     "status": "active"
   },
   {
-    "id": "tarckit",
-    "categoryKey": "projects.category.webapps",
-    "titleKey": "projects.tarckit.title",
-    "descriptionKey": "projects.tarckit.description",
-    "buttonKey": "projects.tarckit.button",
-    "url": "https://tarckit.com/",
-    "icon": "fas fa-dumbbell",
-    "status": "active"
-  },
-  {
     "id": "movie-ratings",
     "categoryKey": "projects.category.webapps",
     "title": "Movie Ratings",

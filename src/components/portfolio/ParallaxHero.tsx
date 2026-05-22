@@ -212,8 +212,7 @@ export default function ParallaxHero({
                 </a>
               )}
               <p className="pf-grotesk text-fluid-base text-pf-accent leading-relaxed max-w-md">
-                {description}
-                <br />
+                {description && <>{description}<br /></>}
                 {description2}
               </p>
               <p className="pf-grotesk text-fluid-xs text-pf-muted tracking-wide">

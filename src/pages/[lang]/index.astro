@@ -128,39 +128,6 @@ const experienceEntries = [
     ],
     isCurrent: true,
   },
-  {
-    year: t('resume.experience.intern_period'),
-    title: t('resume.experience.intern'),
-    company: t('resume.experience.intern_company'),
-    companyUrl: 'https://logicloud.hu',
-    description: [
-      t('resume.experience.intern_desc1'),
-      t('resume.experience.intern_desc2'),
-      t('resume.experience.intern_desc3'),
-    ],
-  },
-  {
-    year: t('resume.experience.wolt_period'),
-    title: t('resume.experience.wolt'),
-    company: t('resume.experience.wolt_company'),
-    companyUrl: 'https://wolt.com',
-    description: [
-      t('resume.experience.wolt_desc1'),
-      t('resume.experience.wolt_desc2'),
-      t('resume.experience.wolt_desc3'),
-    ],
-  },
-  {
-    year: t('resume.experience.hotel_period'),
-    title: t('resume.experience.hotel'),
-    company: t('resume.experience.hotel_company'),
-    companyUrl: 'https://www.hotelpiroska.hu',
-    description: [
-      t('resume.experience.hotel_desc1'),
-      t('resume.experience.hotel_desc2'),
-      t('resume.experience.hotel_desc3'),
-    ],
-  },
 ];
 
 const educationEntries = [
@@ -176,6 +143,12 @@ const educationEntries = [
     isCurrent: true,
   },
   {
+    year: t('resume.education.english_cert_period'),
+    title: t('resume.education.english_cert'),
+    company: t('resume.education.english_cert_school'),
+    description: [t('resume.education.english_cert_desc')],
+  },
+  {
     year: t('resume.education.highschool_period'),
     title: t('resume.education.highschool'),
     company: t('resume.education.highschool_school'),
@@ -188,28 +161,28 @@ const educationEntries = [
 // ── Stack Data ─────────────────────────────────────────
 const stackCategories = [
   {
-    label: 'Languages',
-    items: ['Java', 'Python', 'JavaScript', 'Go', 'C#', 'Kotlin', 'C++'],
+    label: 'Backend',
+    items: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST API'],
   },
   {
     label: 'Frontend',
-    items: ['React', 'Next.js', 'Astro', 'TailwindCSS'],
+    items: ['React', 'Next.js', 'TailwindCSS', 'JavaScript', 'Cloudflare Workers'],
   },
   {
-    label: 'Backend',
-    items: ['Node.js', 'Express.js', 'Spring Boot', 'ASP.NET'],
+    label: 'Mobile',
+    items: ['Android', 'Kotlin'],
   },
   {
     label: 'Database',
-    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'SQLite'],
+    items: ['PostgreSQL', 'PostGIS', 'MySQL', 'SQLite', 'Room ORM'],
   },
   {
-    label: 'DevOps',
-    items: ['Docker', 'Git', 'Linux', 'Bash', 'GitHub Actions'],
+    label: 'DevOps / Cloud',
+    items: ['Docker', 'GitHub Actions', 'Linux', 'Cloudflare', 'Nginx'],
   },
   {
-    label: 'Cloud',
-    items: ['Cloudflare Workers', 'Vercel', 'GitHub Pages', 'AWS'],
+    label: 'Also Familiar',
+    items: ['Python', 'Go', 'C# ASP.NET', 'WebRTC', 'WebSocket'],
   },
   {
     label: t('resume.skills.softSkills'),
@@ -281,7 +254,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         name={t('common.name')}
         tagline={t('portfolio.heroTagline')}
         subtitle={t('portfolio.heroSubtitle')}
-        description={t('portfolio.heroDescription')}
+        description=""
         description2={t('portfolio.heroDescription2')}
         profileImage={optimizedProfile.src}
         profileAlt={t('common.name')}
