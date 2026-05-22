@@ -118,7 +118,7 @@ export default function PortfolioNav({ homeHref, sections, languages = [], cvHre
                   rel="noopener noreferrer"
                   className="pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-muted hover:text-pf-text transition-colors duration-300"
                 >
-                  CV ↗
+                  CV
                 </a>
               )}
 
@@ -240,7 +240,7 @@ export default function PortfolioNav({ homeHref, sections, languages = [], cvHre
                 }}
                 className="pf-serif text-pf-text text-3xl tracking-tight-brutal"
               >
-                CV ↗
+                CV
               </motion.a>
             )}
 

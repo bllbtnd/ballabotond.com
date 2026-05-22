@@ -21,6 +21,7 @@
   #consent-notice {
     position: fixed;
     bottom: 1.5rem;
+    padding-bottom: env(safe-area-inset-bottom);
     left: 50%;
     transform: translateX(-50%) translateY(calc(100% + 2.5rem));
     z-index: 9999;
@@ -117,7 +118,7 @@
       border-radius: 1.25rem;
       padding: 1rem 1.25rem;
       width: calc(100% - 2rem);
-      bottom: 1rem;
+      bottom: calc(1rem + env(safe-area-inset-bottom));
     }
     #consent-actions {
       width: 100%;
