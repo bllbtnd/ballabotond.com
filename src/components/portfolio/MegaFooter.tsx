@@ -64,9 +64,10 @@ export default function MegaFooter({
   return (
     <footer
       className="relative bg-pf-text text-pf-bg overflow-hidden"
+      style={{ minHeight: '100vh', height: '100vh' }}
       aria-label="Footer"
     >
-      <div className="max-w-[90vw] mx-auto px-6 md:px-12 py-24 md:py-36 flex flex-col gap-20 md:gap-28">
+      <div className="h-full max-w-[90vw] mx-auto px-6 md:px-12 py-12 md:py-20 flex flex-col justify-between gap-8">
 
         {/* Quote */}
         <motion.div
