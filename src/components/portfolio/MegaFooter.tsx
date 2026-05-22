@@ -62,6 +62,7 @@ export default function MegaFooter({
   const currentYear = new Date().getFullYear();
 
   return (
+    <>
     <footer
       className="relative bg-pf-text text-pf-bg overflow-hidden"
       style={{ minHeight: '100dvh', paddingBottom: 'env(safe-area-inset-bottom)' }}
@@ -190,5 +191,22 @@ export default function MegaFooter({
 
       </div>
     </footer>
+      {/* Dark safe-area strip for iOS Safari bottom inset (mobile only).
+          This ensures the area behind the home pill matches the footer color. */}
+      <div
+        aria-hidden="true"
+        className="md:hidden"
+        style={{
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 'env(safe-area-inset-bottom)',
+          background: 'var(--pf-text)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+    </>
   );
 }
