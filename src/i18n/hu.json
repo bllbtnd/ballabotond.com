@@ -7,14 +7,6 @@
     "stories": "My Map",
     "movies": "Filmek"
   },
-  "stories": {
-    "title": "My Map | Balla Botond",
-    "tagline": "Pillanatok & Helyszínek",
-    "subtitle": "My Map",
-    "description": "A térkép azokról a helyekről, ahol jártam, és ahová el szeretnék jutni.",
-    "zoomIn": "Görgess a nagyításhoz • Kattints egy fotóra a felfedezéshez",
-    "close": "Bezárás"
-  },
   "common": {
     "name": "Balla Botond",
     "easterEggs": {
@@ -22,8 +14,8 @@
       "patience": "A türelem rózsát terem"
     },
     "taglines": [
-      "Vízióból Értéket Teremtve",
-      "Növekedés Mérnöke",
+      "Vízióból Valóság",
+      "Fejlesztői Gondolkodással",
       "A Holnap Megoldásait Építve",
       "Innováció és Hatás Találkozása",
       "Eredmények Technológián Keresztül",
@@ -33,24 +25,20 @@
       "Versenyelőny Megteremtése",
       "Kiválóság a Végrehajtásban"
     ],
-    "subtitle": "Alkotó és Innovátor",
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
     "instagram": "Instagram",
     "youtube": "YouTube",
     "twitter": "X (Twitter)",
-    "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "Vegyél egy kávét",
     "readMore": "Tovább olvasom",
     "showLess": "Kevesebb"
   },
   "home": {
     "title": "Balla Botond",
-    "description": "Balla Botond - Fejlesztő és alkotó, aki szenvedélyesen dolgozik átgondolt, időtálló megoldásokon. Fedezd fel projektjeimet, lépj kapcsolatba velem közösségi médiában, és ismerd meg fejlesztési és innovációs munkámat.",
+    "description": "Balla Botond - Fejlesztő és alkotó, aki szenvedélyesen dolgozik átgondolt, időtálló megoldásokon. Fedezd fel projektjeimet, lépj kapcsolatba velem, és ismerd meg fejlesztési munkámat.",
     "keywords": "Balla Botond, Botond Balla, fejlesztő, trackit, szoftverfejlesztő, webfejlesztő, személyes weboldal, portfólió, bllbtnd, programozás, innováció, Magyarország, tech, projektek, GitHub, Boti, Balla Boti",
-    "bio": "Mind a munkában, mind a szabadidőben igényes megközelítést alkalmazok, és olyan élmények és megoldások felé gravitálok, amelyek átgondoltan épültek fel és időtálló vonzerővel bírnak. Projektjeim a megalapozott módszerek tiszteletét tükrözik, kiegyensúlyozva az innováció és a precizitás iránti törekvéssel. Inspirációt merítek a jól megalkotott dolgok mesterségéből - legyen szó egy robusztus alkalmazás struktúrájáról, egy ritka whisky réteges ízeiről, vagy a fény és árnyék játékáról. Számomra a minőség soha nem véletlen; szándék, figyelem és az időt álló részletek megbecsülésének eredménye.",
     "available": "Elérhető",
     "busy": "Elfoglalt"
   },
@@ -59,89 +47,57 @@
     "description": "Személyes mozi krónikám"
   },
   "projects": {
-    "title": "Projektek | Balla Botond",
-    "tagline": "Precízen Megalkotva",
     "subtitle": "Projektek és Linkek",
-    "description": "Kreatív törekvések, hasznos eszközök és kapcsolódási lehetőségek",
     "vortex": {
       "title": "Vortex Chat",
-      "description": "Peer-to-peer Android chat alkalmazás WebRTC technológiával közvetlen kommunikációhoz. Valós idejű üzenetküldés, szoba-alapú rendszer és keresztplatform kompatibilitás iOS-szel. Modern Android fejlesztési gyakorlatokkal készült.",
-      "button": "Nézd meg"
+      "description": "Peer-to-peer Android chat alkalmazás WebRTC technológiával közvetlen kommunikációhoz. Valós idejű üzenetküldés, szobaalapú rendszer és keresztplatformos kompatibilitás iOS-szel. Modern Android fejlesztési gyakorlatokkal készült."
     },
     "taskmanager": {
       "title": "TaskManager",
-      "description": "Egy átfogó projekt- és feladatkezelő alkalmazás, amely segít rendszeren és produktívan maradni. Szervezze meg a munkáját több projekttel és feladattal, kövesse nyomon az előrehaladást három állapotszinten, és figyelje a valós idejű statisztikákat. Hozzáférhető feladataihoz bárhonnan teljes szövetben asztali élménnyel és mobil összefoglalás nézettel.",
-      "button": "Kezdj el"
+      "description": "Átfogó projekt- és feladatkezelő alkalmazás, amely segít rendszesen és produktívan maradni. Szervezd meg a munkádat több projekttel és feladattal, kövesd az előrehaladást háromféle státusszal, és figyelj valós idejű statisztikákat. Elérhető asztali és mobil nézetben is."
     },
     "kki": {
-      "title": "KKI kalkulátor",
-      "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban.",
-      "button": "Próbáld ki"
+      "title": "KKI Kalkulátor",
+      "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban."
     },
     "trackit": {
       "title": "TrackIt",
-      "description": "Fitness követő alkalmazás az egészség monitorozásához.",
-      "button": "Vedd fel a kapcsolatot"
+      "description": "Fitness követő alkalmazás az egészség nyomon követéséhez."
     },
     "finance": {
       "title": "Személyes Pénzügyi Követő",
-      "description": "Biztonságos, saját szerveren futtatható személyes pénzügyi alkalmazás React és Cloudflare Workers alapokon. Kövesd nyomon számláidat, tranzakcióidat és tekints meg elemzéseket - mindezt INGYEN a Cloudflare infrastruktúráján.",
-      "button": "Repozitórium Megtekintése"
+      "description": "Biztonságos, saját szerveren futtatható pénzügyi alkalmazás React és Cloudflare Workers alapokon. Kövesd nyomon számláidat és tranzakcióidat, tekints meg elemzéseket - mindezt ingyen a Cloudflare infrastruktúráján."
     },
     "minecraft": {
       "title": "Minecraft Szerver",
-      "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel, ami tesztként indult az újonnan vásárolt \"játékom\" képességeinek ellenőrzésére, de most már elég sokan játszanak rajta. Raspberry Pi 5-ön fut otthoni hálózaton.",
-      "button": "Szerver IP másolása"
+      "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel. Raspberry Pi 5-ön fut otthoni hálózaton."
     },
     "website": {
       "title": "Személyes Weboldal",
-      "description": "Ez a weboldal - egy személyes portfólió Astro-val építve, modern dizájnnal és nemzetköziesítési támogatással. Bemutatja projektjeimet, önéletrajzomat és platformot biztosít a kapcsolatfelvételre.",
-      "button": "Forráskód Megtekintése"
-    },
-    "tarckit": {
-      "title": "Csoportunk Projektjei",
-      "description": "Promóciós bemutató oldal, amely csapatunk innovatív projektjeit és alkalmazásait mutatja be. Fedezd fel együttműködési munkánkat a fitness követés, egészségügyi technológia és különböző fejlesztési kezdeményezések terén.",
-      "button": "Weboldal Meglátogatása"
+      "description": "Ez a weboldal - személyes portfólió Astro-val építve, modern dizájnnal és többnyelvű támogatással. Bemutatja projektjeimet és önéletrajzomat."
     },
     "category": {
       "webapps": "Webalkalmazások",
       "mobile": "Mobilalkalmazások",
       "health": "Egészség és Fitness",
       "gaming": "Játékok"
-    },
-    "status": {
-      "live": "Élő",
-      "coming": "Hamarosan",
-      "maintenance": "Karbantartás",
-      "past": "Múltbeli Projekt"
     }
   },
-  "stack": {
-    "subtitle": "Tech Stack."
-  },
   "resume": {
-    "title": "Önéletrajz | Balla Botond",
-    "tagline": "Átgondolt Megoldások",
     "subtitle": "Szakmai Önéletrajz",
     "lifeStory": {
       "title": "Az Én Történetem",
-      "caption": "Balla Botond — Magyarország",
+      "caption": "Balla Botond, Magyarország",
       "paragraphs": [
-        "Budapesten születtem, Magyarország fővárosában, ahol az Országház a folyó fölé magasodik és a történelem minden macskakőből árad. Esztergomban nőttem fel, egy alig egy órányira lévő városban, ahol a történelmi jelentőség és a természeti szépség korán megtanított a kézművesség értékelésére, a türelmes, átgondolt munka értékelésére, ami kiállja az idő próbáját. A barokk épületek között sétálva és a bazilika tetejéről a Dunát szemlélve megtanultam, hogy az igazán értékes dolgok azok, amelyek kitartanak az idő múlásával.",
+        "Budapesten születtem, Magyarország fővárosában, ahol az Országház a folyó fölé magasodik és a történelem minden macskakőből árad. Esztergomban nőttem fel, egy alig egy órányira lévő városban, ahol a történelmi jelentőség és a természeti szépség korán megtanított a kézművesség értékelésére - a türelmes, átgondolt munka értékelésére, ami kiállja az idő próbáját. A barokk épületek között sétálva és a bazilika tetejéről a Dunát szemlélve megtanultam, hogy az igazán értékes dolgok azok, amelyek kitartanak az idő múlásával.",
         "Gyerekként végtelenül kíváncsi voltam. Mindent szétszedtem, amihez hozzáfértem: rádiókat, régi számítógépeket, mechanikus órákat. Hajtott a vágy, hogy megértsem, hogyan működnek a dolgok a felszín alatt, és addig nem nyugodtam, amíg rá nem jöttem. Ugyanez a kíváncsiság vezetett el az első kódsoraimhoz. Nagyjából 12 éves voltam, amikor megírtam az első igazi programomat, és a semmiből való alkotás érzése lenyűgöző volt. Attól a pillanattól kezdve tudtam, hogy a szoftverfejlesztés az életem meghatározó része lesz.",
-        "A gimnáziumi évek alatt az Árpád-házi Szent Erzsébet Gimnáziumban egyensúlyt tartottam a tanulás, a vívás és a zene iránti szeretetem között. A klarinétozás megtanított a fegyelemre és a ritmusra, valamint elindított a klasszikus zene iránti tartós szenvedélyem útján. A vívás ezzel szemben élesítette a fókuszomat és a stratégiai gondolkodásomat, olyan módon, amelyekre a mai napig támaszkodom. Ezek nem csupán hobbik voltak; formálták azt, ahogyan a problémákat megközelítem, ahogyan nyomás alatt higgadt maradok, és ahogyan struktúrát találok a komplexitásban.",
-        "Az érettségi után kiváló eredményekkel Pécsre költöztem, hogy informatikát tanuljak a Pécsi Tudományegyetemen. Az egyetemi élet új fejezetet nyitott, nem csak tanulmányi, hanem személyes szempontból is. Elkezdtem valódi projekteket építeni, társakkal együttműködni, és felfedezni, hogy a szenvedélyem nem csupán a kódírás, hanem olyan megoldások tervezése, amelyek valódi változást hoznak. Útközben hihetetlen emberekkel találkoztam, akik segítettek fejlődnöm, nagyobbra gondolkozásra ösztönöztek, és jobb emberré tettek. Ez a környezet megtanított arra, milyen értékes olyan emberekkel körülvenni magad, akik magasabbra teszik a mércét.",
-        "A képernyőn kívül a szabadban találom meg az egyensúlyt, kempingezés és hosszú séták során, amelyek kitisztítják az elmét. Kifejlesztettem az ízlésemet a finomabb dolgok iránt is: egy jó single malt whisky, egy gondosan kiválasztott szivar, gyönyörű klasszikus zene és olyan beszélgetések, amelyek túlmutatnak a felszínes csevegésen. Ezek az élvezetek emlékeztetnek arra, hogy a minőség minden formájában érdemes törekedni rá. Segítenek a földön maradni, és olyan perspektívát adnak, ami átsugárzik mindenre, amit építek.",
-        "Ma szoftverfejlesztőként dolgozom tanulmányaim folytatása mellett, időmet Budapest, Esztergom és Pécs között megosztva. Minden projekt, amibe belevágok, ugyanazt a filozófiát hordozza: építs valamit, aminek értelme van, építsd jól, és soha ne elégedj meg az 'elég jó'-val. Ez a weboldal és minden, ami rajta van, ennek a hitnek a tükröződése. Nemcsak azt képviseli, amire képes vagyok, hanem azt is, ki vagyok és merre tartok."
+        "A gimnáziumi évek alatt az Árpád-házi Szent Erzsébet Gimnáziumban egyensúlyt tartottam a tanulás, a vívás és a zene iránti szeretetem között. A klarinétozás megtanított a fegyelemre és a ritmusra, és elindított a klasszikus zene iránti szenvedélyem útján. A vívás ezzel szemben élesítette a fókuszomat és a stratégiai gondolkodásomat. Ezek nem csupán hobbik voltak; formálták azt, ahogyan a problémákat megközelítem, ahogyan nyomás alatt higgadt maradok, és ahogyan struktúrát találok a komplexitásban.",
+        "Az érettségi után Pécsre költöztem, hogy informatikát tanuljak a Pécsi Tudományegyetemen. Az egyetemi élet új fejezetet nyitott, nem csak tanulmányi, hanem személyes szempontból is. Elkezdtem valódi projekteket építeni, csapatban dolgozni, és felfedezni, hogy a szenvedélyem nem csupán a kódírás, hanem olyan megoldások tervezése, amelyek valódi változást hoznak. Útközben hihetetlen emberekkel találkoztam, akik segítettek fejlődnöm és nagyobbra gondolkozásra ösztönöztek.",
+        "A képernyőn kívül a szabadban találom meg az egyensúlyt: kempingezéssel, hosszú sétákkal, amelyek kitisztítják az elmét. Kifejlesztettem az ízlésemet a finomabb dolgok iránt is: egy jó single malt whisky, egy gondosan kiválasztott szivar, gyönyörű klasszikus zene és olyan beszélgetések, amelyek túlmutatnak a felszínes csevegésen. Ezek az élvezetek emlékeztetnek arra, hogy a minőség minden formájában érdemes törekedni rá.",
+        "Ma szoftverfejlesztőként dolgozom a tanulmányaim mellett, időmet Budapest, Esztergom és Pécs között osztom meg. Minden projekt, amibe belevágok, ugyanazt a filozófiát hordozza: építs valamit, aminek értelme van, építsd jól, és soha ne elégedj meg az elég jóval. Ez a weboldal ennek a hitnek a tükröződése."
       ]
     },
-    "position": "Informatika Hallgató, Szoftverfejlesztő és Vállalkozó",
-    "summary": {
-      "title": "Szakmai Összefoglaló",
-      "text": "Eredményorientált informatika hallgató, aki szenvedélyesen alakítja át a komplex problémákat elegáns szoftvermegoldásokká. Akadémiai alapjaimat valós projektek aktív keresésével egészítem ki, hiszem, hogy a gyakorlati tapasztalat kulcsa az igazi mesterségnek. Motivál a teljes fejlesztési életciklus, a funkció konceptualizálásától a működőképes, magas minőségű termék, például webalkalmazás vagy hatékony algoritmus telepítéséig. Élethosszig tartó tanuló vagyok, folyamatosan fedezek fel új technológiákat és keretrendszereket problémamegoldó készségeim élesítése érdekében."
-    },
     "skills": {
-      "title": "Készségek",
       "softSkills": "Soft Skillek",
       "softSkillItems": [
         "Kommunikáció",
@@ -154,98 +110,39 @@
         "Precizitás és figyelmesség",
         "Önmotiváció",
         "Folyamatos tanulás"
-      ],
-      "programming": "Programozási Nyelvek",
-      "frameworks": "Keretrendszerek és Könyvtárak",
-      "tools": "Eszközök és Technológiák"
+      ]
     },
     "experience": {
-      "title": "Szakmai Tapasztalat",
-      "current": "Szoftverfejlesztő",
-      "current_period": "2025. július - jelenleg",
-      "current_company": "LogiCloud KFT",
-      "current_desc1": "Szoftvermegoldások fejlesztése különböző cégek számára, beleértve a Suzukit is, részmunkaidős fejlesztőként egyetemi tanulmányaim mellett.",
-      "current_desc2": "Hozzájárulás production szintű szoftverprojektekhez specializált fejlesztői csapaton belül.",
-      "current_desc3": "Szakmai fejlesztési tapasztalat sikeres egyensúlyba hozása akadémiai kötelezettségekkel.",
-      "intern": "Szoftverfejlesztő Gyakornok",
-      "intern_period": "2025. május - 2025. július",
-      "intern_company": "LogiCloud KFT",
-      "intern_desc1": "Intenzív 8 hetes gyakornoképzési program elvégzése, hozzájárulás a Suzuki és partnercégei szoftverfejlesztési projektjeihez.",
-      "intern_desc2": "Szakmai kódolási standardok és csapatmunka folyamatok elsajátítása kis, specializált fejlesztői környezetben.",
-      "intern_desc3": "Akadémiai tudás sikeres alkalmazása gyakorlati technikai kihívások megoldására ipari eszközök használatával.",
-      "wolt": "Futár Kerékpáros",
-      "wolt_period": "2023 - 2024",
-      "wolt_company": "Wolt",
-      "wolt_desc1": "Időben és pontosan teljesített kiszállítások a városban dinamikus, gyors tempójú környezetben.",
-      "wolt_desc2": "Útvonal-optimalizálás és időgazdálkodás elsajátítása a hatékonyság maximalizálása és magas vásárlói elégedettség biztosítása érdekében.",
-      "wolt_desc3": "Erős problémamegoldó készségek és ellenálló képesség fejlesztése nyomás alatt végzett önálló munkával.",
-      "hotel": "Felszolgáló",
-      "hotel_period": "2022. június - 2022. július",
-      "hotel_company": "Hotel Piroska **** Bük",
-      "hotel_desc1": "Kivételes szolgáltatás nyújtása sokszínű, nemzetközi vendégkör számára nagy forgalmú 4 csillagos szállodai környezetben.",
-      "hotel_desc2": "Étel-ital szolgáltatás minden aspektusának kezelése, zökkenőmentes és pozitív vendégélmény biztosítása.",
-      "hotel_desc3": "Interkulturális kommunikációs készségek fejlesztése és nyomás alatti elegáns teljesítmény képességének csiszolása."
+      "current": "Szoftverfejlesztő - Gyakornoktól Fejlesztőig (2025. július)",
+      "current_period": "2025. május - 2026. május",
+      "current_company": "LogiCloud Kft.",
+      "current_desc1": "Teljes körű funkciókat fejlesztett és tartott karban nagyvállalati szoftverekhez, autóipari ügyfelek számára.",
+      "current_desc2": "React frontendet és Java/Spring Boot backendet fejlesztett, iparági szintű kódolási szabványokat betartva.",
+      "current_desc3": "Geotérbeli adatokkal dolgozott PostgreSQL és PostGIS segítségével; hozzájárult az Android kliens fejlesztéséhez."
     },
     "education": {
       "title": "Tanulmányok",
       "university": "Informatika Alapszak",
-      "university_period": "2023 - jelenleg",
+      "university_period": "2023 - 2026. június",
       "university_school": "Pécsi Tudományegyetem",
-      "university_desc1": "Átfogó informatika alapszak folytatása szoftvermérnökségre, adatstruktúrákra és haladó algoritmusokra fókuszáló tantervel.",
-      "university_desc2": "Aktív részvétel gyakorlati kurzusmunkában és projektekben, amelyek áthidalják az elméletet a valós alkalmazással.",
+      "university_desc1": "Szoftvermérnökségre, adatstruktúrákra és haladó algoritmusokra fókuszáló informatika alapszak.",
+      "university_desc2": "Aktív részvétel gyakorlati projektekben, amelyek az elméletet a valódi fejlesztéssel kötik össze.",
+      "english_cert": "Angol C1 Tanúsítvány",
+      "english_cert_period": "2022",
+      "english_cert_school": "Nyelvvizsga",
+      "english_cert_desc": "C1 szintű angol nyelvvizsgát szerzett.",
       "highschool": "Érettségi",
       "highschool_period": "2019 - 2023",
       "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
-      "highschool_desc": "Kiváló eredményekkel végeztem, erős alapot teremtve a matematikában és az analitikus gondolkodásban.",
-      "grades": "Érettségi Eredmények:",
-      "subjects": {
-        "math": "Matematika",
-        "english": "Angol",
-        "literature": "Magyar Irodalom",
-        "history": "Történelem",
-        "cs_basic": "Informatika (Alapszint)",
-        "cs_advanced": "Informatika (Emelt szint)"
-      }
-    },
-    "languages": {
-      "title": "Nyelvek",
-      "hungarian": "Magyar",
-      "hungarian_level": "Anyanyelv",
-      "english": "Angol",
-      "english_level": "C1 Tanúsított"
-    },
-    "hobbies": {
-      "title": "Hobbik és Érdeklődés",
-      "fencing": "Vívás",
-      "clarinet": "Klarinét",
-      "growth": "Személyes Fejlődés",
-      "gym": "Edzőterem",
-      "whisky": "Whisky Kóstolás",
-      "cigar": "Szivar Rajongó",
-      "camping": "Kemping",
-      "fishing": "Horgászat"
+      "highschool_desc": "Kiváló eredményekkel végzett, erős alapot teremtve a matematikában és az analitikus gondolkodásban."
     }
   },
   "portfolio": {
     "heroTagline": "Digitális\nÉlmények\nAlkotása",
-    "heroSubtitle": "Szoftverfejlesztő és Vállalkozó",
-    "heroDescription": "Szoftverfejlesztő és Vállalkozó.",
-    "heroDescription2": "Precíz digitális élmények megalkotása.",
-    "scroll": "Görgess",
+    "heroSubtitle": "Szoftverfejlesztő",
+    "heroDescription2": "Precíz digitális megoldások.",
     "about": "Rólam",
     "contact": "Kapcsolat",
-    "viewProject": "Projekt Megtekintése",
-    "comingSoon": "Hamarosan",
-    "archived": "Archivált",
-    "work": "Munkák",
-    "navigate": "Navigáció",
-    "connect": "Kapcsolat",
-    "basedIn": "Székhely",
-    "locations": "Budapest · Esztergom · Pécs",
-    "freelance": "Szabadúszó és együttműködési lehetőségek",
-    "craftedWith": "Precizitással és szándékkal alkotva.",
-    "footerQuoteAuthor": "— William A. Foster",
-    "footerTagline": "A minőség soha nem véletlen; szándék, gondosság és precizitás eredménye.",
     "filterByRating": "Szűrés értékelés szerint",
     "allMovies": "Összes film",
     "wantToWatch": "Megnéznéd",
@@ -267,7 +164,7 @@
     "taglines": [
       "Stratégiai Megoldások",
       "Innováció Szállítva",
-      "Tech-Vezérelt Eredmények",
+      "Tech-vezérelt Eredmények",
       "Jobb Jövőket Építve",
       "Digitális Kiválóság",
       "Megvalósítás Számít",
@@ -288,10 +185,6 @@
     "heading": "404",
     "subtitle": "Elveszett az űrben",
     "description": "A keresett oldal úgy tűnik, eltévedt a digitális űrben. De ne aggódj, segítünk visszatalálni.",
-    "goHome": "Főoldal",
-    "viewProjects": "Projektek",
-    "suggestion": "Vagy esetleg érdekelne az",
-    "resumeLink": "önéletrajzom",
-    "instead": "helyette?"
+    "goHome": "Főoldal"
   }
 }

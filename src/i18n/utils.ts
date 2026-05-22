@@ -1,15 +1,11 @@
 import en from './en.json';
 import hu from './hu.json';
 import it from './it.json';
-import zh from './zh.json';
-import ja from './ja.json';
 
 export const languages = {
   en: 'English',
   hu: 'Magyar',
   it: 'Italiano',
-  zh: '中文',
-  ja: '日本語'
 };
 
 export const defaultLang = 'en';
@@ -18,8 +14,6 @@ const translations = {
   en,
   hu,
   it,
-  zh,
-  ja
 };
 
 export type Languages = keyof typeof languages;

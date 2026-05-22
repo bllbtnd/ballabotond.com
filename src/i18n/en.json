@@ -7,14 +7,6 @@
     "stories": "My Map",
     "movies": "Movies"
   },
-  "stories": {
-    "title": "My Map | Balla Botond",
-    "tagline": "Moments & Places",
-    "subtitle": "My Map",
-    "description": "A map of places I have visited and places I plan to visit.",
-    "zoomIn": "Scroll to zoom • Click a photo to explore",
-    "close": "Close"
-  },
   "common": {
     "name": "Balla Botond",
     "easterEggs": {
@@ -33,16 +25,13 @@
       "Crafting Competitive Advantage",
       "Excellence Through Execution"
     ],
-    "subtitle": "Creator & Innovator",
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
     "instagram": "Instagram",
     "youtube": "YouTube",
     "twitter": "X (Twitter)",
-    "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "Buy me a coffee",
     "readMore": "Read more",
     "showLess": "Show less"
   },
@@ -50,7 +39,6 @@
     "title": "Balla Botond",
     "description": "Balla Botond - Engineer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.",
     "keywords": "Balla Botond, Botond Balla, engineer, trackit, software engineer, web engineer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti",
-    "bio": "With a discerning approach to both work and leisure, I gravitate toward experiences and solutions that are thoughtfully constructed and timeless in their appeal. My projects reflect a respect for established methods, balanced with a drive for innovation and precision. I find inspiration in the mastery behind well-made things - whether it's the structure of a robust application, the layered notes of a rare scotch, or the interplay of light and shadow. For me, quality is never accidental; it's the result of intention, care, and an appreciation for the details that stand the test of time.",
     "available": "Available",
     "busy": "Busy"
   },
@@ -59,73 +47,47 @@
     "description": "My personal cinema chronicles"
   },
   "projects": {
-    "title": "Projects | Balla Botond",
-    "tagline": "Crafted with Precision",
     "subtitle": "Projects & Links",
-    "description": "Creative endeavors, useful tools, and places to connect",
     "vortex": {
       "title": "Vortex Chat",
-      "description": "A peer-to-peer Android chat application using WebRTC for direct communication. Features real-time messaging, room-based system, and cross-platform compatibility with iOS. Built with modern Android development practices.",
-      "button": "Check it out"
+      "description": "A peer-to-peer Android chat application using WebRTC for direct communication. Features real-time messaging, room-based system, and cross-platform compatibility with iOS. Built with modern Android development practices."
     },
     "taskmanager": {
       "title": "TaskManager",
-      "description": "A comprehensive project and task management application designed to help you stay organized and productive. Organize your work with multiple projects and tasks, track progress through three status levels, and monitor real-time statistics. Access your tasks anywhere with full-featured desktop experience and mobile summary view.",
-      "button": "Get Started"
+      "description": "A comprehensive project and task management application designed to help you stay organized and productive. Organize your work with multiple projects and tasks, track progress through three status levels, and monitor real-time statistics. Access your tasks anywhere with full-featured desktop experience and mobile summary view."
     },
     "kki": {
-      "title": "KKI calculator",
-      "description": "A simple KKI calculator that helps with KKI calculations.",
-      "button": "Try it out"
+      "title": "KKI Calculator",
+      "description": "A simple KKI calculator that helps with KKI calculations."
     },
     "trackit": {
       "title": "TrackIt",
-      "description": "A fitness tracking app for monitoring health.",
-      "button": "Get in touch"
+      "description": "A fitness tracking app for monitoring health."
     },
     "finance": {
       "title": "Personal Finance Tracker",
-      "description": "A secure, self-hosted personal finance app built with React and Cloudflare Workers. Track your accounts, transactions, and view analytics - all running for FREE on Cloudflare's infrastructure.",
-      "button": "View Repository"
+      "description": "A secure, self-hosted personal finance app built with React and Cloudflare Workers. Track your accounts, transactions, and view analytics - all running for FREE on Cloudflare's infrastructure."
     },
     "minecraft": {
       "title": "Minecraft Server",
-      "description": "Private survival server for friends with custom plugins and a welcoming community, that started as test to check the capabilities of my newly bought \"toy\", but now quite a few people started playing on it. It runs on a Raspberry Pi 5 on a home network.",
-      "button": "Copy Server IP"
+      "description": "Private survival server for friends with custom plugins and a welcoming community. Runs on a Raspberry Pi 5 on a home network."
     },
     "website": {
       "title": "Personal Website",
-      "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect.",
-      "button": "View Source Code"
-    },
-    "tarckit": {
-      "title": "Our Group Projects",
-      "description": "Promotional landing page showcasing our group's innovative projects and applications. Explore our collaborative work in fitness tracking, health tech, and various development initiatives.",
-      "button": "Visit Website"
+      "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect."
     },
     "category": {
       "webapps": "Web Apps",
       "mobile": "Mobile Apps",
       "health": "Health and Fitness",
       "gaming": "Gaming"
-    },
-    "status": {
-      "live": "Live",
-      "coming": "Coming Soon",
-      "maintenance": "Maintenance",
-      "past": "Past Project"
     }
   },
-  "stack": {
-    "subtitle": "Tech Stack."
-  },
   "resume": {
-    "title": "Resume | Balla Botond",
-    "tagline": "Thoughtful Solutions",
     "subtitle": "Professional Resume",
     "lifeStory": {
       "title": "My Story",
-      "caption": "Balla Botond — Hungary",
+      "caption": "Balla Botond - Hungary",
       "paragraphs": [
         "I was born in Budapest, the capital city of Hungary, where the parliament towers over the river and history seeps through every cobblestone. I grew up in Esztergom, a city just an hour away, where the historical significance and natural beauty gave me an early appreciation for craftsmanship, the kind of patient, deliberate work that stands the test of time. Walking through the narrow streets lined with baroque architecture and looking out over the Danube from the hilltop basilica, I learned that the things worth building are the ones that endure.",
         "As a kid, I was endlessly curious. I took apart anything I could get my hands on: radios, old computers, mechanical clocks. I was driven by a need to understand how things worked beneath the surface, and I never stopped until I figured it out. That same curiosity eventually led me to my first lines of code. I was around 12 when I wrote my first real program, and the feeling of creating something from nothing was electrifying. From that moment on, I knew that building software was going to be a significant part of my life.",
@@ -135,13 +97,7 @@
         "Today, I work as a software engineer while continuing my studies, splitting my time between Budapest, Esztergom, and Pécs. Every project I take on carries the same philosophy: build something meaningful, build it well, and never settle for 'good enough.' This website, and everything on it, is a reflection of that belief. It represents not just what I can do, but who I am and where I am headed."
       ]
     },
-    "position": "Software Engineer · Computer Science Student",
-    "summary": {
-      "title": "Professional Summary",
-      "text": "A results-driven Computer Science student with a passion for transforming complex problems into elegant software solutions. I complement my academic foundations by actively seeking real-world projects, believing that hands-on experience is key to true mastery. I am motivated by the entire development lifecycle, from conceptualizing a feature to deploying a functional, high-quality product like a web application or an efficient algorithm. I am a lifelong learner, constantly exploring new technologies and frameworks to sharpen my problem-solving skills."
-    },
     "skills": {
-      "title": "Skills",
       "softSkills": "Soft Skills",
       "softSkillItems": [
         "Communication",
@@ -154,15 +110,11 @@
         "Attention to Detail",
         "Self-Motivation",
         "Continuous Learning"
-      ],
-      "programming": "Programming Languages",
-      "frameworks": "Frameworks & Libraries",
-      "tools": "Tools & Technologies"
+      ]
     },
     "experience": {
-      "title": "Professional Experience",
       "current": "Software Engineer · Intern → Developer (Jul 2025)",
-      "current_period": "May 2025 — May 2026",
+      "current_period": "May 2025 - May 2026",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Built and maintained full-stack features for enterprise software serving major automotive clients.",
       "current_desc2": "Developed React frontend and Java/Spring Boot backend modules, adhering to industrial-grade coding standards.",
@@ -171,7 +123,7 @@
     "education": {
       "title": "Education",
       "university": "Bachelor's Degree in Computer Science",
-      "university_period": "2023 — Jun 2026",
+      "university_period": "2023 - Jun 2026",
       "university_school": "University of Pécs",
       "university_desc1": "Pursuing a comprehensive Computer Science degree with a curriculum focused on software engineering, data structures, and advanced algorithms.",
       "university_desc2": "Actively involved in practical coursework and projects that bridge theory with real-world application.",
@@ -182,56 +134,15 @@
       "highschool": "High School Diploma",
       "highschool_period": "2019 - 2023",
       "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
-      "highschool_desc": "Graduated with excellent results, establishing a strong foundation in mathematics and analytical thinking.",
-      "grades": "Final Examination Results:",
-      "subjects": {
-        "math": "Mathematics",
-        "english": "English",
-        "literature": "Hungarian Literature",
-        "history": "History",
-        "cs_basic": "Computer Science (Basic)",
-        "cs_advanced": "Computer Science (Advanced)"
-      }
-    },
-    "languages": {
-      "title": "Languages",
-      "hungarian": "Hungarian",
-      "hungarian_level": "Native",
-      "english": "English",
-      "english_level": "C1 Certified"
-    },
-    "hobbies": {
-      "title": "Hobbies & Interests",
-      "fencing": "Fencing",
-      "clarinet": "Clarinet",
-      "growth": "Personal Growth",
-      "gym": "Gym",
-      "whisky": "Whisky Tasting",
-      "cigar": "Cigar Aficionado",
-      "camping": "Camping",
-      "fishing": "Fishing"
+      "highschool_desc": "Graduated with excellent results, establishing a strong foundation in mathematics and analytical thinking."
     }
   },
   "portfolio": {
     "heroTagline": "Crafting\nDigital\nExperiences",
     "heroSubtitle": "Software Engineer",
-    "heroDescription": "",
     "heroDescription2": "Crafting precision-driven digital experiences.",
-    "scroll": "Scroll",
     "about": "About",
     "contact": "Contact",
-    "viewProject": "View Project",
-    "comingSoon": "Coming Soon",
-    "archived": "Archived",
-    "work": "Work",
-    "navigate": "Navigate",
-    "connect": "Connect",
-    "basedIn": "Based in",
-    "locations": "Budapest · Esztergom · Pécs",
-    "freelance": "Available for freelance & collaboration",
-    "craftedWith": "Crafted with precision and intent.",
-    "footerQuoteAuthor": "— William A. Foster",
-    "footerTagline": "Quality is never accidental; it is the result of intention, care, and precision.",
     "filterByRating": "Filter by Rating",
     "allMovies": "All Movies",
     "wantToWatch": "Want to Watch",
@@ -274,10 +185,6 @@
     "heading": "404",
     "subtitle": "Lost in the void",
     "description": "The page you're looking for seems to have wandered off into the digital void. But don't worry, we can help you find your way back.",
-    "goHome": "Go Home",
-    "viewProjects": "View Projects",
-    "suggestion": "Or perhaps you'd like to explore my",
-    "resumeLink": "resume",
-    "instead": "instead?"
+    "goHome": "Go Home"
   }
 }

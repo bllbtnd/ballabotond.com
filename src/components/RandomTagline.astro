@@ -3,8 +3,6 @@ import { type Languages } from '../i18n/utils';
 import en from '../i18n/en.json';
 import hu from '../i18n/hu.json';
 import it from '../i18n/it.json';
-import zh from '../i18n/zh.json';
-import ja from '../i18n/ja.json';
 
 interface Props {
   lang: Languages;
@@ -15,7 +13,7 @@ interface Props {
 const { lang, source = 'common', className = '' } = Astro.props;
 
 // Get all taglines for this language and source
-const translations = { en, hu, it, zh, ja };
+const translations = { en, hu, it };
 const langTranslations = translations[lang];
 const taglines = (langTranslations as any)[source]?.taglines || [];
 const taglinesJson = JSON.stringify(taglines);

@@ -91,7 +91,7 @@ export default function MegaFooter({
           >
             {tagline}
             <span className="block mt-3 pf-grotesk text-fluid-xs tracking-[0.2em] uppercase text-pf-bg/30">
-              — William A. Foster
+              William A. Foster
             </span>
           </motion.p>
 

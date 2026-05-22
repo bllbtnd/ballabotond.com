@@ -26,9 +26,7 @@ import { getCurrentAvailability } from '../../utils/calendar';
 import en from '../../i18n/en.json';
 import hu from '../../i18n/hu.json';
 import it from '../../i18n/it.json';
-import zh from '../../i18n/zh.json';
-import ja from '../../i18n/ja.json';
-const allTranslations = { en, hu, it, zh, ja } as Record<string, any>;
+const allTranslations = { en, hu, it } as Record<string, any>;
 
 export function getStaticPaths() {
   return Object.keys(languages).map(lang => ({

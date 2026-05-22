@@ -7,14 +7,6 @@
     "stories": "My Map",
     "movies": "Film"
   },
-  "stories": {
-    "title": "My Map | Balla Botond",
-    "tagline": "Momenti & Luoghi",
-    "subtitle": "My Map",
-    "description": "Una mappa dei luoghi che ho visitato e che voglio visitare.",
-    "zoomIn": "Scorri per zoomare • Clicca una foto per esplorare",
-    "close": "Chiudi"
-  },
   "common": {
     "name": "Balla Botond",
     "easterEggs": {
@@ -22,35 +14,31 @@
       "patience": "La pazienza è una virtù"
     },
     "taglines": [
-      "Trasformare Visione in Valore",
-      "Ingegneria della Crescita su Scala",
-      "Costruire le Soluzioni di Domani",
-      "Dove Innovazione Incontra Impatto",
-      "Risultati Attraverso la Tecnologia",
-      "Architettare il Successo Sostenibile",
-      "Precisione in Ogni Decisione",
-      "Sistemi Strategici per il Business Moderno",
-      "Creare Vantaggio Competitivo",
-      "Eccellenza Attraverso l'Esecuzione"
+      "Dalla Visione alla Realtà",
+      "Costruire con Intenzione",
+      "Le Soluzioni di Domani",
+      "Dove Innovazione e Impatto si Incontrano",
+      "Risultati Concreti con la Tecnologia",
+      "Successo Sostenibile",
+      "Precisione in Ogni Scelta",
+      "Sistemi su Misura per il Business Moderno",
+      "Creare Valore Reale",
+      "Eccellenza nell'Esecuzione"
     ],
-    "subtitle": "Creatore e Innovatore",
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
     "instagram": "Instagram",
     "youtube": "YouTube",
     "twitter": "X (Twitter)",
-    "signal": "Signal",
     "linkedin": "LinkedIn",
-    "coffee": "Offrimi un caffè",
     "readMore": "Leggi di più",
     "showLess": "Mostra meno"
   },
   "home": {
     "title": "Balla Botond",
-    "description": "Balla Botond - Sviluppatore e creatore con una passione per soluzioni costruite con cura e dal fascino senza tempo. Esplora i miei progetti, connettiti sui social media e scopri il mio lavoro nello sviluppo e nell'innovazione.",
+    "description": "Balla Botond - Sviluppatore e creatore con una passione per soluzioni costruite con cura e dal fascino senza tempo. Esplora i miei progetti e scopri il mio lavoro nello sviluppo software.",
     "keywords": "Balla Botond, Botond Balla, sviluppatore, trackit, sviluppatore software, sviluppatore web, sito personale, portfolio, bllbtnd, programmazione, innovazione, Ungheria, tech, progetti, GitHub, Boti, Balla Boti",
-    "bio": "Con un approccio esigente sia al lavoro che al tempo libero, gravito verso esperienze e soluzioni che sono costruite con cura e hanno un fascino senza tempo. I miei progetti riflettono un rispetto per i metodi consolidati, bilanciato con una spinta per l'innovazione e la precisione. Trovo ispirazione nella maestria dietro le cose ben fatte - che si tratti della struttura di un'applicazione robusta, delle note stratificate di uno scotch raro, o del gioco di luce e ombra. Per me, la qualità non è mai accidentale; è il risultato di intenzione, cura e un apprezzamento per i dettagli che resistono alla prova del tempo.",
     "available": "Disponibile",
     "busy": "Occupato"
   },
@@ -59,206 +47,115 @@
     "description": "Le mie cronache cinematografiche personali"
   },
   "projects": {
-    "title": "Progetti | Balla Botond",
-    "tagline": "Creato con Precisione",
-    "subtitle": "Progetti e Collegamenti",
-    "description": "Sforzi creativi, strumenti utili e luoghi per connettersi",
+    "subtitle": "Progetti e Link",
     "vortex": {
       "title": "Vortex Chat",
-      "description": "Un'applicazione chat Android peer-to-peer che utilizza WebRTC per la comunicazione diretta. Messaggistica in tempo reale, sistema basato su stanze e compatibilità cross-platform con iOS. Costruita con pratiche moderne di sviluppo Android.",
-      "button": "Dai un'occhiata"
+      "description": "App di messaggistica Android peer-to-peer con WebRTC per la comunicazione diretta. Messaggi in tempo reale, sistema a stanze e compatibilità cross-platform con iOS. Sviluppata con le pratiche moderne di Android."
     },
     "taskmanager": {
       "title": "TaskManager",
-      "description": "Un'applicazione completa di gestione di progetti e attività progettata per aiutarti a rimanere organizzato e produttivo. Organizza il tuo lavoro con più progetti e attività, monitora i progressi attraverso tre livelli di stato e segui le statistiche in tempo reale. Accedi alle tue attività ovunque con l'esperienza desktop completa e la visualizzazione di riepilogo mobile.",
-      "button": "Inizia"
+      "description": "App completa per la gestione di progetti e attività. Organizza il lavoro con progetti multipli, monitora i progressi con tre stati e tieni d'occhio le statistiche in tempo reale. Disponibile su desktop e mobile."
     },
     "kki": {
       "title": "Calcolatore KKI",
-      "description": "Un semplice calcolatore KKI che aiuta con i calcoli KKI.",
-      "button": "Provalo"
+      "description": "Un semplice calcolatore KKI per chi ne ha bisogno."
     },
     "trackit": {
       "title": "TrackIt",
-      "description": "Un'app di monitoraggio fitness per il controllo della salute.",
-      "button": "Mettiti in contatto"
+      "description": "App per il monitoraggio del fitness e della salute."
     },
     "finance": {
       "title": "Tracker Finanze Personali",
-      "description": "Un'app di finanza personale sicura e self-hosted costruita con React e Cloudflare Workers. Tieni traccia dei tuoi conti, transazioni e visualizza analisi - tutto in esecuzione GRATUITAMENTE sull'infrastruttura di Cloudflare.",
-      "button": "Vedi Repository"
+      "description": "App di finanza personale sicura e self-hosted con React e Cloudflare Workers. Tieni traccia di conti e transazioni, visualizza analisi - tutto gratis sull'infrastruttura Cloudflare."
     },
     "minecraft": {
       "title": "Server Minecraft",
-      "description": "Server privato di sopravvivenza per amici con plugin personalizzati e una comunità accogliente, che è iniziato come test per verificare le capacità del mio \"giocattolo\" appena acquistato, ma ora parecchie persone hanno iniziato a giocarci. Funziona su un Raspberry Pi 5 su una rete domestica.",
-      "button": "Copia IP Server"
+      "description": "Server survival privato per amici con plugin personalizzati e una comunità accogliente. Gira su Raspberry Pi 5 su rete domestica."
     },
     "website": {
       "title": "Sito Web Personale",
-      "description": "Questo sito web - un portfolio personale costruito con Astro, con un design moderno e supporto per l'internazionalizzazione. Mostra i miei progetti, curriculum e fornisce una piattaforma per connettersi.",
-      "button": "Vedi Codice Sorgente"
-    },
-    "tarckit": {
-      "title": "I Nostri Progetti di Gruppo",
-      "description": "Pagina promozionale che presenta i progetti e le applicazioni innovative del nostro gruppo. Esplora il nostro lavoro collaborativo nel monitoraggio del fitness, tecnologia sanitaria e varie iniziative di sviluppo.",
-      "button": "Visita il Sito"
+      "description": "Questo sito - un portfolio personale costruito con Astro, con design moderno e supporto multilingua. Mostra i miei progetti e il mio curriculum."
     },
     "category": {
       "webapps": "App Web",
       "mobile": "App Mobile",
       "health": "Salute e Fitness",
       "gaming": "Giochi"
-    },
-    "status": {
-      "live": "Online",
-      "coming": "Prossimamente",
-      "maintenance": "Manutenzione",
-      "past": "Progetto Passato"
     }
   },
-  "stack": {
-    "subtitle": "Tech Stack."
-  },
   "resume": {
-    "title": "Curriculum | Balla Botond",
-    "tagline": "Soluzioni Ponderate",
     "subtitle": "Curriculum Professionale",
     "lifeStory": {
       "title": "La Mia Storia",
-      "caption": "Balla Botond — Ungheria",
+      "caption": "Balla Botond, Ungheria",
       "paragraphs": [
-        "Sono nato a Budapest, la capitale dell'Ungheria, dove il parlamento si erge maestoso sul fiume e la storia permea ogni ciottolo. Sono cresciuto a Esztergom, una città a solo un'ora di distanza, dove il significato storico e la bellezza naturale mi hanno dato un precoce apprezzamento per l'artigianato, quel tipo di lavoro paziente e deliberato che resiste alla prova del tempo. Passeggiando per le stradine fiancheggiate da architettura barocca e ammirando il Danubio dalla basilica in cima alla collina, ho imparato che le cose che vale la pena costruire sono quelle che durano.",
-        "Da bambino ero infinitamente curioso. Smontavo tutto ciò che potevo: radio, vecchi computer, orologi meccanici. Ero spinto dal bisogno di capire come funzionassero le cose sotto la superficie, e non mi fermavo finché non lo scoprivo. Quella stessa curiosità mi ha portato alle mie prime righe di codice. Avevo circa 12 anni quando ho scritto il mio primo vero programma, e la sensazione di creare qualcosa dal nulla è stata elettrizzante. Da quel momento in poi, sapevo che lo sviluppo software sarebbe stato una parte significativa della mia vita.",
-        "Durante il liceo all'Árpád-házi Szent Erzsébet Gimnázium, ho bilanciato gli studi con l'amore per la scherma e la musica. Suonare il clarinetto mi ha insegnato disciplina e ritmo, e ha acceso la mia duratura passione per la musica classica. La scherma, d'altra parte, ha affinato la mia concentrazione e il pensiero strategico in modi su cui faccio ancora affidamento oggi. Non erano solo hobby; hanno plasmato il modo in cui affronto i problemi, come mantengo la calma sotto pressione e come trovo struttura nella complessità.",
-        "Dopo essermi diplomato con ottimi risultati, mi sono trasferito a Pécs per studiare Informatica all'Università di Pécs. La vita universitaria ha aperto un nuovo capitolo, non solo accademicamente, ma anche personalmente. Ho iniziato a costruire progetti reali, a collaborare con i colleghi e a scoprire che la mia passione non era solo scrivere codice, ma architettare soluzioni che fanno una differenza tangibile. Lungo il percorso, ho incontrato persone incredibili che mi hanno aiutato a crescere, mi hanno sfidato a pensare in grande e mi hanno spinto a diventare un uomo migliore. Quell'ambiente mi ha insegnato il valore di circondarsi di persone che alzano l'asticella.",
-        "Fuori dallo schermo, trovo equilibrio all'aria aperta, nei viaggi in campeggio e nelle lunghe passeggiate che liberano la mente. Ho sviluppato anche un gusto per le cose raffinate: un buon single malt whisky, un sigaro scelto con cura, della bella musica classica e conversazioni che vanno oltre le chiacchiere superficiali. Questi piaceri mi ricordano che la qualità, in tutte le sue forme, vale la pena di essere perseguita. Mi mantengono con i piedi per terra e mi danno una prospettiva che si riflette in tutto ciò che costruisco.",
-        "Oggi lavoro come sviluppatore software continuando i miei studi, dividendo il mio tempo tra Budapest, Esztergom e Pécs. Ogni progetto che intraprendo porta la stessa filosofia: costruisci qualcosa di significativo, costruiscilo bene, e non accontentarti mai del 'abbastanza buono.' Questo sito web, e tutto ciò che contiene, è un riflesso di questa convinzione. Rappresenta non solo ciò che so fare, ma chi sono e dove sto andando."
+        "Sono nato a Budapest, la capitale dell'Ungheria, dove il parlamento si erge maestoso sul fiume e la storia permea ogni ciottolo. Sono cresciuto a Esztergom, una città a un'ora di distanza, dove il significato storico e la bellezza naturale mi hanno dato presto un apprezzamento per l'artigianato, quel lavoro paziente e deliberato che resiste alla prova del tempo. Passeggiando per le stradine barocche e ammirando il Danubio dalla basilica in cima alla collina, ho capito che le cose che vale la pena costruire sono quelle che durano.",
+        "Da bambino ero infinitamente curioso. Smontavo tutto ciò che riuscivo a trovare: radio, vecchi computer, orologi meccanici. Ero spinto dal bisogno di capire come funzionassero le cose sotto la superficie, e non mi fermavo finché non lo scoprivo. Quella stessa curiosità mi ha portato alle prime righe di codice. Avevo circa 12 anni quando ho scritto il mio primo vero programma, e la sensazione di creare qualcosa dal nulla è stata elettrizzante. Da quel momento sapevo che lo sviluppo software sarebbe stato una parte centrale della mia vita.",
+        "Al liceo, all'Árpád-házi Szent Erzsébet Gimnázium, ho cercato di bilanciare gli studi con la scherma e la musica. Suonare il clarinetto mi ha insegnato disciplina e ritmo, accendendo in me una passione duratura per la musica classica. La scherma, invece, ha affinato la mia concentrazione e il pensiero strategico in modi su cui faccio ancora affidamento. Non erano semplici hobby; hanno plasmato il modo in cui affronto i problemi e mantengo la calma sotto pressione.",
+        "Dopo il diploma mi sono trasferito a Pécs per studiare Informatica all'Università. La vita universitaria ha aperto un nuovo capitolo, non solo dal punto di vista accademico. Ho iniziato a costruire progetti veri, a collaborare con altri studenti, e ho scoperto che la mia passione non era solo scrivere codice, ma progettare soluzioni che fanno davvero la differenza. Ho incontrato persone straordinarie che mi hanno aiutato a crescere e a pensare in grande.",
+        "Fuori dallo schermo trovo equilibrio all'aria aperta: gite in campeggio e lunghe passeggiate che liberano la mente. Ho sviluppato un gusto per le cose raffinate: un buon single malt whisky, un sigaro scelto con cura, della bella musica classica e conversazioni che vanno oltre le chiacchiere. Questi piaceri mi ricordano che la qualità, in tutte le sue forme, vale la pena di essere perseguita.",
+        "Oggi lavoro come sviluppatore software continuando gli studi, dividendo il tempo tra Budapest, Esztergom e Pécs. Ogni progetto che intraprendo porta la stessa filosofia: costruisci qualcosa di significativo, costruiscilo bene, e non accontentarti mai del sufficiente. Questo sito e tutto ciò che contiene è il riflesso di questa convinzione."
       ]
     },
-    "position": "Studente di Informatica, Sviluppatore Software e Imprenditore",
-    "summary": {
-      "title": "Riassunto Professionale",
-      "text": "Uno studente di Informatica orientato ai risultati con una passione per trasformare problemi complessi in eleganti soluzioni software. Completo le mie basi accademiche cercando attivamente progetti nel mondo reale, credendo che l'esperienza pratica sia la chiave per la vera maestria. Sono motivato dall'intero ciclo di vita dello sviluppo, dalla concettualizzazione di una funzionalità alla distribuzione di un prodotto funzionale e di alta qualità come un'applicazione web o un algoritmo efficiente. Sono un apprendista per tutta la vita, esplorando costantemente nuove tecnologie e framework per affinare le mie competenze di problem-solving."
-    },
     "skills": {
-      "title": "Competenze",
       "softSkills": "Soft Skills",
       "softSkillItems": [
         "Comunicazione",
-        "Risoluzione dei problemi",
+        "Problem solving",
         "Pensiero critico",
-        "Lavoro di squadra e collaborazione",
+        "Lavoro di squadra",
         "Adattabilità",
         "Gestione del tempo",
         "Leadership",
         "Attenzione ai dettagli",
-        "Automotivazione",
+        "Motivazione personale",
         "Apprendimento continuo"
-      ],
-      "programming": "Linguaggi di Programmazione",
-      "frameworks": "Framework e Librerie",
-      "tools": "Strumenti e Tecnologie"
+      ]
     },
     "experience": {
-      "title": "Esperienza Professionale",
-      "current": "Sviluppatore Software",
-      "current_period": "Luglio 2025 - Presente",
-      "current_company": "LogiCloud KFT",
-      "current_desc1": "Sviluppo soluzioni software per varie aziende, inclusa Suzuki, come sviluppatore part-time mentre proseguo gli studi universitari.",
-      "current_desc2": "Contribuisco a progetti software di livello produttivo all'interno di un team di sviluppo specializzato.",
-      "current_desc3": "Bilancio con successo l'esperienza di sviluppo professionale con le responsabilità accademiche.",
-      "intern": "Tirocinante Sviluppo Software",
-      "intern_period": "Maggio 2025 - Luglio 2025",
-      "intern_company": "LogiCloud KFT",
-      "intern_desc1": "Completato un programma di tirocinio intensivo di 8 settimane, contribuendo a progetti di sviluppo software per Suzuki e le sue aziende partner.",
-      "intern_desc2": "Appreso standard di codifica professionale e flussi di lavoro di team in un ambiente di sviluppo piccolo e specializzato.",
-      "intern_desc3": "Applicato con successo le conoscenze accademiche per risolvere sfide tecniche pratiche utilizzando strumenti del settore.",
-      "wolt": "Ciclista Consegne",
-      "wolt_period": "2023 - 2024",
-      "wolt_company": "Wolt",
-      "wolt_desc1": "Eseguito consegne puntuali e accurate in tutta la città in un ambiente dinamico e frenetico.",
-      "wolt_desc2": "Padroneggiato l'ottimizzazione dei percorsi e la gestione del tempo per massimizzare l'efficienza e garantire un'elevata soddisfazione del cliente.",
-      "wolt_desc3": "Sviluppato forti capacità di problem-solving e resilienza lavorando in autonomia sotto pressione.",
-      "hotel": "Cameriere",
-      "hotel_period": "Giugno 2022 - Luglio 2022",
-      "hotel_company": "Hotel Piroska **** Bük",
-      "hotel_desc1": "Fornito servizio eccezionale a una clientela diversificata e internazionale in un ambiente alberghiero a 4 stelle ad alto volume.",
-      "hotel_desc2": "Gestito tutti gli aspetti del servizio di cibo e bevande, garantendo un'esperienza degli ospiti fluida e positiva.",
-      "hotel_desc3": "Migliorato le competenze di comunicazione interculturale e affinato la capacità di esibirsi con grazia sotto pressione."
+      "current": "Sviluppatore Software - Da Tirocinante a Developer (lug. 2025)",
+      "current_period": "Maggio 2025 - Maggio 2026",
+      "current_company": "LogiCloud Kft.",
+      "current_desc1": "Sviluppato e mantenuto funzionalità full-stack per software aziendale nel settore automotive.",
+      "current_desc2": "Sviluppato frontend React e moduli backend Java/Spring Boot rispettando standard di sviluppo industriali.",
+      "current_desc3": "Lavorato con dati geospaziali tramite PostgreSQL e PostGIS; contribuito allo sviluppo del client Android."
     },
     "education": {
       "title": "Istruzione",
-      "university": "Laurea in Informatica",
-      "university_period": "2023 - Presente",
+      "university": "Laurea Triennale in Informatica",
+      "university_period": "2023 - giugno 2026",
       "university_school": "Università di Pécs",
-      "university_desc1": "Perseguendo una laurea completa in Informatica con un curriculum focalizzato sull'ingegneria del software, strutture dati e algoritmi avanzati.",
-      "university_desc2": "Attivamente coinvolto in lavori pratici e progetti che collegano la teoria con l'applicazione del mondo reale.",
+      "university_desc1": "Corso triennale in Informatica con focus su ingegneria del software, strutture dati e algoritmi avanzati.",
+      "university_desc2": "Attivamente coinvolto in progetti pratici che collegano la teoria all'applicazione reale.",
+      "english_cert": "Certificazione Inglese C1",
+      "english_cert_period": "2022",
+      "english_cert_school": "Certificazione Linguistica",
+      "english_cert_desc": "Conseguita la certificazione di livello C1 in lingua inglese.",
       "highschool": "Diploma di Scuola Superiore",
       "highschool_period": "2019 - 2023",
       "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
-      "highschool_desc": "Diplomato con risultati eccellenti, stabilendo una solida base in matematica e pensiero analitico.",
-      "grades": "Risultati Esame Finale:",
-      "subjects": {
-        "math": "Matematica",
-        "english": "Inglese",
-        "literature": "Letteratura Ungherese",
-        "history": "Storia",
-        "cs_basic": "Informatica (Base)",
-        "cs_advanced": "Informatica (Avanzato)"
-      }
-    },
-    "languages": {
-      "title": "Lingue",
-      "hungarian": "Ungherese",
-      "hungarian_level": "Madrelingua",
-      "english": "Inglese",
-      "english_level": "C1 Certificato"
-    },
-    "hobbies": {
-      "title": "Hobby e Interessi",
-      "fencing": "Scherma",
-      "clarinet": "Clarinetto",
-      "growth": "Crescita Personale",
-      "gym": "Palestra",
-      "whisky": "Degustazione Whisky",
-      "cigar": "Appassionato di Sigari",
-      "camping": "Campeggio",
-      "fishing": "Pesca"
+      "highschool_desc": "Diplomato con ottimi risultati, con una solida base in matematica e pensiero analitico."
     }
   },
   "portfolio": {
-    "heroTagline": "Creazione di\nEsperienze\nDigitali",
-    "heroSubtitle": "Sviluppatore Software e Imprenditore",
-    "heroDescription": "Sviluppatore Software e Imprenditore.",
-    "heroDescription2": "Creazione di esperienze digitali di precisione.",
-    "scroll": "Scorri",
+    "heroTagline": "Costruendo\nEsperienze\nDigitali",
+    "heroSubtitle": "Sviluppatore Software",
+    "heroDescription2": "Esperienze digitali costruite con precisione.",
     "about": "Chi sono",
     "contact": "Contatto",
-    "viewProject": "Vedi Progetto",
-    "comingSoon": "Prossimamente",
-    "archived": "Archiviato",
-    "work": "Lavori",
-    "navigate": "Naviga",
-    "connect": "Connetti",
-    "basedIn": "Sede",
-    "locations": "Budapest · Esztergom · Pécs",
-    "freelance": "Disponibile per freelance e collaborazioni",
-    "craftedWith": "Creato con precisione e intento.",
-    "footerQuoteAuthor": "— William A. Foster",
-    "footerTagline": "La qualità non è mai accidentale; è il risultato di intenzione, cura e precisione.",
-    "filterByRating": "Filtra per Valutazione",
-    "allMovies": "Tutti i Film",
-    "wantToWatch": "Da Vedere",
+    "filterByRating": "Filtra per voto",
+    "allMovies": "Tutti i film",
+    "wantToWatch": "Da vedere",
     "good": "Buono",
-    "medium": "Medio",
-    "bad": "Cattivo",
+    "medium": "Nella media",
+    "bad": "Brutto",
     "sortBy": "Ordina per",
-    "highestRated": "Più Votati",
-    "lowestRated": "Meno Votati",
+    "highestRated": "Più votati",
+    "lowestRated": "Meno votati",
     "titleAZ": "Titolo (A-Z)",
     "titleZA": "Titolo (Z-A)",
     "perPage": "Per pagina",
-    "searchMovies": "Cerca film...",
+    "searchMovies": "Cerca un film...",
     "noMoviesFound": "Nessun film trovato",
     "prev": "← Prec",
     "next": "Succ →"
@@ -266,32 +163,28 @@
   "footer": {
     "taglines": [
       "Soluzioni Strategiche",
-      "Innovazione Consegnata",
-      "Risultati Guidati dalla Tecnologia",
-      "Costruire Futuri Migliori",
+      "Innovazione Concreta",
+      "Risultati con la Tecnologia",
+      "Costruire un Futuro Migliore",
       "Eccellenza Digitale",
       "L'Esecuzione Conta",
       "Dalla Visione al Valore",
       "Innovazione Scalabile",
-      "Impatto Attraverso la Tecnologia",
-      "Soluzioni Che Funzionano"
+      "Impatto con la Tecnologia",
+      "Soluzioni che Funzionano"
     ],
     "navigate": "Naviga",
     "quote": {
-      "text": "\"La qualità non è mai accidentale; è sempre il risultato di alta intenzione, sforzo sincero, direzione intelligente ed esecuzione abile.\"",
+      "text": "\"La qualità non è mai casuale; è sempre il risultato di una grande intenzione, uno sforzo sincero, una direzione intelligente e un'esecuzione abile.\"",
       "author": "William A. Foster"
     },
-    "copyright": "© 2026 Balla Botond. Tutti i diritti riservati. | Creato con precisione e passione."
+    "copyright": "© 2026 Balla Botond. Tutti i diritti riservati. | Realizzato con precisione e passione."
   },
   "notFound": {
     "title": "Pagina Non Trovata",
     "heading": "404",
     "subtitle": "Perso nel vuoto",
-    "description": "La pagina che stai cercando sembra essersi persa nel vuoto digitale. Ma non preoccuparti, possiamo aiutarti a ritrovare la strada.",
-    "goHome": "Vai alla Home",
-    "viewProjects": "Vedi Progetti",
-    "suggestion": "O forse vorresti esplorare il mio",
-    "resumeLink": "curriculum",
-    "instead": "invece?"
+    "description": "La pagina che stai cercando si è persa nel vuoto digitale. Niente panico, possiamo aiutarti a ritrovare la strada.",
+    "goHome": "Torna alla home"
   }
 }
