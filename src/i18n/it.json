@@ -72,6 +72,10 @@
       "title": "Server Minecraft",
       "description": "Server survival privato per amici con plugin personalizzati e una comunità accogliente. Gira su Raspberry Pi 5 su rete domestica."
     },
+    "map": {
+      "title": "My Map",
+      "description": "Una mappa fotografica interattiva realizzata con Astro e Tailwind CSS, che mostra i luoghi visitati e quelli che voglio visitare. Ogni segnaposto è collegato a foto, trasformando i viaggi personali in un diario visivo da esplorare."
+    },
     "website": {
       "title": "Sito Web Personale",
       "description": "Questo sito - un portfolio personale costruito con Astro, con design moderno e supporto multilingua. Mostra i miei progetti e il mio curriculum."

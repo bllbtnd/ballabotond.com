@@ -72,6 +72,10 @@
       "title": "Minecraft Szerver",
       "description": "Privát túlélő szerver barátoknak egyedi pluginokkal és barátságos közösséggel. Raspberry Pi 5-ön fut otthoni hálózaton."
     },
+    "map": {
+      "title": "My Map",
+      "description": "Interaktív fotótérkép Astro és Tailwind CSS alapon, amely bemutatja az általam meglátogatott és meglátogatni kívánt helyeket. Minden jelölőhöz fotók tartoznak, személyes utazásaimból vizuális naplót alkotva."
+    },
     "website": {
       "title": "Személyes Weboldal",
       "description": "Ez a weboldal - személyes portfólió Astro-val építve, modern dizájnnal és többnyelvű támogatással. Bemutatja projektjeimet és önéletrajzomat."

@@ -61,6 +61,15 @@
     "copyToClipboard": true
   },
   {
+    "id": "map",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.map.title",
+    "descriptionKey": "projects.map.description",
+    "url": "https://github.com/bllbtnd/map.ballabotond.com",
+    "icon": "fas fa-map-marked-alt",
+    "status": "active"
+  },
+  {
     "id": "website",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.website.title",

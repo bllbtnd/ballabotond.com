@@ -72,6 +72,10 @@
       "title": "Minecraft Server",
       "description": "Private survival server for friends with custom plugins and a welcoming community. Runs on a Raspberry Pi 5 on a home network."
     },
+    "map": {
+      "title": "My Map",
+      "description": "An interactive photo map built with Astro and Tailwind CSS, showcasing places I have visited and plan to visit. Each pin is tied to photos, turning personal travels into a visual journal you can explore."
+    },
     "website": {
       "title": "Personal Website",
       "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect."
