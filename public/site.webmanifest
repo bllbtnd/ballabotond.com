@@ -4,8 +4,8 @@
   "description": "Personal website of Balla Botond - Software Engineer & Computer Science Student",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#111827",
-  "theme_color": "#c9a96b",
+  "background_color": "#F0EBE3",
+  "theme_color": "#F0EBE3",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
@@ -17,7 +17,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon-512.png", 
+      "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -37,16 +37,10 @@
   "categories": ["portfolio", "developer", "personal"],
   "shortcuts": [
     {
-      "name": "Projects",
-      "short_name": "Projects",
-      "description": "View my projects and work",
-      "url": "/projects"
-    },
-    {
-      "name": "Resume",
-      "short_name": "Resume", 
-      "description": "View my professional resume",
-      "url": "/resume"
+      "name": "Movies",
+      "short_name": "Movies",
+      "description": "My personal movie ratings",
+      "url": "/movies"
     }
   ]
 }
