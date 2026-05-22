@@ -20,7 +20,6 @@ import profileImageSrc from '../../assets/images/profile.webp';
 import storyPortraitSrc from '../../assets/images/story-portrait.webp';
 
 import projects from '../../data/projects.json';
-import { getCurrentAvailability } from '../../utils/calendar';
 
 // Direct imports for array access (t() only returns strings)
 import en from '../../i18n/en.json';
@@ -41,10 +40,6 @@ const translatePath = useTranslatedPath(typedLang);
 const siteOrigin = Astro.site ?? 'https://ballabotond.com';
 const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 
-// ── Calendar-based availability ────────────────────────
-const calendarUrlsRaw = import.meta.env.PUBLIC_CALENDAR_URLS || '';
-const calendarUrls = calendarUrlsRaw.split(',').map((u: string) => u.trim()).filter(Boolean);
-const { isBusyNow, busyWindows } = await getCurrentAvailability(calendarUrls);
 // ── Optimized images ─────────────────────────────────
 const optimizedProfile = await getImage({
   src: profileImageSrc,
@@ -257,10 +252,6 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         profileImage={optimizedProfile.src}
         profileAlt={t('common.name')}
         profileLink="https://map.ballabotond.com"
-        availabilityLabel={t('home.available')}
-        busyLabel={t('home.busy')}
-        initialBusy={isBusyNow}
-        busyWindows={busyWindows}
       />
     </div>
 

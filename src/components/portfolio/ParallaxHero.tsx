@@ -1,14 +1,14 @@
 /**
  * ParallaxHero.tsx
- * 
+ *
  * The Manifesto — Screen-filling typography with asymmetric parallax.
  * Background typographic elements scroll at 0.5x speed (slow),
  * foreground content scrolls at 1x (normal) creating spatial volume.
- * 
+ *
  * Uses Motion (Framer Motion) useScroll + useTransform for
  * hardware-accelerated parallax on transform/opacity only.
  */
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import {
   motion,
   useScroll,
@@ -23,10 +23,6 @@ interface ParallaxHeroProps {
   description?: string;
   description2?: string;
   locations?: string;
-  availabilityLabel?: string;
-  busyLabel?: string;
-  initialBusy?: boolean;
-  busyWindows?: { start: number; end: number }[];
   profileImage?: string;
   profileAlt?: string;
   profileLink?: string;
@@ -36,49 +32,15 @@ export default function ParallaxHero({
   name,
   tagline,
   subtitle,
-  description = 'Software Engineer & Entrepreneur.',
+  description,
   description2 = 'Crafting precision-driven digital experiences.',
   locations = 'Budapest · Esztergom · Pécs',
-  availabilityLabel = 'Available',
-  busyLabel = 'Busy',
-  initialBusy = false,
-  busyWindows = [],
   profileImage,
   profileAlt = '',
   profileLink,
 }: ParallaxHeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  // Calendar + time-aware availability
-  // initialBusy comes from build-time calendar fetch
-  // busyWindows are upcoming calendar events (next 24h) as epoch ms
-  // Client-side also checks night hours & weekends as fallback
-  const [isAvailable, setIsAvailable] = useState(!initialBusy);
-  useEffect(() => {
-    const check = () => {
-      const now = new Date();
-      const budapest = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Budapest' }));
-      const hour = budapest.getHours();
-      const day = budapest.getDay(); // 0=Sun, 6=Sat
-
-      // Night (22:00-08:00) and weekends always busy
-      const isNightOrWeekend = hour >= 22 || hour < 8 || day === 0 || day === 6;
-
-      // Check if currently inside any calendar busy window
-      const nowMs = Date.now();
-      const isBusyByCalendar = busyWindows.some(
-        w => nowMs >= w.start && nowMs < w.end
-      );
-
-      setIsAvailable(!isNightOrWeekend && !isBusyByCalendar);
-    };
-    check();
-    const interval = setInterval(check, 60_000); // re-check every minute
-    return () => clearInterval(interval);
-  }, [busyWindows]);
-
-  const statusLabel = isAvailable ? availabilityLabel : busyLabel;
 
   // Track scroll progress within the hero section
   const { scrollYProgress } = useScroll({
@@ -216,9 +178,8 @@ export default function ParallaxHero({
                 {description2}
               </p>
               <p className="pf-grotesk text-fluid-xs text-pf-muted tracking-wide">
-                {locations}{statusLabel ? ` · ${statusLabel}` : ''}
+                {locations}
               </p>
-
             </motion.div>
           </div>
         </div>
