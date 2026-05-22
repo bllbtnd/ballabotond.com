@@ -190,9 +190,14 @@ const baseSchema = generateBaseSchema(siteLanguages);
 
       body {
         font-family: 'Space Grotesk', system-ui, sans-serif;
-        background-color: var(--pf-bg);
+        background-color: var(--pf-text);
         color: var(--pf-text);
         overflow-x: clip;
+      }
+
+      .page-shell {
+        min-height: 100dvh;
+        background-color: var(--pf-bg);
       }
 
       /* Hide scrollbar globally while preserving scroll */
@@ -265,7 +270,9 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <slot name="head" />
   </head>
   <body>
-    <slot />
+    <div class="page-shell">
+      <slot />
+    </div>
 
     <!-- Site notification banners -->
     <NotificationBanner />
