@@ -50,10 +50,14 @@ export default function PortfolioNav({ homeHref, sections, languages = [], cvHre
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
+    if (!el) return;
+    const lenis = (window as any).__lenis;
+    if (lenis) {
+      lenis.scrollTo(el, { lerp: 0.08 });
+    } else {
       el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      setMobileOpen(false);
     }
+    setMobileOpen(false);
   };
 
   return (

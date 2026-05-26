@@ -204,8 +204,9 @@ const projectItems = projects
 // ── Footer Data ────────────────────────────────────────
 const footerNavigation = [
   { label: t('nav.home'), href: translatePath('/') },
-  { label: t('nav.stories'), href: 'https://map.ballabotond.com' },
+  { label: t('nav.stories'), href: 'https://map.ballabotond.com', external: true },
   { label: t('nav.movies'), href: translatePath('/movies/') },
+  { label: 'Gusto', href: 'https://gusto.ballabotond.com', external: true },
   { label: 'CV', href: 'https://cv.ballabotond.com', external: true },
 ];
 

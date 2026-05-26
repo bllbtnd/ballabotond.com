@@ -307,6 +307,8 @@ const baseSchema = generateBaseSchema(siteLanguages);
           smoothWheel: true,
           wheelMultiplier: 0.8,
         });
+
+        (window as any).__lenis = lenis;
       }
 
       initLenis();
