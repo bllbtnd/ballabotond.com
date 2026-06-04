@@ -119,12 +119,15 @@
       ]
     },
     "experience": {
-      "current": "Software Engineer · Intern → Developer (Jul 2025)",
-      "current_period": "May 2025 - May 2026",
+      "current": "Software Engineer",
+      "current_period": "Jul 2025 - May 2026",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Built and maintained full-stack features for enterprise software serving major automotive clients.",
-      "current_desc2": "Developed React frontend and Java/Spring Boot backend modules, adhering to industrial-grade coding standards.",
-      "current_desc3": "Worked with geospatial data using PostgreSQL + PostGIS; contributed to Android client development."
+      "current_desc2": "Worked with geospatial data using PostgreSQL + PostGIS to power location-based features.",
+      "intern": "Software Engineer Intern",
+      "intern_period": "May 2025 - Jul 2025",
+      "intern_company": "LogiCloud Kft.",
+      "intern_desc1": "Developed React frontend and Java/Spring Boot backend modules, adhering to industrial-grade coding standards."
     },
     "education": {
       "title": "Education",

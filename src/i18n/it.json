@@ -119,12 +119,15 @@
       ]
     },
     "experience": {
-      "current": "Sviluppatore Software - Da Tirocinante a Developer (lug. 2025)",
-      "current_period": "Maggio 2025 - Maggio 2026",
+      "current": "Sviluppatore Software",
+      "current_period": "Luglio 2025 - Maggio 2026",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Sviluppato e mantenuto funzionalità full-stack per software aziendale nel settore automotive.",
-      "current_desc2": "Sviluppato frontend React e moduli backend Java/Spring Boot rispettando standard di sviluppo industriali.",
-      "current_desc3": "Lavorato con dati geospaziali tramite PostgreSQL e PostGIS; contribuito allo sviluppo del client Android."
+      "current_desc2": "Lavorato con dati geospaziali tramite PostgreSQL e PostGIS per realizzare funzionalità basate sulla posizione.",
+      "intern": "Tirocinante Sviluppatore Software",
+      "intern_period": "Maggio 2025 - Luglio 2025",
+      "intern_company": "LogiCloud Kft.",
+      "intern_desc1": "Sviluppato frontend React e moduli backend Java/Spring Boot rispettando standard di sviluppo industriali."
     },
     "education": {
       "title": "Istruzione",

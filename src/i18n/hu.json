@@ -119,12 +119,15 @@
       ]
     },
     "experience": {
-      "current": "Szoftverfejlesztő - Gyakornoktól Fejlesztőig (2025. július)",
-      "current_period": "2025. május - 2026. május",
+      "current": "Szoftverfejlesztő",
+      "current_period": "2025. július - 2026. május",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Teljes körű funkciókat fejlesztett és tartott karban nagyvállalati szoftverekhez, autóipari ügyfelek számára.",
-      "current_desc2": "React frontendet és Java/Spring Boot backendet fejlesztett, iparági szintű kódolási szabványokat betartva.",
-      "current_desc3": "Geotérbeli adatokkal dolgozott PostgreSQL és PostGIS segítségével; hozzájárult az Android kliens fejlesztéséhez."
+      "current_desc2": "Geotérbeli adatokkal dolgozott PostgreSQL és PostGIS segítségével helyalapú funkciók megvalósításához.",
+      "intern": "Szoftverfejlesztő Gyakornok",
+      "intern_period": "2025. május - 2025. július",
+      "intern_company": "LogiCloud Kft.",
+      "intern_desc1": "React frontendet és Java/Spring Boot backendet fejlesztett, iparági szintű kódolási szabványokat betartva."
     },
     "education": {
       "title": "Tanulmányok",
