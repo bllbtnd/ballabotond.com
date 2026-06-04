@@ -50,6 +50,10 @@
       "title": "Vortex Chat",
       "description": "A peer-to-peer Android chat application using WebRTC for direct communication. Features real-time messaging, room-based system, and cross-platform compatibility with iOS. Built with modern Android development practices."
     },
+    "forge": {
+      "title": "Forge Projects",
+      "description": "A pair of Rust-powered generators for animated GitHub README cards, ran on Cloudflare Workers. StatsForge renders a customizable top-languages SVG card, while StreakForge produces a contribution-streak flame card with a live leaderboard."
+    },
     "taskmanager": {
       "title": "TaskManager",
       "description": "A comprehensive project and task management application designed to help you stay organized and productive. Organize your work with multiple projects and tasks, track progress through three status levels, and monitor real-time statistics. Access your tasks anywhere with full-featured desktop experience and mobile summary view."

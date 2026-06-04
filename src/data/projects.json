@@ -10,6 +10,18 @@
     "status": "active"
   },
   {
+    "id": "forge-projects",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.forge.title",
+    "descriptionKey": "projects.forge.description",
+    "links": [
+      { "label": "StatsForge", "url": "https://github.com/bllbtnd/StatsForge" },
+      { "label": "StreakForge", "url": "https://github.com/bllbtnd/StreakForge" }
+    ],
+    "icon": "fas fa-fire",
+    "status": "active"
+  },
+  {
     "id": "task-manager",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.taskmanager.title",

@@ -23,6 +23,7 @@ interface Project {
   category: string;
   description: string;
   url?: string;
+  links?: { label: string; url: string }[];
   status: 'active' | 'coming-soon' | 'past';
   year?: string;
   index?: number;
@@ -109,15 +110,32 @@ function ProjectCard({
             {project.category}
           </span>
 
-          {project.status === 'active' && project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pf-link pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-text"
-            >
-              Open Project
-            </a>
+          {project.status === 'active' && project.links && project.links.length > 0 ? (
+            <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              {project.links.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-link pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-text"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </span>
+          ) : (
+            project.status === 'active' &&
+            project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pf-link pf-grotesk text-fluid-xs uppercase tracking-[0.2em] text-pf-text"
+              >
+                Open Project
+              </a>
+            )
           )}
         </div>
       </div>

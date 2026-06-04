@@ -197,6 +197,7 @@ const projectItems = projects
     category: p.categoryKey ? t(p.categoryKey) : 'Project',
     description: p.descriptionKey ? t(p.descriptionKey) : (p.description || ''),
     url: p.url || '',
+    links: p.links || undefined,
     status: p.status as 'active' | 'coming-soon' | 'past',
     index,
   }));
