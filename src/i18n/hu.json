@@ -90,7 +90,7 @@
     }
   },
   "resume": {
-    "subtitle": "Szakmai Önéletrajz",
+    "subtitle": "Önéletrajz",
     "lifeStory": {
       "title": "Az Én Történetem",
       "caption": "Balla Botond, Magyarország",
@@ -137,6 +137,14 @@
       "english_cert_period": "2022",
       "english_cert_school": "Nyelvvizsga",
       "english_cert_desc": "C1 szintű angol nyelvvizsgát szerzett.",
+      "drivers_license": "Jogosítvány",
+      "drivers_license_period": "2023",
+      "drivers_license_school": "B kategória",
+      "drivers_license_desc": "B kategóriás vezetői engedély megszerzése.",
+      "video_cert": "Videószerkesztő Tanúsítvány",
+      "video_cert_period": "2020",
+      "video_cert_school": "B&P Proregió Kft.",
+      "video_cert_desc": "Szakmai videószerkesztői tanúsítvány megszerzése.",
       "highschool": "Érettségi",
       "highschool_period": "2019 - 2023",
       "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",

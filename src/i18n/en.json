@@ -90,7 +90,7 @@
     }
   },
   "resume": {
-    "subtitle": "Professional Resume",
+    "subtitle": "Resume",
     "lifeStory": {
       "title": "My Story",
       "caption": "Balla Botond - Hungary",
@@ -137,6 +137,14 @@
       "english_cert_period": "2022",
       "english_cert_school": "Language Certification",
       "english_cert_desc": "Achieved C1 level English certification.",
+      "drivers_license": "Driver's License",
+      "drivers_license_period": "2023",
+      "drivers_license_school": "Category B",
+      "drivers_license_desc": "Obtained a Category B driver's license.",
+      "video_cert": "Video Editing Certificate",
+      "video_cert_period": "2020",
+      "video_cert_school": "B&P Proregió Kft.",
+      "video_cert_desc": "Completed a professional video editing certificate.",
       "highschool": "High School Diploma",
       "highschool_period": "2019 - 2023",
       "highschool_school": "Árpád-házi Szent Erzsébet Gimnázium",
