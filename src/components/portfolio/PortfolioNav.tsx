@@ -147,26 +147,32 @@ export default function PortfolioNav({ homeHref, sections, languages = [], cvHre
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-full mt-2 rounded-2xl py-1 min-w-[120px] z-50"
+                        className="absolute right-0 top-full mt-3 rounded-xl p-1.5 min-w-[150px] z-50"
                         style={{
-                          background: 'rgba(240, 235, 227, 0.14)',
-                          backdropFilter: 'blur(48px) saturate(1.8)',
-                          WebkitBackdropFilter: 'blur(48px) saturate(1.8)',
-                          border: '0.5px solid rgba(255,255,255,0.08)',
-                          boxShadow: '0 8px 32px rgba(26,26,26,0.04), inset 0 0.5px 0 rgba(255,255,255,0.08)',
+                          background: 'rgba(246, 243, 238, 0.85)',
+                          backdropFilter: 'blur(24px) saturate(1.6)',
+                          WebkitBackdropFilter: 'blur(24px) saturate(1.6)',
+                          border: '1px solid var(--pf-border)',
+                          boxShadow: '0 12px 40px -8px rgba(26,26,26,0.18), 0 2px 8px rgba(26,26,26,0.06)',
                         }}
                       >
                         {languages.map((lang) => (
                           <a
                             key={lang.code}
                             href={lang.href}
-                            className={`block px-4 py-2 pf-grotesk text-fluid-xs tracking-[0.1em] transition-colors duration-200 ${
+                            className={`flex items-center justify-between gap-4 rounded-lg px-3.5 py-2 pf-grotesk text-fluid-xs tracking-[0.04em] transition-colors duration-200 ${
                               lang.active
-                                ? 'text-pf-text font-medium'
-                                : 'text-pf-muted hover:text-pf-text'
+                                ? 'text-pf-text font-medium bg-[rgba(92,78,66,0.09)]'
+                                : 'text-pf-muted hover:text-pf-text hover:bg-[rgba(92,78,66,0.06)]'
                             }`}
                           >
                             {lang.label}
+                            {lang.active && (
+                              <span
+                                className="h-1.5 w-1.5 rounded-full flex-shrink-0"
+                                style={{ background: 'var(--pf-accent)' }}
+                              />
+                            )}
                           </a>
                         ))}
                       </motion.div>
