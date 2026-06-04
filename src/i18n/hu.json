@@ -54,6 +54,10 @@
       "title": "Forge Projektek",
       "description": "Két Rust nyelven írt generátor animált GitHub README kártyákhoz, amelyek a Cloudflare Workers-en futnak. A StatsForge testreszabható, a leggyakoribb nyelveket mutató SVG kártyát készít, míg a StreakForge a hozzájárulási sorozatot megjelenítő láng-kártyát generál, élő ranglistával."
     },
+    "emailservice": {
+      "title": "Emailing Service",
+      "description": "Saját üzemeltetésű tranzakciós email API Cloudflare Workers alapokon. Küldj emailt egyetlen HTTP kéréssel bármelyik szolgáltatón keresztül: SMTP, MailChannels, Resend, SendGrid vagy Mailgun. API-kulcsos hitelesítéssel, teljes CORS támogatással és 7 napos kézbesítési naplóval a KV-ben."
+    },
     "taskmanager": {
       "title": "TaskManager",
       "description": "Átfogó projekt- és feladatkezelő alkalmazás, amely segít rendszesen és produktívan maradni. Szervezd meg a munkádat több projekttel és feladattal, kövesd az előrehaladást háromféle státusszal, és figyelj valós idejű statisztikákat. Elérhető asztali és mobil nézetben is."

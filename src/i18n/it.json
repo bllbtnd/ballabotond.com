@@ -54,6 +54,10 @@
       "title": "Forge Projects",
       "description": "Una coppia di generatori scritti in Rust per card animate da README di GitHub, eseguiti su Cloudflare Workers. StatsForge crea una card SVG personalizzabile con i linguaggi più usati, mentre StreakForge produce una card a fiamma con la serie di contributi e una classifica in tempo reale."
     },
+    "emailservice": {
+      "title": "Emailing Service",
+      "description": "Un'API email transazionale self-hosted basata su Cloudflare Workers. Invia email con una singola richiesta HTTP tramite qualsiasi provider: SMTP, MailChannels, Resend, SendGrid o Mailgun. Con autenticazione tramite API key, pieno supporto CORS e log di consegna per 7 giorni su KV."
+    },
     "taskmanager": {
       "title": "TaskManager",
       "description": "App completa per la gestione di progetti e attività. Organizza il lavoro con progetti multipli, monitora i progressi con tre stati e tieni d'occhio le statistiche in tempo reale. Disponibile su desktop e mobile."

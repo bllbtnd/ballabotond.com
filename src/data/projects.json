@@ -22,6 +22,15 @@
     "status": "active"
   },
   {
+    "id": "emailing-service",
+    "categoryKey": "projects.category.webapps",
+    "titleKey": "projects.emailservice.title",
+    "descriptionKey": "projects.emailservice.description",
+    "url": "https://github.com/bllbtnd/emailing-service",
+    "icon": "fas fa-envelope",
+    "status": "active"
+  },
+  {
     "id": "task-manager",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.taskmanager.title",
