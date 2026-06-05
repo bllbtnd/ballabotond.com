@@ -54,6 +54,10 @@
       "title": "Forge Projektek",
       "description": "Két Rust nyelven írt generátor animált GitHub README kártyákhoz, amelyek a Cloudflare Workers-en futnak. A StatsForge testreszabható, a leggyakoribb nyelveket mutató SVG kártyát készít, míg a StreakForge a hozzájárulási sorozatot megjelenítő láng-kártyát generál, élő ranglistával."
     },
+    "fcry": {
+      "title": "Fcry",
+      "description": "Platformfüggetlen fájltitkosító asztali alkalmazás .NET 10 és Avalonia UI alapokon. Fájlokat és mappákat titkosít AES-256-GCM algoritmussal, jelszóból származtatott (Argon2id), csak a memóriában élő mesterkulccsal. Húzd-és-ejtsd kezelés, mappatitkosítás, opcionális kulcsfájlos kétfaktoros védelem és automatikus zárolás."
+    },
     "emailservice": {
       "title": "Emailing Service",
       "description": "Saját üzemeltetésű tranzakciós email API Cloudflare Workers alapokon. Küldj emailt egyetlen HTTP kéréssel bármelyik szolgáltatón keresztül: SMTP, MailChannels, Resend, SendGrid vagy Mailgun. API-kulcsos hitelesítéssel, teljes CORS támogatással és 7 napos kézbesítési naplóval a KV-ben."
@@ -88,6 +92,7 @@
     },
     "category": {
       "webapps": "Webalkalmazások",
+      "desktop": "Asztali alkalmazások",
       "mobile": "Mobilalkalmazások",
       "health": "Egészség és Fitness",
       "gaming": "Játékok"

@@ -22,6 +22,15 @@
     "status": "active"
   },
   {
+    "id": "fcry",
+    "categoryKey": "projects.category.desktop",
+    "titleKey": "projects.fcry.title",
+    "descriptionKey": "projects.fcry.description",
+    "url": "https://github.com/bllbtnd/Fcry",
+    "icon": "fas fa-lock",
+    "status": "active"
+  },
+  {
     "id": "emailing-service",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.emailservice.title",

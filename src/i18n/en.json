@@ -54,6 +54,10 @@
       "title": "Forge Projects",
       "description": "A pair of Rust-powered generators for animated GitHub README cards, ran on Cloudflare Workers. StatsForge renders a customizable top-languages SVG card, while StreakForge produces a contribution-streak flame card with a live leaderboard."
     },
+    "fcry": {
+      "title": "Fcry",
+      "description": "A cross-platform file encryption desktop app built with .NET 10 and Avalonia UI. Encrypts files and folders with AES-256-GCM using a passphrase-derived master key (Argon2id) that lives only in memory, with drag-and-drop, folder packing, optional key-file two-factor, and auto-lock."
+    },
     "emailservice": {
       "title": "Emailing Service",
       "description": "A self-hosted transactional email API built on Cloudflare Workers. Send emails with a single HTTP request through any provider: SMTP, MailChannels, Resend, SendGrid, or Mailgun. Includes API-key auth, full CORS, and 7-day delivery logs in KV."
@@ -88,6 +92,7 @@
     },
     "category": {
       "webapps": "Web Apps",
+      "desktop": "Desktop Apps",
       "mobile": "Mobile Apps",
       "health": "Health and Fitness",
       "gaming": "Gaming"
