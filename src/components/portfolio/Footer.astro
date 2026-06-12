@@ -27,6 +27,7 @@ interface Props {
   quoteAuthor: string;
   copyright: string;
   locations?: string;
+  connectTitle?: string;
 }
 
 const {
@@ -42,6 +43,7 @@ const {
   quoteAuthor,
   copyright,
   locations = 'Budapest · Esztergom · Pécs',
+  connectTitle = 'Connect',
 } = Astro.props;
 
 // Inline SVG paths (24×24, fill) — replaces the Font Awesome CDN
@@ -104,7 +106,7 @@ const ICON_PATHS: Record<string, string> = {
       </div>
 
       <div class="pf-footer-col" data-reveal style="--reveal-delay:160ms">
-        <h4 class="pf-grotesk pf-footer-heading">Connect</h4>
+        <h4 class="pf-grotesk pf-footer-heading">{connectTitle}</h4>
         <div class="pf-footer-links">
           {socials.map((social) => (
             <a

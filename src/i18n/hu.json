@@ -96,13 +96,22 @@
       "mobile": "Mobilalkalmazások",
       "health": "Egészség és Fitness",
       "gaming": "Játékok"
-    }
+    },
+    "status": {
+      "live": "Éles",
+      "soon": "Hamarosan",
+      "archived": "Archivált"
+    },
+    "openProject": "Projekt megnyitása"
   },
   "resume": {
     "subtitle": "Önéletrajz",
+    "currentLabel": "Jelenleg",
     "lifeStory": {
       "title": "Az Én Történetem",
       "caption": "Balla Botond, Magyarország",
+      "pullQuote1": "a semmiből való alkotás érzése lenyűgöző volt",
+      "pullQuote2": "a minőség minden formájában érdemes törekedni rá",
       "paragraphs": [
         "Budapesten születtem, Magyarország fővárosában, ahol az Országház a folyó fölé magasodik és a történelem minden macskakőből árad. Esztergomban nőttem fel, egy alig egy órányira lévő városban, ahol a történelmi jelentőség és a természeti szépség korán megtanított a kézművesség értékelésére - a türelmes, átgondolt munka értékelésére, ami kiállja az idő próbáját. A barokk épületek között sétálva és a bazilika tetejéről a Dunát szemlélve megtanultam, hogy az igazán értékes dolgok azok, amelyek kitartanak az idő múlásával.",
         "Gyerekként végtelenül kíváncsi voltam. Mindent szétszedtem, amihez hozzáfértem: rádiókat, régi számítógépeket, mechanikus órákat. Hajtott a vágy, hogy megértsem, hogyan működnek a dolgok a felszín alatt, és addig nem nyugodtam, amíg rá nem jöttem. Ugyanez a kíváncsiság vezetett el az első kódsoraimhoz. Nagyjából 12 éves voltam, amikor megírtam az első igazi programomat, és a semmiből való alkotás érzése lenyűgöző volt. Attól a pillanattól kezdve tudtam, hogy a szoftverfejlesztés az életem meghatározó része lesz.",
@@ -196,6 +205,7 @@
       "Működő Megoldások"
     ],
     "navigate": "Navigáció",
+    "connect": "Kapcsolat",
     "quote": {
       "text": "\"A minőség soha nem véletlen; mindig a komoly szándék, az őszinte erőfeszítés, az intelligens irányítás és a szakszerű kivitelezés eredménye.\"",
       "author": "William A. Foster"

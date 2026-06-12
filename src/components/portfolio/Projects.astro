@@ -1,9 +1,9 @@
 ---
 /**
- * Projects.astro — editorial index of selected works.
- * Hairline-ruled rows: number, large serif title, category, status,
- * links. On hover the title indents and an arrow drifts in — the
- * whole row becomes a quiet surface. Pure CSS interactions.
+ * Projects.astro — card grid matching the resume timeline card style.
+ * var(--pf-surface) background, 1px border, sienna hover tint.
+ * Two columns on tablet, three on wide. Index number, serif title,
+ * category, description, status dot, and links inside each card.
  */
 import SectionHead from './SectionHead.astro';
 
@@ -27,19 +27,34 @@ interface Props {
   sectionTitle: string;
   projects: Project[];
   openLabel?: string;
+  statusLabels?: {
+    live: string;
+    soon: string;
+    archived: string;
+  };
 }
 
-const { index, sectionTitle, projects, openLabel = 'Open Project' } = Astro.props;
+const {
+  index,
+  sectionTitle,
+  projects,
+  openLabel = 'Open Project',
+  statusLabels = {
+    live: 'Live',
+    soon: 'Soon',
+    archived: 'Archived',
+  },
+} = Astro.props;
 
 const statusLabel = (status: Project['status']) =>
-  status === 'active' ? 'Live' : status === 'coming-soon' ? 'Coming Soon' : 'Archived';
+  status === 'active' ? statusLabels.live : status === 'coming-soon' ? statusLabels.soon : statusLabels.archived;
 ---
 
 <section class="pf-section" aria-label={sectionTitle}>
   <div class="pf-section-inner">
     <SectionHead index={index} label={sectionTitle} title={sectionTitle} />
 
-    <div class="pf-index" role="list">
+    <div class="pf-proj-grid">
       {projects.map((project, i) => {
         const links = project.links?.length
           ? project.links
@@ -47,37 +62,47 @@ const statusLabel = (status: Project['status']) =>
             ? [{ label: openLabel, url: project.url }]
             : [];
         return (
-          <article class="pf-row" role="listitem" data-reveal style={`--reveal-delay:${Math.min(i % 6, 5) * 40}ms`}>
-            <span class="pf-row-num pf-grotesk">{String(i + 1).padStart(2, '0')}</span>
-
-            <div class="pf-row-main">
-              <h3 class="pf-row-title pf-serif">
-                {project.title}
-                <span class="pf-row-arrow" aria-hidden="true">↗</span>
-              </h3>
-              <p class="pf-row-desc pf-grotesk">{project.description}</p>
-            </div>
-
-            <div class="pf-row-meta">
-              <span class="pf-row-category pf-grotesk">{project.category}</span>
-              <span class:list={['pf-row-status', 'pf-grotesk', `is-${project.status}`]}>
+          <article
+            class="pf-proj-card"
+            data-reveal
+            style={`--reveal-delay:${Math.min(i % 6, 5) * 50}ms`}
+          >
+            <!-- Top row: index + status -->
+            <div class="pf-proj-top">
+              <span class="pf-proj-num pf-grotesk">{String(i + 1).padStart(2, '0')}</span>
+              <span class:list={['pf-proj-status', 'pf-grotesk', `is-${project.status}`]}>
+                <span class="pf-proj-status-dot" aria-hidden="true"></span>
                 {statusLabel(project.status)}
               </span>
-              {project.status === 'active' && links.length > 0 && (
-                <span class="pf-row-links">
-                  {links.map((link) => (
-                    <a
-                      href={link.url}
-                      target={link.url.startsWith('/') ? undefined : '_blank'}
-                      rel={link.url.startsWith('/') ? undefined : 'noopener noreferrer'}
-                      class="pf-link pf-row-link pf-grotesk"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </span>
-              )}
             </div>
+
+            <!-- Category -->
+            <span class="pf-proj-cat pf-grotesk">{project.category}</span>
+
+            <!-- Title -->
+            <h3 class="pf-proj-title pf-serif">
+              {project.title}
+              <span class="pf-proj-arrow" aria-hidden="true">↗</span>
+            </h3>
+
+            <!-- Description -->
+            <p class="pf-proj-desc pf-grotesk">{project.description}</p>
+
+            <!-- Links -->
+            {project.status === 'active' && links.length > 0 && (
+              <div class="pf-proj-links">
+                {links.map((link) => (
+                  <a
+                    href={link.url}
+                    target={link.url.startsWith('/') ? undefined : '_blank'}
+                    rel={link.url.startsWith('/') ? undefined : 'noopener noreferrer'}
+                    class="pf-proj-link pf-grotesk"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </article>
         );
       })}
@@ -95,113 +120,139 @@ const statusLabel = (status: Project['status']) =>
     padding: 0 clamp(1.5rem, 5vw, 4rem);
   }
 
-  .pf-index {
-    border-bottom: 1px solid var(--pf-border);
-  }
-
-  .pf-row {
+  /* ── Grid ───────────────────────────────────────── */
+  .pf-proj-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.8rem;
-    padding: clamp(1.8rem, 3.4vw, 2.8rem) clamp(0.4rem, 1vw, 1.2rem);
-    border-top: 1px solid var(--pf-border);
-    transition: background 0.35s ease;
+    gap: clamp(1rem, 2vw, 1.4rem);
   }
-  .pf-row:hover { background: var(--pf-surface); }
-
-  @media (min-width: 900px) {
-    .pf-row {
-      grid-template-columns: 4rem 1fr 15rem;
-      gap: clamp(1.5rem, 3vw, 3rem);
-      align-items: start;
-    }
+  @media (min-width: 640px) {
+    .pf-proj-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1100px) {
+    .pf-proj-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  .pf-row-num {
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
+  /* ── Card — matches resume .pf-tl-card ─────────── */
+  .pf-proj-card {
+    background: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    transition: border-color 0.35s ease;
+    position: relative;
+  }
+  .pf-proj-card:hover {
+    border-color: color-mix(in srgb, var(--pf-accent) 45%, var(--pf-border));
+  }
+
+  /* ── Top row: index + status ────────────────────── */
+  .pf-proj-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+  }
+
+  .pf-proj-num {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
     color: var(--pf-muted);
-    padding-top: 0.8rem;
   }
 
-  .pf-row-title {
-    font-size: clamp(1.9rem, 1.3rem + 2.8vw, 3.4rem);
+  .pf-proj-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .pf-proj-status.is-active   { color: var(--pf-accent); }
+  .pf-proj-status.is-coming-soon,
+  .pf-proj-status.is-past     { color: var(--pf-muted); }
+
+  .pf-proj-status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  /* ── Category ───────────────────────────────────── */
+  .pf-proj-cat {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+  }
+
+  /* ── Title ──────────────────────────────────────── */
+  .pf-proj-title {
+    font-size: clamp(1.4rem, 1rem + 1.6vw, 2.1rem);
     font-weight: 400;
-    line-height: 1;
+    line-height: 1.06;
     letter-spacing: -0.02em;
     color: var(--pf-text);
-    margin: 0 0 0.7rem;
-    transition: color 0.3s ease, transform 0.45s var(--pf-ease);
+    margin: 0.2rem 0 0.1rem;
+    transition: color 0.3s ease;
   }
-  .pf-row:hover .pf-row-title {
+  .pf-proj-card:hover .pf-proj-title {
     color: var(--pf-accent);
-    transform: translateX(0.35em);
   }
 
-  .pf-row-arrow {
+  .pf-proj-arrow {
     display: inline-block;
     font-size: 0.55em;
     vertical-align: 0.45em;
-    margin-left: 0.25em;
+    margin-left: 0.2em;
     opacity: 0;
-    transform: translate(-0.4em, 0.4em);
-    transition: opacity 0.35s ease, transform 0.45s var(--pf-ease);
+    transform: translate(-0.3em, 0.3em);
+    transition: opacity 0.3s ease, transform 0.4s var(--pf-ease);
   }
-  .pf-row:hover .pf-row-arrow {
+  .pf-proj-card:hover .pf-proj-arrow {
     opacity: 1;
     transform: none;
   }
 
-  .pf-row-desc {
-    font-size: 0.93rem;
+  /* ── Description ────────────────────────────────── */
+  .pf-proj-desc {
+    font-size: 0.88rem;
     line-height: 1.65;
     color: var(--pf-muted);
     margin: 0;
-    max-width: 44rem;
+    flex: 1; /* push links to bottom */
   }
 
-  .pf-row-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.4rem 1.4rem;
-    padding-top: 0.55rem;
-  }
-  @media (min-width: 900px) {
-    .pf-row-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.55rem;
-    }
-  }
-
-  .pf-row-category {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--pf-muted);
-  }
-
-  .pf-row-status {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .pf-row-status.is-active { color: var(--pf-accent); }
-  .pf-row-status.is-coming-soon,
-  .pf-row-status.is-past { color: var(--pf-muted); }
-
-  .pf-row-links {
+  /* ── Links ──────────────────────────────────────── */
+  .pf-proj-links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.3rem 1.2rem;
-    padding-top: 0.2rem;
+    border-top: 1px solid var(--pf-border);
+    padding-top: 0.9rem;
+    margin-top: 0.4rem;
   }
-  .pf-row-link {
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
+  .pf-proj-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--pf-text);
+    color: var(--pf-accent);
     text-decoration: none;
+    position: relative;
   }
+  .pf-proj-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--pf-accent);
+    transition: width 0.35s var(--pf-ease);
+  }
+  .pf-proj-link:hover::after { width: 100%; }
 </style>

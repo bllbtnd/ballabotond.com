@@ -38,7 +38,7 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
       {languages.length > 0 && (
         <span class="pf-langs">
           {languages.map((l) => (
-            <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]} aria-current={l.active ? 'true' : undefined}>
+            <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]} aria-current={l.active ? 'true' : undefined} data-astro-reload>
               {l.code}
             </a>
           ))}
@@ -67,7 +67,7 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
   {languages.length > 0 && (
     <div class="pf-mobile-langs">
       {languages.map((l) => (
-        <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]}>{l.label}</a>
+        <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]} data-astro-reload>{l.label}</a>
       ))}
     </div>
   )}

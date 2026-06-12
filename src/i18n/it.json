@@ -96,13 +96,22 @@
       "mobile": "App Mobile",
       "health": "Salute e Fitness",
       "gaming": "Giochi"
-    }
+    },
+    "status": {
+      "live": "Live",
+      "soon": "In arrivo",
+      "archived": "Archiviato"
+    },
+    "openProject": "Apri progetto"
   },
   "resume": {
     "subtitle": "Curriculum",
+    "currentLabel": "In corso",
     "lifeStory": {
       "title": "La Mia Storia",
       "caption": "Balla Botond, Ungheria",
+      "pullQuote1": "la sensazione di creare qualcosa dal nulla è stata elettrizzante",
+      "pullQuote2": "la qualità, in tutte le sue forme, vale la pena di essere perseguita",
       "paragraphs": [
         "Sono nato a Budapest, la capitale dell'Ungheria, dove il parlamento si erge maestoso sul fiume e la storia permea ogni ciottolo. Sono cresciuto a Esztergom, una città a un'ora di distanza, dove il significato storico e la bellezza naturale mi hanno dato presto un apprezzamento per l'artigianato, quel lavoro paziente e deliberato che resiste alla prova del tempo. Passeggiando per le stradine barocche e ammirando il Danubio dalla basilica in cima alla collina, ho capito che le cose che vale la pena costruire sono quelle che durano.",
         "Da bambino ero infinitamente curioso. Smontavo tutto ciò che riuscivo a trovare: radio, vecchi computer, orologi meccanici. Ero spinto dal bisogno di capire come funzionassero le cose sotto la superficie, e non mi fermavo finché non lo scoprivo. Quella stessa curiosità mi ha portato alle prime righe di codice. Avevo circa 12 anni quando ho scritto il mio primo vero programma, e la sensazione di creare qualcosa dal nulla è stata elettrizzante. Da quel momento sapevo che lo sviluppo software sarebbe stato una parte centrale della mia vita.",
@@ -196,6 +205,7 @@
       "Soluzioni che Funzionano"
     ],
     "navigate": "Naviga",
+    "connect": "Contatti",
     "quote": {
       "text": "\"La qualità non è mai casuale; è sempre il risultato di una grande intenzione, uno sforzo sincero, una direzione intelligente e un'esecuzione abile.\"",
       "author": "William A. Foster"

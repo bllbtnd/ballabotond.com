@@ -287,6 +287,8 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         caption={t('resume.lifeStory.caption')}
         readMoreLabel={t('common.readMore')}
         showLessLabel={t('common.showLess')}
+        pullQuote1={t('resume.lifeStory.pullQuote1')}
+        pullQuote2={t('resume.lifeStory.pullQuote2')}
       />
     </div>
 
@@ -300,6 +302,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         educationEntries={educationEntries}
         stackTitle={t('nav.stack')}
         categories={stackCategories}
+        currentLabel={t('resume.currentLabel')}
       />
     </div>
 
@@ -309,6 +312,12 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         index="03"
         sectionTitle={t('projects.subtitle')}
         projects={projectItems}
+        openLabel={t('projects.openProject')}
+        statusLabels={{
+          live: t('projects.status.live'),
+          soon: t('projects.status.soon'),
+          archived: t('projects.status.archived'),
+        }}
       />
     </div>
   </main>
@@ -327,6 +336,7 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
       quote={t('footer.quote.text')}
       quoteAuthor={t('footer.quote.author')}
       copyright={t('footer.copyright')}
+      connectTitle={t('footer.connect')}
     />
   </div>
 </PortfolioLayout>
