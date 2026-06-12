@@ -83,6 +83,8 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
     background: transparent;
     transition: background 0.4s var(--pf-ease), border-color 0.4s var(--pf-ease);
     border-bottom: 1px solid transparent;
+    transform: translateZ(0);
+    will-change: transform, background-color, border-color;
   }
   .pf-masthead.is-scrolled {
     background: color-mix(in srgb, var(--pf-bg) 88%, transparent);
@@ -198,6 +200,8 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
     justify-content: center;
     gap: 2.4rem;
     padding: calc(2rem + env(safe-area-inset-top, 0px)) 2rem calc(2rem + env(safe-area-inset-bottom, 0px));
+    transform: translateZ(0);
+    will-change: transform;
   }
   .pf-mobile-menu[hidden] { display: none; }
 
