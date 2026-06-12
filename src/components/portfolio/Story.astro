@@ -60,7 +60,7 @@ const pullQuotes: Record<number, string> = {
     <!-- Prose + portrait: portrait floats right inside the text flow -->
     <div class="pf-story-body" id="pf-story-body" data-collapsed="true">
 
-      <figure class="pf-story-portrait" data-reveal>
+      <figure class="pf-story-portrait-fixed" data-reveal>
         <div class="pf-portrait-frame">
           <img
             src={profileImage}
@@ -160,13 +160,13 @@ const pullQuotes: Record<number, string> = {
   }
 
   /* ── Portrait — floated right into the prose ────── */
-  .pf-story-portrait {
+  .pf-story-portrait-fixed {
     margin: 0 0 1.8rem 0;
     float: none;
     width: 100%;
   }
   @media (min-width: 680px) {
-    .pf-story-portrait {
+    .pf-story-portrait-fixed {
       float: right;
       width: clamp(220px, 30%, 320px);
       margin: 0.3rem 0 1.4rem clamp(1.8rem, 4vw, 3rem);
@@ -179,14 +179,15 @@ const pullQuotes: Record<number, string> = {
     clip-path: inset(100% 0 0 0);
     transition: clip-path 1.1s var(--pf-ease) 0.1s;
   }
-  .pf-story-portrait.is-in .pf-portrait-frame,
+  .pf-story-portrait-fixed.is-in .pf-portrait-frame,
   :global(.no-js) .pf-portrait-frame {
     clip-path: inset(0 0 0 0);
   }
 
   .pf-portrait-frame img {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center top;
     display: block;
