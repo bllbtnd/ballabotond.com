@@ -76,7 +76,9 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
 <style>
   .pf-masthead {
     position: fixed;
-    inset: 0 0 auto 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 50;
     background: transparent;
     transition: background 0.4s var(--pf-ease), border-color 0.4s var(--pf-ease);
@@ -184,7 +186,10 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
   /* Mobile menu */
   .pf-mobile-menu {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 40;
     background: var(--pf-bg);
     display: flex;
