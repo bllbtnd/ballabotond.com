@@ -1,34 +1,37 @@
 // SEO and Schema.org utilities
 
-import type {
-    BreadcrumbItem,
-    SchemaOrgPerson,
-    SchemaOrgWebsite,
-    Language
-} from '../types';
 import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
 
-/**
- * Generates breadcrumb structured data
- */
-export function generateBreadcrumbSchema(items: BreadcrumbItem[], pageUrl: string) {
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        '@id': `${pageUrl}#breadcrumb`,
-        itemListElement: items.map(item => ({
-            '@type': 'ListItem',
-            position: item.position,
-            name: item.name,
-            item: item.item
-        }))
-    };
+interface SchemaOrgPerson {
+    '@type': 'Person';
+    '@id': string;
+    name: string;
+    alternateName?: string[];
+    description?: string;
+    url: string;
+    image?: string;
+    sameAs?: string[];
+    jobTitle?: string;
+    alumniOf?: any;
+    nationality?: any;
+    knowsLanguage?: any[];
+    hasOccupation?: any;
+    worksFor?: any;
 }
 
-/**
- * Generates Person schema
- */
-export function generatePersonSchema(): SchemaOrgPerson {
+interface SchemaOrgWebsite {
+    '@type': 'WebSite';
+    '@id': string;
+    name: string;
+    url: string;
+    description: string;
+    inLanguage?: string[];
+    publisher?: { '@id': string };
+    creator?: { '@id': string };
+    sameAs?: string[];
+}
+
+function generatePersonSchema(): SchemaOrgPerson {
     return {
         '@type': 'Person',
         '@id': `${SITE_CONFIG.url}#person`,
@@ -74,10 +77,7 @@ export function generatePersonSchema(): SchemaOrgPerson {
     };
 }
 
-/**
- * Generates Website schema
- */
-export function generateWebsiteSchema(languages: string[]): SchemaOrgWebsite {
+function generateWebsiteSchema(languages: string[]): SchemaOrgWebsite {
     return {
         '@type': 'WebSite',
         '@id': `${SITE_CONFIG.url}#website`,
@@ -109,57 +109,12 @@ export function generateBaseSchema(languages: string[]) {
 }
 
 /**
- * Generates WebPage schema
- */
-export function generateWebPageSchema(
-    pageUrl: string,
-    title: string,
-    description: string,
-    lang: Language,
-    heroImage?: string
-) {
-    const schema: any = {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        '@id': `${pageUrl}#webpage`,
-        url: pageUrl,
-        name: title,
-        description,
-        inLanguage: lang,
-        isPartOf: {
-            '@id': `${SITE_CONFIG.url}#website`
-        },
-        about: {
-            '@id': `${SITE_CONFIG.url}#person`
-        },
-        mainEntity: {
-            '@id': `${SITE_CONFIG.url}#person`
-        }
-    };
-
-    if (heroImage) {
-        schema.primaryImageOfPage = {
-            '@type': 'ImageObject',
-            '@id': `${heroImage}#primaryimage`,
-            url: heroImage,
-            width: 1200,
-            height: 1200,
-            caption: title
-        };
-    }
-
-    return schema;
-}
-
-/**
- * Locale mapping for hreflang
+ * Locale mapping for og:locale
  */
 export const LOCALE_MAP: Record<string, string> = {
     en: 'en_US',
     hu: 'hu_HU',
-    it: 'it_IT',
-    zh: 'zh_CN',
-    ja: 'ja_JP'
+    it: 'it_IT'
 };
 
 /**
@@ -168,9 +123,7 @@ export const LOCALE_MAP: Record<string, string> = {
 export const HREFLANG_MAP: Record<string, string> = {
     en: 'en-US',
     hu: 'hu-HU',
-    it: 'it-IT',
-    zh: 'zh-CN',
-    ja: 'ja-JP'
+    it: 'it-IT'
 };
 
 /**
@@ -209,46 +162,4 @@ export function generateAlternateLinks(
             hrefLang: HREFLANG_MAP[code] || code
         };
     });
-}
-
-/**
- * Generates FAQ schema for rich snippets
- */
-export function generateFAQSchema(faqItems: ReadonlyArray<{ question: string; answer: string }>) {
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqItems.map(item => ({
-            '@type': 'Question',
-            name: item.question,
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: item.answer
-            }
-        }))
-    };
-}
-
-/**
- * Generates ProfilePage schema for personal sites
- */
-export function generateProfilePageSchema(
-    siteUrl: string,
-    name: string,
-    description: string,
-    skills: string[]
-) {
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'ProfilePage',
-        '@id': `${siteUrl}#profilepage`,
-        mainEntity: {
-            '@type': 'Person',
-            '@id': `${siteUrl}#person`,
-            name,
-            description,
-            knowsAbout: skills,
-            url: siteUrl
-        }
-    };
 }

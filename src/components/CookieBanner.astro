@@ -148,32 +148,18 @@
   }
 
   function init() {
-    console.log('[CookieBanner] init() called');
     const banner = document.getElementById('consent-notice') as HTMLElement | null;
-    if (!banner) {
-      console.warn('[CookieBanner] #consent-notice element not found in DOM');
-      return;
-    }
-    console.log('[CookieBanner] banner element found');
+    if (!banner) return;
 
     const stored = localStorage.getItem(STORAGE_KEY);
-    console.log('[CookieBanner] stored consent:', stored);
 
     if (stored === 'accepted') {
-      console.log('[CookieBanner] already accepted, granting consent silently');
       grantConsent();
       return;
     }
-    if (stored === 'declined') {
-      console.log('[CookieBanner] already declined, hiding banner');
-      return;
-    }
+    if (stored === 'declined') return;
 
-    console.log('[CookieBanner] first visit — will show in 1.2s');
-    setTimeout(() => {
-      console.log('[CookieBanner] showing banner now');
-      showBanner(banner);
-    }, 1200);
+    setTimeout(() => showBanner(banner), 1200);
 
     // Attach listeners only once
     const acceptBtn = document.getElementById('consent-accept');

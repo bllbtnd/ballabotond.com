@@ -2,15 +2,12 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-import partytown from '@astrojs/partytown';
 import AstroPWA from '@vite-pwa/astro';
-import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ballabotond.com',
   integrations: [
-    react(),
     tailwind(),
     sitemap({
       i18n: {
@@ -18,27 +15,13 @@ export default defineConfig({
         locales: {
           en: 'en',
           hu: 'hu-HU',
-          it: 'it-IT',
-          zh: 'zh-CN',
-          ja: 'ja-JP'
+          it: 'it-IT'
         }
       },
       filter: (page) => !page.includes('/404'),
-      customPages: [
-        'https://ballabotond.com/en/',
-        'https://ballabotond.com/hu/',
-        'https://ballabotond.com/it/',
-        'https://ballabotond.com/zh/',
-        'https://ballabotond.com/ja/'
-      ],
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date()
-    }),
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
     }),
     AstroPWA({
       registerType: 'autoUpdate',
@@ -46,28 +29,27 @@ export default defineConfig({
         name: "Balla Botond - Portfolio",
         short_name: "Balla Botond",
         description: "Personal website of Balla Botond - Software Engineer & Computer Science Student",
-        theme_color: "#c9a96b",
-        background_color: "#111827",
+        theme_color: "#F4F1EA",
+        background_color: "#F4F1EA",
         display: "standalone",
         orientation: "portrait-primary",
         scope: "/",
         start_url: "/",
         icons: [
           {
-            src: "/favicon.png",
+            src: "/favicon-192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "maskable any"
           },
           {
-            src: "/favicon.png",
+            src: "/favicon-512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable any"
           }
         ],
-        categories: ["portfolio", "developer", "personal"],
-        shortcuts: []
+        categories: ["portfolio", "developer", "personal"]
       },
       workbox: {
         navigateFallback: '/404',
@@ -78,14 +60,13 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 7000000
       },
       devOptions: {
-        enabled: true,
-        navigateFallbackAllowlist: [/^\/404$/]
+        enabled: false
       }
     })
   ],
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "hu", "it", "zh", "ja"],
+    locales: ["en", "hu", "it"],
     routing: {
       prefixDefaultLocale: false
     }
@@ -95,23 +76,13 @@ export default defineConfig({
     host: true
   },
   build: {
-    inlineStylesheets: 'auto', // Inline small CSS automatically
-    assets: '_astro' // Organize assets in _astro directory
+    inlineStylesheets: 'auto',
+    assets: '_astro'
   },
   vite: {
     build: {
-      cssCodeSplit: true, // Split CSS per page for better caching
-      minify: 'esbuild', // Fast minification
-      rollupOptions: {
-        output: {
-          manualChunks: (id) => {
-            // Split large libraries into separate chunks
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
-          }
-        }
-      }
+      cssCodeSplit: true,
+      minify: 'esbuild'
     }
   }
 });

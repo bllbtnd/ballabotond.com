@@ -1,0 +1,265 @@
+---
+/**
+ * Nav.astro — editorial masthead.
+ * Fixed hairline bar: wordmark left, section index right, inline language codes.
+ * Pure CSS + ~15 lines of JS (scrolled state, mobile menu toggle).
+ */
+interface LangOption {
+  code: string;
+  label: string;
+  href: string;
+  active: boolean;
+}
+
+interface Props {
+  homeHref: string;
+  sections: { id: string; label: string }[];
+  languages?: LangOption[];
+  cvHref?: string;
+}
+
+const { homeHref, sections, languages = [], cvHref } = Astro.props;
+---
+
+<header class="pf-masthead" id="masthead">
+  <div class="pf-masthead-inner">
+    <a href={homeHref} class="pf-serif pf-wordmark">Balla&nbsp;Botond</a>
+
+    <nav class="pf-masthead-nav" aria-label="Main navigation">
+      {sections.map((section, i) => (
+        <a href={`#${section.id}`} class="pf-nav-link" data-section-link={section.id}>
+          <sup class="pf-nav-index">{String(i + 1).padStart(2, '0')}</sup>
+          {section.label}
+        </a>
+      ))}
+      {cvHref && (
+        <a href={cvHref} target="_blank" rel="noopener noreferrer" class="pf-nav-link pf-nav-cv">CV</a>
+      )}
+      {languages.length > 0 && (
+        <span class="pf-langs">
+          {languages.map((l) => (
+            <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]} aria-current={l.active ? 'true' : undefined}>
+              {l.code}
+            </a>
+          ))}
+        </span>
+      )}
+    </nav>
+
+    <button class="pf-burger" id="pf-burger" aria-label="Open menu" aria-expanded="false" aria-controls="pf-mobile-menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile overlay menu -->
+<div class="pf-mobile-menu" id="pf-mobile-menu" hidden>
+  <nav aria-label="Mobile navigation">
+    {sections.map((section, i) => (
+      <a href={`#${section.id}`} class="pf-mobile-link pf-serif" style={`--i:${i}`}>
+        <sup class="pf-grotesk">{String(i + 1).padStart(2, '0')}</sup> {section.label}
+      </a>
+    ))}
+    {cvHref && (
+      <a href={cvHref} target="_blank" rel="noopener noreferrer" class="pf-mobile-link pf-serif" style={`--i:${sections.length}`}>CV</a>
+    )}
+  </nav>
+  {languages.length > 0 && (
+    <div class="pf-mobile-langs">
+      {languages.map((l) => (
+        <a href={l.href} class:list={['pf-lang', { 'is-active': l.active }]}>{l.label}</a>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .pf-masthead {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    background: transparent;
+    transition: background 0.4s var(--pf-ease), border-color 0.4s var(--pf-ease);
+    border-bottom: 1px solid transparent;
+  }
+  .pf-masthead.is-scrolled {
+    background: color-mix(in srgb, var(--pf-bg) 88%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--pf-border);
+  }
+
+  .pf-masthead-inner {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 1.1rem clamp(1.5rem, 5vw, 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .pf-wordmark {
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    color: var(--pf-text);
+    text-decoration: none;
+  }
+
+  .pf-masthead-nav {
+    display: none;
+    align-items: baseline;
+    gap: 1.9rem;
+  }
+  @media (min-width: 900px) {
+    .pf-masthead-nav { display: flex; }
+    .pf-burger { display: none !important; }
+  }
+
+  .pf-nav-link {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .pf-nav-link:hover { color: var(--pf-text); }
+  .pf-nav-link.is-active { color: var(--pf-accent); }
+
+  .pf-nav-index {
+    font-size: 0.58rem;
+    color: var(--pf-accent);
+    margin-right: 0.25rem;
+    letter-spacing: 0.08em;
+  }
+
+  .pf-langs {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding-left: 1.6rem;
+    border-left: 1px solid var(--pf-border);
+  }
+
+  .pf-lang {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .pf-lang:hover { color: var(--pf-text); }
+  .pf-lang.is-active {
+    color: var(--pf-accent);
+    border-bottom: 1px solid var(--pf-accent);
+  }
+
+  /* Burger */
+  .pf-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .pf-burger span {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--pf-text);
+    transition: transform 0.3s var(--pf-ease);
+  }
+  .pf-burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+  .pf-burger[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .pf-mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: var(--pf-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
+    padding: 2rem;
+  }
+  .pf-mobile-menu[hidden] { display: none; }
+
+  .pf-mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  .pf-mobile-link {
+    font-size: 2.2rem;
+    color: var(--pf-text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: pf-menu-in 0.45s var(--pf-ease) forwards;
+    animation-delay: calc(var(--i) * 70ms);
+  }
+  .pf-mobile-link sup {
+    font-size: 0.7rem;
+    color: var(--pf-accent);
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes pf-menu-in {
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-mobile-link { opacity: 1; transform: none; animation: none; }
+  }
+
+  .pf-mobile-langs {
+    display: flex;
+    gap: 1.4rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid var(--pf-border);
+  }
+  .pf-mobile-langs .pf-lang { font-size: 0.85rem; }
+</style>
+
+<script>
+  function initNav() {
+    const masthead = document.getElementById('masthead');
+    const burger = document.getElementById('pf-burger');
+    const menu = document.getElementById('pf-mobile-menu');
+    if (!masthead || !burger || !menu) return;
+
+    const onScroll = () => masthead.classList.toggle('is-scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    burger.addEventListener('click', () => setOpen(menu.hidden));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) setOpen(false);
+    });
+  }
+
+  initNav();
+  document.addEventListener('astro:after-swap', initNav);
+</script>

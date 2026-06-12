@@ -1,0 +1,207 @@
+---
+/**
+ * Projects.astro — editorial index of selected works.
+ * Hairline-ruled rows: number, large serif title, category, status,
+ * links. On hover the title indents and an arrow drifts in — the
+ * whole row becomes a quiet surface. Pure CSS interactions.
+ */
+import SectionHead from './SectionHead.astro';
+
+interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  url?: string;
+  links?: ProjectLink[];
+  status: 'active' | 'coming-soon' | 'past';
+}
+
+interface Props {
+  index: string;
+  sectionTitle: string;
+  projects: Project[];
+  openLabel?: string;
+}
+
+const { index, sectionTitle, projects, openLabel = 'Open Project' } = Astro.props;
+
+const statusLabel = (status: Project['status']) =>
+  status === 'active' ? 'Live' : status === 'coming-soon' ? 'Coming Soon' : 'Archived';
+---
+
+<section class="pf-section" aria-label={sectionTitle}>
+  <div class="pf-section-inner">
+    <SectionHead index={index} label={sectionTitle} title={sectionTitle} />
+
+    <div class="pf-index" role="list">
+      {projects.map((project, i) => {
+        const links = project.links?.length
+          ? project.links
+          : project.url
+            ? [{ label: openLabel, url: project.url }]
+            : [];
+        return (
+          <article class="pf-row" role="listitem" data-reveal style={`--reveal-delay:${Math.min(i % 6, 5) * 40}ms`}>
+            <span class="pf-row-num pf-grotesk">{String(i + 1).padStart(2, '0')}</span>
+
+            <div class="pf-row-main">
+              <h3 class="pf-row-title pf-serif">
+                {project.title}
+                <span class="pf-row-arrow" aria-hidden="true">↗</span>
+              </h3>
+              <p class="pf-row-desc pf-grotesk">{project.description}</p>
+            </div>
+
+            <div class="pf-row-meta">
+              <span class="pf-row-category pf-grotesk">{project.category}</span>
+              <span class:list={['pf-row-status', 'pf-grotesk', `is-${project.status}`]}>
+                {statusLabel(project.status)}
+              </span>
+              {project.status === 'active' && links.length > 0 && (
+                <span class="pf-row-links">
+                  {links.map((link) => (
+                    <a
+                      href={link.url}
+                      target={link.url.startsWith('/') ? undefined : '_blank'}
+                      rel={link.url.startsWith('/') ? undefined : 'noopener noreferrer'}
+                      class="pf-link pf-row-link pf-grotesk"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </span>
+              )}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pf-section {
+    padding: clamp(5rem, 12vh, 9rem) 0;
+  }
+  .pf-section-inner {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .pf-index {
+    border-bottom: 1px solid var(--pf-border);
+  }
+
+  .pf-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: clamp(1.8rem, 3.4vw, 2.8rem) clamp(0.4rem, 1vw, 1.2rem);
+    border-top: 1px solid var(--pf-border);
+    transition: background 0.35s ease;
+  }
+  .pf-row:hover { background: var(--pf-surface); }
+
+  @media (min-width: 900px) {
+    .pf-row {
+      grid-template-columns: 4rem 1fr 15rem;
+      gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: start;
+    }
+  }
+
+  .pf-row-num {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--pf-muted);
+    padding-top: 0.8rem;
+  }
+
+  .pf-row-title {
+    font-size: clamp(1.9rem, 1.3rem + 2.8vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--pf-text);
+    margin: 0 0 0.7rem;
+    transition: color 0.3s ease, transform 0.45s var(--pf-ease);
+  }
+  .pf-row:hover .pf-row-title {
+    color: var(--pf-accent);
+    transform: translateX(0.35em);
+  }
+
+  .pf-row-arrow {
+    display: inline-block;
+    font-size: 0.55em;
+    vertical-align: 0.45em;
+    margin-left: 0.25em;
+    opacity: 0;
+    transform: translate(-0.4em, 0.4em);
+    transition: opacity 0.35s ease, transform 0.45s var(--pf-ease);
+  }
+  .pf-row:hover .pf-row-arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .pf-row-desc {
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: var(--pf-muted);
+    margin: 0;
+    max-width: 44rem;
+  }
+
+  .pf-row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1.4rem;
+    padding-top: 0.55rem;
+  }
+  @media (min-width: 900px) {
+    .pf-row-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+    }
+  }
+
+  .pf-row-category {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+  }
+
+  .pf-row-status {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .pf-row-status.is-active { color: var(--pf-accent); }
+  .pf-row-status.is-coming-soon,
+  .pf-row-status.is-past { color: var(--pf-muted); }
+
+  .pf-row-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.2rem;
+    padding-top: 0.2rem;
+  }
+  .pf-row-link {
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pf-text);
+    text-decoration: none;
+  }
+</style>

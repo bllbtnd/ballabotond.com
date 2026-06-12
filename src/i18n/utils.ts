@@ -55,16 +55,3 @@ export function useTranslatedPath(lang: Languages) {
     return l === defaultLang ? path : `/${String(l)}${path}`;
   }
 }
-
-export function getRandomTagline(lang: Languages, source: 'common' | 'footer' = 'common'): string {
-  const langTranslations = translations[lang];
-  const taglines = (langTranslations as any)[source]?.taglines;
-  
-  if (Array.isArray(taglines) && taglines.length > 0) {
-    const randomIndex = Math.floor(Math.random() * taglines.length);
-    return taglines[randomIndex];
-  }
-  
-  // Fallback to first tagline or empty string
-  return taglines?.[0] || '';
-}

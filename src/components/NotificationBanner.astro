@@ -204,7 +204,7 @@ const activeNotifications = (notificationsData as any[]).filter(n => n.active);
 
 <script>
   function getLang(): string {
-    const match = window.location.pathname.match(/^\/(hu|it|zh|ja)(\/|$)/);
+    const match = window.location.pathname.match(/^\/(hu|it)(\/|$)/);
     return match ? match[1] : 'en';
   }
 

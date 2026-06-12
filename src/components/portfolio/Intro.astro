@@ -1,0 +1,129 @@
+---
+/**
+ * Intro.astro — once-per-session opening curtain.
+ * The wordmark rises out of a mask above an expanding hairline,
+ * then the ivory curtain lifts to reveal the hero, whose own
+ * entrance is held (html.pf-hold) until the curtain starts moving.
+ * Skipped entirely on repeat visits and for reduced motion.
+ */
+interface Props {
+  name: string;
+  subtitle: string;
+}
+
+const { name, subtitle } = Astro.props;
+---
+
+<div id="pf-intro" aria-hidden="true">
+  <div class="pf-intro-center">
+    <div class="pf-intro-mask">
+      <span class="pf-intro-name pf-serif">{name}</span>
+    </div>
+    <div class="pf-intro-rule"></div>
+    <div class="pf-intro-mask">
+      <span class="pf-intro-sub pf-grotesk">{subtitle}</span>
+    </div>
+  </div>
+</div>
+
+<!-- Runs synchronously right after the element parses: no flash on repeat visits -->
+<script is:inline>
+  (() => {
+    const el = document.getElementById('pf-intro');
+    if (!el) return;
+    let skip = false;
+    try {
+      skip = !!sessionStorage.getItem('pf_intro_seen') ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (_) { /* storage blocked — play it */ }
+    if (skip) { el.remove(); return; }
+
+    document.documentElement.classList.add('pf-hold');
+    el.classList.add('is-armed');
+
+    setTimeout(() => {
+      try { sessionStorage.setItem('pf_intro_seen', '1'); } catch (_) {}
+      document.documentElement.classList.remove('pf-hold');
+      document.dispatchEvent(new CustomEvent('pf:intro-done'));
+      el.classList.add('is-done');
+      setTimeout(() => el.remove(), 1000);
+    }, 1700);
+  })();
+</script>
+
+<style is:global>
+  #pf-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--pf-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  #pf-intro.is-done {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .pf-intro-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 0 1.5rem;
+  }
+  #pf-intro.is-done .pf-intro-center {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .pf-intro-mask {
+    overflow: hidden;
+    padding: 0.08em 0.1em;
+  }
+
+  .pf-intro-name {
+    display: block;
+    font-size: clamp(2.6rem, 2rem + 5vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--pf-text);
+    transform: translateY(120%);
+  }
+  #pf-intro.is-armed .pf-intro-name {
+    animation: pf-intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  }
+
+  .pf-intro-rule {
+    width: 0;
+    height: 1px;
+    background: var(--pf-accent);
+  }
+  #pf-intro.is-armed .pf-intro-rule {
+    animation: pf-intro-rule 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  }
+
+  .pf-intro-sub {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+    transform: translateY(130%);
+  }
+  #pf-intro.is-armed .pf-intro-sub {
+    animation: pf-intro-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+  }
+
+  @keyframes pf-intro-rise {
+    to { transform: translateY(0); }
+  }
+  @keyframes pf-intro-rule {
+    to { width: min(20rem, 60vw); }
+  }
+
+  /* Lock scroll while the curtain is up; the hero waits for pf:intro-done */
+  html.pf-hold { overflow: hidden; }
+</style>
