@@ -21,7 +21,7 @@ interface Props {
 const { homeHref, sections, languages = [], cvHref } = Astro.props;
 ---
 
-<header class="pf-masthead" id="masthead">
+<header class="pf-masthead" id="masthead" transition:persist="masthead">
   <div class="pf-masthead-inner">
     <a href={homeHref} class="pf-serif pf-wordmark">Balla&nbsp;Botond</a>
 
@@ -53,7 +53,7 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
 </header>
 
 <!-- Mobile overlay menu -->
-<div class="pf-mobile-menu" id="pf-mobile-menu" hidden>
+<div class="pf-mobile-menu" id="pf-mobile-menu" hidden transition:persist="mobile-menu">
   <nav aria-label="Mobile navigation">
     {sections.map((section, i) => (
       <a href={`#${section.id}`} class="pf-mobile-link pf-serif" style={`--i:${i}`}>
