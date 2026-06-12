@@ -1,0 +1,67 @@
+---
+/**
+ * SectionHead.astro — unified editorial section opening.
+ * Numbered kicker over a hairline, then the title rising out of a
+ * mask (driven by the shared IntersectionObserver), with an optional
+ * italic annotation on the right and gentle parallax on the whole head.
+ */
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  note?: string;
+}
+
+const { index, label, title, note } = Astro.props;
+---
+
+<header class="pf-shead" data-px="0.045">
+  <div class="pf-kicker" data-reveal>
+    <span>{index}</span>
+    <span>{label}</span>
+  </div>
+
+  <div class="pf-shead-row">
+    <div class="pf-shead-mask" data-reveal-mask>
+      <h2 class="pf-shead-title pf-serif">{title}</h2>
+    </div>
+    {note && <p class="pf-shead-note pf-serif" data-reveal style="--reveal-delay:200ms">{note}</p>}
+  </div>
+</header>
+
+<style>
+  .pf-shead {
+    margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+  }
+
+  .pf-shead-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .pf-shead-mask {
+    overflow: hidden;
+    padding: 0.08em 0.04em 0.24em;
+    margin: -0.08em -0.04em -0.24em;
+  }
+
+  .pf-shead-title {
+    font-size: clamp(2.6rem, 1.5rem + 5.5vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: var(--pf-text);
+    margin: 1.6rem 0 0;
+  }
+
+  .pf-shead-note {
+    margin: 0;
+    font-style: italic;
+    font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+    color: var(--pf-accent);
+    max-width: 22rem;
+  }
+</style>

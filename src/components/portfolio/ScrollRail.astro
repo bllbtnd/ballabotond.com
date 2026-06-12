@@ -1,0 +1,238 @@
+---
+/**
+ * ScrollRail.astro — a quiet companion that follows the reader.
+ * Desktop: fixed left rail with a progress hairline and section
+ * numbers that light up as you pass them; labels bloom on hover.
+ * Mobile: a 2px accent progress line pinned to the top edge.
+ * Also drives the active state of masthead links ([data-section-link]).
+ */
+interface Props {
+  sections: { id: string; label: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<aside class="pf-rail" id="pf-rail" aria-hidden="true">
+  <div class="pf-rail-track">
+    <div class="pf-rail-fill" id="pf-rail-fill"></div>
+    <div class="pf-rail-dot" id="pf-rail-dot"></div>
+  </div>
+  <ol class="pf-rail-list">
+    {sections.map((section, i) => (
+      <li>
+        <a href={`#${section.id}`} class="pf-rail-item" data-rail-item={section.id} tabindex="-1">
+          <span class="pf-rail-num pf-grotesk">{String(i + 1).padStart(2, '0')}</span>
+          <span class="pf-rail-label pf-serif">{section.label}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</aside>
+
+<div class="pf-progress-top" id="pf-progress-top" aria-hidden="true"></div>
+
+<style>
+  /* ── Desktop rail ──────────────────────────────── */
+  .pf-rail {
+    position: fixed;
+    left: clamp(0.9rem, 1.6vw, 1.6rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 45;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.4rem;
+  }
+  @media (min-width: 1340px) {
+    .pf-rail { display: flex; }
+  }
+
+  .pf-rail-track {
+    position: absolute;
+    left: 4px;
+    top: -3.5rem;
+    bottom: -3.5rem;
+    width: 1px;
+    background: var(--pf-border);
+  }
+  .pf-rail-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--pf-accent);
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .pf-rail-dot {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--pf-accent);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .pf-rail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pf-rail-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    text-decoration: none;
+    padding-left: 1.1rem;
+  }
+
+  .pf-rail-num {
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    color: var(--pf-muted);
+    opacity: 0.55;
+    transition: color 0.35s ease, opacity 0.35s ease;
+  }
+
+  .pf-rail-label {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--pf-accent);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.35s var(--pf-ease), transform 0.35s var(--pf-ease);
+    pointer-events: none;
+  }
+
+  .pf-rail-item:hover .pf-rail-label,
+  .pf-rail-item.is-active .pf-rail-label {
+    opacity: 1;
+    transform: none;
+  }
+  .pf-rail-item:hover .pf-rail-num,
+  .pf-rail-item.is-active .pf-rail-num {
+    color: var(--pf-accent);
+    opacity: 1;
+  }
+
+  /* ── Mobile top progress line ──────────────────── */
+  .pf-progress-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 60;
+    background: var(--pf-accent);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @media (min-width: 1340px) {
+    .pf-progress-top { display: none; }
+  }
+</style>
+
+<script>
+  function initRail() {
+    const fill = document.getElementById('pf-rail-fill');
+    const dot = document.getElementById('pf-rail-dot');
+    const topBar = document.getElementById('pf-progress-top');
+    const items = document.querySelectorAll<HTMLElement>('[data-rail-item]');
+    const navLinks = document.querySelectorAll<HTMLElement>('[data-section-link]');
+    if (!fill && !topBar && !items.length) return;
+
+    // Progress.
+    // The mobile top bar shows raw page progress. The rail dot instead
+    // interpolates between the section numbers themselves, so it sits at
+    // "03" while you read section 03 — not at some unrelated page %.
+    const track = fill?.parentElement as HTMLElement | null;
+    let stops: { scroll: number; y: number }[] = [];
+
+    const measureStops = () => {
+      if (!track || !items.length) return;
+      const trackTop = track.getBoundingClientRect().top;
+      const vh = window.innerHeight;
+      const maxScroll = document.documentElement.scrollHeight - vh;
+      stops = [{ scroll: 0, y: 0 }];
+      items.forEach((item) => {
+        const target = document.getElementById(item.dataset.railItem || '');
+        if (!target) return;
+        // Scroll position where this section becomes "active" (enters the IO band)
+        const activateAt = target.getBoundingClientRect().top + window.scrollY - vh * 0.38;
+        const itemY = item.getBoundingClientRect().top + item.offsetHeight / 2 - trackTop;
+        stops.push({ scroll: Math.max(0, Math.min(activateAt, maxScroll)), y: itemY });
+      });
+      stops.push({ scroll: maxScroll, y: track.offsetHeight });
+      stops.sort((a, b) => a.scroll - b.scroll);
+    };
+
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (topBar) topBar.style.transform = `scaleX(${p.toFixed(4)})`;
+
+      if (fill && track && stops.length > 1) {
+        const y = window.scrollY;
+        let dotY = stops[stops.length - 1].y;
+        for (let i = 1; i < stops.length; i++) {
+          if (y <= stops[i].scroll) {
+            const a = stops[i - 1];
+            const b = stops[i];
+            const t = b.scroll > a.scroll ? (y - a.scroll) / (b.scroll - a.scroll) : 1;
+            dotY = a.y + (b.y - a.y) * t;
+            break;
+          }
+        }
+        fill.style.transform = `scaleY(${Math.max(0, Math.min(1, dotY / track.offsetHeight)).toFixed(4)})`;
+        if (dot) dot.style.transform = `translate3d(0, ${Math.max(0, dotY).toFixed(1)}px, 0)`;
+      }
+    };
+    window.addEventListener('scroll', () => {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    }, { passive: true });
+    window.addEventListener('resize', () => { measureStops(); update(); });
+    // Measure once layout settles (fonts/images), then again on full load
+    requestAnimationFrame(() => { measureStops(); update(); });
+    window.addEventListener('load', () => { measureStops(); update(); }, { once: true });
+
+    // Active section — the hero ('manifesto') clears the highlight,
+    // so nothing is marked before the reader actually reaches a section.
+    if (!('IntersectionObserver' in window)) return;
+    const setActive = (id: string) => {
+      items.forEach((el) => el.classList.toggle('is-active', el.dataset.railItem === id));
+      navLinks.forEach((el) => el.classList.toggle('is-active', el.dataset.sectionLink === id));
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const id = (entry.target as HTMLElement).id;
+          setActive(id === 'manifesto' ? '' : id);
+        }
+      },
+      { rootMargin: '-35% 0px -55% 0px' }
+    );
+    const hero = document.getElementById('manifesto');
+    if (hero) io.observe(hero);
+    items.forEach((el) => {
+      const target = document.getElementById(el.dataset.railItem || '');
+      if (target) io.observe(target);
+    });
+  }
+
+  initRail();
+  document.addEventListener('astro:after-swap', initRail);
+</script>

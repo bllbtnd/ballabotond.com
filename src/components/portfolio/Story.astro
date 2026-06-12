@@ -1,0 +1,329 @@
+---
+/**
+ * Story.astro — editorial narrative layout.
+ *
+ * Architecture:
+ *  - Lead paragraph: large serif with drop cap
+ *  - Portrait: elegant inset on desktop (sticky), inline on mobile
+ *  - Remaining paragraphs: readable grotesk prose column
+ *  - Pull quotes woven into the flow as visual breathing moments
+ *  - Read more toggle collapses paragraphs 3+ on mobile
+ */
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  index: string;
+  sectionTitle: string;
+  paragraphs: string[];
+  profileImage: string;
+  profileAlt: string;
+  caption?: string;
+  readMoreLabel: string;
+  showLessLabel: string;
+  pullQuote1?: string;
+  pullQuote2?: string;
+}
+
+const {
+  index,
+  sectionTitle,
+  paragraphs,
+  profileImage,
+  profileAlt,
+  caption,
+  readMoreLabel,
+  showLessLabel,
+  pullQuote1 = "the feeling of creating something from nothing was electrifying",
+  pullQuote2 = "quality, in all its forms, is worth pursuing",
+} = Astro.props;
+
+const [lead, ...rest] = paragraphs;
+
+// Pull quotes inserted after specific paragraphs (0-indexed in `rest`)
+const pullQuotes: Record<number, string> = {
+  0: pullQuote1,
+  3: pullQuote2,
+};
+---
+
+<section class="pf-section pf-story-section" aria-label={sectionTitle}>
+  <div class="pf-story-inner">
+    <SectionHead index={index} label={sectionTitle} title={sectionTitle} />
+
+    <!-- Lead paragraph — full width, oversized serif -->
+    {lead && (
+      <p class="pf-story-lead pf-serif" data-reveal>
+        {lead}
+      </p>
+    )}
+
+    <!-- Prose + portrait: portrait floats right inside the text flow -->
+    <div class="pf-story-body" id="pf-story-body" data-collapsed="true">
+
+      <figure class="pf-story-portrait" data-reveal>
+        <div class="pf-portrait-frame">
+          <img
+            src={profileImage}
+            alt={profileAlt}
+            width="600"
+            height="590"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {caption && (
+          <figcaption class="pf-portrait-caption pf-grotesk">
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+
+      {rest.map((text, i) => (
+        <>
+          <p
+            class={`pf-story-p pf-grotesk${i >= 2 ? ' pf-story-extra' : ''}`}
+            data-reveal
+            style={`--reveal-delay:${Math.min(i, 3) * 60}ms`}
+          >
+            {text}
+          </p>
+
+          {pullQuotes[i] && (
+            <blockquote
+              class="pf-story-quote pf-serif"
+              data-reveal
+              style={`--reveal-delay:${Math.min(i, 3) * 60 + 80}ms`}
+            >
+              <span class="pf-quote-mark" aria-hidden="true">"</span>{pullQuotes[i]}<span class="pf-quote-mark pf-quote-mark--close" aria-hidden="true">"</span>
+            </blockquote>
+          )}
+        </>
+      ))}
+
+      <button
+        type="button"
+        class="pf-story-toggle pf-grotesk"
+        id="pf-story-toggle"
+        aria-expanded="false"
+        aria-controls="pf-story-body"
+      >
+        <span data-more>{readMoreLabel}</span>
+        <span data-less hidden>{showLessLabel}</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Wrapper ────────────────────────────────────── */
+  .pf-story-section {
+    padding: clamp(5rem, 12vh, 9rem) 0;
+  }
+  .pf-story-inner {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  /* ── Lead paragraph ─────────────────────────────── */
+  .pf-story-lead {
+    margin: 0 0 clamp(3rem, 7vh, 5rem);
+    max-width: 58rem;
+    font-size: clamp(1.35rem, 1rem + 1.8vw, 2.2rem);
+    line-height: 1.38;
+    letter-spacing: -0.01em;
+    color: var(--pf-text);
+  }
+
+  /* Drop cap */
+  .pf-story-lead::first-letter {
+    font-size: 3.4em;
+    line-height: 0.75;
+    float: left;
+    padding: 0.08em 0.16em 0 0;
+    color: var(--pf-accent);
+  }
+
+  /* ── Body: single flow with floated portrait ───── */
+  .pf-story-body {
+    max-width: 72rem;
+    /* clearfix so section doesn't collapse past the float */
+  }
+  .pf-story-body::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  /* ── Portrait — floated right into the prose ────── */
+  .pf-story-portrait {
+    margin: 0 0 1.8rem 0;
+    float: none;
+    width: 100%;
+  }
+  @media (min-width: 680px) {
+    .pf-story-portrait {
+      float: right;
+      width: clamp(220px, 30%, 320px);
+      margin: 0.3rem 0 1.4rem clamp(1.8rem, 4vw, 3rem);
+    }
+  }
+
+  /* Clip-reveal entrance */
+  .pf-portrait-frame {
+    overflow: hidden;
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.1s var(--pf-ease) 0.1s;
+  }
+  .pf-story-portrait.is-in .pf-portrait-frame,
+  :global(.no-js) .pf-portrait-frame {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .pf-portrait-frame img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: saturate(0.88);
+  }
+
+  /* Subtle hover: slight scale */
+  .pf-portrait-frame:hover img {
+    transform: scale(1.02);
+    transition: transform 0.8s var(--pf-ease), filter 0.4s ease;
+    filter: saturate(1);
+  }
+
+  .pf-portrait-caption {
+    margin-top: 0.9rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+  }
+
+  /* ── Prose paragraphs ───────────────────────────── */
+  .pf-story-prose {
+    display: block;
+  }
+
+  .pf-story-p {
+    margin: 0 0 1.65rem;
+    font-size: clamp(0.98rem, 0.9rem + 0.4vw, 1.14rem);
+    line-height: 1.78;
+    color: var(--pf-text);
+  }
+
+  /* Paragraph indent for all but first */
+  .pf-story-p + .pf-story-p {
+    text-indent: 2em;
+  }
+  /* No indent after a blockquote */
+  .pf-story-quote + .pf-story-p {
+    text-indent: 0;
+  }
+
+  /* ── Pull quotes ────────────────────────────────── */
+  .pf-story-quote {
+    margin: clamp(1.8rem, 4vh, 3rem) 0 clamp(2rem, 4.5vh, 3.5rem);
+    padding: 0 0 0 clamp(1.2rem, 2.5vw, 2rem);
+    border: none;
+    border-left: 2px solid var(--pf-accent);
+    font-style: italic;
+    font-size: clamp(1.15rem, 0.9rem + 1.4vw, 2rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--pf-accent);
+  }
+
+  .pf-quote-mark {
+    font-size: 1.5em;
+    line-height: 0;
+    vertical-align: -0.3em;
+    opacity: 0.45;
+    font-style: normal;
+    display: inline-block;
+    margin-right: 0.05em;
+  }
+  .pf-quote-mark--close {
+    margin-right: 0;
+    margin-left: 0.05em;
+  }
+
+  /* ── Read more toggle ───────────────────────────── */
+  .pf-story-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.6rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--pf-accent);
+    transition: opacity 0.2s ease;
+  }
+  .pf-story-toggle:hover { opacity: 0.7; }
+  .pf-story-toggle svg {
+    transition: transform 0.3s var(--pf-ease);
+    flex-shrink: 0;
+  }
+  .pf-story-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile only: show toggle, hide extras */
+  @media (max-width: 679px) {
+    .pf-story-toggle {
+      display: inline-flex;
+    }
+    .pf-story-body[data-collapsed="true"] .pf-story-extra {
+      display: none;
+    }
+    .pf-story-body[data-collapsed="true"] .pf-story-extra + .pf-story-quote {
+      display: none;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .pf-portrait-frame {
+      clip-path: none;
+      transition: none;
+    }
+    .pf-portrait-frame:hover img {
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initStoryToggle() {
+    const body   = document.getElementById('pf-story-body');
+    const toggle = document.getElementById('pf-story-toggle');
+    if (!body || !toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const collapsed = body.dataset.collapsed === 'true';
+      body.dataset.collapsed = String(!collapsed);
+      toggle.setAttribute('aria-expanded', String(collapsed));
+      toggle.querySelector('[data-more]')?.toggleAttribute('hidden', collapsed);
+      toggle.querySelector('[data-less]')?.toggleAttribute('hidden', !collapsed);
+      if (!collapsed) body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  initStoryToggle();
+  document.addEventListener('astro:after-swap', initStoryToggle);
+</script>

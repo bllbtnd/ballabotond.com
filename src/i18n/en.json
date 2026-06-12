@@ -96,13 +96,22 @@
       "mobile": "Mobile Apps",
       "health": "Health and Fitness",
       "gaming": "Gaming"
-    }
+    },
+    "status": {
+      "live": "Live",
+      "soon": "Soon",
+      "archived": "Archived"
+    },
+    "openProject": "Open Project"
   },
   "resume": {
     "subtitle": "Resume",
+    "currentLabel": "Current",
     "lifeStory": {
       "title": "My Story",
       "caption": "Balla Botond - Hungary",
+      "pullQuote1": "the feeling of creating something from nothing was electrifying",
+      "pullQuote2": "quality, in all its forms, is worth pursuing",
       "paragraphs": [
         "I was born in Budapest, the capital city of Hungary, where the parliament towers over the river and history seeps through every cobblestone. I grew up in Esztergom, a city just an hour away, where the historical significance and natural beauty gave me an early appreciation for craftsmanship, the kind of patient, deliberate work that stands the test of time. Walking through the narrow streets lined with baroque architecture and looking out over the Danube from the hilltop basilica, I learned that the things worth building are the ones that endure.",
         "As a kid, I was endlessly curious. I took apart anything I could get my hands on: radios, old computers, mechanical clocks. I was driven by a need to understand how things worked beneath the surface, and I never stopped until I figured it out. That same curiosity eventually led me to my first lines of code. I was around 12 when I wrote my first real program, and the feeling of creating something from nothing was electrifying. From that moment on, I knew that building software was going to be a significant part of my life.",
@@ -117,14 +126,10 @@
       "softSkillItems": [
         "Communication",
         "Problem Solving",
-        "Critical Thinking",
         "Teamwork & Collaboration",
         "Adaptability",
         "Time Management",
-        "Leadership",
-        "Attention to Detail",
-        "Self-Motivation",
-        "Continuous Learning"
+        "Attention to Detail"
       ]
     },
     "experience": {
@@ -200,6 +205,7 @@
       "Solutions That Work"
     ],
     "navigate": "Navigate",
+    "connect": "Connect",
     "quote": {
       "text": "\"Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution.\"",
       "author": "William A. Foster"

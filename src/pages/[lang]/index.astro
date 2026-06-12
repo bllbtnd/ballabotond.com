@@ -1,19 +1,21 @@
 ---
 /**
- * [lang]/index.astro — Single-page portfolio homepage.
- * Merges hero manifesto, interactive resume, project gallery.
- * Aesthetic: Digital Sobriety — Collectif Parcelles inspired.
+ * [lang]/index.astro — single-page portfolio homepage.
+ * Editorial / Atelier design: numbered sections, hairline rules,
+ * monumental serif typography. Zero client-side frameworks.
  */
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
 import { useTranslations, useTranslatedPath, languages, defaultLang } from '../../i18n/utils';
 import { SOCIAL_LINKS } from '../../config/constants';
 
-import PortfolioNav from '../../components/portfolio/PortfolioNav';
-import ParallaxHero from '../../components/portfolio/ParallaxHero';
-import LifeStory from '../../components/portfolio/LifeStory';
-import ResumeTimeline from '../../components/portfolio/ResumeTimeline';
-import ProjectGallery from '../../components/portfolio/ProjectGallery';
-import MegaFooter from '../../components/portfolio/MegaFooter';
+import Nav from '../../components/portfolio/Nav.astro';
+import Intro from '../../components/portfolio/Intro.astro';
+import ScrollRail from '../../components/portfolio/ScrollRail.astro';
+import Hero from '../../components/portfolio/Hero.astro';
+import Story from '../../components/portfolio/Story.astro';
+import Resume from '../../components/portfolio/Resume.astro';
+import Projects from '../../components/portfolio/Projects.astro';
+import Footer from '../../components/portfolio/Footer.astro';
 
 import { getImage } from 'astro:assets';
 import profileImageSrc from '../../assets/images/profile.webp';
@@ -43,8 +45,9 @@ const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 // ── Optimized images ─────────────────────────────────
 const optimizedProfile = await getImage({
   src: profileImageSrc,
-  width: 416,
-  height: 416,
+  width: 720,
+  height: 960,
+  fit: 'cover',
   format: 'webp',
 });
 
@@ -100,7 +103,6 @@ const lifeStoryParagraphs: string[] =
 
 // ── Nav sections ───────────────────────────────────────
 const navSections = [
-  { id: 'manifesto', label: t('portfolio.about') },
   { id: 'story', label: t('resume.lifeStory.title') },
   { id: 'resume', label: t('nav.resume') },
   { id: 'projects', label: t('nav.projects') },
@@ -170,32 +172,27 @@ const educationEntries = [
   },
 ];
 
-
 // ── Stack Data ─────────────────────────────────────────
 const stackCategories = [
   {
-    label: 'Backend',
-    items: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST API'],
+    label: 'Backend & APIs',
+    items: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST APIs', 'C# ASP.NET', 'WebSocket', 'WebRTC'],
   },
   {
-    label: 'Frontend',
+    label: 'Frontend & UI',
     items: ['React', 'Angular', 'JavaScript', 'TypeScript', 'TailwindCSS', 'HTML', 'CSS'],
   },
   {
-    label: 'Mobile',
-    items: ['Android', 'Kotlin'],
-  },
-  {
-    label: 'Database',
+    label: 'Data & Storage',
     items: ['PostgreSQL', 'PostGIS', 'MySQL', 'SQLite', 'Room ORM'],
   },
   {
-    label: 'DevOps / Cloud',
+    label: 'Platform & Delivery',
     items: ['Docker', 'GitHub Actions', 'Linux', 'Cloudflare', 'Nginx'],
   },
   {
-    label: 'Also Familiar',
-    items: ['Python', 'Go', 'C# ASP.NET', 'WebRTC', 'WebSocket'],
+    label: 'Additional Languages',
+    items: ['Python', 'Go'],
   },
   {
     label: t('resume.skills.softSkills'),
@@ -203,7 +200,11 @@ const stackCategories = [
       ?? allTranslations['en'].resume.skills.softSkillItems,
   },
   {
-    label: 'Spoken',
+    label: 'Mobile',
+    items: ['Android', 'Kotlin'],
+  },
+  {
+    label: 'Spoken Languages',
     items: ['English (C1)', 'Italian (A1)', 'Hungarian (Native)'],
   },
 ];
@@ -211,15 +212,14 @@ const stackCategories = [
 // ── Project Data ───────────────────────────────────────
 const projectItems = projects
   .filter((p: any) => p.status !== 'past')
-  .map((p: any, index: number) => ({
+  .map((p: any) => ({
     id: p.id,
     title: p.titleKey ? t(p.titleKey) : (p.title || p.id),
     category: p.categoryKey ? t(p.categoryKey) : 'Project',
     description: p.descriptionKey ? t(p.descriptionKey) : (p.description || ''),
-    url: p.url || '',
+    url: p.url ? (p.url.startsWith('/') ? translatePath(p.url) : p.url) : '',
     links: p.links || undefined,
     status: p.status as 'active' | 'coming-soon' | 'past',
-    index,
   }));
 
 // ── Footer Data ────────────────────────────────────────
@@ -232,9 +232,9 @@ const footerNavigation = [
 ];
 
 const footerSocials = SOCIAL_LINKS.map(link => ({
+  id: link.id,
   label: t(link.i18nKey),
   href: link.href,
-  icon: link.icon,
 }));
 ---
 
@@ -244,12 +244,11 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
   keywords={t('home.keywords')}
   canonical={canonicalUrl}
 >
-  <script slot="head" type="application/ld+json" is:inline>
-    {JSON.stringify(structuredData)}
-  </script>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 
-  <PortfolioNav
-    client:load
+  <Intro name={t('common.name')} subtitle={t('portfolio.heroSubtitle')} />
+
+  <Nav
     homeHref={translatePath('/')}
     sections={navSections}
     cvHref="https://cv.ballabotond.com"
@@ -261,80 +260,83 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
     }))}
   />
 
+  <ScrollRail sections={navSections} />
+
   <main>
-    <!-- SECTION 1: THE MANIFESTO (Hero) -->
+    <!-- 01 · The opening -->
     <div id="manifesto">
-      <ParallaxHero
-        client:load
+      <Hero
         name={t('common.name')}
         tagline={t('portfolio.heroTagline')}
         subtitle={t('portfolio.heroSubtitle')}
-        description=""
-        description2={t('portfolio.heroDescription2')}
+        description={t('portfolio.heroDescription2')}
         profileImage={optimizedProfile.src}
         profileAlt={t('common.name')}
         profileLink="https://map.ballabotond.com"
       />
     </div>
 
-    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
-      <hr class="pf-divider" />
-    </div>
-
-    <!-- SECTION 1.5: LIFE STORY -->
+    <!-- 02 · My Story -->
     <div id="story">
-      <LifeStory
-        client:visible
+      <Story
+        index="01"
         sectionTitle={t('resume.lifeStory.title')}
-        storyText={lifeStoryParagraphs}
+        paragraphs={lifeStoryParagraphs}
         profileImage={optimizedStoryPortrait.src}
         profileAlt={t('resume.lifeStory.caption')}
+        caption={t('resume.lifeStory.caption')}
         readMoreLabel={t('common.readMore')}
         showLessLabel={t('common.showLess')}
+        pullQuote1={t('resume.lifeStory.pullQuote1')}
+        pullQuote2={t('resume.lifeStory.pullQuote2')}
       />
     </div>
 
-    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
-      <hr class="pf-divider" />
-    </div>
-
-    <!-- SECTION 2: THE INTERACTIVE RESUME -->
+    <!-- 03 · Resume -->
     <div id="resume">
-      <ResumeTimeline
-        client:visible
+      <Resume
+        index="02"
         sectionTitle={t('resume.subtitle')}
         experienceEntries={experienceEntries}
         educationTitle={t('resume.education.title')}
         educationEntries={educationEntries}
         stackTitle={t('nav.stack')}
         categories={stackCategories}
+        currentLabel={t('resume.currentLabel')}
       />
     </div>
 
-    <div class="max-w-[90vw] mx-auto px-6 md:px-12">
-      <hr class="pf-divider" />
-    </div>
-
-    <!-- SECTION 3: THE PROJECT GALLERY -->
+    <!-- 04 · Projects -->
     <div id="projects">
-      <ProjectGallery
-        client:visible
+      <Projects
+        index="03"
         sectionTitle={t('projects.subtitle')}
         projects={projectItems}
+        openLabel={t('projects.openProject')}
+        statusLabels={{
+          live: t('projects.status.live'),
+          soon: t('projects.status.soon'),
+          archived: t('projects.status.archived'),
+        }}
       />
     </div>
   </main>
 
-  <!-- SECTION 4: THE MEGA-FOOTER -->
+  <!-- 05 · Contact / colophon -->
   <div id="contact">
-    <MegaFooter
-      client:visible
+    <Footer
+      index="04"
+      contactLabel={t('portfolio.contact')}
       name={t('common.name')}
+      role={t('portfolio.heroSubtitle')}
       email="contact@ballabotond.com"
       navigation={footerNavigation}
+      navigateTitle={t('footer.navigate')}
       socials={footerSocials}
-      tagline="Quality is never accidental; it is the result of intention, care, and precision."
+      quote={t('footer.quote.text')}
+      quoteAuthor={t('footer.quote.author')}
       copyright={t('footer.copyright')}
+      connectTitle={t('footer.connect')}
     />
   </div>
 </PortfolioLayout>

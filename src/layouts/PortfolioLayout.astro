@@ -1,24 +1,22 @@
 ---
 /**
  * PortfolioLayout.astro
- * 
- * Global layout shell for the single-page portfolio.
- * Configures Lenis smooth scrolling, loads premium typography,
- * and sets up the light monochrome aesthetic.
+ *
+ * Global layout shell — "Editorial / Atelier" design.
+ * Warm ivory paper, ink typography, hairline rules, sienna accent.
+ * Zero JS frameworks: animations are CSS-only, revealed by a tiny
+ * IntersectionObserver. Native smooth scrolling.
  */
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import CookieBanner from '../components/CookieBanner.astro';
 import NotificationBanner from '../components/NotificationBanner.astro';
-import '@fontsource/space-grotesk/300.css';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
-import '@fontsource/space-grotesk/600.css';
-import '@fontsource/space-grotesk/700.css';
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
-import { SITE_CONFIG, SCHEMA_SAME_AS_LINKS } from '../config/constants';
-import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP } from '../utils/seo';
+import { SITE_CONFIG } from '../config/constants';
+import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP, stripLocaleFromPath } from '../utils/seo';
 
 interface Props {
   title?: string;
@@ -45,32 +43,17 @@ const siteUrl = "https://ballabotond.com";
 const currentLocale = LOCALE_MAP[lang] || 'en_US';
 const supportedLocaleKeys = Object.keys(languages);
 const alternateLinks = generateAlternateLinks(Astro.url.pathname, supportedLocaleKeys, siteUrl);
-
-const stripLocaleFromPath = (pathname: string) => {
-  const segments = pathname.split('/');
-  const potentialLocale = segments[1];
-  if (potentialLocale && supportedLocaleKeys.includes(potentialLocale)) {
-    const rest = segments.slice(2).join('/');
-    return rest ? `/${rest}` : '/';
-  }
-  return pathname || '/';
-};
-
-const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname);
+const defaultLocalePath = stripLocaleFromPath(Astro.url.pathname, supportedLocaleKeys);
 const defaultAlternateHref = new URL(defaultLocalePath, siteUrl).toString();
 const siteLanguages = supportedLocaleKeys.map((code) => HREFLANG_MAP[code] || code);
 const baseSchema = generateBaseSchema(siteLanguages);
 ---
 
 <!DOCTYPE html>
-<html lang={lang} dir="ltr" class="lenis lenis-smooth">
+<html lang={lang} dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!-- Resource Hints -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -103,7 +86,7 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#F0EBE3" />
+    <meta name="theme-color" content="#F4F1EA" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -112,9 +95,7 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" is:inline>
-      {JSON.stringify(baseSchema)}
-    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(baseSchema)} />
 
     <!-- GA4 Consent Mode v2 — must run before gtag loads -->
     <script is:inline>
@@ -131,66 +112,42 @@ const baseSchema = generateBaseSchema(siteLanguages);
       if (localStorage.getItem('cookie_consent') === 'accepted') {
         gtag('consent', 'update', { analytics_storage: 'granted' });
       }
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-3NZN7X2WL9');
     </script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
 
     <ClientRouter />
 
     <style is:global>
       /* ============================================
-         COLOR PALETTE
+         EDITORIAL PALETTE — ivory paper, ink, sienna
          ============================================ */
       :root {
-        --pf-bg: #F0EBE3;
-        --pf-text: #111111;
-        --pf-accent: #5C4E42;
-        --pf-accent-light: #7A6C5E;
-        --pf-muted: #6A6258;
-        --pf-border: #E5E2DC;
-        --pf-surface: #F0EDE8;
+        --pf-bg: #F4F1EA;
+        --pf-text: #1C1A15;
+        --pf-accent: #95502F;
+        --pf-muted: #6F685C;
+        --pf-border: #DCD6C9;
+        --pf-surface: #EDE9DF;
+        --pf-ease: cubic-bezier(0.16, 1, 0.3, 1);
       }
 
-      /* ============================================
-         PORTFOLIO GLOBAL STYLES
-         Digital Sobriety. Zero decorative borders.
-         Structure via negative space + asymmetric grid.
-         ============================================ */
-
-      /* Lenis overrides */
-      html.lenis, html.lenis body {
-        height: auto;
-      }
-      .lenis.lenis-smooth {
-        scroll-behavior: auto !important;
-      }
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
-      }
-      .lenis.lenis-stopped {
-        overflow: hidden;
-      }
-
-      /* Base typography & body */
       html {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
         font-feature-settings: 'kern' 1, 'liga' 1;
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
       }
 
       body {
         font-family: 'Space Grotesk', system-ui, sans-serif;
-        background-color: var(--pf-text);
+        background-color: var(--pf-text); /* behind overscroll at footer */
         color: var(--pf-text);
         overflow-x: clip;
       }
@@ -200,47 +157,60 @@ const baseSchema = generateBaseSchema(siteLanguages);
         background-color: var(--pf-bg);
       }
 
-      /* Hide scrollbar globally while preserving scroll */
-      html,
-      body {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+      /* Paper grain — fixed SVG noise overlay, multiply blend */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
 
-      html::-webkit-scrollbar,
-      body::-webkit-scrollbar {
-        display: none;
+      /* Hide scrollbar in all browsers */
+      * {
+        scrollbar-width: none; /* Firefox */
+      }
+      *::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
       }
 
-      /* Selection color */
+
       ::selection {
         background-color: var(--pf-accent);
         color: var(--pf-bg);
       }
 
-      /* Reduced motion fallback */
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          scroll-behavior: auto !important;
-        }
-        .motion-reduce-hidden {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      }
-
-      /* Portfolio utility classes */
+      /* Typography utilities */
       .pf-serif {
-        font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+        font-family: 'Instrument Serif', Georgia, serif;
       }
       .pf-grotesk {
         font-family: 'Space Grotesk', system-ui, sans-serif;
       }
 
-      /* Smooth link underlines */
+      /* Section kicker — number + small caps label */
+      .pf-kicker {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--pf-accent);
+      }
+      .pf-kicker::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--pf-border);
+        align-self: center;
+      }
+
+      /* Animated link underline */
       .pf-link {
         position: relative;
         display: inline-block;
@@ -253,76 +223,186 @@ const baseSchema = generateBaseSchema(siteLanguages);
         width: 0;
         height: 1px;
         background-color: currentColor;
-        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: width 0.4s var(--pf-ease);
       }
       .pf-link:hover::after {
         width: 100%;
       }
 
-      /* Horizontal rule style */
       .pf-divider {
         height: 1px;
         background-color: var(--pf-border);
         border: none;
       }
+
+      /* ============================================
+         SCROLL REVEALS — CSS only, IO adds .is-in
+         ============================================ */
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s var(--pf-ease),
+          transform 0.7s var(--pf-ease);
+        transition-delay: var(--reveal-delay, 0s);
+      }
+      [data-reveal].is-in {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Mask variant — child rises out of an overflow-hidden wrapper */
+      [data-reveal-mask] > * {
+        transform: translateY(115%);
+        transition: transform 1s var(--pf-ease);
+        transition-delay: var(--reveal-delay, 0s);
+      }
+      [data-reveal-mask].is-in > * {
+        transform: none;
+      }
+
+      .no-js [data-reveal],
+      .no-js [data-reveal-mask] > * {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        [data-reveal],
+        [data-reveal-mask] > * {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      /* Anchor offset for the fixed masthead */
+      [id] {
+        scroll-margin-top: 5.5rem;
+      }
     </style>
 
     <slot name="head" />
   </head>
-  <body>
+  <body class="no-js">
     <div class="page-shell">
       <slot />
     </div>
 
-    <!-- Site notification banners -->
     <NotificationBanner />
-
-    <!-- Cookie consent banner -->
     <CookieBanner />
 
-    <!-- Lenis Smooth Scroll Initialization -->
+    <!-- Scroll engine: reveals, Lenis smooth scroll, parallax, hero fade -->
     <script>
       import Lenis from 'lenis';
       import 'lenis/dist/lenis.css';
 
+      const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ── Scroll reveals ─────────────────────────────────
+      function initReveals() {
+        document.body.classList.remove('no-js');
+        const els = document.querySelectorAll('[data-reveal]:not(.is-in), [data-reveal-mask]:not(.is-in)');
+        if (!els.length) return;
+
+        if (reduced() || !('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('is-in'));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+        );
+        els.forEach((el) => io.observe(el));
+      }
+
+      // ── Lenis smooth scroll (desktop pointer devices) ──
       let lenis: InstanceType<typeof Lenis> | null = null;
 
       function initLenis() {
-        if (lenis) {
-          lenis.destroy();
-          lenis = null;
-        }
-
-        // Respect prefers-reduced-motion
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        // Skip Lenis on touch devices — native scroll is smoother
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (isTouchDevice) return;
-
-        lenis = new Lenis({
-          autoRaf: true,
-          lerp: 0.08,
-          smoothWheel: true,
-          wheelMultiplier: 0.8,
-        });
-
+        if (lenis) { lenis.destroy(); lenis = null; }
+        if (reduced()) return;
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (isTouch) return; // native scroll is smoother on touch
+        lenis = new Lenis({ autoRaf: true, lerp: 0.08, smoothWheel: true, wheelMultiplier: 0.85 });
         (window as any).__lenis = lenis;
       }
 
-      initLenis();
-      document.addEventListener('astro:after-swap', initLenis);
-
-      // Listen for reduced motion preference changes
-      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
-        if (e.matches && lenis) {
-          lenis.destroy();
-          lenis = null;
-        } else if (!e.matches && !lenis) {
-          initLenis();
-        }
+      // Smooth in-page anchors through Lenis
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        const a = target?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+        if (!a) return;
+        const el = document.querySelector(a.hash);
+        if (!el) return;
+        e.preventDefault();
+        if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -72 });
+        else (el as HTMLElement).scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' });
+        history.pushState(null, '', a.hash);
       });
+
+      // ── Parallax engine — elements tagged data-px ──────
+      // data-px = speed factor; data-px-scale = constant scale to preserve.
+      // One passive scroll listener, transforms only (hw-accelerated).
+      type FxEl = { el: HTMLElement; speed: number; scale: string; base: number };
+      let fxEls: FxEl[] = [];
+      let rafId = 0;
+
+      function measureFx() {
+        fxEls = [];
+        if (reduced()) return;
+        document.querySelectorAll<HTMLElement>('[data-px]').forEach((el) => {
+          el.style.transform = '';
+          const rect = el.getBoundingClientRect();
+          fxEls.push({
+            el,
+            speed: parseFloat(el.dataset.px || '0'),
+            scale: el.dataset.pxScale ? ` scale(${el.dataset.pxScale})` : '',
+            base: rect.top + window.scrollY + rect.height / 2,
+          });
+        });
+        updateFx();
+      }
+
+      function updateFx() {
+        const vh = window.innerHeight;
+        const y = window.scrollY;
+        const center = y + vh / 2;
+        for (const f of fxEls) {
+          const delta = (center - f.base) * f.speed;
+          f.el.style.transform = `translate3d(0, ${delta.toFixed(1)}px, 0)${f.scale}`;
+        }
+      }
+
+      function onScroll() {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => { rafId = 0; updateFx(); });
+      }
+
+      function initAll() {
+        initReveals();
+        initLenis();
+        // Wait a tick so fonts/layout settle before measuring
+        requestAnimationFrame(measureFx);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => measureFx());
+
+      initAll();
+      document.addEventListener('astro:after-swap', initAll);
     </script>
   </body>
 </html>
