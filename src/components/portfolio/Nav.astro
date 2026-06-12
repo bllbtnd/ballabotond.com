@@ -92,7 +92,7 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
   .pf-masthead-inner {
     max-width: 90rem;
     margin: 0 auto;
-    padding: 1.1rem clamp(1.5rem, 5vw, 4rem);
+    padding: calc(1.1rem + env(safe-area-inset-top, 0px)) clamp(1.5rem, 5vw, 4rem) 1.1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -192,7 +192,7 @@ const { homeHref, sections, languages = [], cvHref } = Astro.props;
     align-items: center;
     justify-content: center;
     gap: 2.4rem;
-    padding: 2rem;
+    padding: calc(2rem + env(safe-area-inset-top, 0px)) 2rem calc(2rem + env(safe-area-inset-bottom, 0px));
   }
   .pf-mobile-menu[hidden] { display: none; }
 
