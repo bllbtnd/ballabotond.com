@@ -29,7 +29,6 @@ interface Props {
   educationEntries: TimelineEntry[];
   stackTitle: string;
   categories: StackCategory[];
-  currentLabel?: string;
 }
 
 const {
@@ -40,7 +39,6 @@ const {
   educationEntries,
   stackTitle,
   categories,
-  currentLabel = 'Current',
 } = Astro.props;
 ---
 
@@ -97,7 +95,6 @@ const {
           <div class="pf-tl-card">
             <div class="pf-tl-meta pf-grotesk">
               <span class="pf-tl-year">{entry.year}</span>
-              {entry.isCurrent && <span class="pf-tl-badge">{currentLabel}</span>}
             </div>
             <h4 class="pf-tl-title pf-tl-title--sm pf-serif">{entry.title}</h4>
             {entry.companyUrl ? (
@@ -224,7 +221,22 @@ const {
     height: 9px;
   }
 
-
+  /* Pulsing ring on the current role's dot */
+  .pf-tl-dot-pulse {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid var(--pf-accent);
+    opacity: 0;
+    animation: pf-tl-pulse 2.4s var(--pf-ease) infinite;
+  }
+  @keyframes pf-tl-pulse {
+    0%   { transform: scale(0.6); opacity: 0.55; }
+    70%, 100% { transform: scale(1.8); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-tl-dot-pulse { animation: none; }
+  }
 
   /* ── Card panel ─────────────────────────────────── */
   .pf-tl-card {
@@ -269,7 +281,6 @@ const {
     text-transform: uppercase;
     color: var(--pf-muted);
   }
-
 
   /* ── Title ──────────────────────────────────────── */
   .pf-tl-title {

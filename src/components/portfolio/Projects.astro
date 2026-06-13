@@ -80,10 +80,7 @@ const statusLabel = (status: Project['status']) =>
             <span class="pf-proj-cat pf-grotesk">{project.category}</span>
 
             <!-- Title -->
-            <h3 class="pf-proj-title pf-serif">
-              {project.title}
-              <span class="pf-proj-arrow" aria-hidden="true">↗</span>
-            </h3>
+            <h3 class="pf-proj-title pf-serif">{project.title}</h3>
 
             <!-- Description -->
             <p class="pf-proj-desc pf-grotesk">{project.description}</p>
@@ -202,20 +199,6 @@ const statusLabel = (status: Project['status']) =>
   }
   .pf-proj-card:hover .pf-proj-title {
     color: var(--pf-accent);
-  }
-
-  .pf-proj-arrow {
-    display: inline-block;
-    font-size: 0.55em;
-    vertical-align: 0.45em;
-    margin-left: 0.2em;
-    opacity: 0;
-    transform: translate(-0.3em, 0.3em);
-    transition: opacity 0.3s ease, transform 0.4s var(--pf-ease);
-  }
-  .pf-proj-card:hover .pf-proj-arrow {
-    opacity: 1;
-    transform: none;
   }
 
   /* ── Description ────────────────────────────────── */

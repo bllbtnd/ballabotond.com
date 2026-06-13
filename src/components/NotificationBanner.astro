@@ -3,8 +3,9 @@
  * NotificationBanner.astro
  *
  * Reads from src/data/notifications.json and displays dismissable
- * alert banners at the top of the page. Supports all 5 site languages
- * with English fallback. Dismissed state is persisted in localStorage.
+ * alert banners at the top of the page. Supports all site languages
+ * (en/hu/it) with English fallback. Dismissing hides a banner for the
+ * current view only — it reappears on reload.
  *
  * To add a new notification:
  *   1. Edit src/data/notifications.json

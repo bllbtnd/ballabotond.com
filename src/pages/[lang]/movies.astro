@@ -219,11 +219,9 @@ const topRatedCount = ratedMovies.filter((movie) => movie.rating >= 8.5).length;
       }
     }
 
-    const compact = pages.filter((value, index) => index === 0 || value !== pages[index - 1] + 1 ? true : true);
-
     let pageButtons = '';
-    compact.forEach((value, index) => {
-      if (index > 0 && value - compact[index - 1] > 1) {
+    pages.forEach((value, index) => {
+      if (index > 0 && value - pages[index - 1] > 1) {
         pageButtons += '<span class="px-2 text-pf-muted">…</span>';
       }
       pageButtons += `

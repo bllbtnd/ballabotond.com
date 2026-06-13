@@ -28,7 +28,7 @@ const taglineLine = tagline.split('\n').join(' ');
 ---
 
 <section class="pf-hero" aria-label="Introduction" id="pf-hero">
-  <!-- Giant watermark — slower than the page, leans toward the cursor -->
+  <!-- Giant watermark — drifts slower than the page (parallax) -->
   <div class="pf-hero-watermark" data-px="0.3" aria-hidden="true">
     <span class="pf-serif" id="pf-hero-wm">{name}</span>
   </div>
@@ -284,12 +284,6 @@ const taglineLine = tagline.split('\n').join(' ');
     .pf-hero-media-wrap {
       height: min(46vh, calc(clamp(10.5rem, 50vw, 14rem) * 4 / 3));
     }
-    .pf-hero-words {
-      font-size: clamp(3.2rem, 18vw, 6.2rem);
-      line-height: 0.84;
-    }
-    .pf-word-first { left: -0.34em; }
-    .pf-word-last { left: 0.28em; }
     .pf-hero-scroll { display: none; }
     .pf-hero-tagline { font-size: clamp(1.15rem, 5vw, 1.5rem); }
   }
