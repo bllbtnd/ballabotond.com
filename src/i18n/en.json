@@ -58,6 +58,10 @@
       "title": "Fcry",
       "description": "A cross-platform file encryption desktop app built with .NET 10 and Avalonia UI. Encrypts files and folders with AES-256-GCM using a passphrase-derived master key (Argon2id) that lives only in memory, with drag-and-drop, folder packing, optional key-file two-factor, and auto-lock."
     },
+    "pomu": {
+      "title": "Pomu",
+      "description": "A minimal macOS menu bar Pomodoro timer built with C# and .NET. Manages work and rest cycles with customizable session lengths and real wall-clock timing, tracks daily productivity, and optionally hooks into macOS Focus modes and phone notifications through native shortcuts."
+    },
     "emailservice": {
       "title": "Emailing Service",
       "description": "A self-hosted transactional email API built on Cloudflare Workers. Send emails with a single HTTP request through any provider: SMTP, MailChannels, Resend, SendGrid, or Mailgun. Includes API-key auth, full CORS, and 7-day delivery logs in KV."

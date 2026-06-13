@@ -58,6 +58,10 @@
       "title": "Fcry",
       "description": "Un'app desktop multipiattaforma per la cifratura di file, realizzata con .NET 10 e Avalonia UI. Cifra file e cartelle con AES-256-GCM usando una chiave master derivata dalla passphrase (Argon2id) che vive solo in memoria, con drag-and-drop, cifratura di cartelle, key file opzionale a due fattori e blocco automatico."
     },
+    "pomu": {
+      "title": "Pomu",
+      "description": "Un timer Pomodoro minimale per la barra dei menu di macOS, realizzato con C# e .NET. Gestisce i cicli di lavoro e pausa con durate personalizzabili e cronometraggio in tempo reale, monitora la produttività giornaliera e si integra opzionalmente con le modalità Focus di macOS e con le notifiche sul telefono tramite scorciatoie native."
+    },
     "emailservice": {
       "title": "Emailing Service",
       "description": "Un'API email transazionale self-hosted basata su Cloudflare Workers. Invia email con una singola richiesta HTTP tramite qualsiasi provider: SMTP, MailChannels, Resend, SendGrid o Mailgun. Con autenticazione tramite API key, pieno supporto CORS e log di consegna per 7 giorni su KV."

@@ -58,6 +58,10 @@
       "title": "Fcry",
       "description": "Platformfüggetlen fájltitkosító asztali alkalmazás .NET 10 és Avalonia UI alapokon. Fájlokat és mappákat titkosít AES-256-GCM algoritmussal, jelszóból származtatott (Argon2id), csak a memóriában élő mesterkulccsal. Húzd-és-ejtsd kezelés, mappatitkosítás, opcionális kulcsfájlos kétfaktoros védelem és automatikus zárolás."
     },
+    "pomu": {
+      "title": "Pomu",
+      "description": "Minimalista macOS menüsoros Pomodoro időzítő C# és .NET alapokon. Munka- és pihenőciklusokat kezel testreszabható hosszúságú szakaszokkal és valós idejű méréssel, követi a napi produktivitást, és opcionálisan integrálódik a macOS Fókusz módokkal, valamint telefonos értesítéseket küld natív parancsikonokon keresztül."
+    },
     "emailservice": {
       "title": "Emailing Service",
       "description": "Saját üzemeltetésű tranzakciós email API Cloudflare Workers alapokon. Küldj emailt egyetlen HTTP kéréssel bármelyik szolgáltatón keresztül: SMTP, MailChannels, Resend, SendGrid vagy Mailgun. API-kulcsos hitelesítéssel, teljes CORS támogatással és 7 napos kézbesítési naplóval a KV-ben."

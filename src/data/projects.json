@@ -31,6 +31,15 @@
     "status": "active"
   },
   {
+    "id": "pomu",
+    "categoryKey": "projects.category.desktop",
+    "titleKey": "projects.pomu.title",
+    "descriptionKey": "projects.pomu.description",
+    "url": "https://github.com/bllbtnd/Pomu",
+    "icon": "fas fa-clock",
+    "status": "active"
+  },
+  {
     "id": "emailing-service",
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.emailservice.title",
