@@ -311,12 +311,19 @@ const pullQuotes: Record<number, string> = {
     if (!body || !toggle) return;
 
     toggle.addEventListener('click', () => {
-      const collapsed = body.dataset.collapsed === 'true';
-      body.dataset.collapsed = String(!collapsed);
-      toggle.setAttribute('aria-expanded', String(collapsed));
-      toggle.querySelector('[data-more]')?.toggleAttribute('hidden', collapsed);
-      toggle.querySelector('[data-less]')?.toggleAttribute('hidden', !collapsed);
-      if (!collapsed) body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const willExpand = body.dataset.collapsed === 'true';
+      body.dataset.collapsed = String(!willExpand);
+      toggle.setAttribute('aria-expanded', String(willExpand));
+      toggle.querySelector('[data-more]')?.toggleAttribute('hidden', willExpand);
+      toggle.querySelector('[data-less]')?.toggleAttribute('hidden', !willExpand);
+      if (willExpand) {
+        // These were display:none when the reveal observer ran, so they never
+        // received .is-in — reveal them now that they're shown.
+        body.querySelectorAll('[data-reveal]:not(.is-in)')
+          .forEach((el) => el.classList.add('is-in'));
+      } else {
+        body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 
