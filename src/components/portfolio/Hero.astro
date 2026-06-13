@@ -160,7 +160,14 @@ const taglineLine = tagline.split('\n').join(' ');
 
   .pf-hero-media-wrap {
     position: relative;
-    height: min(52vh, calc(clamp(12.5rem, 25vw, 21rem) * 4 / 3));
+    /* Third term keeps the portrait from overflowing into the kicker on
+       short viewports; it only kicks in below ~900px tall, so taller
+       screens keep the full-size image. */
+    height: min(
+      52vh,
+      calc(clamp(12.5rem, 25vw, 21rem) * 4 / 3),
+      max(14rem, calc(100dvh - 28rem))
+    );
     aspect-ratio: 3 / 4;
   }
   .pf-hero-media {
