@@ -88,9 +88,7 @@ const {
       {educationEntries.map((entry, i) => (
         <article class="pf-tl-entry pf-tl-entry--compact" style={`--reveal-delay:${i * 60}ms`} data-reveal>
           <div class="pf-tl-dot-col" aria-hidden="true">
-            <span class:list={['pf-tl-dot', { 'pf-tl-dot--current': entry.isCurrent }]}>
-              {entry.isCurrent && <span class="pf-tl-dot-pulse"></span>}
-            </span>
+            <span class:list={['pf-tl-dot', { 'pf-tl-dot--current': entry.isCurrent }]}></span>
           </div>
           <div class="pf-tl-card">
             <div class="pf-tl-meta pf-grotesk">
@@ -216,23 +214,6 @@ const {
     background: var(--pf-accent);
     border-color: var(--pf-accent);
   }
-  /* Pulsing ring on the current role's dot */
-  .pf-tl-dot-pulse {
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 1px solid var(--pf-accent);
-    opacity: 0;
-    animation: pf-tl-pulse 2.4s var(--pf-ease) infinite;
-  }
-  @keyframes pf-tl-pulse {
-    0%   { transform: scale(0.6); opacity: 0.55; }
-    70%, 100% { transform: scale(1.8); opacity: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pf-tl-dot-pulse { animation: none; }
-  }
-
   /* ── Card panel ─────────────────────────────────── */
   .pf-tl-card {
     padding: clamp(1.4rem, 2.5vh, 2rem) clamp(1.4rem, 2.5vw, 2rem);
