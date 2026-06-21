@@ -88,7 +88,7 @@ const {
       {educationEntries.map((entry, i) => (
         <article class="pf-tl-entry pf-tl-entry--compact" style={`--reveal-delay:${i * 60}ms`} data-reveal>
           <div class="pf-tl-dot-col" aria-hidden="true">
-            <span class:list={['pf-tl-dot pf-tl-dot--sm', { 'pf-tl-dot--current': entry.isCurrent }]}>
+            <span class:list={['pf-tl-dot', { 'pf-tl-dot--current': entry.isCurrent }]}>
               {entry.isCurrent && <span class="pf-tl-dot-pulse"></span>}
             </span>
           </div>
@@ -216,11 +216,6 @@ const {
     background: var(--pf-accent);
     border-color: var(--pf-accent);
   }
-  .pf-tl-dot--sm {
-    width: 9px;
-    height: 9px;
-  }
-
   /* Pulsing ring on the current role's dot */
   .pf-tl-dot-pulse {
     position: absolute;
