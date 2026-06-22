@@ -13,18 +13,6 @@
       "welcomeBack": "Ben tornato, intenditore",
       "patience": "La pazienza è una virtù"
     },
-    "taglines": [
-      "Dalla Visione alla Realtà",
-      "Costruire con Intenzione",
-      "Le Soluzioni di Domani",
-      "Dove Innovazione e Impatto si Incontrano",
-      "Risultati Concreti con la Tecnologia",
-      "Successo Sostenibile",
-      "Precisione in Ogni Scelta",
-      "Sistemi su Misura per il Business Moderno",
-      "Creare Valore Reale",
-      "Eccellenza nell'Esecuzione"
-    ],
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
@@ -38,7 +26,7 @@
   "home": {
     "title": "Balla Botond",
     "description": "Balla Botond - Sviluppatore e creatore con una passione per soluzioni costruite con cura e dal fascino senza tempo. Esplora i miei progetti e scopri il mio lavoro nello sviluppo software.",
-    "keywords": "Balla Botond, Botond Balla, sviluppatore, trackit, sviluppatore software, sviluppatore web, sito personale, portfolio, bllbtnd, programmazione, innovazione, Ungheria, tech, progetti, GitHub, Boti, Balla Boti"
+    "keywords": "Balla Botond, sviluppatore software, sviluppatore backend, API, Java, Spring Boot, Node.js, Cloudflare Workers, portfolio"
   },
   "movies": {
     "title": "Valutazioni Film",
@@ -178,9 +166,9 @@
     }
   },
   "portfolio": {
-    "heroTagline": "Costruendo\nEsperienze\nDigitali",
+    "heroTagline": "Software costruito per durare",
     "heroSubtitle": "Sviluppatore Software",
-    "heroDescription2": "Esperienze digitali costruite con precisione.",
+    "heroDescription2": "Costruisco sistemi backend e API, con un debole per la sicurezza e la crittografia.",
     "about": "Chi sono",
     "contact": "Contatto",
     "filterByRating": "Filtra per voto",
@@ -201,18 +189,6 @@
     "next": "Succ →"
   },
   "footer": {
-    "taglines": [
-      "Soluzioni Strategiche",
-      "Innovazione Concreta",
-      "Risultati con la Tecnologia",
-      "Costruire un Futuro Migliore",
-      "Eccellenza Digitale",
-      "L'Esecuzione Conta",
-      "Dalla Visione al Valore",
-      "Innovazione Scalabile",
-      "Impatto con la Tecnologia",
-      "Soluzioni che Funzionano"
-    ],
     "focus": "Focus",
     "focusItems": [
       "Backend e API",

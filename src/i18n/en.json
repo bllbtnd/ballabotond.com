@@ -13,18 +13,6 @@
       "welcomeBack": "Welcome back, connoisseur",
       "patience": "Patience is a virtue"
     },
-    "taglines": [
-      "Transforming Vision into Value",
-      "Engineering Growth at Scale",
-      "Building Tomorrow's Solutions",
-      "Where Innovation Meets Impact",
-      "Driving Results Through Technology",
-      "Architecting Sustainable Success",
-      "Precision in Every Decision",
-      "Strategic Systems for Modern Business",
-      "Crafting Competitive Advantage",
-      "Excellence Through Execution"
-    ],
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
@@ -38,7 +26,7 @@
   "home": {
     "title": "Balla Botond",
     "description": "Balla Botond - Engineer & creator with a passion for thoughtfully constructed, timeless solutions. Explore my projects, connect on social media, and discover my work in development and innovation.",
-    "keywords": "Balla Botond, Botond Balla, engineer, trackit, software engineer, web engineer, personal website, portfolio, bllbtnd, programming, innovation, Hungary, tech, projects, GitHub, Boti, Balla Boti"
+    "keywords": "Balla Botond, Software Engineer, backend developer, APIs, Java, Spring Boot, Node.js, Cloudflare Workers, portfolio"
   },
   "movies": {
     "title": "Movie Ratings",
@@ -178,9 +166,9 @@
     }
   },
   "portfolio": {
-    "heroTagline": "Crafting\nDigital\nExperiences",
+    "heroTagline": "Software built to last",
     "heroSubtitle": "Software Engineer",
-    "heroDescription2": "Crafting precision-driven digital experiences.",
+    "heroDescription2": "I build backend systems and APIs, with a real soft spot for security and encryption.",
     "about": "About",
     "contact": "Contact",
     "filterByRating": "Filter by Rating",
@@ -201,18 +189,6 @@
     "next": "Next →"
   },
   "footer": {
-    "taglines": [
-      "Strategic Solutions",
-      "Innovation Delivered",
-      "Tech-Driven Results",
-      "Building Better Futures",
-      "Digital Excellence",
-      "Execution Matters",
-      "Vision to Value",
-      "Scalable Innovation",
-      "Impact Through Technology",
-      "Solutions That Work"
-    ],
     "focus": "Focus",
     "focusItems": [
       "Backend & APIs",

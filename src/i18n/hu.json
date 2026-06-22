@@ -13,18 +13,6 @@
       "welcomeBack": "Üdv újra, kenner",
       "patience": "A türelem rózsát terem"
     },
-    "taglines": [
-      "Vízióból Valóság",
-      "Fejlesztői Gondolkodással",
-      "A Holnap Megoldásait Építve",
-      "Innováció és Hatás Találkozása",
-      "Eredmények Technológián Keresztül",
-      "Fenntartható Siker Tervezése",
-      "Precizitás Minden Döntésben",
-      "Stratégiai Rendszerek Modern Üzlethez",
-      "Versenyelőny Megteremtése",
-      "Kiválóság a Végrehajtásban"
-    ],
     "email": "Email",
     "github": "GitHub",
     "facebook": "Facebook",
@@ -38,7 +26,7 @@
   "home": {
     "title": "Balla Botond",
     "description": "Balla Botond - Fejlesztő és alkotó, aki szenvedélyesen dolgozik átgondolt, időtálló megoldásokon. Fedezd fel projektjeimet, lépj kapcsolatba velem, és ismerd meg fejlesztési munkámat.",
-    "keywords": "Balla Botond, Botond Balla, fejlesztő, trackit, szoftverfejlesztő, webfejlesztő, személyes weboldal, portfólió, bllbtnd, programozás, innováció, Magyarország, tech, projektek, GitHub, Boti, Balla Boti"
+    "keywords": "Balla Botond, szoftverfejlesztő, backend fejlesztő, API, Java, Spring Boot, Node.js, Cloudflare Workers, portfólió"
   },
   "movies": {
     "title": "Film Értékelések",
@@ -178,9 +166,9 @@
     }
   },
   "portfolio": {
-    "heroTagline": "Digitális\nÉlmények\nAlkotása",
+    "heroTagline": "Időtálló szoftver",
     "heroSubtitle": "Szoftverfejlesztő",
-    "heroDescription2": "Precíz digitális megoldások.",
+    "heroDescription2": "Backend rendszereket és API-kat építek, különös vonzalommal a biztonság és a titkosítás iránt.",
     "about": "Rólam",
     "contact": "Kapcsolat",
     "filterByRating": "Szűrés értékelés szerint",
@@ -201,18 +189,6 @@
     "next": "Következő →"
   },
   "footer": {
-    "taglines": [
-      "Stratégiai Megoldások",
-      "Innováció Szállítva",
-      "Tech-vezérelt Eredmények",
-      "Jobb Jövőket Építve",
-      "Digitális Kiválóság",
-      "Megvalósítás Számít",
-      "Víziótól Értékig",
-      "Skálázható Innováció",
-      "Hatás Technológián Keresztül",
-      "Működő Megoldások"
-    ],
     "focus": "Fókusz",
     "focusItems": [
       "Backend és API-k",
