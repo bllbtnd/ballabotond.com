@@ -270,6 +270,15 @@ const baseSchema = generateBaseSchema(siteLanguages);
         transform: none;
       }
 
+      /* Layer hint applied by JS just before an element enters, removed once
+         the float-in finishes. Pre-promoting avoids the one-frame hitch of
+         rasterizing the element into a compositor layer at animation start;
+         releasing it afterwards keeps us from holding dozens of layers. */
+      [data-reveal].reveal-arm,
+      [data-reveal-mask].reveal-arm > * {
+        will-change: opacity, transform;
+      }
+
       .no-js [data-reveal],
       .no-js [data-reveal-mask] > * {
         opacity: 1;
@@ -323,18 +332,50 @@ const baseSchema = generateBaseSchema(siteLanguages);
           return;
         }
 
+        // Release the layer hint once the float-in has finished so we don't
+        // keep dozens of promoted layers alive.
+        const disarm = (el: Element) => el.classList.remove('reveal-arm');
+
+        // Arm observer — promote the element to a compositor layer ~500px
+        // before it enters, so the raster cost is paid off-screen instead of
+        // on the first animation frame (that's the hitch you were seeing).
+        const armIO = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-arm');
+                armIO.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '500px 0px 500px 0px' }
+        );
+
         const io = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
               if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                io.unobserve(entry.target);
+                const el = entry.target as HTMLElement;
+                el.classList.add('reveal-arm'); // in case it entered instantly
+                el.classList.add('is-in');
+                io.unobserve(el);
+                // Drop the layer hint when the transition ends (with a
+                // safety timeout covering the longest delay + duration).
+                let cleared = false;
+                const done = () => {
+                  if (cleared) return;
+                  cleared = true;
+                  disarm(el);
+                  el.removeEventListener('transitionend', done);
+                };
+                el.addEventListener('transitionend', done);
+                window.setTimeout(done, 1700);
               }
             }
           },
           { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
         );
-        els.forEach((el) => io.observe(el));
+        els.forEach((el) => { armIO.observe(el); io.observe(el); });
       }
 
       // ── Lenis smooth scroll (desktop pointer devices) ──
