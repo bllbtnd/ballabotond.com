@@ -156,14 +156,20 @@ const baseSchema = generateBaseSchema(siteLanguages);
       }
 
       .page-shell {
+        position: relative;
         min-height: 100dvh;
         background-color: var(--pf-bg);
       }
 
-      /* Paper grain — fixed SVG noise overlay, multiply blend */
-      body::after {
+      /* Paper grain — SVG noise overlay, multiply blend.
+         Anchored to the page (absolute), NOT the viewport (fixed): a
+         viewport-fixed blended layer forces the GPU to re-blend the whole
+         screen against scrolling content every frame, which janks scrolling
+         on Chromium/Firefox (Safari special-cases it). Scrolling the grain
+         with the content lets the compositor cache the blend instead. */
+      .page-shell::after {
         content: '';
-        position: fixed;
+        position: absolute;
         inset: 0;
         z-index: 80;
         pointer-events: none;

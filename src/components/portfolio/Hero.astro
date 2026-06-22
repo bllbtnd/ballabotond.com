@@ -100,6 +100,10 @@ const taglineLine = tagline.split('\n').join(' ');
     pointer-events: none;
     user-select: none;
     z-index: 0;
+    /* Promote to its own compositor layer — it's parallax-translated on
+       scroll, so keep it off the main paint path. */
+    will-change: transform;
+    backface-visibility: hidden;
   }
   .pf-hero-watermark span {
     display: block;
