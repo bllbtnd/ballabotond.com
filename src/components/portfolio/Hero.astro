@@ -165,12 +165,15 @@ const taglineLine = tagline.split('\n').join(' ');
   .pf-hero-media-wrap {
     position: relative;
     /* Third term keeps the portrait from overflowing into the kicker on
-       short viewports; it only kicks in below ~900px tall, so taller
-       screens keep the full-size image. */
+       short viewports. The reserve (32rem) must cover everything stacked
+       around the image — kicker, name, tagline and the (up-to-two-line)
+       description row — otherwise the centered image bleeds up over the
+       kicker. It only kicks in below ~950px tall; taller screens keep the
+       capped full-size image. */
     height: min(
       52vh,
       calc(clamp(12.5rem, 25vw, 21rem) * 4 / 3),
-      max(14rem, calc(100dvh - 28rem))
+      max(14rem, calc(100dvh - 32rem))
     );
     aspect-ratio: 3 / 4;
   }
