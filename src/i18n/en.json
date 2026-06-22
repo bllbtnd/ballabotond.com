@@ -42,7 +42,7 @@
   },
   "movies": {
     "title": "Movie Ratings",
-    "description": "My personal cinema chronicles"
+    "description": "A personal project of mine — my own subjective ratings of the films I have watched, built into this site for fun."
   },
   "projects": {
     "subtitle": "Projects & Links",
@@ -94,12 +94,17 @@
       "title": "Personal Website",
       "description": "This website - a personal portfolio built with Astro, featuring a modern design with internationalization support. Showcases my projects, resume, and provides a platform to connect."
     },
+    "movies": {
+      "title": "Movie Ratings",
+      "description": "A personal project I built and use myself to keep track of the films I watch. Every score is purely my own subjective opinion, presented through a searchable, filterable interface built into this site."
+    },
     "category": {
       "webapps": "Web Apps",
       "desktop": "Desktop Apps",
       "mobile": "Mobile Apps",
       "health": "Health and Fitness",
-      "gaming": "Gaming"
+      "gaming": "Gaming",
+      "personal": "Personal"
     },
     "status": {
       "live": "Live",
@@ -208,7 +213,12 @@
       "Impact Through Technology",
       "Solutions That Work"
     ],
-    "navigate": "Navigate",
+    "focus": "Focus",
+    "focusItems": [
+      "Backend & APIs",
+      "Databases & Cloud Infrastructure",
+      "Full-Stack Web Apps"
+    ],
     "connect": "Connect",
     "quote": {
       "text": "\"Quality is never accidental; it is always the result of high intention, sincere effort, intelligent direction and skillful execution.\"",

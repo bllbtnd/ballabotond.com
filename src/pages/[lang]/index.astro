@@ -223,19 +223,21 @@ const projectItems = projects
   }));
 
 // ── Footer Data ────────────────────────────────────────
-const footerNavigation = [
-  { label: t('nav.home'), href: translatePath('/') },
-  { label: t('nav.stories'), href: 'https://map.ballabotond.com', external: true },
-  { label: t('nav.movies'), href: translatePath('/movies/') },
-  { label: 'Gusto', href: 'https://gusto.ballabotond.com', external: true },
-  { label: 'CV', href: 'https://cv.ballabotond.com', external: true },
-];
+const footerFocusItems: string[] =
+  allTranslations[typedLang]?.footer?.focusItems ??
+  allTranslations[defaultLang]?.footer?.focusItems ??
+  [];
 
-const footerSocials = SOCIAL_LINKS.map(link => ({
-  id: link.id,
-  label: t(link.i18nKey),
-  href: link.href,
-}));
+// Keep only the professional channels in the footer.
+const FOOTER_SOCIAL_IDS = ['linkedin', 'github', 'email'];
+const footerSocials = FOOTER_SOCIAL_IDS
+  .map(id => SOCIAL_LINKS.find(link => link.id === id))
+  .filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link))
+  .map(link => ({
+    id: link.id,
+    label: t(link.i18nKey),
+    href: link.href,
+  }));
 ---
 
 <PortfolioLayout
@@ -284,7 +286,6 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
         paragraphs={lifeStoryParagraphs}
         profileImage={optimizedStoryPortrait.src}
         profileAlt={t('resume.lifeStory.caption')}
-        caption={t('resume.lifeStory.caption')}
         readMoreLabel={t('common.readMore')}
         showLessLabel={t('common.showLess')}
         pullQuote1={t('resume.lifeStory.pullQuote1')}
@@ -329,8 +330,8 @@ const footerSocials = SOCIAL_LINKS.map(link => ({
       name={t('common.name')}
       role={t('portfolio.heroSubtitle')}
       email="contact@ballabotond.com"
-      navigation={footerNavigation}
-      navigateTitle={t('footer.navigate')}
+      focusItems={footerFocusItems}
+      focusTitle={t('footer.focus')}
       socials={footerSocials}
       quote={t('footer.quote.text')}
       quoteAuthor={t('footer.quote.author')}

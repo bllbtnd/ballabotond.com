@@ -42,7 +42,7 @@
   },
   "movies": {
     "title": "Valutazioni Film",
-    "description": "Le mie cronache cinematografiche personali"
+    "description": "Un mio progetto personale — le mie valutazioni soggettive dei film che ho visto, integrate in questo sito per divertimento."
   },
   "projects": {
     "subtitle": "Progetti e Link",
@@ -94,12 +94,17 @@
       "title": "Sito Web Personale",
       "description": "Questo sito - un portfolio personale costruito con Astro, con design moderno e supporto multilingua. Mostra i miei progetti e il mio curriculum."
     },
+    "movies": {
+      "title": "Valutazioni Film",
+      "description": "Un progetto personale che ho creato e che uso io stesso per tenere traccia dei film che guardo. Ogni voto è puramente la mia opinione soggettiva, presentato tramite un'interfaccia ricercabile e filtrabile integrata in questo sito."
+    },
     "category": {
       "webapps": "App Web",
       "desktop": "App Desktop",
       "mobile": "App Mobile",
       "health": "Salute e Fitness",
-      "gaming": "Giochi"
+      "gaming": "Giochi",
+      "personal": "Personale"
     },
     "status": {
       "live": "Live",
@@ -208,7 +213,12 @@
       "Impatto con la Tecnologia",
       "Soluzioni che Funzionano"
     ],
-    "navigate": "Naviga",
+    "focus": "Focus",
+    "focusItems": [
+      "Backend e API",
+      "Database e infrastruttura cloud",
+      "App web full-stack"
+    ],
     "connect": "Contatti",
     "quote": {
       "text": "\"La qualità non è mai casuale; è sempre il risultato di una grande intenzione, uno sforzo sincero, una direzione intelligente e un'esecuzione abile.\"",

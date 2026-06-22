@@ -87,5 +87,14 @@
     "url": "https://github.com/bllbtnd/ballabotond.com",
     "icon": "fas fa-globe",
     "status": "active"
+  },
+  {
+    "id": "movies",
+    "categoryKey": "projects.category.personal",
+    "titleKey": "projects.movies.title",
+    "descriptionKey": "projects.movies.description",
+    "url": "/movies/",
+    "icon": "fas fa-film",
+    "status": "active"
   }
 ]

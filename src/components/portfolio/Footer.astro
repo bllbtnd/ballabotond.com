@@ -2,12 +2,6 @@
 /**
  * Footer.astro — dark ink colophon.
  */
-interface NavLink {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
 interface SocialLink {
   id: string;
   label: string;
@@ -20,8 +14,8 @@ interface Props {
   name: string;
   role: string;
   email: string;
-  navigation: NavLink[];
-  navigateTitle: string;
+  focusItems: string[];
+  focusTitle: string;
   socials: SocialLink[];
   quote: string;
   quoteAuthor: string;
@@ -36,13 +30,13 @@ const {
   name,
   role,
   email,
-  navigation,
-  navigateTitle,
+  focusItems,
+  focusTitle,
   socials,
   quote,
   quoteAuthor,
   copyright,
-  locations = 'Budapest · Esztergom · Pécs',
+  locations = 'Budapest · Esztergom',
   connectTitle = 'Connect',
 } = Astro.props;
 
@@ -91,18 +85,12 @@ const ICON_PATHS: Record<string, string> = {
       </div>
 
       <div class="pf-footer-col" data-reveal style="--reveal-delay:80ms">
-        <h4 class="pf-grotesk pf-footer-heading">{navigateTitle}</h4>
-        <nav class="pf-footer-links">
-          {navigation.map((link) => (
-            <a
-              href={link.href}
-              class="pf-link pf-grotesk"
-              {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              {link.label}
-            </a>
+        <h4 class="pf-grotesk pf-footer-heading">{focusTitle}</h4>
+        <ul class="pf-footer-focus">
+          {focusItems.map((item) => (
+            <li class="pf-grotesk">{item}</li>
           ))}
-        </nav>
+        </ul>
       </div>
 
       <div class="pf-footer-col" data-reveal style="--reveal-delay:160ms">
@@ -266,6 +254,20 @@ const ICON_PATHS: Record<string, string> = {
     transition: color 0.3s ease;
   }
   .pf-footer-links a:hover { color: #F7F4ED; }
+
+  /* Focus — quiet list of disciplines (replaces the old nav column) */
+  .pf-footer-focus {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .pf-footer-focus li {
+    font-size: 0.92rem;
+    color: color-mix(in srgb, var(--pf-bg) 68%, transparent);
+  }
 
   .pf-footer-social {
     display: inline-flex;

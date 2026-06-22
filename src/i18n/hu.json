@@ -42,7 +42,7 @@
   },
   "movies": {
     "title": "Film Értékelések",
-    "description": "Személyes mozi krónikám"
+    "description": "Saját személyes projektem — a megnézett filmek szubjektív értékelése, kedvtelésből beépítve ebbe az oldalba."
   },
   "projects": {
     "subtitle": "Projektek és Linkek",
@@ -94,15 +94,20 @@
       "title": "Személyes Weboldal",
       "description": "Ez a weboldal - személyes portfólió Astro-val építve, modern dizájnnal és többnyelvű támogatással. Bemutatja projektjeimet és önéletrajzomat."
     },
+    "movies": {
+      "title": "Film Értékelések",
+      "description": "Személyes projekt, amelyet én készítettem és magam is használok a megnézett filmek nyilvántartására. Minden pontszám kizárólag a saját szubjektív véleményem, kereshető és szűrhető felületen, ebbe az oldalba építve."
+    },
     "category": {
       "webapps": "Webalkalmazások",
       "desktop": "Asztali alkalmazások",
       "mobile": "Mobilalkalmazások",
       "health": "Egészség és Fitness",
-      "gaming": "Játékok"
+      "gaming": "Játékok",
+      "personal": "Személyes"
     },
     "status": {
-      "live": "Éles",
+      "live": "Élő",
       "soon": "Hamarosan",
       "archived": "Archivált"
     },
@@ -208,7 +213,12 @@
       "Hatás Technológián Keresztül",
       "Működő Megoldások"
     ],
-    "navigate": "Navigáció",
+    "focus": "Fókusz",
+    "focusItems": [
+      "Backend és API-k",
+      "Adatbázisok és felhő infrastruktúra",
+      "Full-Stack webalkalmazások"
+    ],
     "connect": "Kapcsolat",
     "quote": {
       "text": "\"A minőség soha nem véletlen; mindig a komoly szándék, az őszinte erőfeszítés, az intelligens irányítás és a szakszerű kivitelezés eredménye.\"",
