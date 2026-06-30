@@ -1,102 +1,33 @@
 # Balla Botond Personal Website
 
-A modern, multilingual personal portfolio website built with Astro, featuring internationalization support and privacy-focused calendar availability.
+This is my personal website and portfolio. I'm Balla Botond, a software engineer, and this is a single, quiet page that introduces who I am, shows what I've worked on, and tells you how to reach me. It's available in three languages.
 
-## 🚀 Features
+🌐 Live at **[ballabotond.com](https://ballabotond.com)**
 
-- **Multilingual Support**: English, Hungarian, Italian, Japanese, and Chinese
-- **Privacy-Focused Calendar**: Shows availability without revealing event details
-- **Modern Design**: Elegant UI with smooth animations and responsive layout
-- **Project Showcase**: Display your work and achievements
-- **Professional Resume**: Multi-language resume pages
-- **SEO Optimized**: Built-in SEO best practices
+## What you'll find here
 
-## 🚀 Project Structure
+- **My Story.** A short, personal introduction.
+- **Resume.** My work experience and education as a timeline, plus my technical stack and skills with proficiency levels.
+- **Projects.** Things I've built, with links to the live versions and source where there is any.
+- **Contact.** Ways to get in touch.
+- **CV.** A downloadable version of my résumé.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Languages
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+The whole site is available in:
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+- 🇬🇧 English
+- 🇭🇺 Hungarian
+- 🇮🇹 Italian
 
-## 📅 Calendar Setup
+## Design
 
-The calendar feature shows your availability for the next 4 weeks without revealing private event details.
+The design is minimal and built around typography. Big serif headings, plenty of whitespace, thin rules, and some subtle animation as you scroll. I wanted it to feel calm and read a bit like a printed page rather than a busy dashboard, so the content can do the talking.
 
-### Setting up Calendar URLs
+## About me
 
-1. Copy `.env.example` to `.env`:
-   ```sh
-   cp .env.example .env
-   ```
+I'm a software engineer who likes building things that are clean, fast, and made to last. This site is just where I keep my story, my work, and my contact details in one place.
 
-2. Add your calendar ICS URLs to the `.env` file:
-   ```env
-   PUBLIC_CALENDAR_URLS=https://calendar.google.com/calendar/ical/YOUR_ID/public/basic.ics
-   ```
+---
 
-3. For multiple calendars, use comma-separated URLs:
-   ```env
-   PUBLIC_CALENDAR_URLS=https://example.com/cal1.ics,https://example.com/cal2.ics
-   ```
-
-### Getting Google Calendar ICS URL
-
-1. Open Google Calendar settings
-2. Select the calendar you want to share
-3. Scroll to "Integrate calendar"
-4. Copy the "Public URL to this calendar" in iCal format
-5. Make sure the calendar is set to public (or use a secret address)
-
-### For GitHub Pages Deployment
-
-When deploying to GitHub Pages, set the calendar URLs in your repository secrets:
-
-1. Go to your repository Settings → Secrets and variables → Actions
-2. Add a new repository secret named `PUBLIC_CALENDAR_URLS`
-3. Set the value to your comma-separated ICS URLs
-
-Then update your deployment workflow to include:
-```yaml
-env:
-  PUBLIC_CALENDAR_URLS: ${{ secrets.PUBLIC_CALENDAR_URLS }}
-```
-
-### Privacy Note
-
-The calendar feature is designed with privacy in mind:
-- ✅ Shows only availability status (Available/Busy)
-- ✅ Displays date and time when you're occupied
-- ❌ Never shows event titles, descriptions, or attendees
-- ❌ No location or other private details are revealed
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+© Balla Botond. All rights reserved.
