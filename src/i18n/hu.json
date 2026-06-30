@@ -131,7 +131,7 @@
     },
     "experience": {
       "current": "Szoftverfejlesztő",
-      "current_period": "2025. július - 2026. május",
+      "current_period": "2025 - 2026",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Teljes körű funkciókat fejlesztett és tartott karban nagyvállalati szoftverekhez, autóipari ügyfelek számára.",
       "current_desc2": "Geotérbeli adatokkal dolgozott PostgreSQL és PostGIS segítségével helyalapú funkciók megvalósításához.",
@@ -143,7 +143,7 @@
     "education": {
       "title": "Tanulmányok",
       "university": "Informatika Alapszak",
-      "university_period": "2023 - 2026. június",
+      "university_period": "2023 - 2026",
       "university_school": "Pécsi Tudományegyetem",
       "university_desc1": "Szoftvermérnökségre, adatstruktúrákra és haladó algoritmusokra fókuszáló informatika alapszak.",
       "university_desc2": "Aktív részvétel gyakorlati projektekben, amelyek az elméletet a valódi fejlesztéssel kötik össze.",

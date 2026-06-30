@@ -131,6 +131,7 @@ const statusLabel = (status: Project['status']) =>
   }
 
   /* ── Card — matches resume .pf-tl-card ─────────── */
+  /* Card box is not clickable, so no hover highlight (links inside still react). */
   .pf-proj-card {
     background: var(--pf-surface);
     border: 1px solid var(--pf-border);
@@ -138,11 +139,7 @@ const statusLabel = (status: Project['status']) =>
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
-    transition: border-color 0.35s ease;
     position: relative;
-  }
-  .pf-proj-card:hover {
-    border-color: color-mix(in srgb, var(--pf-accent) 45%, var(--pf-border));
   }
 
   /* ── Top row: index + status ────────────────────── */
@@ -195,10 +192,6 @@ const statusLabel = (status: Project['status']) =>
     letter-spacing: -0.02em;
     color: var(--pf-text);
     margin: 0.2rem 0 0.1rem;
-    transition: color 0.3s ease;
-  }
-  .pf-proj-card:hover .pf-proj-title {
-    color: var(--pf-accent);
   }
 
   /* ── Description ────────────────────────────────── */

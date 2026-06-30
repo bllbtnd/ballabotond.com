@@ -96,7 +96,7 @@ const {
             <div class="pf-tl-meta pf-grotesk">
               <span class="pf-tl-year">{entry.year}</span>
             </div>
-            <h4 class="pf-tl-title pf-tl-title--sm pf-serif">{entry.title}</h4>
+            <h4 class="pf-tl-title pf-serif">{entry.title}</h4>
             {entry.companyUrl ? (
               <a href={entry.companyUrl} target="_blank" rel="noopener noreferrer" class="pf-tl-company pf-grotesk pf-link">
                 {entry.company}
@@ -228,15 +228,12 @@ const {
     border-color: var(--pf-accent);
   }
   /* ── Card panel ─────────────────────────────────── */
+  /* Card panel — informational (not clickable), so no hover highlight. */
   .pf-tl-card {
     padding: clamp(1.4rem, 2.5vh, 2rem) clamp(1.4rem, 2.5vw, 2rem);
     background: var(--pf-surface);
     border: 1px solid var(--pf-border);
     position: relative;
-    transition: border-color 0.35s ease;
-  }
-  .pf-tl-card:hover {
-    border-color: color-mix(in srgb, var(--pf-accent) 45%, var(--pf-border));
   }
 
   /* Left-pointing diamond arrow connector */
@@ -251,10 +248,6 @@ const {
     border-left: 1px solid var(--pf-border);
     border-bottom: 1px solid var(--pf-border);
     transform: rotate(45deg);
-    transition: border-color 0.35s ease;
-  }
-  .pf-tl-card:hover::before {
-    border-color: color-mix(in srgb, var(--pf-accent) 45%, var(--pf-border));
   }
 
   /* ── Meta (year + badge) ────────────────────────── */
@@ -343,15 +336,11 @@ const {
     .pf-stack-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* Card — same surface/border/hover as timeline + project cards */
+  /* Card — informational only (not clickable), so no hover highlight. */
   .pf-stack-cat {
     background: var(--pf-surface);
     border: 1px solid var(--pf-border);
     padding: clamp(1.1rem, 2vw, 1.6rem);
-    transition: border-color 0.35s ease;
-  }
-  .pf-stack-cat:hover {
-    border-color: color-mix(in srgb, var(--pf-accent) 45%, var(--pf-border));
   }
 
   .pf-stack-label {

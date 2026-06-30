@@ -131,7 +131,7 @@
     },
     "experience": {
       "current": "Software Engineer",
-      "current_period": "Jul 2025 - May 2026",
+      "current_period": "2025 - 2026",
       "current_company": "LogiCloud Kft.",
       "current_desc1": "Built and maintained full-stack features for enterprise software serving major automotive clients.",
       "current_desc2": "Worked with geospatial data using PostgreSQL + PostGIS to power location-based features.",
@@ -143,7 +143,7 @@
     "education": {
       "title": "Education",
       "university": "Bachelor's Degree in Computer Science",
-      "university_period": "2023 - Jun 2026",
+      "university_period": "2023 - 2026",
       "university_school": "University of Pécs",
       "university_desc1": "Pursuing a comprehensive Computer Science degree with a curriculum focused on software engineering, data structures, and advanced algorithms.",
       "university_desc2": "Actively involved in practical coursework and projects that bridge theory with real-world application.",
