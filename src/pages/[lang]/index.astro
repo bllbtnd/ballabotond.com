@@ -173,39 +173,56 @@ const educationEntries = [
 ];
 
 // ── Stack Data ─────────────────────────────────────────
+// level is a 1–5 proficiency rating rendered as a bar. Adjust to taste.
 const stackCategories = [
   {
-    label: 'Backend & APIs',
-    items: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST APIs', 'C# ASP.NET', 'WebSocket', 'WebRTC'],
+    label: 'Languages',
+    items: [
+      { name: 'Java', level: 4 },
+      { name: 'TypeScript', level: 2 },
+      { name: 'C#', level: 2 },
+      { name: 'Python', level: 2 },
+      { name: 'Kotlin', level: 2 },
+      { name: 'Go', level: 1 },
+    ],
   },
   {
-    label: 'Frontend & UI',
-    items: ['React', 'Angular', 'JavaScript', 'TypeScript', 'TailwindCSS', 'HTML', 'CSS'],
+    label: 'Backend',
+    items: [
+      { name: 'Spring Boot', level: 4 },
+      { name: 'Node.js', level: 2 },
+      { name: 'ASP.NET', level: 2 },
+    ],
   },
   {
     label: 'Data & Storage',
-    items: ['PostgreSQL', 'PostGIS', 'MySQL', 'SQLite', 'Room ORM'],
+    items: [
+      { name: 'PostgreSQL', level: 3 },
+      { name: 'MySQL', level: 2 },
+      { name: 'SQLite', level: 4 }
+    ],
   },
   {
     label: 'Platform & Delivery',
-    items: ['Docker', 'GitHub Actions', 'Linux', 'Cloudflare', 'Nginx'],
+    items: [
+      { name: 'Docker', level: 3 },
+      { name: 'Linux', level: 4 },
+      { name: 'Cloudflare', level: 4 },
+      { name: 'Nginx', level: 2 }
+    ],
   },
   {
-    label: 'Additional Languages',
-    items: ['Python', 'Go'],
+    label: 'Frontend',
+    items: [
+      { name: 'React', level: 3 },
+      { name: 'Angular', level: 2 },
+      { name: 'Astro', level: 3 }
+    ],
   },
   {
     label: t('resume.skills.softSkills'),
     items: allTranslations[typedLang]?.resume?.skills?.softSkillItems
       ?? allTranslations['en'].resume.skills.softSkillItems,
-  },
-  {
-    label: 'Mobile',
-    items: ['Android', 'Kotlin'],
-  },
-  {
-    label: 'Spoken Languages',
-    items: ['English (C1)', 'Italian (A1)', 'Hungarian (Native)'],
   },
 ];
 
