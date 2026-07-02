@@ -4,21 +4,12 @@
     "projects": "Progetti",
     "resume": "Curriculum",
     "stack": "Stack",
-    "stories": "My Map",
-    "movies": "Film"
+    "stories": "My Map"
   },
   "common": {
     "name": "Balla Botond",
-    "easterEggs": {
-      "welcomeBack": "Ben tornato, intenditore",
-      "patience": "La pazienza è una virtù"
-    },
     "email": "Email",
     "github": "GitHub",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "youtube": "YouTube",
-    "twitter": "X (Twitter)",
     "linkedin": "LinkedIn",
     "readMore": "Leggi di più",
     "showLess": "Mostra meno"
@@ -26,7 +17,7 @@
   "home": {
     "title": "Balla Botond",
     "description": "Balla Botond - Sviluppatore e creatore con una passione per soluzioni costruite con cura e dal fascino senza tempo. Esplora i miei progetti e scopri il mio lavoro nello sviluppo software.",
-    "keywords": "Balla Botond, sviluppatore software, sviluppatore backend, API, Java, Spring Boot, Node.js, Cloudflare Workers, portfolio"
+    "keywords": "Balla Botond, sviluppatore software, Tresorit, sviluppatore backend, API, Java, Spring Boot, Node.js, Cloudflare Workers, sicurezza, crittografia, portfolio"
   },
   "movies": {
     "title": "Valutazioni Film",
@@ -58,18 +49,6 @@
       "title": "TaskManager",
       "description": "App completa per la gestione di progetti e attività. Organizza il lavoro con progetti multipli, monitora i progressi con tre stati e tieni d'occhio le statistiche in tempo reale. Disponibile su desktop e mobile."
     },
-    "kki": {
-      "title": "Calcolatore KKI",
-      "description": "Un semplice calcolatore KKI per chi ne ha bisogno."
-    },
-    "trackit": {
-      "title": "TrackIt",
-      "description": "App per il monitoraggio del fitness e della salute."
-    },
-    "finance": {
-      "title": "Tracker Finanze Personali",
-      "description": "App di finanza personale sicura e self-hosted con React e Cloudflare Workers. Tieni traccia di conti e transazioni, visualizza analisi - tutto gratis sull'infrastruttura Cloudflare."
-    },
     "minecraft": {
       "title": "Server Minecraft",
       "description": "Server survival privato per amici con plugin personalizzati e una comunità accogliente. Gira su Raspberry Pi 5 su rete domestica."
@@ -90,7 +69,6 @@
       "webapps": "App Web",
       "desktop": "App Desktop",
       "mobile": "App Mobile",
-      "health": "Salute e Fitness",
       "gaming": "Giochi",
       "personal": "Personale"
     },
@@ -103,7 +81,6 @@
   },
   "resume": {
     "subtitle": "Curriculum",
-    "currentLabel": "In corso",
     "lifeStory": {
       "title": "La Mia Storia",
       "caption": "Balla Botond, Ungheria",
@@ -115,7 +92,7 @@
         "Al liceo, all'Árpád-házi Szent Erzsébet Gimnázium, ho cercato di bilanciare gli studi con la scherma e la musica. Suonare il clarinetto mi ha insegnato disciplina e ritmo, accendendo in me una passione duratura per la musica classica. La scherma, invece, ha affinato la mia concentrazione e il pensiero strategico in modi su cui faccio ancora affidamento. Non erano semplici hobby; hanno plasmato il modo in cui affronto i problemi e mantengo la calma sotto pressione.",
         "Dopo il diploma mi sono trasferito a Pécs per studiare Informatica all'Università. La vita universitaria ha aperto un nuovo capitolo, non solo dal punto di vista accademico. Ho iniziato a costruire progetti veri, a collaborare con altri studenti, e ho scoperto che la mia passione non era solo scrivere codice, ma progettare soluzioni che fanno davvero la differenza. Ho incontrato persone straordinarie che mi hanno aiutato a crescere e a pensare in grande.",
         "Fuori dallo schermo trovo equilibrio all'aria aperta: gite in campeggio e lunghe passeggiate che liberano la mente. Ho sviluppato un gusto per le cose raffinate: un buon single malt whisky, un sigaro scelto con cura, della bella musica classica e conversazioni che vanno oltre le chiacchiere. Questi piaceri mi ricordano che la qualità, in tutte le sue forme, vale la pena di essere perseguita.",
-        "Oggi lavoro come sviluppatore software continuando gli studi, dividendo il tempo tra Budapest, Esztergom e Pécs. Ogni progetto che intraprendo porta la stessa filosofia: costruisci qualcosa di significativo, costruiscilo bene, e non accontentarti mai del sufficiente. Questo sito e tutto ciò che contiene è il riflesso di questa convinzione."
+        "Oggi ho una laurea in Informatica e lavoro come sviluppatore software da Tresorit a Budapest, dove costruiamo cloud storage con crittografia end-to-end usato da persone e aziende in tutto il mondo. Quella fascinazione per la sicurezza e la crittografia, nata da bambino smontando le cose, è diventata la mia professione. Ogni progetto che intraprendo porta la stessa filosofia: costruisci qualcosa di significativo, costruiscilo bene, e non accontentarti mai del sufficiente. Questo sito e tutto ciò che contiene è il riflesso di questa convinzione."
       ]
     },
     "skills": {
@@ -130,6 +107,10 @@
       ]
     },
     "experience": {
+      "tresorit": "Sviluppatore Software",
+      "tresorit_period": "2026 - presente",
+      "tresorit_company": "Tresorit",
+      "tresorit_desc1": "Sviluppatore software nel team secure cloud, sulla piattaforma di cloud storage con crittografia end-to-end di Tresorit, scelta da team attenti alla sicurezza in tutto il mondo.",
       "current": "Sviluppatore Software",
       "current_period": "2025 - 2026",
       "current_company": "LogiCloud Kft.",
@@ -146,7 +127,7 @@
       "university_period": "2023 - 2026",
       "university_school": "Università di Pécs",
       "university_desc1": "Corso triennale in Informatica con focus su ingegneria del software, strutture dati e algoritmi avanzati.",
-      "university_desc2": "Attivamente coinvolto in progetti pratici che collegano la teoria all'applicazione reale.",
+      "university_desc2": "Laureato nel 2026, con progetti pratici che hanno collegato la teoria all'applicazione reale.",
       "english_cert": "Certificazione Inglese C1",
       "english_cert_period": "2022",
       "english_cert_school": "Certificazione Linguistica",
@@ -169,7 +150,6 @@
     "heroTagline": "Software costruito per durare",
     "heroSubtitle": "Sviluppatore Software",
     "heroDescription2": "Costruisco sistemi backend e API, con un debole per la sicurezza e la crittografia.",
-    "about": "Chi sono",
     "contact": "Contatto",
     "filterByRating": "Filtra per voto",
     "allMovies": "Tutti i film",

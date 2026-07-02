@@ -4,9 +4,7 @@
     "categoryKey": "projects.category.mobile",
     "titleKey": "projects.vortex.title",
     "descriptionKey": "projects.vortex.description",
-    "buttonKey": "projects.vortex.button",
     "url": "https://vortex.ballabotond.com/",
-    "icon": "fas fa-comments",
     "status": "active"
   },
   {
@@ -18,7 +16,6 @@
       { "label": "StatsForge", "url": "https://github.com/bllbtnd/StatsForge" },
       { "label": "StreakForge", "url": "https://github.com/bllbtnd/StreakForge" }
     ],
-    "icon": "fas fa-fire",
     "status": "active"
   },
   {
@@ -27,7 +24,6 @@
     "titleKey": "projects.fcry.title",
     "descriptionKey": "projects.fcry.description",
     "url": "https://github.com/bllbtnd/Fcry",
-    "icon": "fas fa-lock",
     "status": "active"
   },
   {
@@ -36,7 +32,6 @@
     "titleKey": "projects.pomu.title",
     "descriptionKey": "projects.pomu.description",
     "url": "https://github.com/bllbtnd/Pomu",
-    "icon": "fas fa-clock",
     "status": "active"
   },
   {
@@ -45,7 +40,6 @@
     "titleKey": "projects.emailservice.title",
     "descriptionKey": "projects.emailservice.description",
     "url": "https://github.com/bllbtnd/emailing-service",
-    "icon": "fas fa-envelope",
     "status": "active"
   },
   {
@@ -53,9 +47,7 @@
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.taskmanager.title",
     "descriptionKey": "projects.taskmanager.description",
-    "buttonKey": "projects.taskmanager.button",
     "url": "https://taskmanager.ballabotond.com",
-    "icon": "fas fa-tasks",
     "status": "active"
   },
   {
@@ -63,11 +55,8 @@
     "categoryKey": "projects.category.gaming",
     "titleKey": "projects.minecraft.title",
     "descriptionKey": "projects.minecraft.description",
-    "buttonKey": "projects.minecraft.button",
     "url": "mcserver.ballabotond.com",
-    "icon": "fas fa-cube",
-    "status": "past",
-    "copyToClipboard": true
+    "status": "past"
   },
   {
     "id": "map",
@@ -75,7 +64,6 @@
     "titleKey": "projects.map.title",
     "descriptionKey": "projects.map.description",
     "url": "https://github.com/bllbtnd/map.ballabotond.com",
-    "icon": "fas fa-map-marked-alt",
     "status": "active"
   },
   {
@@ -83,9 +71,7 @@
     "categoryKey": "projects.category.webapps",
     "titleKey": "projects.website.title",
     "descriptionKey": "projects.website.description",
-    "buttonKey": "projects.website.button",
     "url": "https://github.com/bllbtnd/ballabotond.com",
-    "icon": "fas fa-globe",
     "status": "active"
   },
   {
@@ -94,7 +80,6 @@
     "titleKey": "projects.movies.title",
     "descriptionKey": "projects.movies.description",
     "url": "/movies/",
-    "icon": "fas fa-film",
     "status": "active"
   }
 ]

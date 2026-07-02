@@ -9,13 +9,12 @@
  */
 import { getLangFromUrl, languages, type Languages } from '../i18n/utils';
 import { ClientRouter } from 'astro:transitions';
-import CookieBanner from '../components/CookieBanner.astro';
 import NotificationBanner from '../components/NotificationBanner.astro';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
-import { SITE_CONFIG } from '../config/constants';
+import { SITE_CONFIG, CF_ANALYTICS_TOKEN } from '../config/constants';
 import { generateBaseSchema, generateAlternateLinks, LOCALE_MAP, HREFLANG_MAP, stripLocaleFromPath } from '../utils/seo';
 
 interface Props {
@@ -97,25 +96,31 @@ const baseSchema = generateBaseSchema(siteLanguages);
     <!-- Structured Data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(baseSchema)} />
 
-    <!-- GA4 Consent Mode v2 — must run before gtag loads -->
+    <!-- Cloudflare Web Analytics — cookieless, no personal data, so no
+         consent banner is required (GDPR / ePrivacy). -->
+    {CF_ANALYTICS_TOKEN && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: CF_ANALYTICS_TOKEN })}
+      ></script>
+    )}
+
+    <!-- One-time cleanup: remove GA4 cookies and the consent flag left over
+         from the previous analytics setup on returning visitors. -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        analytics_storage: 'denied',
-        ad_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 800,
-      });
-      if (localStorage.getItem('cookie_consent') === 'accepted') {
-        gtag('consent', 'update', { analytics_storage: 'granted' });
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-3NZN7X2WL9');
+      try {
+        localStorage.removeItem('cookie_consent');
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (name === '_ga' || name.indexOf('_ga_') === 0) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ballabotond.com';
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+          }
+        });
+      } catch (e) {}
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NZN7X2WL9"></script>
 
     <ClientRouter />
 
@@ -312,7 +317,6 @@ const baseSchema = generateBaseSchema(siteLanguages);
     </div>
 
     <NotificationBanner />
-    <CookieBanner />
 
     <!-- Scroll engine: reveals, Lenis smooth scroll, parallax, hero fade -->
     <script>

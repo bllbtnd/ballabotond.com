@@ -72,7 +72,8 @@ function generatePersonSchema(): SchemaOrgPerson {
         },
         worksFor: {
             '@type': 'Organization',
-            name: 'LogiCloud KFT'
+            name: 'Tresorit',
+            url: 'https://tresorit.com'
         }
     };
 }

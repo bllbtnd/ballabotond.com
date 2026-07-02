@@ -4,21 +4,12 @@
     "projects": "Projektek",
     "resume": "Önéletrajz",
     "stack": "Stack",
-    "stories": "My Map",
-    "movies": "Filmek"
+    "stories": "My Map"
   },
   "common": {
     "name": "Balla Botond",
-    "easterEggs": {
-      "welcomeBack": "Üdv újra, kenner",
-      "patience": "A türelem rózsát terem"
-    },
     "email": "Email",
     "github": "GitHub",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "youtube": "YouTube",
-    "twitter": "X (Twitter)",
     "linkedin": "LinkedIn",
     "readMore": "Tovább olvasom",
     "showLess": "Kevesebb"
@@ -26,7 +17,7 @@
   "home": {
     "title": "Balla Botond",
     "description": "Balla Botond - Fejlesztő és alkotó, aki szenvedélyesen dolgozik átgondolt, időtálló megoldásokon. Fedezd fel projektjeimet, lépj kapcsolatba velem, és ismerd meg fejlesztési munkámat.",
-    "keywords": "Balla Botond, szoftverfejlesztő, backend fejlesztő, API, Java, Spring Boot, Node.js, Cloudflare Workers, portfólió"
+    "keywords": "Balla Botond, szoftverfejlesztő, Tresorit, backend fejlesztő, API, Java, Spring Boot, Node.js, Cloudflare Workers, biztonság, titkosítás, portfólió"
   },
   "movies": {
     "title": "Film Értékelések",
@@ -56,19 +47,7 @@
     },
     "taskmanager": {
       "title": "TaskManager",
-      "description": "Átfogó projekt- és feladatkezelő alkalmazás, amely segít rendszesen és produktívan maradni. Szervezd meg a munkádat több projekttel és feladattal, kövesd az előrehaladást háromféle státusszal, és figyelj valós idejű statisztikákat. Elérhető asztali és mobil nézetben is."
-    },
-    "kki": {
-      "title": "KKI Kalkulátor",
-      "description": "Egy egyszerű KKI kalkulátor, amely segít a KKI számításokban."
-    },
-    "trackit": {
-      "title": "TrackIt",
-      "description": "Fitness követő alkalmazás az egészség nyomon követéséhez."
-    },
-    "finance": {
-      "title": "Személyes Pénzügyi Követő",
-      "description": "Biztonságos, saját szerveren futtatható pénzügyi alkalmazás React és Cloudflare Workers alapokon. Kövesd nyomon számláidat és tranzakcióidat, tekints meg elemzéseket - mindezt ingyen a Cloudflare infrastruktúráján."
+      "description": "Átfogó projekt- és feladatkezelő alkalmazás, amely segít rendezetten és produktívan maradni. Szervezd meg a munkádat több projekttel és feladattal, kövesd az előrehaladást háromféle státusszal, és figyelj valós idejű statisztikákat. Elérhető asztali és mobil nézetben is."
     },
     "minecraft": {
       "title": "Minecraft Szerver",
@@ -90,7 +69,6 @@
       "webapps": "Webalkalmazások",
       "desktop": "Asztali alkalmazások",
       "mobile": "Mobilalkalmazások",
-      "health": "Egészség és Fitness",
       "gaming": "Játékok",
       "personal": "Személyes"
     },
@@ -103,7 +81,6 @@
   },
   "resume": {
     "subtitle": "Önéletrajz",
-    "currentLabel": "Jelenleg",
     "lifeStory": {
       "title": "Az Én Történetem",
       "caption": "Balla Botond, Magyarország",
@@ -115,7 +92,7 @@
         "A gimnáziumi évek alatt az Árpád-házi Szent Erzsébet Gimnáziumban egyensúlyt tartottam a tanulás, a vívás és a zene iránti szeretetem között. A klarinétozás megtanított a fegyelemre és a ritmusra, és elindított a klasszikus zene iránti szenvedélyem útján. A vívás ezzel szemben élesítette a fókuszomat és a stratégiai gondolkodásomat. Ezek nem csupán hobbik voltak; formálták azt, ahogyan a problémákat megközelítem, ahogyan nyomás alatt higgadt maradok, és ahogyan struktúrát találok a komplexitásban.",
         "Az érettségi után Pécsre költöztem, hogy informatikát tanuljak a Pécsi Tudományegyetemen. Az egyetemi élet új fejezetet nyitott, nem csak tanulmányi, hanem személyes szempontból is. Elkezdtem valódi projekteket építeni, csapatban dolgozni, és felfedezni, hogy a szenvedélyem nem csupán a kódírás, hanem olyan megoldások tervezése, amelyek valódi változást hoznak. Útközben hihetetlen emberekkel találkoztam, akik segítettek fejlődnöm és nagyobbra gondolkozásra ösztönöztek.",
         "A képernyőn kívül a szabadban találom meg az egyensúlyt: kempingezéssel, hosszú sétákkal, amelyek kitisztítják az elmét. Kifejlesztettem az ízlésemet a finomabb dolgok iránt is: egy jó single malt whisky, egy gondosan kiválasztott szivar, gyönyörű klasszikus zene és olyan beszélgetések, amelyek túlmutatnak a felszínes csevegésen. Ezek az élvezetek emlékeztetnek arra, hogy a minőség minden formájában érdemes törekedni rá.",
-        "Ma szoftverfejlesztőként dolgozom a tanulmányaim mellett, időmet Budapest, Esztergom és Pécs között osztom meg. Minden projekt, amibe belevágok, ugyanazt a filozófiát hordozza: építs valamit, aminek értelme van, építsd jól, és soha ne elégedj meg az elég jóval. Ez a weboldal ennek a hitnek a tükröződése."
+        "Ma már informatikus diplomával a zsebemben szoftverfejlesztőként dolgozom a Tresoritnál Budapesten, ahol végpontok között titkosított felhőtárhelyet építünk, amelyet emberek és vállalatok használnak világszerte. A biztonság és a titkosítás iránti rajongás, amely gyerekkoromban a dolgok szétszedésével kezdődött, mára a hivatásommá vált. Minden projekt, amibe belevágok, ugyanazt a filozófiát hordozza: építs valamit, aminek értelme van, építsd jól, és soha ne elégedj meg az elég jóval. Ez a weboldal ennek a hitnek a tükröződése."
       ]
     },
     "skills": {
@@ -130,6 +107,10 @@
       ]
     },
     "experience": {
+      "tresorit": "Szoftverfejlesztő",
+      "tresorit_period": "2026 - jelenleg",
+      "tresorit_company": "Tresorit",
+      "tresorit_desc1": "Szoftverfejlesztő a secure cloud csapatban, a Tresorit végpontok között titkosított felhőtárhely-platformján, amelyet biztonságtudatos csapatok használnak világszerte.",
       "current": "Szoftverfejlesztő",
       "current_period": "2025 - 2026",
       "current_company": "LogiCloud Kft.",
@@ -146,7 +127,7 @@
       "university_period": "2023 - 2026",
       "university_school": "Pécsi Tudományegyetem",
       "university_desc1": "Szoftvermérnökségre, adatstruktúrákra és haladó algoritmusokra fókuszáló informatika alapszak.",
-      "university_desc2": "Aktív részvétel gyakorlati projektekben, amelyek az elméletet a valódi fejlesztéssel kötik össze.",
+      "university_desc2": "2026-ban diplomázott; gyakorlati projektek, amelyek az elméletet a valódi fejlesztéssel kötötték össze.",
       "english_cert": "Angol C1 Tanúsítvány",
       "english_cert_period": "2022",
       "english_cert_school": "Nyelvvizsga",
@@ -169,7 +150,6 @@
     "heroTagline": "Időtálló szoftver",
     "heroSubtitle": "Szoftverfejlesztő",
     "heroDescription2": "Backend rendszereket és API-kat építek, különös vonzalommal a biztonság és a titkosítás iránt.",
-    "about": "Rólam",
     "contact": "Kapcsolat",
     "filterByRating": "Szűrés értékelés szerint",
     "allMovies": "Összes film",

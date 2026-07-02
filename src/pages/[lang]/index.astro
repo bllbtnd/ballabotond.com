@@ -112,6 +112,16 @@ const navSections = [
 // ── Resume Data ────────────────────────────────────────
 const experienceEntries = [
   {
+    year: t('resume.experience.tresorit_period'),
+    title: t('resume.experience.tresorit'),
+    company: t('resume.experience.tresorit_company'),
+    companyUrl: 'https://tresorit.com',
+    description: [
+      t('resume.experience.tresorit_desc1'),
+    ],
+    isCurrent: true,
+  },
+  {
     year: t('resume.experience.current_period'),
     title: t('resume.experience.current'),
     company: t('resume.experience.current_company'),
@@ -120,7 +130,6 @@ const experienceEntries = [
       t('resume.experience.current_desc1'),
       t('resume.experience.current_desc2'),
     ],
-    isCurrent: true,
   },
   {
     year: t('resume.experience.intern_period'),
@@ -143,7 +152,6 @@ const educationEntries = [
       t('resume.education.university_desc1'),
       t('resume.education.university_desc2'),
     ],
-    isCurrent: true,
   },
   {
     year: t('resume.education.drivers_license_period'),
