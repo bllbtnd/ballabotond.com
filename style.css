@@ -265,32 +265,41 @@ p { margin: 0; }
 .mini-row .yr { font-family: var(--mono); font-size: 10px; color: var(--muted); }
 
 .tools { margin-top: clamp(22px, 3vw, 36px); border-top: 1px solid var(--border); padding-top: 16px; }
-.tools .label { margin-bottom: 14px; }
-.tools-grid { display: grid; gap: 0; max-width: 78ch; margin: 0; }
-.tool-row {
+.tools .label { margin-bottom: 12px; }
+.tools-grid {
   display: grid;
-  grid-template-columns: minmax(92px, 150px) 1fr;
-  gap: 6px 28px;
+  grid-template-columns: max-content 1fr;
+  column-gap: clamp(16px, 2vw, 26px);
   align-items: baseline;
-  padding: 10px 0;
+  max-width: 74ch;
+  margin: 0;
+}
+.tools-grid dt,
+.tools-grid dd {
+  padding: 7px 0;
   border-top: 1px dotted var(--border);
 }
-.tool-row:first-child { border-top: none; padding-top: 0; }
-.tool-cat {
+.tools-grid dt:first-of-type,
+.tools-grid dd:first-of-type { border-top: none; padding-top: 0; }
+.tools-grid dt {
   font-family: var(--mono);
   font-size: 9.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
+  white-space: nowrap;
 }
-.tool-list {
+.tools-grid dd {
   margin: 0;
   font-size: clamp(16px, 1vw, 18px);
   line-height: 1.5;
   color: #262218;
 }
-@media (max-width: 520px) {
-  .tool-row { grid-template-columns: 1fr; gap: 3px; padding: 8px 0; }
+@media (max-width: 480px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .tools-grid dt { border-top: none; padding: 10px 0 2px; }
+  .tools-grid dt:first-of-type { padding-top: 0; }
+  .tools-grid dd { border-top: none; padding: 0; }
 }
 
 /* ---- Catalogue (native <details> accordion) --------------------- */
