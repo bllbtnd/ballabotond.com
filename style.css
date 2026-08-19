@@ -265,19 +265,32 @@ p { margin: 0; }
 .mini-row .yr { font-family: var(--mono); font-size: 10px; color: var(--muted); }
 
 .tools { margin-top: clamp(22px, 3vw, 36px); border-top: 1px solid var(--border); padding-top: 16px; }
-.tools .label { margin-bottom: 10px; }
-.tools p {
-  font-size: clamp(16.5px, 1.1vw, 19px);
-  line-height: 1.75;
-  max-width: 92ch;
-  color: #262218;
+.tools .label { margin-bottom: 14px; }
+.tools-grid { display: grid; gap: 0; max-width: 78ch; margin: 0; }
+.tool-row {
+  display: grid;
+  grid-template-columns: minmax(92px, 150px) 1fr;
+  gap: 6px 28px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px dotted var(--border);
 }
-.tools .cat {
+.tool-row:first-child { border-top: none; padding-top: 0; }
+.tool-cat {
   font-family: var(--mono);
-  font-size: 0.66em;
+  font-size: 9.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
+}
+.tool-list {
+  margin: 0;
+  font-size: clamp(16px, 1vw, 18px);
+  line-height: 1.5;
+  color: #262218;
+}
+@media (max-width: 520px) {
+  .tool-row { grid-template-columns: 1fr; gap: 3px; padding: 8px 0; }
 }
 
 /* ---- Catalogue (native <details> accordion) --------------------- */
