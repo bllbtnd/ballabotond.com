@@ -43,17 +43,6 @@ a:hover {
   height: 0.75em;
   margin-left: 0.18em;
   vertical-align: -0.05em;
-  background: currentColor;
-  -webkit-mask: url("/arrow.svg") center / contain no-repeat;
-  mask: url("/arrow.svg") center / contain no-repeat;
-}
-
-.arrow-down {
-  transform: rotate(135deg);
-}
-
-.arrow-up {
-  transform: rotate(-45deg);
 }
 
 .resume {

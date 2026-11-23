@@ -27,7 +27,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp -r index.html hu it style.css favicon.ico robots.txt CNAME _site/
+          cp -r index.html hu it assets 404.html robots.txt CNAME _site/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
