@@ -24,20 +24,20 @@
       <div class="languages" aria-label="Nyelvek">
         <a href="/">EN</a><a href="/hu/" aria-current="page">HU</a><a href="/it/">IT</a>
       </div>
-      <a class="download" href="/ballabotondcv.pdf" download>Önéletrajz letöltése <span aria-hidden="true">↓</span></a>
+      <a class="download" href="/ballabotondcv.pdf" download="ballabotondcv.pdf" type="application/pdf">Önéletrajz letöltése <span class="arrow arrow-down" aria-hidden="true"></span></a>
     </nav>
 
     <header class="identity">
       <h1>Balla Botond</h1>
       <p class="role">Backend fejlesztő</p>
       <address>Budapest, Magyarország <span aria-hidden="true">·</span> <a href="mailto:contact@ballabotond.com">contact@ballabotond.com</a> <span aria-hidden="true">·</span> <a href="https://ballabotond.com">ballabotond.com</a></address>
-      <div class="profiles"><a href="https://github.com/bllbtnd">GitHub <span aria-hidden="true">↗</span></a><a href="https://linkedin.com/in/ballabotond">LinkedIn <span aria-hidden="true">↗</span></a></div>
+      <div class="profiles"><a href="https://github.com/bllbtnd">GitHub <span class="arrow arrow-up-right" aria-hidden="true"></span></a><a href="https://linkedin.com/in/ballabotond">LinkedIn <span class="arrow arrow-up-right" aria-hidden="true"></span></a></div>
     </header>
 
     <section class="resume-section" aria-labelledby="experience">
       <h2 id="experience">Szakmai tapasztalat</h2>
       <article class="item">
-        <div class="item-heading"><div><h3>Tresorit <span>|</span> <small>Swiss Post Digital</small></h3><p class="subtitle">Backend fejlesztő</p></div><p class="meta">2026. július – Jelenleg<br>Budapest, Magyarország</p></div>
+        <div class="item-heading"><div><h3><a href="https://tresorit.com">Tresorit</a> <span>|</span> <small>Swiss Post Digital</small></h3><p class="subtitle">Backend fejlesztő</p></div><p class="meta">2026. július – Jelenleg<br>Budapest, Magyarország</p></div>
         <ul>
           <li>A Tresorit nulla tudású, végpontok között titkosított felhőplatformjához skálázható .NET backend szolgáltatásokat fejlesztek C# és Microsoft Azure használatával.</li>
           <li>Hibatűrő felhőinfrastruktúrát fejlesztek és keményítek, nagy hangsúlyt fektetve a nagy teljesítményre, tiszta architektúrára és produkciós megbízhatóságra.</li>
@@ -45,7 +45,7 @@
         </ul>
       </article>
       <article class="item">
-        <div class="item-heading"><div><h3>LogiCloud Kft.</h3><p class="subtitle">Szoftverfejlesztő</p></div><p class="meta">2025. július – 2026. május<br>Magyarország</p></div>
+        <div class="item-heading"><div><h3><a href="https://logicloud.hu">LogiCloud Kft.</a></h3><p class="subtitle">Szoftverfejlesztő</p></div><p class="meta">2025. július – 2026. május<br>Magyarország</p></div>
         <ul>
           <li>A gyakornoki időszak után megtartottak vállalati backend rendszerek tervezésére és karbantartására autóipari ügyfelek számára.</li>
           <li>Önálló gyári termékellenőrző rendszert építettem QR-kód szkenneléssel, cikkellenőrzéssel, dobozegyesítő nyomon követéssel és automatizált vonalkód-címkenyomtatással.</li>
@@ -53,7 +53,7 @@
         </ul>
       </article>
       <article class="item">
-        <div class="item-heading"><div><h3>LogiCloud Kft.</h3><p class="subtitle">Szoftverfejlesztő gyakornok</p></div><p class="meta">2025. május – 2025. július<br>Magyarország</p></div>
+        <div class="item-heading"><div><h3><a href="https://logicloud.hu">LogiCloud Kft.</a></h3><p class="subtitle">Szoftverfejlesztő gyakornok</p></div><p class="meta">2025. május – 2025. július<br>Magyarország</p></div>
         <ul>
           <li>Keycloakot integráltam a vállalati projektekbe központosított identitás- és hozzáférés-kezeléshez, többbérlős IAM-folyamokat, egyéni claimeket és RBAC-et konfigurálva.</li>
           <li>Java és Spring Boot REST API-kat fejlesztettem, amelyek napi 500+ kérést szolgálnak ki 100 ms alatti késleltetéssel, valamint backend koordinációs rétegeket mobil- és webes kliensekhez.</li>
@@ -65,13 +65,13 @@
     <section class="resume-section" aria-labelledby="projects">
       <h2 id="projects">Projektek</h2>
       <article class="item compact"><div class="item-heading"><h3>Vortex <small>| Java, Spring Boot, WebRTC, WebSockets, kriptográfia</small></h3><p class="meta">Szakdolgozati projekt</p></div><ul><li>Végpontok között titkosított valós idejű üzenetküldő platformot terveztem X25519 kulcscserével és AES-256-GCM hitelesített titkosítással.</li><li>WebSocket jelzéskezelést és WebRTC peer-to-peer adatcsatornákat valósítottam meg egyedi STUN/TURN NAT bejárással alacsony késleltetésű szinkronizációhoz.</li></ul></article>
-      <article class="item compact"><div class="item-heading"><h3>Fcry <small>| C#, .NET 10, Avalonia UI, kriptográfia</small></h3><p class="meta"><a href="https://github.com/bllbtnd/Fcry">GitHub ↗</a></p></div><ul><li>Platformfüggetlen asztali fájltitkosító segédprogramot készítettem külső függőségektől mentes kriptográfiai maggal, hitelesített titkosítással tárolt metaadatok vagy ellenőrző tokenek nélkül.</li><li>Érzékeny kriptográfiai pufferek explicit memóriatörlését implementáltam determinisztikus végrehajtási blokkokban a szemétgyűjtő általi visszatartás kockázatának mérséklésére.</li></ul></article>
-      <article class="item compact"><div class="item-heading"><h3>StatsForge <small>| Rust, WebAssembly, Cloudflare Workers</small></h3><p class="meta"><a href="https://github.com/bllbtnd/StatsForge">GitHub ↗</a></p></div><ul><li>Rustban fejlesztett élanalitikai szolgáltatást készítettem, amely WebAssemblyre fordítva fut a Cloudflare Workersen, GitHub-adatokat dolgoz fel, és testreszabható SVG nyelvstatisztikai kártyákat renderel.</li><li>Konfigurálható kizárási API-t építettem a jelölő- és konfigurációs zaj kiszűrésére OAuth vagy külső konfiguráció nélkül.</li></ul></article>
+      <article class="item compact"><div class="item-heading"><h3>Fcry <small>| C#, .NET 10, Avalonia UI, kriptográfia</small></h3><p class="meta"><a href="https://github.com/bllbtnd/Fcry">GitHub <span class="arrow arrow-up-right" aria-hidden="true"></span></a></p></div><ul><li>Platformfüggetlen asztali fájltitkosító segédprogramot készítettem külső függőségektől mentes kriptográfiai maggal, hitelesített titkosítással tárolt metaadatok vagy ellenőrző tokenek nélkül.</li><li>Érzékeny kriptográfiai pufferek explicit memóriatörlését implementáltam determinisztikus végrehajtási blokkokban a szemétgyűjtő általi visszatartás kockázatának mérséklésére.</li></ul></article>
+      <article class="item compact"><div class="item-heading"><h3>StatsForge <small>| Rust, WebAssembly, Cloudflare Workers</small></h3><p class="meta"><a href="https://github.com/bllbtnd/StatsForge">GitHub <span class="arrow arrow-up-right" aria-hidden="true"></span></a></p></div><ul><li>Rustban fejlesztett élanalitikai szolgáltatást készítettem, amely WebAssemblyre fordítva fut a Cloudflare Workersen, GitHub-adatokat dolgoz fel, és testreszabható SVG nyelvstatisztikai kártyákat renderel.</li><li>Konfigurálható kizárási API-t építettem a jelölő- és konfigurációs zaj kiszűrésére OAuth vagy külső konfiguráció nélkül.</li></ul></article>
     </section>
 
     <section class="resume-section" aria-labelledby="education">
       <h2 id="education">Tanulmányok</h2>
-      <article class="item compact"><div class="item-heading"><div><h3>Pécsi Tudományegyetem</h3><p class="subtitle">BSc, informatika</p></div><p class="meta">2023. szeptember – 2026. június<br>Pécs, Magyarország</p></div><ul><li>Szakterületi tantárgyak: adatszerkezetek és algoritmusok, szoftvermérnökség, biztonságos hálózati architektúra és adatbázis-rendszerek.</li><li>Angol C1 szintű nyelvvizsga; magyar — anyanyelv.</li></ul></article>
+      <article class="item compact"><div class="item-heading"><div><h3><a href="https://www.ttk.pte.hu">Pécsi Tudományegyetem</a></h3><p class="subtitle">BSc, informatika</p></div><p class="meta">2023. szeptember – 2026. június<br>Pécs, Magyarország</p></div><ul><li>Szakterületi tantárgyak: adatszerkezetek és algoritmusok, szoftvermérnökség, biztonságos hálózati architektúra és adatbázis-rendszerek.</li><li>Angol C1 szintű nyelvvizsga; magyar — anyanyelv.</li></ul></article>
     </section>
 
     <section class="resume-section" aria-labelledby="skills">
@@ -80,7 +80,7 @@
         <div><dt>Nyelvek</dt><dd>C#, Java, Python, SQL</dd></div><div><dt>Keretek és felhő</dt><dd>.NET, ASP.NET Core, Microsoft Azure, Spring Boot</dd></div><div><dt>Adatbázisok</dt><dd>PostgreSQL, PostGIS, MySQL, SQLite</dd></div><div><dt>Biztonság és protokollok</dt><dd>X25519, AES-256-GCM, OAuth 2.0, OpenID Connect, Keycloak, WebRTC, WebSockets, REST</dd></div><div><dt>Infrastruktúra és DevOps</dt><dd>Docker, Linux, Nginx, GitHub Actions, Git</dd></div>
       </dl>
     </section>
-    <footer><span>© 2026 Balla Botond</span><a href="/ballabotondcv.pdf" download>PDF letöltése ↓</a><a href="#top">Tetejére ↑</a></footer>
+    <footer><span>© 2026 Balla Botond</span><a href="/ballabotondcv.pdf" download="ballabotondcv.pdf" type="application/pdf">PDF letöltése <span class="arrow arrow-down" aria-hidden="true"></span></a><a href="#top">Tetejére <span class="arrow arrow-up" aria-hidden="true"></span></a></footer>
   </main>
 </body>
 </html>

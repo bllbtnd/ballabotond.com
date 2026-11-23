@@ -37,6 +37,25 @@ a:hover {
   color: var(--accent);
 }
 
+.arrow {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  margin-left: 0.18em;
+  vertical-align: -0.05em;
+  background: currentColor;
+  -webkit-mask: url("/arrow.svg") center / contain no-repeat;
+  mask: url("/arrow.svg") center / contain no-repeat;
+}
+
+.arrow-down {
+  transform: rotate(135deg);
+}
+
+.arrow-up {
+  transform: rotate(-45deg);
+}
+
 .resume {
   width: min(860px, calc(100% - 48px));
   margin: 26px auto;
