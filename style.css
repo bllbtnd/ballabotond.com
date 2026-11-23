@@ -1,12 +1,12 @@
 :root {
-  --paper: #f8f4e8;
-  --canvas: #ddd2ba;
-  --ink: #2d281f;
-  --text: #4d4639;
-  --muted: #776d5b;
-  --rule: #b9aa8d;
-  --accent: #7c4932;
-  --soft: #eee6d3;
+  --paper: #f7f3e7;
+  --canvas: #ded5c2;
+  --ink: #29251e;
+  --text: #454038;
+  --muted: #77705f;
+  --rule: #bcb19b;
+  --accent: #76513b;
+  --soft: #eee8d8;
   --sans: "DM Sans", Arial, sans-serif;
   --serif: "Libre Baskerville", Georgia, serif;
 }
@@ -20,10 +20,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(rgba(92, 72, 48, 0.055) 0.7px, transparent 0.7px),
-    var(--canvas);
-  background-size: 5px 5px;
+  background: var(--canvas);
   color: var(--text);
   font-family: var(--sans);
   font-size: 16px;
@@ -41,11 +38,12 @@ a:hover {
 }
 
 .resume {
-  width: min(1000px, calc(100% - 48px));
-  margin: 24px auto;
-  padding: clamp(28px, 5vw, 58px);
+  width: min(860px, calc(100% - 48px));
+  margin: 26px auto;
+  padding: clamp(30px, 5vw, 48px) clamp(26px, 6vw, 64px);
   background: var(--paper);
-  box-shadow: 0 12px 36px rgba(72, 54, 34, 0.14);
+  border: 1px solid rgba(71, 58, 38, 0.12);
+  box-shadow: 0 10px 30px rgba(72, 54, 34, 0.11);
 }
 
 .topbar {
@@ -53,9 +51,9 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 26px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--rule);
+  margin-bottom: 22px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--ink);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.10em;
@@ -73,34 +71,56 @@ a:hover {
 
 .languages a[aria-current="page"] {
   color: var(--ink);
-  border-bottom: 2px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
 
 .download {
-  color: var(--accent);
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+  line-height: 1;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.download:hover {
+  color: var(--ink);
+  border-color: var(--ink);
 }
 
 .identity {
   text-align: center;
-  margin-bottom: 38px;
+  margin: 0;
+  padding: 18px 0 32px;
+  border-bottom: 1px solid var(--ink);
 }
 
 .identity h1 {
   margin: 0;
   color: var(--ink);
   font-family: var(--serif);
-  font-size: clamp(38px, 7vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  font-size: clamp(42px, 7vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .role {
-  margin: 10px 0 12px;
+  margin: 14px 0 12px;
   color: var(--accent);
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
+}
+
+.role::before,
+.role::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  margin: 0 10px 5px;
+  background: var(--accent);
+  opacity: 0.75;
 }
 
 address {
@@ -130,27 +150,32 @@ footer a {
 }
 
 .resume-section {
-  margin-top: 30px;
+  margin-top: 26px;
 }
 
 .resume-section > h2 {
   margin: 0 0 16px;
-  padding-bottom: 7px;
-  border-bottom: 2px solid var(--ink);
+  padding: 0 0 7px;
+  border-bottom: 1px solid var(--ink);
   color: var(--ink);
-  font-family: var(--serif);
-  font-size: 18px;
+  font-family: var(--sans);
+  font-size: 11px;
   line-height: 1.2;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
 .item {
-  margin-bottom: 22px;
+  margin-bottom: 18px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid rgba(188, 177, 155, 0.65);
 }
 
 .item:last-child {
   margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .item-heading {
@@ -204,7 +229,7 @@ ul {
 }
 
 li {
-  margin: 3px 0;
+  margin: 4px 0;
   padding-left: 2px;
 }
 
